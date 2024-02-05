@@ -1,1 +1,1 @@
-view profile
+this is my farmer profile page. I want to display the farmer's profile details here. 
