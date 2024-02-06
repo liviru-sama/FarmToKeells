@@ -7,7 +7,10 @@
         }
 
         public function view_profile(){
-            $data = [];
+            $data = [
+                'name' => '',
+
+            ];
 
             $this->view('farmer/view_profile', $data);
         }

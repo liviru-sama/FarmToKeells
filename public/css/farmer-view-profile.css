@@ -1,0 +1,59 @@
+@import url(main.css);
+
+.center{
+    position:fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 500px;
+    width: 800px;
+    background: rgba(255, 255, 255, 0.6);
+    margin: 40px auto;
+    border-radius: 10px;
+    text-align: center;
+}
+.center h1{
+    text-align: center;
+    padding: 20px 0 20px 0;
+    font-size: 250%;
+    
+}
+.center form{
+    padding: 0 30px;
+    box-sizing: border-box;
+    text-align: center;
+    
+}
+.form .center .menu img{
+    align-items: center;
+    height: 15rem;
+    width: 15rem;
+}
+.form .center .menu h3{
+    text-align: center;
+    padding: 10px 0 10px 0;
+    font-size: 1.3rem;
+}
+
+.form-button {
+    color: white;
+    width: 17%;
+    height: 45px;
+    border: 0 solid #65A534;
+    background:#65A534;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    margin: 20px 10px;
+    
+}
+.form-button:hover{
+    color: black;
+    background-color: #65A534;
+    transition: 0.5s;
+}
+
+
+
+
