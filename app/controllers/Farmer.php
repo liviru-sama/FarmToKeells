@@ -8,11 +8,18 @@
 
         public function view_profile(){
             $data = [
-                'name' => '',
+                'name' => $_SESSION['user_name'],
 
             ];
 
             $this->view('farmer/view_profile', $data);
         }
+
+        public function update_profile(){
+            $data = [];
+
+            $this->view('farmer/update_profile', $data);
+        }
     }
 
+?>
