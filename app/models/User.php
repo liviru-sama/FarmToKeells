@@ -72,4 +72,19 @@
             }
 
         }
+
+        public function updateUserData($data) {
+            $this->db->query('UPDATE users SET name = :name, username = :username, email = :email, nic = :nic, mobile = :mobile, password = :password WHERE id = :id');
+            // Bind values
+            $this->db->bind(':id', $_SESSION['user_id']);
+            $this->db->bind(':name', $data['name']);
+            $this->db->bind(':username', $data['username']);
+            $this->db->bind(':email', $data['email']);
+            $this->db->bind(':nic', $data['nic']);
+            $this->db->bind(':mobile', $data['mobile']);
+            $this->db->bind(':password', $data['password']);
+        
+            // Execute
+            return $this->db->execute();
+        }
     }
