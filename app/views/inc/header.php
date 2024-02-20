@@ -25,7 +25,7 @@
                 <!-- <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoWhite.png" ></a> -->
                 <div class="nav-links">
                     <ul>
-                        <li><a href="<?php echo URLROOT; ?>/farmer/account">Account</a></li>
+                        <li><a href="<?php echo URLROOT; ?>/farmer/view_profile">Account</a></li>
                         <li><a href="<?php echo URLROOT; ?>/users/contact">Contact</a></li>
                         <li><a href="<?php echo URLROOT; ?>/users/logout">Logout</a></li>
                     </ul>

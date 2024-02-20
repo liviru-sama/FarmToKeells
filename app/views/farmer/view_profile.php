@@ -29,7 +29,7 @@
 
 
             <!-- <a href="view-profile.php"><input type="button" value="View" class="form-button"></a> -->
-            <a href="update-profile.php"><input type="button" value="Update Profile" class="form-button"></a>  
+            <a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Update Profile" class="form-button"></a>  
             <a href="javascript:void(0);" onclick="confirmDelete();"><input type="button" value="Delete Profile" class="form-button"></a>
 
         
