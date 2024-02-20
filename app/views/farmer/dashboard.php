@@ -2,17 +2,17 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>dashboard.css">
+        <link rel="stylesheet" href="<?php echo CSS;?>farmer/dashboard.css">
         <title><?php echo SITENAME;?></title>
     </head>
 <body>
     
             <div class="container">
                 <div class="dashboard-container">
-        
+                    
                     <div class="menu" data-name="p-1">
                     <a href="<?php echo URLROOT; ?>/farmer/place_orders">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
