@@ -22,7 +22,9 @@
     <?php if(isset($_SESSION['user_id'])): ?>
         <section class="header">
             <nav>
-                <!-- <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoWhite.png" ></a> -->
+                <div>
+                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoBlack.svg" ></a>
+                </div>
                 <div class="nav-links">
                     <ul>
                         <li><a href="<?php echo URLROOT; ?>/farmer/view_profile">Account</a></li>
