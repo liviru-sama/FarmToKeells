@@ -1,0 +1,176 @@
+@import url(../main.css);
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: all .2s linear;
+    text-transform: capitalize;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+*{
+    
+    box-sizing: border-box;
+   
+}
+ 
+h4{
+    margin: 200px;
+    font-family: 'inter';
+    font-size: 30px;
+    color: #060804;
+    text-align: center ;
+    padding: -15px;
+    
+
+}
+
+h5{
+    background: rgba(12, 12, 12, 1) ;
+    margin-left: 900px;
+    margin-top: 8%;
+    margin-bottom: 8%;
+    border-radius: 20px;
+    padding: 10px;
+    
+    width: 15%;
+    font-family: 'inter';
+    font-size: 25px;
+    color: #f0ecec;
+    text-align: center;
+    
+}
+
+.circle1{
+    width: 160px;
+    height: 160px;
+   /* background: rgba(255,255,255,0.4);*/
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    margin-left: 100px ;
+    margin-top: -430px;
+    align-items: center;
+    
+    
+}
+
+.circle2{
+    width: 160px;
+    height: 160px;
+    /*background: rgba(255,255,255,0.4);*/
+    position: absolute;
+    align-items: left;
+    justify-content: left;
+    margin-left: 300px ;
+    margin-top: -430px;
+    align-items: center;
+    
+    
+}
+
+.circle3{
+    width: 160px;
+    height: 160px;
+    /*background: rgba(255,255,255,0.4);*/
+    position: absolute;
+    align-items: left;
+    justify-content: left;
+    margin-left: 500px ;
+    margin-top: -430px;
+    align-items: center;
+    
+    
+}
+
+.circle4{
+    width: 160px;
+    height: 160px;
+    /*background: rgba(255,255,255,0.4);*/
+    position: absolute;
+    align-items: left;
+    justify-content: left;
+    margin-left: 700px ;
+    margin-top: -430px;
+    align-items: center;
+    
+    
+}
+
+.circle5{
+    width: 160px;
+    height: 160px;
+    /*background: rgba(255,255,255,0.4);*/
+    position: absolute;
+    align-items: left;
+    justify-content: left;
+    margin-left: 900px ;
+    margin-top: -430px;
+    align-items: center;
+    
+    
+}
+
+h6{
+    font-size: 25px;
+    font-weight: bold;
+    color: #0a0a0a;
+    font-family:'inter';
+    text-align: center;
+    padding: 1px;
+}
+
+.outer{
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
+                -6px -6px 10px -1px rgba(255,255,255,0.7);
+    padding: 20px;
+}
+
+.inner{
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
+                inset -4px -4px 6px -1px rgba(255,255,255,0.7),
+                -0.5px -0.5px 0px rgba(255,255,255,1),
+                0.5px 0.5px 0px rgba(0,0,0,0.15),
+                0px 12px 10px -10px rgba(0,0,0,0.05);
+}
+
+#number{
+    font-weight: 3000px;
+    color: #555;
+    font: bolder;
+    font-family: 'inter';
+}
+
+circle{
+    fill: none;
+    stroke: #65A534;
+    stroke-width: 20px;
+    stroke-dasharray: 300;
+}
+
+svg{
+    position: absolute;
+    top:0;
+    left: 0;
+}
+
+
+
+
