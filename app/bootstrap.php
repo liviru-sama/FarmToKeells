@@ -6,6 +6,7 @@
     //Load Helpers
     require_once 'helpers/url_helper.php';
     require_once 'helpers/session_helper.php';
+    require_once 'helpers/Functions.php';
 
     //Autoload Core Libraries
     // spl_autoload_register(function($className){
@@ -20,6 +21,3 @@
          // Adjusted to look for models
         else{ require_once $models_file; return; }
     });
-    
-
-?>

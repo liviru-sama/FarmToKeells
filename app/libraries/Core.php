@@ -22,6 +22,8 @@ class Core {
                 $this->currentController = ucwords($url[0]);
                 // Remove the first element from the $url array
                 array_shift($url);
+            }else{
+                $this->currentController = '_404';
             }
         }
 
