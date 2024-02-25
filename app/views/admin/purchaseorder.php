@@ -16,10 +16,9 @@
 <body>
     <section class="header">
        
-        <h4>PURCHASE ORDERS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4>PURCHASE ORDERS
         
-        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add purchase order</a>
-
+        
         </h4>
         <main class="table">
             <section class="table_header">
@@ -31,14 +30,13 @@
                     <table>
                         <thead>
                             <tr>
-                            <th>purchase order ID</th>
-                        <th>Product </th>
-                        <th>product type</th>
-                        <th>needed quantity(kgs) </th>
-                        <th>expected supply date</th>
+                            <th>PURCHASE ORDER ID</th>
+                            <th>PRODUCT </th>
+                            <th>PRODUCT TYPE</th>
+                            <th>NEEDED QUANTITY(kgs) </th>
+                            <th>EXPECTED SUPPLY DATE</th>
                         
-                        <th>edit </th>
-                        <th>delete </th>
+                        
 
                              </tr>
                         </thead>
@@ -55,8 +53,6 @@
             <td><?php echo $row['type'] ?></td>
             <td><?php echo $row['quantity'] ?></td>
             <td><?php echo $row['date'] ?></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/delete_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
         </tr>
     <?php } ?>
 

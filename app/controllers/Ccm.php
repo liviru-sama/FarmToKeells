@@ -225,7 +225,7 @@
             }
         } else {
             // If not a POST request, redirect to the add product page or show an error message
-             echo "Invalid request method.";
+             //echo "Invalid request method.";
             $this->view("ccm/add_purchaseorder");
         }
     }

@@ -24,9 +24,9 @@
                     </div>
         
                     <div class="menu" data-name="p-2">
-                        <a href="<?php echo URLROOT; ?>/ccm/view_salesorder">
+                        <a href="<?php echo URLROOT; ?>/admin/selectorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt=""></a>
-                        <h3>View Purchase Orders</h3>
+                        <h3>View Orders</h3>
                     </div>
         
                     <div class="menu" data-name="p-3">

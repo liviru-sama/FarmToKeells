@@ -172,8 +172,8 @@ tbody tr.hide td p {
 }
 
 tbody tr.hide td img {
-    width: 0;
-    height: 0;
+    width: 7;
+    height: 7;
     transition: .2s ease-in-out .5s;
 }
 

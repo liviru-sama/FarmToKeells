@@ -16,9 +16,9 @@
 <body>
     <section class="header">
        
-        <h4>PURCHASE ORDERS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4>SALES ORDERS  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
-        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add purchase order</a>
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder">+ Add sales order</a>
 
         </h4>
         <main class="table">
@@ -31,11 +31,12 @@
                     <table>
                         <thead>
                             <tr>
-                            <th>purchase order ID</th>
+                            <th>sales order ID</th>
                         <th>Product </th>
                         <th>product type</th>
                         <th>needed quantity(kgs) </th>
                         <th>expected supply date</th>
+                        <th>address</th>
                         
                         <th>edit </th>
                         <th>delete </th>
@@ -48,15 +49,16 @@
                                 
 
    
-    <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'] )) { ?>
+    <?php while ($row = mysqli_fetch_assoc($data['salesorders'] )) { ?>
         <tr>
-            <td><?php echo $row['purchase_id'] ?></td>
+            <td><?php echo $row['order_id'] ?></td>
             <td><?php echo $row['name'] ?></td>
             <td><?php echo $row['type'] ?></td>
             <td><?php echo $row['quantity'] ?></td>
             <td><?php echo $row['date'] ?></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/delete_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+            <td><?php echo $row['address'] ?></td>
+            <td><a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row['order_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+            <td><a href="<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row['order_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
         </tr>
     <?php } ?>
 
