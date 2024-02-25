@@ -92,8 +92,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <td><?php echo $row['price']  ?></td>
 
 
-                                    <td> <a href="<?php echo URLROOT; ?>/ccm/edit_product"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td> <a href="delete-product.php?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></button></td>
+                                    <td> <a href="<?php echo URLROOT; ?>/ccm/edit_product.php"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+                                    <td> <a href="<?php echo URLROOT; ?>/ccm/delete_product.php?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></button></td>
 
                                 </tr>
                             <?php
