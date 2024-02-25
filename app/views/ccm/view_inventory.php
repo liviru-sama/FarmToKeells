@@ -40,7 +40,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <section class="header">
        
-        <h4>Product Inventory</h4>
+        <h4>PRODUCT INVENTORY
+        
+        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
+
+        </h4>
         <main class="table">
             <section class="table_header">
 
@@ -51,15 +55,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <table>
                         <thead>
                             <tr>
-                                <th>Product Id</th>
-                                <th>Product Name </th>
-                                <th>product type</th>
-                                <th>Present quantity(kgs) </th>
-                                <th>Price</th>
+                                <th>PRODUCT ID</th>
+                                <th>PRODUCT NAME </th>
+                                <th>PRODUCT TYPE</th>
+                                <th>PRESENT QUANTITY(IN kgs) </th>
+                                <th>PRICE</th>
 
-                                <th>Edit</th>
-                                <th>Delete</th>
-                                <th> <a href="<?php echo URLROOT; ?>/ccm/add_product">+add product</a></th>
+                                <th>EDIT</th>
+                                <th>DELETE</th>
+                                
 
 
 
@@ -92,8 +96,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <td><?php echo $row['price']  ?></td>
 
 
-                                    <td> <a href="<?php echo URLROOT; ?>/ccm/edit_product.php"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td> <a href="<?php echo URLROOT; ?>/ccm/delete_product.php?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></button></td>
+                                    <td> <a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+                                    <td> <a href="<?php echo URLROOT; ?>/ccm/delete_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></button></td>
 
                                 </tr>
                             <?php
