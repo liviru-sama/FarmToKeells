@@ -13,6 +13,20 @@ class Product {
         return $data;
     }
 
+  
+
+
+    public function getAllProducts() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM product";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+
+
+
+
+
     // Add product to the database
     public function add_product($data){
         // Prepare SQL statement
@@ -69,7 +83,7 @@ class Product {
     }
 }
 
-        ?>
+        
     
 
 

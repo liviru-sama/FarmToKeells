@@ -7,11 +7,16 @@
         }
 
         public function view_inventory(){
-            $data = [];
-
+            // Instantiate Product Model
+            $productModel = new Product();
+            
+            // Get all products
+            $data['products'] = $productModel->getAllProducts();
+            
+            // Load the view with products data
             $this->view('ccm/view_inventory', $data);
         }
-
+        
         public function add_product(){
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -141,8 +146,26 @@
                 echo "Invalid request method.";
             }
         }
+
+        
+
+
+    public function displayProducts() {
+        // Create an instance of the ProductModel
+        $productModel = new ProductModel();
+
+        // Call the method to fetch all products
+        $products = $productModel->getAllProducts();
+
+        // Pass the fetched products to the view
+        require_once('views/ccm/view_inventory');
+    }
+}
+
+
+
         
        
-    }
+    
         
 ?>
