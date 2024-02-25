@@ -10,6 +10,7 @@
     border-radius: 20px;
     text-align: center;
 }
+
 .center h1{
     text-align: center;
     padding: 20px 0 10px 0;
@@ -21,11 +22,14 @@
     box-sizing: border-box;
     text-align: center;
     
+    
 }
 form .text-field{
     position: relative;
     border-bottom: 2px solid black;
     margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
 }
 .error {
     color: rgb(255, 0, 0);
@@ -105,5 +109,5 @@ input[type="submit"]:hover{
 .login-link a:hover{
     color: #65A534;
     text-decoration: underline;
-}
+} 
 

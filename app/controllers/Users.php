@@ -1,9 +1,15 @@
 <?php
-class Users extends Controller
-{
+class Users extends Controller{
     public function __construct(){
         $this->userModel = $this->model('User');
 
+    }
+    public function index(){
+        $data = [
+            'title' => ''
+        ];
+        
+        $this->view('pages/index', $data);
     }
 
     public function register()

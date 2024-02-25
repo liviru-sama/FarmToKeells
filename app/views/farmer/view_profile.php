@@ -42,4 +42,13 @@
 </body>
 </html>
 
+<script>
+    function confirmDelete() {
+        var confirmResult = confirm("Are you sure you want to delete your profile?");
+        if (confirmResult) {
+            window.location.href = "<?php echo URLROOT; ?>/farmer/deleteUser/<?php echo $_SESSION['user_id']; ?>";
+        }
+    }
+</script>
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
