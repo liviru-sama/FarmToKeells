@@ -1,0 +1,68 @@
+@import url(main.css);
+
+
+
+.text-box{
+    width: 90%;
+    color: black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%); 
+    text-align: center;    
+}
+/*.container {
+    background-color: rgba(255, 255, 255, 0.822);
+    border-radius: 10px;
+    padding: 30px;
+    width: 90vh; 
+    height: 45vh; 
+    margin: auto; 
+    position: absolute; 
+    top: 0; 
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+*/
+.text-box h1{
+    font-size: 500%;
+    font-family: 'Poppins', sans-serif;
+}
+.text-box p{
+    margin: 10px 0 40px;
+    font-size: 120%;
+    font-family: 'Poppins', sans-serif;
+}
+
+.hero-btn{
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    background-color: #65A534;
+    padding: 12px 34px;
+    font-size: 13px;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    cursor: pointer;
+    border-radius: 25px;
+}
+.hero-btn:hover{
+    color: #000000;
+    background-color: rgb(255, 255, 255);
+    transition: 0.5s;
+}
+.admin-login-link{
+    margin: 3px 0 30px auto;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.671);
+}
+.admin-login-link a{
+    color: rgba(0, 0, 0, 0.671);
+    text-decoration: none;
+}
+.admin-login-link a:hover{
+    color: #65A534;
+    text-decoration: underline;
+}
