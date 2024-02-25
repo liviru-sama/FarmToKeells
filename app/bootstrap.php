@@ -8,16 +8,17 @@
     require_once 'helpers/session_helper.php';
 
     //Autoload Core Libraries
-    spl_autoload_register(function($className){
-        require_once 'libraries/' . $className . '.php';
-    });
+    // spl_autoload_register(function($className){
+    //     require_once 'libraries/' . $className . '.php';
+    // });
 
     spl_autoload_register(function($className){
-        $libraries_file = 'libraries/' . $className . '.php';
+        $libraries_file = APPROOT.'/libraries/' . $className . '.php';
+        $models_file = APPROOT.'/models/' . $className . '.php';
         if (file_exists($libraries_file)) { require_once $libraries_file; return; }
         
-        $models_file = 'models/' . $className . '.php'; // Adjusted to look for models
-        if (file_exists($models_file)) { require_once $models_file; return; }
+         // Adjusted to look for models
+        else{ require_once $models_file; return; }
     });
     
 
