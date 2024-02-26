@@ -63,5 +63,13 @@
             // Pass the fetched products to the view
             require_once('views/admin/salesorder');
         }
+
+        public function admin_login()
+    {
+        $data = [];
+
+            $this->view('admin/admin_login', $data);// Check for POST
+       
+    }
     }
 ?>

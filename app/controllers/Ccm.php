@@ -315,7 +315,13 @@
         }
     }
 
-    
+    public function ccm_login()
+    {
+        $data = [];
+
+            $this->view('ccm/ccm_login', $data);// Check for POST
+       
+    }
 
 
 
