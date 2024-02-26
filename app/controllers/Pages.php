@@ -12,6 +12,15 @@
             $this->view('pages/index', $data);
         }
 
+
+        public function selectadmin(){
+            $data = [
+                'title' => ''
+            ];
+            
+            $this->view('pages/selectadmin', $data);
+        }
+
         
     }
 
