@@ -1,4 +1,7 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php require APPROOT . '/views/inc/header.php';
+$yourObject = new Users(); 
+$yourObject->redirectIfNotLoggedInOrLoggedOut();
+?>
 
 
 <!DOCTYPE html>

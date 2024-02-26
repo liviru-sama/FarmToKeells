@@ -98,6 +98,17 @@
             return $this->db->single();
         }
 
+        // Add this method to your User class
+        public function getPasswordById($id) {
+            $this->db->query('SELECT password FROM users WHERE id = :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+
+            return ($this->db->rowCount() > 0) ? $row->password : null;
+        }
+
+
         public function changePassword($data) {
             $this->db->query('UPDATE users SET password = :password WHERE id = :id');
             // Bind values
@@ -189,7 +200,7 @@
 
 
         public function updatePassword($user_id, $new_password) {
-            $sql = "UPDATE users SET password = :new_password WHERE user_id = :user_id";
+            $sql = "UPDATE users SET password = :new_password WHERE id = :user_id";
             $this->db->query($sql);
             $this->db->bind(':new_password', $new_password);
             $this->db->bind(':user_id', $user_id);
@@ -197,7 +208,7 @@
             $pwd_updated = $this->db->execute();
             if ($pwd_updated){
                 
-                $sql_users = "UPDATE users SET password = :new_password WHERE user_id = :user_id";
+                $sql_users = "UPDATE users SET password = :new_password WHERE id = :user_id";
                 $this->db->query($sql_users);
                 $this->db->bind(':new_password', $new_password);
                 $this->db->bind(':user_id', $user_id);
@@ -226,6 +237,7 @@
                 return false;
             }
         }
+        
 
         public function update_profile($data) {
             $this->db->query('UPDATE users SET name = :name, email = :email, username = :username WHERE id = :id');
