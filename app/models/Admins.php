@@ -37,19 +37,6 @@ class Admin
     }
 
     // Register Admin
-    public function register($data)
-    {
-        $this->db->query('INSERT INTO admins (admin_username, admin_password) VALUES(:username, :password)');
-        // Bind values
-        $this->db->bind(':username', $data['username']);
-        $this->db->bind(':password', $data['password']); // Store plaintext password
-
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
-    }   
+  
 }
 ?>
