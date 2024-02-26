@@ -11,8 +11,7 @@
             
         
 
-        public function admin_login()
-        {
+        public function admin_login(){
           
                 // Check for POST
            

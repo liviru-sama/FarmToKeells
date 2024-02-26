@@ -13,11 +13,16 @@
     //     require_once 'libraries/' . $className . '.php';
     // });
 
-    spl_autoload_register(function($className){
-        $libraries_file = APPROOT.'/libraries/' . $className . '.php';
-        $models_file = APPROOT.'/models/' . $className . '.php';
-        if (file_exists($libraries_file)) { require_once $libraries_file; return; }
-        
-         // Adjusted to look for models
-        else{ require_once $models_file; return; }
+    spl_autoload_register(function($className) {
+        $libraries_file = APPROOT . '/libraries/' . $className . '.php';
+        $models_file = APPROOT . '/models/' . $className . '.php';
+    
+        if (file_exists($libraries_file)) {
+            require_once $libraries_file;
+            return;
+        } elseif (file_exists($models_file)) {
+            require_once $models_file;
+            return;
+        }
     });
+    
