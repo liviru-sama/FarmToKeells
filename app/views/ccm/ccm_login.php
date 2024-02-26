@@ -20,7 +20,7 @@
     </section>
     <section class="form">
         <div class="center">
-            <h1>ADMIN LOGIN</h1>
+            <h1>CCM LOGIN</h1>
             <form action='' method="post" id="myForm">
 
             <div class="text-field">

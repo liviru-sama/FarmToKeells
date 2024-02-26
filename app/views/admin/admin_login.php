@@ -21,7 +21,8 @@
     <section class="form">
         <div class="center">
             <h1>ADMIN LOGIN</h1>
-            <form action='' method="post" id="myForm">
+            
+            <form action='<?php echo URLROOT; ?>/admin/dashboard' method="post" id="myForm">
 
             <div class="text-field">
                     <input type="text" name="admin_username" required>
@@ -31,7 +32,7 @@
 
                 <div class="text-field">
                     <input type="password" name="admin_password"  required>
-                    <span></span>
+                    <spaan></spaan>
                     <label>Password</label>
                 </div>
 
