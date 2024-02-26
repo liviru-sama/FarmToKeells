@@ -55,6 +55,21 @@
 
         }
 
+        public function tm_login($admin_username, $admin_password){
+            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
+            $this->db->bind(':admin_username', $admin_username);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->admin_password;
+            if(password_verify($admin_password, $hashed_password)){
+               
+            } else {
+                return false;
+            }
+
+        }
+
         
 
 
