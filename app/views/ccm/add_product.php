@@ -19,7 +19,7 @@
     <section class="form">
         <div class="center">
             <h1>Add product</h1>
-            <form action='<?php echo URLROOT; ?>/ccm/add_product.php' method="post" id="myForm">
+            <form action='' method="post" id="myForm">
 
                 <div class="text-field">
                     <input name='name' type="text" required>

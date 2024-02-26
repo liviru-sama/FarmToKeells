@@ -57,6 +57,22 @@
             }
         }
 
+        //find user by ID
+        public function findUserByID($id){
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            //Bind value
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+
+            //Check row
+            if($this->db->rowCount() > 0){
+                return $row;
+            } else {
+                return false;
+            }
+        }
+
         //Login User
         public function login($username, $password){
             $this->db->query('SELECT * FROM users WHERE username = :username');

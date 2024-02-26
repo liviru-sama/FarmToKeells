@@ -1,0 +1,83 @@
+@import url(main.css);
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    text-transform: capitalize;
+}
+
+html {
+    font-size: 62.5%;
+    overflow-x: hidden;
+}
+
+.container{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 3rem;
+}
+
+.container .title {
+    font-size: 3.5rem;
+    color: #444;
+    margin-bottom: 4rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.dashboard-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.menu {
+    margin: 0 auto;
+}
+
+.container .dashboard-container .menu{
+    text-align: center;
+    padding: 2rem 2rem 2rem 2rem;
+    background: rgba(255, 255, 255, 0.598);
+    /* box-shadow: 0 0.5rem 1rem ; */
+    cursor: pointer;
+    height: 30rem;
+    width: 30rem;
+}
+
+.container .dashboard-container .menu:hover{
+    background: #65a5346b;
+}
+
+.container .dashboard-container .menu img{
+    align-items: center;
+    height: 15rem;
+    width: 15rem;
+}
+
+.container .dashboard-container .menu:hover img{
+    transform: scale(.9);
+    
+}
+
+.container .dashboard-container .menu h3{
+    padding: 4rem 0;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.845);
+}
+
+.container .dashboard-container .menu:hover h3{
+    font-size: 2.2rem;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    border: 0;
+}
