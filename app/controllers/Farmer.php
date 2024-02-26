@@ -1,5 +1,6 @@
 <?php
     class Farmer extends Controller{
+        public $userModel;
 
         public function __construct(){
             $this->userModel = $this->model('User');
@@ -218,15 +219,97 @@
                 ];
                 $this->view('farmer/update_profile', $data);
             }
+
         }
-        
-        
-        
-        
 
+        public function place_order() {
 
-   
-}
+            $request = $this->model('Request');
+            
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-?>
+                $data = [
+                    'product_id' => trim($_POST['product_id']),
+                    'quantity' => trim($_POST['quantity']),
+                    'startdate' => trim($_POST['startdate']),
+                    'enddate' => trim($_POST['enddate']),
+                    'notes' => trim($_POST['notes']),
+                    'user_id' => $_SESSION['user_id']
+                ];
+
+                $data['errors'] = [
+                    'product_err' => '',
+                    'quantity_err' => '',
+                    'startdate_err' => '',
+                    'enddate_err' => ''
+                ];
+
+                $data['errors']['errnum'] = 0;
+
+                if (empty($data['product_id'])){
+                    $data['errors']['errnum'] =+ 1;
+                    $data['errors']['product_err'] = 'Please select a product';
+                }
+
+                if (empty($data['quantity'])){
+                    $data['errors']['errnum'] =+ 1;
+                    $data['errors']['quantity_err'] = 'Please provide a quantity';
+                }
+
+                if (empty($data['startdate'])){
+                    $data['errors']['errnum'] =+ 1;
+                    $data['errors']['startdate_err'] = 'Please provide a Date';
+                }
+
+                if (empty($data['enddate'])){
+                    $data['errors']['errnum'] =+ 1;
+                    $data['errors']['enddate_err'] = 'Please provide a Date';
+                }
+
+                if ($data['startdate'] > $data['enddate']){
+                    $data['errors']['errnum'] =+ 1;
+                    $data['errors']['startdate_err'] = 'Earliest Pickup cannot be after the Latest Pickup';
+                    $data['errors']['enddate_err'] = 'Latest Pickup cannot be before the Earliest Pickup';
+                }
+
+                if ($data['errors']['errnum'] > 0){
+                    $product = $this->model('Product');
+    
+                    $products = $product->getAllProducts();
+                    
+                    $data['products'] = $products;
+                    
+                    $this->view('farmer/place_order', $data);
+                } else {
+                    if ($request->insert($data)) {
+                        redirect('farmer/place_order');
+                    } else {
+                        die('Something went wrong');
+                    }
+                }
+
+            } else {
+                $data = [
+                    'title' => 'Place Order'
+                ];
+
+                $data['errors'] = [
+                    'product_err' => '',
+                    'quantity_err' => '',
+                    'startdate_err' => '',
+                    'enddate_err' => ''
+                ];
+    
+                $product = $this->model('Product');
+    
+                $products = $product->getAllProducts();
+                
+                $data['products'] = $products;
+                
+                $this->view('farmer/place_order', $data);
+            }
+        }
+    }
+
