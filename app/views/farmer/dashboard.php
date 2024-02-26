@@ -1,4 +1,8 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+
+
+<?php require APPROOT . '/views/inc/header.php'; 
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,7 +21,7 @@
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder">
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
-                        <h3>Place SalesOrders</h3>
+                        <h3>Place Sales Orders</h3>
                     </div>
         
                     <div class="menu" data-name="p-2">
@@ -25,7 +29,7 @@
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt=""></a>
                         <h3>View Purchase Orders</h3>
-                        <h3>View Purchase Orders</h3>
+                        
                     </div>
         
                     <div class="menu" data-name="p-3">
