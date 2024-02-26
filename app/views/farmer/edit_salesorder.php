@@ -9,9 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
-    <script src="<?php echo JS;?>add_product.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/edit_product.css">
 </head>
 
 <body>
@@ -20,43 +18,38 @@
     </section>
     <section class="form">
         <div class="center">
-            <h1>Add product</h1>
-            <form action='' method="post" id="myForm">
-
+            <h1>Edit Sales Order</h1>
+            <form method="post" action=""> <!-- Added action attribute -->
                 <div class="text-field">
-                    <input name='name' type="text" required>
+                    <input type="text" name="name" value="<?=$data['name']?>" required> <!-- Added name attribute -->
                     <span></span>
                     <label> Product</label>
                 </div>
                 <div class="text-field">
-                    <input name='type' type="text" required>
+                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
                     <span></span>
                     <label> Category</label>
                 </div>
                 <div class="text-field">
-                    <input name="price" type="number" required>
+                    <input type="date" name="date" value="<?=$data['date']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Price</label>
+                    <label> date</label>
                 </div>
-
-
                 <div class="text-field">
-                    <input name="quantity" type="number" required>
+                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
                     <span></span>
                     <label> Stock</label>
                 </div>
-
-
-
-
-
+                <div class="text-field">
+                    <input type="text" name="address" value="<?=$data['address']?>" required> <!-- Added name attribute -->
+                    <span></span>
+                    <label> Address</label>
+                </div>
                 <input type="submit" value="Reset" onclick="resetForm()">
-                <input type="submit" value="Add">
-
+                <input type="submit" value="Save">
             </form>
         </div>
     </section>
-
 </body>
 
 </html>

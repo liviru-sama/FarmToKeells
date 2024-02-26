@@ -311,5 +311,170 @@
                 $this->view('farmer/place_order', $data);
             }
         }
+
+
+        public function salesorder() {
+            // Instantiate Purchaseorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get all purchase orders
+            $data['salesorders'] = $salesorderModel->getAllSalesorders();
+            
+            // Load the view with purchase orders data
+            $this->view('farmer/salesorder', $data);
+        }
+
+        public function displaySalesorders() {
+            // Create an instance of the PurchaseModel
+            $salesorderModel = new SalesorderModel();
+    
+            // Call the method to fetch all products
+            $salesorders = $salesorderModel->getAllSalesorders();
+    
+            // Pass the fetched products to the view
+            require_once('views/farmer/salesorder');
+        }
+
+
+
+
+        public function add_salesorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $this->model("Salesorder");
+    
+                // Instantiate Product Model with Database dependency injection
+                $salesorderModel = new Salesorder();
+        
+                // Sanitize and validate POST data
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+                $address = trim($_POST['address']);
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to add product
+                $data = [
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date,
+                    'address' => $address
+                ];
+        
+                if ($salesorderModel->add_salesorder($data)) {
+                    // Product added successfully
+                    // Redirect to view inventory page
+                    redirect('farmer/salesorder');
+                    exit();
+                } else {
+                    // Product addition failed
+                    echo "Failed to add sales order.";
+                }
+            } else {
+                // If not a POST request, redirect to the add product page or show an error message
+                 //echo "Invalid request method.";
+                $this->view("farmer/add_salesorder");
+            }
+        }
+    
+        
+        public function edit_salesorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $salesorderModel = new Salesorder();
+        
+                // Sanitize and validate POST data
+                // $id = $_POST['id']; // Assuming the id of the product to edit is passed via POST
+                $id = trim($_GET["id"]); 
+                print_r(trim($_POST['name'])."</br>");
+                print_r(trim($_POST['type'])."</br>");
+                print_r(trim($_POST['date'])."</br>");
+                print_r(trim($_POST['quantity'])."</br>");
+                print_r(trim($_POST['address'])."</br>");
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date = trim($_POST['date']);
+                $address = trim($_POST['address']);
+        
+
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'id' => $id,
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date,
+                    'address' => $address
+                ];
+        
+                if ($salesorderModel->edit_salesorder($data)) {
+                    // Product edited successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('farmer/salesorder');
+                    exit();
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit salesorder.";
+                }
+            } else {
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = $_GET['id'];
+                $salesorderModel = new Salesorder();
+                $salesorderData = $salesorderModel->view_salesorder($id);
+                
+                $this->view("farmer/edit_salesorder",(array)$salesorderData);
+            }
+        }
+        
+        
+        public function delete_salesorder(){
+            // Check for POST
+            if ($_GET['id']!=NULL) {
+                
+                // Instantiate Product Model with Database dependency injection
+                $salesorderModel = new Salesorder();
+        
+                // Sanitize and validate POST data
+                $id = $_GET['id']; // Assuming the id of the product to delete is passed via POST
+                // // Check if id is provided
+                // if (empty($id)) {
+                //     echo "Please provide product ID.";
+                //     return;
+                // }
+    
+                // Attempt to delete product
+                if ($salesorderModel->delete_salesorder($id)) {
+                    // Product deleted successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('farmer/salesorder');
+                    exit();
+                } else {
+                    // Product deletion failed
+                    echo "Failed to delete product.";
+                }
+            } else {
+                // If not a POST request, redirect to the view inventory page or show an error message
+                echo "Invalid request method.";
+            }
+        }
+    
+        
+    
+    
     }
 

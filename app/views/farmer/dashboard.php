@@ -15,13 +15,16 @@
                     
                     <div class="menu" data-name="p-1">
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder">
+                    <a href="<?php echo URLROOT; ?>/farmer/salesorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
-                        <h3>Sales Order</h3>
+                        <h3>Place SalesOrders</h3>
                     </div>
         
                     <div class="menu" data-name="p-2">
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
+                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt=""></a>
+                        <h3>View Purchase Orders</h3>
                         <h3>View Purchase Orders</h3>
                     </div>
         

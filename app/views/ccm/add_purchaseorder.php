@@ -20,7 +20,7 @@
     </section>
     <section class="form">
         <div class="center">
-            <h1>Add product</h1>
+            <h1>Add Purchase order</h1>
             <form action='' method="post" id="myForm">
 
                 <div class="text-field">
@@ -34,9 +34,9 @@
                     <label> Category</label>
                 </div>
                 <div class="text-field">
-                    <input name="price" type="number" required>
+                    <input name="date" type="date" required>
                     <span></span>
-                    <label> Price</label>
+                    <label> Date</label>
                 </div>
 
 

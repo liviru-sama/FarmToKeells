@@ -191,3 +191,29 @@ input[type="submit"]:hover {
     background: rgba(0, 0, 0, 0.295);
 }
 
+.text-field {
+    position: relative;
+}
+
+.text-field select {
+    width: 100%;
+    padding: 10px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    border-radius: 5px; /* Add border radius */
+    background-color: transparent; /* Transparent background color */
+    color: #333; /* Text color */
+    appearance: none; /* Remove default appearance */
+    -webkit-appearance: none; /* For older versions of Chrome/Safari */
+    -moz-appearance: none; /* For older versions of Firefox */
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Center the select element */
+    box-shadow: none; /* Remove box shadow */
+}
+
+/* Style for when select element is hovered */
+.text-field select:hover {
+    background-color: #65A534; /* Darker green background color on hover */
+}

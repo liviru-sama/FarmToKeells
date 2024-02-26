@@ -20,7 +20,7 @@
     </section>
     <section class="form">
         <div class="center">
-            <h1>Add product</h1>
+            <h1>Add Sales order</h1>
             <form action='' method="post" id="myForm">
 
                 <div class="text-field">
@@ -34,18 +34,20 @@
                     <label> Category</label>
                 </div>
                 <div class="text-field">
-                    <input name="price" type="number" required>
+                    <input name="date" type="date" required>
                     <span></span>
-                    <label> Price</label>
+                    <label> Date</label>
                 </div>
-
-
                 <div class="text-field">
                     <input name="quantity" type="number" required>
                     <span></span>
                     <label> Stock</label>
                 </div>
-
+                <div class="text-field">
+                    <input name="address" type="text" required>
+                    <span></span>
+                    <label> Address</label>
+                </div>
 
 
 
