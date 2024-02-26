@@ -21,7 +21,7 @@
     <section class="form">
         <div class="center">
             <h1>CCM LOGIN</h1>
-            <form action='' method="post" id="myForm">
+            <form action='<?php echo URLROOT; ?>/ccm/dashboard' method="post" id="myForm">
 
             <div class="text-field">
                     <input type="text" name="admin_username" required>
