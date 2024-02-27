@@ -41,4 +41,12 @@
             return $results;
         }
 
+        public function getAllDrivers(){
+            $this->db->query('SELECT * FROM driverinfo');
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
     }

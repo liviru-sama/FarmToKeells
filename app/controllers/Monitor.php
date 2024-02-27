@@ -14,6 +14,10 @@ class Monitor extends Controller
         $data = [
             'title' => 'Drivers'
         ];
+
+        $drivers = $this->model('Driver');
+        
+        $data['drivers'] = $drivers->getAllDrivers();
         
         $this->view('monitor/driverList', $data);
     }
@@ -34,24 +38,6 @@ class Monitor extends Controller
             $vehicle->driver = $driver->D_name;
         }
 
-        $this->view('monitor/vehicleList', $data);
-    }
-
-    public function vehicleInfo($id){
-        $data = [
-            'title' => 'Vehicle Information'
-        ];
-
-        $vehicles = $this->model('Vehicle');
-
-        $drivers = $this->model('Driver');
-        
-        $data['vehicle'] = $vehicles->getVehicleByID($id);
-
-        $driver = $drivers->getDriverByID($data['vehicle']->D_id);
-        $data['vehicle']->driver = $driver->D_name;
-
-        show($data['vehicle']);
         $this->view('monitor/vehicleList', $data);
     }
 
@@ -235,6 +221,116 @@ class Monitor extends Controller
             ];
             
             $this->view('Monitor/addDriver', $data);
+        }
+    }
+
+    public function vehicleInfo($id){
+        $data = [
+            'title' => 'Vehicle Information'
+        ];
+
+        $vehicles = $this->model('Vehicle');
+
+        $drivers = $this->model('Driver');
+        
+        $data['vehicle'] = $vehicles->getVehicleByID($id);
+
+        $driver = $drivers->getDriverByID($data['vehicle']->D_id);
+        $data['vehicle']->driver = $driver->D_name;
+
+        show($data['vehicle']);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            $data = [
+                'License_no' => trim($_POST['License_no']),
+                'chassis' => trim($_POST['chassis']),
+                'vtype' => trim($_POST['vtype']),
+                'model' => trim($_POST['model']),
+                'capacity' => trim($_POST['capacity']),
+                'D_id' => trim($_POST['D_id'])
+            ];
+
+            $data['errors'] = [
+                'License_no_err' => '',
+                'chassis_err' => '',
+                'vtype_err' => '',
+                'model_err' => '',
+                'capacity_err' => '',
+                'D_id_err' => ''
+            ];
+
+            $data['errors']['errnum'] = 0;
+
+            if (empty($data['License_no'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['License_no_err'] = 'Please provide a License Number';
+            }
+
+            if (empty($data['chassis'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['chassis_err'] = 'Please provide a Chassis Number';
+            }
+
+            if (empty($data['vtype'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['vtype_err'] = 'Please provide a Vehicle Type';
+            }
+
+            if (empty($data['model'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['model_err'] = 'Please provide a Vehicle Model';
+            }
+
+            if (empty($data['capacity'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['capacity_err'] = 'Please provide Vehicle Capacity';
+            }
+
+            if (empty($data['D_id'])){
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['D_id_err'] = 'Please assign a Driver';
+            }
+
+
+            if ($data['errors']['errnum'] > 0){
+
+                $UnassignedDrivers = $drivers->getUnassignedDrivers();
+                
+                $data['Drivers'] = $UnassignedDrivers;
+                
+                $this->view('Monitor/addVehicle', $data);
+            } else {
+                $vehicles = $this->model('Vehicle');
+
+                if ($vehicles->insert($data)) {
+                    redirect('Monitor/addVehicle');
+                } else {
+                    die('Something went wrong');
+                }
+            }
+
+        } else {
+            $data = [
+                'title' => 'Add New Vehicle'
+            ];
+
+            $data['errors'] = [
+                'License_no_err' => '',
+                'chassis_err' => '',
+                'vtype_err' => '',
+                'model_err' => '',
+                'capacity_err' => '',
+                'D_id_err' => ''
+            ];
+
+            $UnassignedDrivers = $drivers->getUnassignedDrivers();
+            
+            $data['Drivers'] = $UnassignedDrivers;
+            
+            $this->view('Monitor/addVehicle', $data);
         }
     }
 }

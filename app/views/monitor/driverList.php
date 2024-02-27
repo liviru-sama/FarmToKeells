@@ -10,27 +10,29 @@
     </head>
     <body>
         <div class="container">
-            <h2>Vehicles</h2>
+            <h2>Drivers</h2>
+            <div class="tabs">
+                <a href="<?php echo URLROOT; ?>/Monitor/addDriver">
+                    <button class="tab activeTab" id="addDriver">Add Driver</button>
+                </a>
+            </div>
             <table>
                 <tr>
                     <th>ID</th>
-                    <th>Licence No.</th>
-                    <th>Chassis No.</th>
-                    <th>Type</th>
-                    <th>Model</th>
-                    <th>Capacity</th>
-                    <th>Driver</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>Address</th>
+                    <th>Date Joined</th>
                 </tr>
-                <?php foreach($data['vehicles'] as $vehicle) {
-                    echo "<tr class = 'clink' onclick= \"window.location.href = '".URLROOT."/Monitor/vehicleInfo/".$vehicle->V_id."'\";>
-                        <td>".$vehicle->V_id."</td>
-                        <td>".$vehicle->License_no."</td>
-                        <td>".$vehicle->chassis."</td>
-                        <td>".$vehicle->vtype."</td>
-                        <td>".$vehicle->model."</td>
-                        <td>".$vehicle->capacity."</td>
-                        <td>".$vehicle->driver."</td>
-                        <td></td>
+                <?php foreach($data['drivers'] as $driver) {
+                    echo "<tr class = 'clinck' onclick= \"window.location.href = '".URLROOT."/Monitor/driverInfo/".$driver->D_id."'\";>
+                        <td>".$driver->D_id."</td>
+                        <td>".$driver->D_name."</td>
+                        <td>".$driver->D_email."</td>
+                        <td>".$driver->D_contact."</td>
+                        <td>".$driver->D_address."</td>
+                        <td>".$driver->DateJoined."</td>
                     </tr>";
                 } ?>
             </table>
