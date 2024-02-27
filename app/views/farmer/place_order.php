@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?= CSS ?>forms.css">
-        <script src="<?= JS ?>place_order.js"></script>
+        <!-- <script src="<?= JS ?>place_order.js"></script> -->
         <title><?= $data['title'] ?></title>
     </head>
     <body>
