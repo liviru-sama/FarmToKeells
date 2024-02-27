@@ -61,7 +61,7 @@
                             </form>
                         </div>
                         <div class="rectangle">
-                            <p>Change Name</p><?php echo '<p>' . flash('user_message') . '</p>';?>
+                            <p>Change Name</p>
                             <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 <label for="nnamec" class="p-regular-grey">New Name :</label>
                                 <input type="text" id="new_name" name="new_name" class="form-default">
@@ -70,7 +70,7 @@
                             </form>
                         </div>
                         <div class="rectangle">
-                            <p>Change Email</p><?php echo '<p>' . flash('user_message') . '</p>';?>
+                            <p>Change Email</p>
                             <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 <label for="nemail" class="p-regular-grey">New E-mail :</label>
                                 <input type="text" id="new_email" name="new_email" class="form-default">
@@ -79,7 +79,7 @@
                             </form>
                         </div>
                         <div class="rectangle">
-                            <p>Change Mobile</p><?php echo '<p>' . flash('user_message') . '</p>';?>
+                            <p>Change Mobile</p>
                             <form action="<?php echo URLROOT;?>/farmer/updateMobile/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 <label for="nmobile" class="p-regular-grey">New Mobile :</label>
                                 <input type="text" id="new_mobile" name="new_mobile" class="form-default">
@@ -92,7 +92,7 @@
                         
 
                         <div class="rectangle">
-                            <p>Change Password</p><?php echo '<p>' . flash('user_message') . '</p>';?>
+                            <p>Change Password</p>
                             <form action="<?php echo URLROOT;?>/farmer/changePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 <label for="fname" class="p-regular-grey">Current Password :</label>
                                 <input type="password" id="current_password" name="current_password" class="form-default">
