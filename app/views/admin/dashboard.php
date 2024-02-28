@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITENAME;?></title>
+    <title><?php echo SITENAME ;?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/dashboard.css">
     
 </head>
@@ -30,7 +30,7 @@
                     </div>
         
                     <div class="menu" data-name="p-3">
-                    <a href="farmer-notifications.php">
+                    <a href="<?php echo URLROOT; ?>/admin/manageUsers">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt=""></a>
                         <h3>Manage users</h3>
                     </div>

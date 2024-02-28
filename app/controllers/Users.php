@@ -1,5 +1,8 @@
 <?php
 class Users extends Controller{
+
+
+
     public $userModel;
     public function __construct(){
         $this->userModel = $this->model('User');
@@ -9,12 +12,17 @@ class Users extends Controller{
         $data = [
             'title' => ''
         ];
+
+            // Check if user is already logged in
+        if(isset($_SESSION['user_id'])){
+            redirect('farmer/dashboard');
+        }
         
         $this->view('pages/index', $data);
     }
 
-    public function register()
-    {
+    public function register(){
+
         // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
@@ -140,8 +148,8 @@ class Users extends Controller{
     }
     
 
-    public function user_login()
-    {
+    public function user_login(){
+
         // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
