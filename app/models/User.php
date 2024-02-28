@@ -8,7 +8,7 @@
 
         //Register user
         public function register($data){
-            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, password) VALUES(:name, :username, :email, :nic, :mobile, :password)');
+            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, password, status) VALUES(:name, :username, :email, :nic, :mobile, :password, :status)');
             //Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':username', $data['username']);
@@ -16,11 +16,14 @@
             $this->db->bind(':nic', $data['nic']);
             $this->db->bind(':mobile', $data['mobile']);
             $this->db->bind(':password', $data['password']);
-
-            //Execute
-            if($this->db->execute()){
+            $this->db->bind(':status', 'pending'); // Set initial status to 'pending'
+        
+            // Execute
+            if ($this->db->execute()) {
                 return true;
             } else {
+                // Log the error
+                error_log("User registration failed.");
                 return false;
             }
         }
@@ -77,16 +80,17 @@
         public function login($username, $password){
             $this->db->query('SELECT * FROM users WHERE username = :username');
             $this->db->bind(':username', $username);
-
+        
             $row = $this->db->single();
-
-            $hashed_password = $row->password;
-            if(password_verify($password, $hashed_password)){
-                return $row;
-            } else {
-                return false;
+        
+            if ($row && $row->status === 'approved') {
+                $hashed_password = $row->password;
+                if (password_verify($password, $hashed_password)) {
+                    return $row;
+                }
             }
-
+        
+            return false;
         }
 
         public function getUserById($id) {
@@ -248,6 +252,51 @@
             // Execute
             return $this->db->execute();
         }
+
+        public function getPendingUsers()
+        {
+            $this->db->query('SELECT * FROM users WHERE status = "pending"');
+            $result = $this->db->resultSet();
+           
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
+        }
+
+        // User model method to get pending registration requests
+        public function getPendingRegistrationRequests()
+        {
+            $this->db->query('SELECT id as user_id, name, email FROM users WHERE status = "pending"');
+            $result = $this->db->resultSet();
+        
+            // Log the result
+            error_log("Pending Registration Requests: " . print_r($result, true));
+        
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
+        }
+        
+
+        public function approveRegistrationRequest($userId)
+        {
+            $this->db->query('UPDATE users SET status = "approved" WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            return $this->db->execute();
+        }
+
+        public function rejectRegistrationRequest($userId)
+        {
+            $this->db->query('DELETE FROM users WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            return $this->db->execute();
+        }
+
+
 
     }
 

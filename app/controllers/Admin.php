@@ -2,11 +2,21 @@
     class Admin extends Controller{
 
         public $adminModel;
+        public $userModel;
 
-            public function __construct() {
+        public function __construct()
+        {
+            $this->adminModel = $this->model('Admins');
+            $this->userModel = $this->model('User'); // Add this line
+        }
+
+        public function index(){
+            $data = [
+                'title' => ''
+            ];
                 
-                $this->adminModel = $this->model('Admins'); 
-            }
+            $this->view('admin/dashboard', $data);
+        }    
         
             
         
@@ -143,6 +153,27 @@
             // Load the view with purchase orders data
             $this->view('admin/salesorder', $data);
         }
+
+
+        public function manageUsers()
+        {
+            // // Check if the user is an admin
+            // if ($_SESSION['user_role'] !== 'admin') {
+            //     redirect('farmer/dashboard');
+            // }
+
+            // Get a list of pending users
+            $pendingUsers = $this->userModel->getPendingUsers();
+
+            // Pass the data to the view
+            $data = [
+                'title' => 'Pending Users',
+                'pendingUsers' => $pendingUsers,
+            ];
+
+            $this->view('admin/manageUsers', $data);
+        }
+
         
         public function displaySalesorders() {
             // Create an instance of the PurchaseModel
@@ -154,6 +185,80 @@
             // Pass the fetched products to the view
             require_once('views/admin/salesorder');
         }
+
+        public function viewRegistrationRequests()
+        {
+            // Check if the user is an admin
+            if ($_SESSION['user_role'] !== 'admin') {
+                redirect('farmer/dashboard');
+            }
+        
+            // Get a list of pending registration requests
+            $pendingRequests = $this->userModel->getPendingRegistrationRequests();
+        
+            // Pass the data to the view for admin approval/rejection
+            $data = [
+                'title' => 'Registration Requests',
+                'pendingRequests' => $pendingRequests,
+            ];
+        
+            $this->view('admin/manageUsers', $data);
+        }
+
+
+        public function approveRegistrationRequest()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userId = $_POST['user_id'];
+
+                // Debug statement
+                echo "Approving user ID: $userId";
+
+                // Perform approval logic
+                if ($this->adminModel->approveRegistrationRequest($userId)) {
+                    // Notify the user or perform any necessary action
+                    flash('admin_message', 'User registration request approved.');
+                } else {
+                    die('Something went wrong');
+                }
+
+                // Redirect back to the admin interface for managing requests
+                redirect('admin/viewRegistrationRequests');
+            } else {
+                // Handle cases where the request method is not POST
+                redirect('admin/viewRegistrationRequests');
+            }
+        }
+
+        public function rejectRegistrationRequest()
+        {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userId = $_POST['user_id'];
+
+                // Debug statement
+                echo "Rejecting user ID: $userId";
+
+                // Perform rejection logic
+                if ($this->adminModel->rejectRegistrationRequest($userId)) {
+                    // Notify the user or perform any necessary action
+                    flash('admin_message', 'User registration request rejected.');
+                } else {
+                    die('Something went wrong');
+                }
+
+                // Redirect back to the admin interface for managing requests
+                redirect('admin/viewRegistrationRequests');
+            } else {
+                // Handle cases where the request method is not POST
+                redirect('admin/viewRegistrationRequests');
+            }
+        }
+
+
+
+
+
+
 
         
     }
