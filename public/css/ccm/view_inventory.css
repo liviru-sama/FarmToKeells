@@ -217,3 +217,7 @@ thead th {
     text-transform: capitalize;
 }
 
+/* Style the placeholder text */
+#searchInput::placeholder {
+    color: white;
+}

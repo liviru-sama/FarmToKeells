@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
+    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/view_inventory.css">
 
 </head>
@@ -16,8 +17,10 @@
 <body>
     <section class="header">
        
-        <h4>PRODUCT INVENTORY  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                             
+        <h4>PRODUCT INVENTORY  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; padding: 10px 20px; background-color: #4CAF50; color: white; border: 1px solid #4CAF50; border-radius: 5px;">
+
+                                 
         <a class="button" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
 
         </h4>
@@ -38,7 +41,7 @@
                                 <th>PRICE</th>
 
                                 <th>EDIT</th>
-                                <th>DELETE</th>
+                                
                              </tr>
                         </thead>
                         <tbody>
@@ -55,7 +58,7 @@
             <td><?php echo $row['quantity'] ?></td>
             <td><?php echo $row['price'] ?></td>
             <td><a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/delete_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+           
         </tr>
     <?php } ?>
 
