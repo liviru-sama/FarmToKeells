@@ -99,11 +99,28 @@
         }
 
 
-        public function stock_overview(){
-            $data = [];
-
+        public function stock_overview() {
+            // Instantiate the Product model
+            $productModel = $this->model('Product');
+        
+            // Get product data from the model
+            $products = $productModel->getAllProducts();
+            
+            // Check if products are retrieved successfully
+            if ($products) {
+                $data['products'] = $products;
+            } else {
+                // Handle case where no products are returned or an error occurs
+                // For example, you can set $data['products'] to an empty array or show an error message
+                $data['products'] = [];
+                // You might also want to log the error for debugging purposes
+            }
+        
             $this->view('admin/stock_overview', $data);
         }
+        
+
+        
 
         public function selectorder(){
             $data = [];
