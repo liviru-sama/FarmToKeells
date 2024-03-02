@@ -323,7 +323,25 @@
             // Load the view with purchase orders data
             $this->view('farmer/salesorder', $data);
         }
+        
 
+        public function place_salesorder($purchase_id) {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = $this->model('Purchaseorder');
+            
+            // Get the selected purchase order
+            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
+            
+            // Instantiate Salesorder Model
+            $salesorderModel = $this->model('Salesorder');
+            
+            // Get relevant sales orders for the selected purchase order
+            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+            
+            // Load the view with purchase order and sales orders data
+            $this->view('farmer/place_salesorder', $data);
+        }
+        
         public function displaySalesorders() {
             // Create an instance of the PurchaseModel
             $salesorderModel = new SalesorderModel();
@@ -333,6 +351,17 @@
     
             // Pass the fetched products to the view
             require_once('views/farmer/salesorder');
+        }
+
+        public function purchaseorder() {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = new Purchaseorder();
+            
+            // Get all purchase orders
+            $data['purchaseorders'] = $purchaseorderModel->getAllPurchaseorders();
+            
+            // Load the view with purchase orders data
+            $this->view('farmer/purchaseorder', $data);
         }
 
 

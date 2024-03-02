@@ -1,11 +1,21 @@
 <?php
 
-class Salesorder{
+class Salesorder {
     private $db;
 
-    public function __construct(){
+    public function __construct() {
         $this->db = new Database;
     }
+
+    public function getSalesordersByPurchaseId($purchase_id) {
+        $this->db->query('SELECT * FROM salesorder WHERE purchase_id = :purchase_id');
+        $this->db->bind(':purchase_id', $purchase_id);
+        return $this->db->resultSet();
+    }
+
+    // Other methods related to sales orders...
+
+
     public function view_salesorder($id){
         $this->db->query('SELECT * from salesorder where order_id=:id');
         $this->db->bind(':id',$id);
