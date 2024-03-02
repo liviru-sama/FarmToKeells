@@ -37,18 +37,23 @@ class Salesorder {
 
 
 
-    // Add product to the database
     public function add_salesorder($data){
+        // Check if purchase_id is set and not null
+        if (!isset($data['purchase_id']) || $data['purchase_id'] === null) {
+            return false; // Indicate failure
+        }
+    
         // Prepare SQL statement
-        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address) VALUES (:name, :type, :quantity, :date, :address)');
-
+        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id) VALUES (:name, :type, :quantity, :date, :address, :purchase_id)');
+    
         // Bind parameters
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
         $this->db->bind(':date', $data['date']);
         $this->db->bind(':address', $data['address']);
-
+        $this->db->bind(':purchase_id', $data['purchase_id']);
+    
         // Execute query
         if ($this->db->execute()) {
             return true; // Indicate success
@@ -56,20 +61,21 @@ class Salesorder {
             return false; // Indicate failure
         }
     }
+    
 
     // Edit product in the database
     public function edit_salesorder($data){
         // Prepare SQL statement
-        $this->db->query('UPDATE salesorder SET name = :name, type = :type, quantity = :quantity, date = :date, address = :address WHERE order_id = :id');
+        $this->db->query('UPDATE salesorder SET name = :name, type = :type, quantity = :quantity, date = :date, address = :address WHERE order_id = :order_id');
 
         // Bind parameters
-        $this->db->bind(':id', $data['id']);
+        $this->db->bind(':order_id', $data['order_id']);
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
         $this->db->bind(':date', $data['date']);
         $this->db->bind(':address', $data['address']);
-
+       
         // Execute query
         if ($this->db->execute()) {
             return true; // Indicate success
@@ -78,21 +84,23 @@ class Salesorder {
         }
     }
 
+    
     // Delete product from the database
-    public function delete_salesorder($id){
-        // Prepare SQL statement
-        $this->db->query('DELETE FROM salesorder WHERE order_id = :id');
+public function delete_salesorder($id){
+    // Prepare SQL statement
+    $this->db->query('DELETE FROM salesorder WHERE order_id = :id');
 
-        // Bind parameter
-        $this->db->bind(':id', $id);
+    // Bind parameter
+    $this->db->bind(':id', $id);
 
-        // Execute query
-        if ($this->db->execute()) {
-            return true; // Indicate success
-        } else {
-            return false; // Indicate failure
-        }
+    // Execute query
+    if ($this->db->execute()) {
+        return true; // Indicate success
+    } else {
+        return false; // Indicate failure
     }
+}
+
 }
 
         

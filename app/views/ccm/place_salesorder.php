@@ -7,18 +7,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
+    <!-- Add this before closing </body> tag -->
+    <script>
+    const URLROOT = "<?php echo URLROOT; ?>";
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const editableStatusCells = document.querySelectorAll('.editable');
+        editableStatusCells.forEach(function(cell) {
+            cell.addEventListener('blur', function() {
+                const purchaseId = cell.getAttribute('data-purchase-id');
+                const newStatus = cell.innerText.trim();
+                updateStatus(URLROOT, purchaseId, newStatus);
+            });
+        });
+    });
+
+    function updateStatus(urlRoot, purchaseId, newStatus) {
+        fetch(urlRoot + '/Purchaseorder/updateStatus', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify({
+                purchase_id: purchaseId,
+                status: newStatus
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update status');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Handle successful update if needed
+            console.log('Status updated successfully');
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Handle error if needed
+        });
+    }
+</script>
+
+
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/place_salesorder.css">
     <style>
         /* Additional CSS for centering headings */
         .table_body h2 {
             text-align: center;
         }
+        /* Add CSS for making status editable */
+        .editable {
+            cursor: pointer;
+        }
+        .editable:hover {
+            background-color: #f2f2f2;
+        }
     </style>
 </head>
 
 <body>
     <section class="header">
-        <h4>PLACE SALES ORDERS</h4>
+        <h4>VIEW SALES ORDERS</h4>
         <main class="table">
             <section class="table_header">
                
@@ -35,7 +87,7 @@
                             <th>Product Type</th>
                             <th>Needed Quantity (kgs)</th>
                             <th>Expected Supply Date</th>
-                           
+                            <th>Status</th> <!-- Add a new column for status -->
                         </tr>
                     </thead>
                     <tbody>
@@ -46,14 +98,15 @@
                                 <td><?php echo $data['purchaseorder']->type; ?></td>
                                 <td><?php echo $data['purchaseorder']->quantity; ?></td>
                                 <td><?php echo $data['purchaseorder']->date; ?></td>
-                                
+                                <!-- Make the status editable -->
+                                <td class="editable" data-purchase-id="<?php echo $data['purchaseorder']->purchase_id; ?>" contenteditable="true"><?php echo $data['purchaseorder']->status; ?></td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
                 </table>
                 <br/>
                 <h2>Sales Orders</h2>
-                <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>">+ Add Sales Order</a>
+                <br/>
                 <table>
                     <thead>
                         <tr>
@@ -62,8 +115,6 @@
                             <th>Product Type</th>
                             <th>Deliverable Quantity (kgs)</th>
                             <th>Expected Supply Date</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -74,8 +125,6 @@
                                 <td><?php echo $row->type; ?></td>
                                 <td><?php echo $row->quantity; ?></td>
                                 <td><?php echo $row->date; ?></td>
-                                <td><a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                <td><a href="<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>

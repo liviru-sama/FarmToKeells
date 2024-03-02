@@ -274,7 +274,7 @@
         $purchaseorders = $purchaseorderModel->getAllPurchaseorders();
 
         // Pass the fetched products to the view
-        require_once('views/ccm/view_inventory');
+        require_once('views/ccm/purchaseorder');
     }
 
 
@@ -407,9 +407,47 @@
         }
     }
 
+    public function place_salesorder($purchase_id) {
+        // Instantiate Purchaseorder Model
+        $purchaseorderModel = $this->model('Purchaseorder');
+        
+        // Get the selected purchase order
+        $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
     
+        // Set status for the purchase order (assuming you have a getStatus method in your model)
+        $data['purchaseorder']->status = $purchaseorderModel->getStatus($purchase_id);
+    
+        // Instantiate Salesorder Model
+        $salesorderModel = $this->model('Salesorder');
+        
+        // Get relevant sales orders for the selected purchase order
+        $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+        
+        // Load the view with purchase order and sales orders data
+        $this->view('ccm/place_salesorder', $data);
+    }
+    
+// Inside Ccm controller class
 
+public function updateStatus() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $purchaseId = $data['purchase_id'];
+        $newStatus = $data['status'];
 
+        // Instantiate Purchaseorder Model
+        $purchaseorderModel = $this->model('Purchaseorder');
+
+        // Update status in the database
+        if ($purchaseorderModel->updateStatus($purchaseId, $newStatus)) {
+            echo json_encode(['message' => 'Status updated successfully']);
+        } else {
+            echo json_encode(['error' => 'Failed to update status']);
+        }
+    } else {
+        echo json_encode(['error' => 'Invalid request method']);
+    }
+}
 
 
 

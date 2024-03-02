@@ -1,7 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,33 +17,29 @@
     <section class="form">
         <div class="center">
             <h1>Edit Sales Order</h1>
-            <form method="post" action=""> <!-- Added action attribute -->
+            <form action="<?php echo URLROOT; ?>/farmer/edit_salesorder/<?php echo $data['purchase_id']; ?>" method="post">
+
+                <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
                 <div class="text-field">
-                    <input type="text" name="name" value="<?=$data['name']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Product</label>
+                    <label for="name">Name:</label>
+                    <input type="text" name="name" value="<?php echo $data['name']; ?>">
                 </div>
                 <div class="text-field">
-                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Category</label>
+                    <label for="type">Type:</label>
+                    <input type="text" name="type" value="<?php echo $data['type']; ?>">
                 </div>
                 <div class="text-field">
-                    <input type="date" name="date" value="<?=$data['date']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> date</label>
+                    <label for="quantity">Quantity:</label>
+                    <input type="text" name="quantity" value="<?php echo $data['quantity']; ?>">
                 </div>
                 <div class="text-field">
-                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Stock</label>
+                    <label for="date">Date:</label>
+                    <input type="date" name="date" value="<?php echo $data['date']; ?>">
                 </div>
                 <div class="text-field">
-                    <input type="text" name="address" value="<?=$data['address']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Address</label>
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" value="<?php echo $data['address']; ?>">
                 </div>
-                <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">
             </form>
         </div>

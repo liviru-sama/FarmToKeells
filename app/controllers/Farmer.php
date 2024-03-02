@@ -325,22 +325,7 @@
         }
         
 
-        public function place_salesorder($purchase_id) {
-            // Instantiate Purchaseorder Model
-            $purchaseorderModel = $this->model('Purchaseorder');
-            
-            // Get the selected purchase order
-            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
-            
-            // Instantiate Salesorder Model
-            $salesorderModel = $this->model('Salesorder');
-            
-            // Get relevant sales orders for the selected purchase order
-            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
-            
-            // Load the view with purchase order and sales orders data
-            $this->view('farmer/place_salesorder', $data);
-        }
+       
         
         public function displaySalesorders() {
             // Create an instance of the PurchaseModel
@@ -365,29 +350,43 @@
         }
 
 
-
+        public function place_salesorder($purchase_id) {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = $this->model('Purchaseorder');
+            
+            // Get the selected purchase order
+            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
+            
+            // Instantiate Salesorder Model
+            $salesorderModel = $this->model('Salesorder');
+            
+            // Get relevant sales orders for the selected purchase order
+            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+            
+            // Load the view with purchase order and sales orders data
+            $this->view('farmer/place_salesorder', $data);
+        }
 
         public function add_salesorder(){
-            // Check for POST
+            // Check if it's a POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Load the Salesorder model
                 $this->model("Salesorder");
-    
-                // Instantiate Product Model with Database dependency injection
                 $salesorderModel = new Salesorder();
-        
+                
                 // Sanitize and validate POST data
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
                 $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
-        
+            
                 // Check for required fields
                 if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
                     echo "Please fill in all fields.";
                     return;
                 }
-        
+            
                 // Attempt to add product
                 $data = [
                     'name' => $name,
@@ -396,7 +395,7 @@
                     'date' => $date,
                     'address' => $address
                 ];
-        
+            
                 if ($salesorderModel->add_salesorder($data)) {
                     // Product added successfully
                     // Redirect to view inventory page
@@ -407,11 +406,25 @@
                     echo "Failed to add sales order.";
                 }
             } else {
-                // If not a POST request, redirect to the add product page or show an error message
-                 //echo "Invalid request method.";
-                $this->view("farmer/add_salesorder");
+                // If not a POST request, load the add sales order page with the purchase_id
+                $purchase_id = $_GET['purchase_id'] ?? null;
+            
+                // Check if purchase_id is not null
+                if ($purchase_id === null) {
+                    // Redirect or show an error message
+                    // For example, redirect to the place sales order page
+                    redirect('farmer/place_salesorder');
+                    exit();
+                }
+            
+                // Load the add sales order view with the purchase_id
+                $this->view("farmer/add_salesorder", ['purchase_id' => $purchase_id]);
             }
         }
+        
+       
+        
+        
     
         
         public function edit_salesorder(){
@@ -422,7 +435,7 @@
         
                 // Sanitize and validate POST data
                 // $id = $_POST['id']; // Assuming the id of the product to edit is passed via POST
-                $id = trim($_GET["id"]); 
+                $order_id = trim($_GET["order_id"]); 
                 print_r(trim($_POST['name'])."</br>");
                 print_r(trim($_POST['type'])."</br>");
                 print_r(trim($_POST['date'])."</br>");
@@ -443,7 +456,7 @@
         
                 // Attempt to edit product
                 $data = [
-                    'id' => $id,
+                    'order_id' => $order_id,
                     'name' => $name,
                     'type' => $type,
                     'quantity' => $quantity,
@@ -454,7 +467,7 @@
                 if ($salesorderModel->edit_salesorder($data)) {
                     // Product edited successfully
                     // Redirect to view inventory page or display success message
-                    redirect('farmer/salesorder');
+                    redirect('farmer/place_salesorder', $purchase_id); // Pass $purchase_id here
                     exit();
                 } else {
                     // Product editing failed
