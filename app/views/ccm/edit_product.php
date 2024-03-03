@@ -1,7 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,7 +19,8 @@
             <h1>Edit product</h1>
             <form method="post" action=""> <!-- Added action attribute -->
                 <div class="text-field">
-                    <input type="text" name="name" value="<?=$data['name']?>" required> <!-- Added name attribute -->
+                    <!-- Use a disabled text field to display the product name -->
+                    <input type="text" value="<?=$data['name']?>" disabled> 
                     <span></span>
                     <label> Product</label>
                 </div>

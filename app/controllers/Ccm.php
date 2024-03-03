@@ -126,7 +126,7 @@
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->model("product");
-
+        
                 // Instantiate Product Model with Database dependency injection
                 $productModel = new Product();
         
@@ -139,6 +139,13 @@
                 // Check for required fields
                 if (empty($name) || empty($type) || empty($quantity) || empty($price)) {
                     echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Check if the product with the given name already exists
+                if ($productModel->findProductByName($name)) {
+                    echo "Product with this name already exists.";
+                    $this->view("ccm/add_product");
                     return;
                 }
         
@@ -165,8 +172,7 @@
                 $this->view("ccm/add_product");
             }
         }
-
-
+        
         public function edit_product(){
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -446,6 +452,34 @@ public function updateStatus() {
         }
     } else {
         echo json_encode(['error' => 'Invalid request method']);
+    }
+}
+
+public function displayReportGenerator() {
+    // Load the report generator view
+    $this->view("ccm/report_generator");
+}
+
+public function displayInventoryHistoryReport() {
+    // Check for POST request
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get the start date and end date from the form submission
+        $startDate = $_POST['start_date'];
+        $endDate = $_POST['end_date'];
+        
+        // Fetch inventory history report for the given time period
+        $inventoryHistory = $this->model('Product')->generateInventoryHistoryReport($startDate, $endDate);
+        
+        // Pass the inventory history data to the view
+        $data = [
+            'inventory_history' => $inventoryHistory
+        ];
+
+        // Load the inventory history report view within the iframe
+        $this->view("ccm/inventory_history_report", $data);
+    } else {
+        // If not a POST request, redirect to the report generator page or show an error message
+        redirect('ccm/displayReportGenerator');
     }
 }
 

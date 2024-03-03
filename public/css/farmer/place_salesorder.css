@@ -202,3 +202,7 @@ thead th {
 #searchInput::placeholder {
     color: white;
 }
+
+h2{
+    font-weight: bold;
+}

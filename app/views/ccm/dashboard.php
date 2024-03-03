@@ -42,9 +42,9 @@
                     </div>
         
                     <div class="menu" data-name="p-5">
-                        <a href="kpi.html">
+                    <a  href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash5.png" alt="">
-                        <h3>Reporting And Analysis</h3>
+                        <h3>Reporting And Analysis</h3></a>
                         </a>
                     </div>
         
