@@ -460,6 +460,9 @@ public function displayReportGenerator() {
     $this->view("ccm/report_generator");
 }
 
+
+    // controllers/Ccm.php
+
 public function displayInventoryHistoryReport() {
     // Check for POST request
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -467,8 +470,11 @@ public function displayInventoryHistoryReport() {
         $startDate = $_POST['start_date'];
         $endDate = $_POST['end_date'];
         
+        // Load the InventoryHistory model
+        $inventoryHistoryModel = $this->model('InventoryHistory');
+        
         // Fetch inventory history report for the given time period
-        $inventoryHistory = $this->model('Product')->generateInventoryHistoryReport($startDate, $endDate);
+        $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRange($startDate, $endDate);
         
         // Pass the inventory history data to the view
         $data = [
@@ -485,8 +491,8 @@ public function displayInventoryHistoryReport() {
 
 
 
-
 }
-
-    
 ?>
+
+
+

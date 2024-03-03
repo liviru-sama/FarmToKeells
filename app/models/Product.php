@@ -114,21 +114,19 @@ public function findProductByName($name) {
     }
 
 
-    public function generateInventoryHistoryReport($startDate, $endDate) {
-        // Implement the logic to generate the inventory history report
-        // Fetch inventory history data from the database based on the given start date and end date
-        // You may use SQL queries to retrieve the data or any other method based on your database schema
-        // Return the fetched data or format it as required for display in the report
-    
-        // Example:
-        // $this->db->query('SELECT * FROM inventory_history WHERE date BETWEEN :start_date AND :end_date');
-        // $this->db->bind(':start_date', $startDate);
-        // $this->db->bind(':end_date', $endDate);
-        // $result = $this->db->resultSet();
-        // return $result;
-    
-        // You need to replace the example SQL query with your actual query to fetch inventory history data
-    }
+   // Inside your Product model class
+
+// Inside your Product model class
+
+
+
+
+
+
+   
+
+
+
     
 }
 

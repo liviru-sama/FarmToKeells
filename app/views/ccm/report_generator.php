@@ -23,6 +23,14 @@
         input[type="submit"] {
             width: 100%; /* Make the submit button full width */
         }
+        .iframe-container {
+            margin-top: 20px; /* Add margin to separate the iframe from the form */
+        }
+        #report_frame {
+            width: 100%;
+            height: 400px;
+            border: none; /* Remove border from iframe */
+        }
     </style>
 </head>
 
@@ -32,10 +40,9 @@
     </section>
     
     <section class="form">
-        
         <div class="form-container">
-        <h1>Generate Report</h1>
-            <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReport" method="post" target="report_frame">
+            <h1>Generate Report</h1>
+            <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReport" method="post" >
                 <div class="text-field">
                     <label for="start_date">Start Date:</label> 
                     <input type="date" id="start_date" name="start_date" required>
@@ -46,9 +53,10 @@
                 </div>
                 <input type="submit" value="Generate Report">
             </form>
-            <iframe name="report_frame" id="report_frame" frameborder="0" scrolling="auto" width="100%" height="400"></iframe>
         </div>
     </section>
+
+   
 </body>
 
 </html>
