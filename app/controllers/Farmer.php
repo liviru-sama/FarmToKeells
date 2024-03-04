@@ -515,7 +515,10 @@
             }
         }
     
-        
+        public function productSelection() {
+   
+            $this->view("ccm/product_selection");
+        }
     
     
     }

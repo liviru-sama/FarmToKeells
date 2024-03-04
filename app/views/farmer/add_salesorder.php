@@ -9,6 +9,23 @@
     <title><?php echo SITENAME;?></title>
     
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <style>
+        /* CSS for styling the iframe */
+        #productSelectionFrame {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+            z-index: 9999;
+            display: none; /* Initially hide the iframe */
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +39,7 @@
 
     <!-- Rest of your form elements -->
     <div class="text-field">
-        <input name='name' type="text" required>
+        <input name='name' id="productName" type="text" required>
         <span></span>
         <label> Product</label>
     </div>
@@ -56,6 +73,31 @@
             </form>
         </div>
     </section>
+
+    <!-- Product selection iframe -->
+    <iframe id="productSelectionFrame" src="<?php echo URLROOT; ?>/ccm/product_selection"></iframe>
+
+    <script>
+        // JavaScript code to show/hide the iframe when the product field is clicked
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the product field
+            var productField = document.getElementById('productName');
+            // Get the product selection iframe
+            var iframe = document.getElementById('productSelectionFrame');
+
+            // Show the iframe when the product field is clicked
+            productField.addEventListener('click', function() {
+                iframe.style.display = 'block';
+            });
+
+            // Hide the iframe when clicking outside of it
+            window.addEventListener('click', function(event) {
+                if (event.target !== productField && !productField.contains(event.target)) {
+                    iframe.style.display = 'none';
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

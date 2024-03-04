@@ -9,6 +9,14 @@
             $this->adminModel = $this->model('Admins'); 
         }
     
+        public function index(){
+            $data = [
+                'title' => ''
+            ];
+            $this->view("ccm/product_selection");
+            
+        }
+
         public function ccm_login()
         {
           
@@ -489,6 +497,10 @@ public function displayInventoryHistoryReport() {
     }
 }
 
+public function productSelection() {
+   
+    $this->view("ccm/product_selection");
+}
 
 
 }

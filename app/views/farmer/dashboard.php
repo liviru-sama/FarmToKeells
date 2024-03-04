@@ -25,7 +25,7 @@
                   
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt=""></a>
-                        <h3>View Purchase Orders</h3>
+                        <h3>View Placed Sales Orders</h3>
                        
                     </div>
         

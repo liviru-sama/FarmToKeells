@@ -12,7 +12,10 @@
 
 <body>
     <section class="header">
-        <h4>PURCHASE ORDERS</h4>
+        <h4>PURCHASE ORDERS
+        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add Purchase order</a>
+
+        </h4>
         <main class="table">
             <section class="table_header">
             </section>
