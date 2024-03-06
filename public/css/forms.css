@@ -119,3 +119,12 @@ input[type="submit"]:hover{
 .unrequired input:valid ~ span::before{
     width: 0%;
 }
+
+.edit {
+    margin-left: auto;
+    padding: 0.5rem 2rem;
+    border-radius: 5px;
+    background-color: #60ba49;
+    border: 1px solid #60ba49;
+    cursor: pointer;
+}
