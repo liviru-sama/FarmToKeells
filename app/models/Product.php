@@ -77,25 +77,27 @@ public function findProductByName($name) {
 
     
 
-    // Edit product in the database
-    public function edit_product($data){
-        // Prepare SQL statement
-        $this->db->query('UPDATE product SET name = :name, type = :type, quantity = :quantity, price = :price WHERE product_id = :id');
+public function edit_product($data){
+    // Prepare SQL statement
+    $this->db->query('UPDATE product SET type = :type, quantity = :quantity, price = :price WHERE product_id = :id');
 
-        // Bind parameters
-        $this->db->bind(':id', $data['id']);
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':type', $data['type']);
-        $this->db->bind(':quantity', $data['quantity']);
-        $this->db->bind(':price', $data['price']);
+    // Bind parameters
+    $this->db->bind(':id', $data['id']);
+    $this->db->bind(':type', $data['type']);
+    $this->db->bind(':quantity', $data['quantity']);
+    $this->db->bind(':price', $data['price']);
 
-        // Execute query
-        if ($this->db->execute()) {
-            return true; // Indicate success
-        } else {
-            return false; // Indicate failure
-        }
+    // Execute query
+    if ($this->db->execute()) {
+        return true; // Indicate success
+    } else {
+        // Display SQL error message
+        echo $this->db->error(); // Assuming error() method returns the last error message
+        return false; // Indicate failure
     }
+}
+
+    
 
     // Delete product from the database
     public function delete_product($id){

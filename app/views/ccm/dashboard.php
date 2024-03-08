@@ -19,26 +19,26 @@
         
                     <div class="menu" data-name="p-1">
                         <a href="<?php echo URLROOT; ?>/ccm/view_inventory">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt=""></a>
-                        <h3>Update inventory</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">
+                        <h3>Update inventory</h3></a>
                     </div>
         
                     <div class="menu" data-name="p-2">
                         <a href="<?php echo URLROOT; ?>/ccm/purchaseorder">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt=""></a>
-                        <h3>Purchase Orders</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
+                        <h3>Purchase Orders</h3></a>
                     </div>
         
                     <div class="menu" data-name="p-3">
                     <a href="farmer-notifications.php">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt=""></a>
-                        <h3>Notifications</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="">
+                        <h3>Notifications</h3></a>
                     </div>
         
                     <div class="menu" data-name="p-4">
                     <a href="market-demands.html">
-                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt=""></a>
-                        <h3>Market demands and Product Prices</h3>
+                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="">
+                        <h3>Market demands and Product Prices</h3></a>
                     </div>
         
                     <div class="menu" data-name="p-5">

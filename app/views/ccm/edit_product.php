@@ -17,17 +17,22 @@
     <section class="form">
         <div class="center">
             <h1>Edit product</h1>
-            <form method="post" action=""> <!-- Added action attribute -->
+            <form method="post" action="<?php echo URLROOT; ?>/Ccm/edit_product?id=<?=$data['product_id']?>"> 
+
+            <input type="hidden" name="id" value="<?=$data['product_id']?>">
+
+ 
+
                 <div class="text-field">
                     <!-- Use a disabled text field to display the product name -->
-                    <input type="text" value="<?=$data['name']?>" disabled> 
+                    <input type="text" name="name" value="<?=$data['name']?>" disabled> 
                     <span></span>
                     <label> Product</label>
                 </div>
                 <div class="text-field">
                     <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Category</label>
+                    <label> Type</label>
                 </div>
                 <div class="text-field">
                     <input type="number" name="price" value="<?=$data['price']?>" required> <!-- Added name attribute -->
@@ -37,7 +42,7 @@
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Stock</label>
+                    <label> Quantity(in Kgs)</label>
                 </div>
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">

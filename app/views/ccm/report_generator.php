@@ -51,6 +51,10 @@
                     <label for="end_date">End Date:</label> 
                     <input type="date" id="end_date" name="end_date" required>
                 </div>
+                <div class="text-field">
+                    <label for="product_name">Product Name:</label> 
+                    <input type="text" id="product_name" name="product_name">
+                </div>
                 <input type="submit" value="Generate Report">
             </form>
         </div>

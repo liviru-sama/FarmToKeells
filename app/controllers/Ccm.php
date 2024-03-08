@@ -181,26 +181,21 @@
             }
         }
         
-        public function edit_product(){
+        public function edit_product() {
             // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $productModel = new Product();
         
                 // Sanitize and validate POST data
-                // $id = $_POST['id']; // Assuming the id of the product to edit is passed via POST
-                $id = trim($_GET["id"]); 
-                print_r(trim($_POST['name'])."</br>");
-                print_r(trim($_POST['type'])."</br>");
-                print_r(trim($_POST['price'])."</br>");
-                print_r(trim($_POST['quantity'])."</br>");
-                $name = trim($_POST['name']);
-                $type = trim($_POST['type']);
-                $quantity = trim($_POST['quantity']);
-                $price = trim($_POST['price']);
+                $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+               
+                $type = trim($_POST['type'] ?? '');
+                $quantity = trim($_POST['quantity'] ?? '');
+                $price = trim($_POST['price'] ?? '');
         
                 // Check for required fields
-                if (empty($name) || empty($type) || empty($quantity) || empty($price)) {
+                if ( empty($type) || empty($quantity) || empty($price)) {
                     echo "Please fill in all fields.";
                     return;
                 }
@@ -208,7 +203,7 @@
                 // Attempt to edit product
                 $data = [
                     'id' => $id,
-                    'name' => $name,
+                    
                     'type' => $type,
                     'quantity' => $quantity,
                     'price' => $price
@@ -225,11 +220,11 @@
                 }
             } else {
                 // If not a POST request, redirect to the edit product page or show an error message
-                $id = $_GET['id'];
+                $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
                 $productModel = new Product();
                 $productData = $productModel->view_product($id);
                 
-                $this->view("ccm/edit_product",(array)$productData);
+                $this->view("ccm/edit_product", (array)$productData);
             }
         }
         
@@ -471,31 +466,38 @@ public function displayReportGenerator() {
 
     // controllers/Ccm.php
 
+    // controllers/Ccm.php
+
 public function displayInventoryHistoryReport() {
     // Check for POST request
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get the start date and end date from the form submission
+        // Get the start date, end date, and product name from the form submission
         $startDate = $_POST['start_date'];
         $endDate = $_POST['end_date'];
+        $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
         
         // Load the InventoryHistory model
         $inventoryHistoryModel = $this->model('InventoryHistory');
         
-        // Fetch inventory history report for the given time period
-        $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRange($startDate, $endDate);
+        // Fetch inventory history report for the given time period and product name
+        $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
         
-        // Pass the inventory history data to the view
+        // Pass the inventory history data and form inputs to the view
         $data = [
-            'inventory_history' => $inventoryHistory
+            'inventory_history' => $inventoryHistory,
+            'product_name' => $productName, // Add product name to data array
+            'start_date' => $startDate, // Add start date to data array
+            'end_date' => $endDate // Add end date to data array
         ];
 
         // Load the inventory history report view within the iframe
         $this->view("ccm/inventory_history_report", $data);
     } else {
         // If not a POST request, redirect to the report generator page or show an error message
-        redirect('ccm/displayReportGenerator');
+        redirect('ccm/report_generator');
     }
 }
+
 
 public function productSelection() {
    
