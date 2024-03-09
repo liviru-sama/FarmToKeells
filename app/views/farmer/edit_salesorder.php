@@ -34,7 +34,7 @@
                 </div>
                 <div class="text-field">
                     <label for="date">Date:</label>
-                    <input type="date" name="date" value="<?php echo $data['date']; ?>">
+                    <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>" min="<?php echo date('Y-m-d'); ?>">
                 </div>
                 <div class="text-field">
                     <label for="address">Address:</label>
@@ -44,6 +44,20 @@
             </form>
         </div>
     </section>
+
+    <script>
+        // JavaScript code to restrict past dates in the date input field
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the date input field
+            var salesOrderDateInput = document.getElementById('salesOrderDate');
+
+            // Get the current date
+            var currentDate = new Date().toISOString().split('T')[0];
+
+            // Set the min attribute to the current date
+            salesOrderDateInput.setAttribute('min', currentDate);
+        });
+    </script>
 </body>
 
 </html>

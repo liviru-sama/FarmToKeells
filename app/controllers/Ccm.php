@@ -504,6 +504,16 @@ public function productSelection() {
     $this->view("ccm/product_selection");
 }
 
+// controllers/Ccm.php
+
+
+
+
+
+public function existingproductSelection() {
+   
+    $this->view("ccm/existingproductselection");
+}
 
 }
 ?>

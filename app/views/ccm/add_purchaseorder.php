@@ -17,9 +17,9 @@
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff5;
-    backdrop-filter: blur(7px);
-    box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
             z-index: 9999;
             display: none; /* Initially hide the iframe */
             width: 80%; /* Adjust width as needed */
@@ -48,7 +48,7 @@
                     <label> Category</label>
                 </div>
                 <div class="text-field">
-                    <input name="date" type="date" required>
+                    <input name="date" id="purchaseDate" type="date" required>
                     <span></span>
                     <label> Date</label>
                 </div>
@@ -89,6 +89,11 @@
                     iframe.style.display = 'none';
                 }
             });
+
+            // JavaScript code to restrict past dates in the date input field
+            var purchaseDateInput = document.getElementById('purchaseDate');
+            var currentDate = new Date().toISOString().split('T')[0];
+            purchaseDateInput.setAttribute('min', currentDate);
         });
     </script>
 
