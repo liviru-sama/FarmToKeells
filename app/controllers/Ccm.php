@@ -423,9 +423,6 @@
         // Get the selected purchase order
         $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
     
-        // Set status for the purchase order (assuming you have a getStatus method in your model)
-        $data['purchaseorder']->status = $purchaseorderModel->getStatus($purchase_id);
-    
         // Instantiate Salesorder Model
         $salesorderModel = $this->model('Salesorder');
         
@@ -436,27 +433,37 @@
         $this->view('ccm/place_salesorder', $data);
     }
     
+    
 // Inside Ccm controller class
 
 public function updateStatus() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $data = json_decode(file_get_contents("php://input"), true);
-        $purchaseId = $data['purchase_id'];
-        $newStatus = $data['status'];
+        // Retrieve the order IDs and statuses from the form
+        $orderIds = $_POST['order_id'];
+        $statuses = $_POST['status'];
 
-        // Instantiate Purchaseorder Model
-        $purchaseorderModel = $this->model('Purchaseorder');
+        // Instantiate Salesorder Model
+        $salesorderModel = $this->model('Salesorder');
 
-        // Update status in the database
-        if ($purchaseorderModel->updateStatus($purchaseId, $newStatus)) {
-            echo json_encode(['message' => 'Status updated successfully']);
-        } else {
-            echo json_encode(['error' => 'Failed to update status']);
+        // Loop through each order and update its status
+        foreach ($orderIds as $key => $orderId) {
+            $newStatus = $statuses[$key];
+            // Update status in the database
+            if (!$salesorderModel->updateStatus($orderId, $newStatus)) {
+                echo json_encode(['error' => 'Failed to update status']);
+                return;
+            }
         }
+        echo json_encode('Status updated successfully');
     } else {
-        echo json_encode(['error' => 'Invalid request method']);
+        echo json_encode('Invalid request method');
     }
+    
 }
+
+
+
+
 
 public function displayReportGenerator() {
     // Load the report generator view

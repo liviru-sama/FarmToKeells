@@ -84,57 +84,62 @@
 
     <!-- JavaScript code to create the line chart -->
     <script>
-        var ctx = document.getElementById('quantityChart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels:  [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->change_date . "', "; ?>],
-                datasets: [{
-                    label: 'Quantity Change',
-                    data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->quantity_change . "', "; ?>],
-                    backgroundColor: 'rgba(255, 255, 255, 0)',
-                    borderColor: '#65A534',
-                    borderColorborderColor: '#65A534',
-                    borderWidth: 10,
-                    pointBackgroundColor: 'black',
-                    pointBorderColor: '#ffffff',
-                    pointBorderWidth: 1,
-                    pointRadius: 5,
-                    pointHoverRadius: 7,
-                    tension: 0.1
-                    
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        grid: {
-                            color: 'black'
-                            
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
+    var ctx = document.getElementById('quantityChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+    labels: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->change_date . "', "; ?>],
+    datasets: [{
+        label: 'Quantity Change',
+        data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->quantity_change . "', "; ?>],
+        backgroundColor: 'rgba(255, 255, 255, 0)',
+        borderColor: ['#65A534', 'white'], // Set the border colors
+        borderWidth: 9,
+        pointBackgroundColor: 'black',
+        pointBorderColor: '#ffffff',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        tension: 0.1,
+        fill: false,
+        borderDash: [], // Set the border dash to a solid line
+        borderDashOffset: 0, // Set the border dash offset
+        borderJoinStyle: 'miter', // Set the border join style
+        pointStyle: 'circle' // Set the point style
+    }]
+},
+
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'black'
                     },
-                    x: {
-                        grid: {
-                            color: 'black'
-                        },
-                        ticks: {
-                            color: 'black'
-                        }
+                    ticks: {
+                        color: 'black'
+                    }
+                },
+                x: {
+                    grid: {
+                        color: 'black'
+                    },
+                    ticks: {
+                        color: 'black'
                     }
                 }
             }
-        });
+        }
+    });
 
-        // JavaScript code to display the report container
-        document.addEventListener('DOMContentLoaded', function() {
-            var chartContainer = document.getElementById('chartContainer');
-            chartContainer.style.display = 'block'; // Show the container
-        });
-    </script>
+    // JavaScript code to display the report container
+    document.addEventListener('DOMContentLoaded', function() {
+        var chartContainer = document.getElementById('chartContainer');
+        chartContainer.style.display = 'block'; // Show the container
+    });
+</script>
+
+
 </body>
 </html>
 

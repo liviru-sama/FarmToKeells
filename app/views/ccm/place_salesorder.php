@@ -7,52 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <!-- Add this before closing </body> tag -->
-    <script>
-    const URLROOT = "<?php echo URLROOT; ?>";
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const editableStatusCells = document.querySelectorAll('.editable');
-        editableStatusCells.forEach(function(cell) {
-            cell.addEventListener('blur', function() {
-                const purchaseId = cell.getAttribute('data-purchase-id');
-                const newStatus = cell.innerText.trim();
-                updateStatus(URLROOT, purchaseId, newStatus);
-            });
-        });
-    });
-
-    function updateStatus(urlRoot, purchaseId, newStatus) {
-        fetch(urlRoot + '/Purchaseorder/updateStatus', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({
-                purchase_id: purchaseId,
-                status: newStatus
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update status');
-            }
-            return response.json();
-        })
-        .then(data => {
-            // Handle successful update if needed
-            console.log('Status updated successfully');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Handle error if needed
-        });
-    }
-</script>
-
-
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/place_salesorder.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
     <style>
         /* Additional CSS for centering headings */
         .table_body h2 {
@@ -65,6 +20,34 @@
         .editable:hover {
             background-color: #f2f2f2;
         }
+        /* Add CSS for the form */
+        #statusForm {
+            margin-bottom: 20px;
+        }
+        /* Style for the update status button */
+        #statusForm button[type="submit"] {
+            display: none; /* Hide the submit button initially */
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border: 1px solid #4CAF50;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        #statusForm button[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* Style for success message */
+        #successMessage {
+            display: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -76,7 +59,7 @@
                
             </section>
             <section class="table_body">
-            <br/>
+                <br/>
                 <h2>Selected Purchase Order</h2>
                 <br/>
                 <table>
@@ -99,7 +82,6 @@
                                 <td><?php echo $data['purchaseorder']->quantity; ?></td>
                                 <td><?php echo $data['purchaseorder']->date; ?></td>
                                 <!-- Make the status editable -->
-                                <td class="editable" data-purchase-id="<?php echo $data['purchaseorder']->purchase_id; ?>" contenteditable="true"><?php echo $data['purchaseorder']->status; ?></td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -107,31 +89,94 @@
                 <br/>
                 <h2>Sales Orders</h2>
                 <br/>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Sales Order ID</th>
-                            <th>Product</th>
-                            <th>Product Type</th>
-                            <th>Deliverable Quantity (kgs)</th>
-                            <th>Expected Supply Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($data['salesorders'] as $row) : ?>
+                <!-- Form for updating status -->
+                <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
+                    <table>
+                        <thead>
                             <tr>
-                                <td><?php echo $row->order_id; ?></td>
-                                <td><?php echo $row->name; ?></td>
-                                <td><?php echo $row->type; ?></td>
-                                <td><?php echo $row->quantity; ?></td>
-                                <td><?php echo $row->date; ?></td>
+                                <th>Sales Order ID</th>
+                                <th>Product</th>
+                                <th>Product Type</th>
+                                <th>Deliverable Quantity (kgs)</th>
+                                <th>Expected Supply Date</th>
+                                <th>Status</th> 
+                                <th>Action</th><!-- Combined column for action and status -->
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        ...
+<tbody>
+    <?php foreach ($data['salesorders'] as $row) : ?>
+        <tr>
+            <td><?php echo $row->order_id; ?></td>
+            <td><?php echo $row->name; ?></td>
+            <td><?php echo $row->type; ?></td>
+            <td><?php echo $row->quantity; ?></td>
+            <td><?php echo $row->date; ?></td>
+            <td class="statusColumn"><?php echo $row->status; ?></td>
+            <td class="actionColumn">
+    <div class="select-container">
+        <select class="statusInput" name="status[]" onchange="submitForm(this)">
+            <option value="Approved">Approved</option>
+            <option value="Rejected">Rejected</option>
+            <option value="Completed">Completed</option>
+        </select>
+        <span class="select-arrow">&#9662;</span>
+    </div>
+</td>
+
+            <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
+        </tr>
+    <?php endforeach; ?>
+</tbody>
+...
+
+                    </table>
+                    <!-- Success message -->
+                    <div id="successMessage"></div>
+                </form>
             </section>
         </main>
     </section>
+
+    <script>
+        function submitForm(select) {
+            const form = select.closest('form');
+            const formData = new FormData(form);
+            fetch(form.getAttribute('action'), {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+                return response.text();
+            })
+            .then(data => {
+                const successMessage = document.getElementById('successMessage');
+                successMessage.textContent = data;
+                successMessage.style.display = 'block';
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 3000); // Hide the success message after 3 seconds
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
+
+        function toggleStatus(cell) {
+            const status = cell.querySelector('.status');
+            const statusInput = cell.querySelector('.statusInput');
+            status.style.display = 'none';
+            statusInput.style.display = 'inline-block';
+            statusInput.focus();
+            statusInput.addEventListener('blur', function() {
+                statusInput.style.display = 'none';
+                status.style.display = 'inline-block';
+            });
+        }
+    </script>
 </body>
 
 </html>

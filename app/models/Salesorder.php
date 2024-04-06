@@ -101,6 +101,27 @@ public function delete_salesorder($id){
     }
 }
 
+public function getStatus($order_id) {
+    $this->db->query('SELECT status FROM salesorder WHERE order_id = :order_id');
+    $this->db->bind(':order_id', $order_id);
+    $status = $this->db->single();
+    return $status ? $status->status : null; // Return status if found, otherwise return null
+    } 
+    
+    public function updateStatus($order_id, $newStatus) {
+        $this->db->query('UPDATE salesorder SET status = :status WHERE order_id = :order_id');
+        $this->db->bind(':status', $newStatus);
+        $this->db->bind(':order_id', $order_id);
+        return $this->db->execute();
+    }
+    
+
+
+
+
+
+
+
 }
 
         

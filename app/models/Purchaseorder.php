@@ -40,14 +40,13 @@ class Purchaseorder {
     // Add product to the database
     public function add_purchaseorder($data){
         // Prepare SQL statement
-        $this->db->query('INSERT INTO purchaseorder (name, type, quantity, date, status) VALUES (:name, :type, :quantity, :date,s :status)');
+        $this->db->query('INSERT INTO purchaseorder (name, type, quantity, date) VALUES (:name, :type, :quantity, :date)');
 
         // Bind parameters
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
         $this->db->bind(':date', $data['date']);
-        $this->db->bind(':dstatus', $data['status']);
 
         // Execute query
         if ($this->db->execute()) {
@@ -94,23 +93,7 @@ class Purchaseorder {
     }
 
     
-public function updateStatus($purchaseId, $newStatus) {
-    $this->db->query('UPDATE purchaseorder SET status = :status WHERE purchase_id = :purchase_id');
-    $this->db->bind(':status', $newStatus);
-    $this->db->bind(':purchase_id', $purchaseId);
-    return $this->db->execute();
-}
-
-
-// Inside Purchaseorder model class
-
-public function getStatus($purchase_id) {
-    $this->db->query('SELECT status FROM purchaseorder WHERE purchase_id = :purchase_id');
-    $this->db->bind(':purchase_id', $purchase_id);
-    $status = $this->db->single();
-    return $status ? $status->status : null; // Return status if found, otherwise return null
-}
-
+    
 
 
 
