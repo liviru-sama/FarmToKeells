@@ -26,6 +26,7 @@
                                 <th>product type</th>
                                 <th>needed quantity(kgs)</th>
                                 <th>expected supply date</th>
+                                <th>Status</th>
                                 <th>place sales order</th>
                             </tr>
                         </thead>
@@ -37,7 +38,11 @@
                                     <td><?php echo $row['type'] ?></td>
                                     <td><?php echo $row['quantity'] ?></td>
                                     <td><?php echo $row['date'] ?></td>
-                                    <!-- Add a new column for placing sales order -->
+                                    <td>
+                                        <!-- Display the status from the database -->
+                                        <?php echo $row['purchase_status'] ?>
+                                        <!-- Hidden input field to send order_id with the form -->
+                                    </td>
                                     <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>">Place Sales Order</a></td>
                                 </tr>
                             <?php } ?>

@@ -24,12 +24,13 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>purchase order ID</th>
+                                <th>Purchase order ID</th>
                                 <th>Product</th>
-                                <th>product type</th>
-                                <th>needed quantity(kgs)</th>
-                                <th>expected supply date</th>
-                                <th>place sales order</th>
+                                <th>Product type</th>
+                                <th>Needed quantity(kgs)</th>
+                                <th>Expected supply date</th>
+                                <th>Status</th>
+                                <th>Place sales order</th>
                                 <th>EDIT</th>
                                 <th>Delete</th>
                             </tr>
@@ -42,8 +43,7 @@
                                     <td><?php echo $row['type'] ?></td>
                                     <td><?php echo $row['quantity'] ?></td>
                                     <td><?php echo $row['date'] ?></td>
-                                    <!-- Add a new column for placing sales order -->
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/ccm/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
+                                    <td><?php echo $row['purchase_status'] ?></td>                                    <td><a class="button" href="<?php echo URLROOT; ?>/ccm/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
                                     <td><a href="<?php echo URLROOT; ?>/ccm/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
                                     <td><a href="<?php echo URLROOT; ?>/ccm/delete_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
 

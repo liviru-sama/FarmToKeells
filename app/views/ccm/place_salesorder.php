@@ -62,6 +62,9 @@
                 <br/>
                 <h2>Selected Purchase Order</h2>
                 <br/>
+                <form id="statusForm" name="purchaseOrderUpdateForm" action="<?php echo URLROOT; ?>/Ccm/updatePurchaseStatus" method="POST">
+ 
+
                 <table>
                     <thead>
                         <tr>
@@ -70,7 +73,7 @@
                             <th>Product Type</th>
                             <th>Needed Quantity (kgs)</th>
                             <th>Expected Supply Date</th>
-                            <th>Status</th> <!-- Add a new column for status -->
+                            <th>Status</th> 
                         </tr>
                     </thead>
                     <tbody>
@@ -81,10 +84,23 @@
                                 <td><?php echo $data['purchaseorder']->type; ?></td>
                                 <td><?php echo $data['purchaseorder']->quantity; ?></td>
                                 <td><?php echo $data['purchaseorder']->date; ?></td>
-                                <!-- Make the status editable -->
+                                <td class="statusColumn">
+                                    <div class="select-container">
+                                        <select class="statusInput" name="purchase_status[]" onchange="submitForm(this)">
+                                             <option value="Pending" <?php echo ($data['purchaseorder']->purchase_status == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                                             <option value="Completed" <?php echo ($data['purchaseorder']->purchase_status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                        </select>
+
+                                        <span class="select-arrow">&#9662;</span>
+                                    </div>
+                                </td>
+                                
+                                <input type="hidden" name="purchase_order_id[]" value="<?php echo $data['purchaseorder']->purchase_id; ?>">
                             </tr>
                         <?php endif; ?>
                     </tbody>
+                    <div id="purchaseOrderSuccessMessage"></div>
+                    </form>    
                 </table>
                 <br/>
                 <h2>Sales Orders</h2>
@@ -100,83 +116,81 @@
                                 <th>Deliverable Quantity (kgs)</th>
                                 <th>Expected Supply Date</th>
                                 <th>Status</th> 
-                                <th>Action</th><!-- Combined column for action and status -->
                             </tr>
                         </thead>
-                        ...
-<tbody>
-    <?php foreach ($data['salesorders'] as $row) : ?>
-        <tr>
-            <td><?php echo $row->order_id; ?></td>
-            <td><?php echo $row->name; ?></td>
-            <td><?php echo $row->type; ?></td>
-            <td><?php echo $row->quantity; ?></td>
-            <td><?php echo $row->date; ?></td>
-            <td class="statusColumn"><?php echo $row->status; ?></td>
-            <td class="actionColumn">
-    <div class="select-container">
-        <select class="statusInput" name="status[]" onchange="submitForm(this)">
-            <option value="Approved">Approved</option>
-            <option value="Rejected">Rejected</option>
-            <option value="Completed">Completed</option>
-        </select>
-        <span class="select-arrow">&#9662;</span>
-    </div>
-</td>
-
-            <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
-        </tr>
-    <?php endforeach; ?>
-</tbody>
-...
-
+                        <tbody>
+                            <?php foreach ($data['salesorders'] as $row) : ?>
+                                <tr>
+                                    <td><?php echo $row->order_id; ?></td>
+                                    <td><?php echo $row->name; ?></td>
+                                    <td><?php echo $row->type; ?></td>
+                                    <td><?php echo $row->quantity; ?></td>
+                                    <td><?php echo $row->date; ?></td>
+                                    <td class="statusColumn">
+                                        <div class="select-container">
+                                            <select class="statusInput" name="status[]" onchange="submitForm(this)">
+                                                <option value="Pending Approval" <?php echo ($row->status == 'Pending Approval') ? 'selected' : ''; ?> disabled hidden>Pending Approval</option>
+                                                <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
+                                                <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
+                                                <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                            </select>
+                                            <span class="select-arrow">&#9662;</span>
+                                        </div>
+                                    </td>
+                                    <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
                     </table>
                     <!-- Success message -->
                     <div id="successMessage"></div>
+                    <div id="purchaseOrderSuccessMessage"></div>
                 </form>
             </section>
         </main>
     </section>
 
     <script>
-        function submitForm(select) {
-            const form = select.closest('form');
-            const formData = new FormData(form);
-            fetch(form.getAttribute('action'), {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Failed to update status');
-                }
-                return response.text();
-            })
-            .then(data => {
-                const successMessage = document.getElementById('successMessage');
-                successMessage.textContent = data;
-                successMessage.style.display = 'block';
-                setTimeout(function() {
-                    successMessage.style.display = 'none';
-                }, 3000); // Hide the success message after 3 seconds
-            })
-            .catch(error => {
-                console.error(error);
-            });
-        }
+    // Function to handle the submission of status update
+    function submitForm(select) {
+        const form = select.closest('form');
+        const formData = new FormData(form);
+        fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update status');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Check if the form belongs to sales orders or purchase orders
+            const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
+            const successMessage = document.getElementById(successMessageId);
+            successMessage.textContent = data;
+            successMessage.style.display = 'block';
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 3000); // Hide the success message after 3 seconds
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
 
-        function toggleStatus(cell) {
-            const status = cell.querySelector('.status');
-            const statusInput = cell.querySelector('.statusInput');
-            status.style.display = 'none';
-            statusInput.style.display = 'inline-block';
-            statusInput.focus();
-            statusInput.addEventListener('blur', function() {
-                statusInput.style.display = 'none';
-                status.style.display = 'inline-block';
-            });
-        }
-    </script>
+    // Set default value to "Pending Approval" for newly created purchase orders
+    document.addEventListener('DOMContentLoaded', function() {
+        const statusInputs = document.querySelectorAll('.statusInput');
+        statusInputs.forEach(function(input) {
+            if (!input.value) {
+                input.value = 'Pending Approval';
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

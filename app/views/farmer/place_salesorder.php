@@ -57,7 +57,11 @@
                                 <td><?php echo $data['purchaseorder']->type; ?></td>
                                 <td><?php echo $data['purchaseorder']->quantity; ?></td>
                                 <td><?php echo $data['purchaseorder']->date; ?></td>
-                                <!-- Make the status editable -->
+                                <td>
+                                        <!-- Display the status from the database -->
+                                        <?php echo $data['purchaseorder']->purchase_status; ?>
+                                        <!-- Hidden input field to send order_id with the form -->
+                                    </td>
                             </tr>
                         <?php endif; ?>
                     </tbody>
@@ -65,7 +69,7 @@
                 <br/>
                 <h2>Sales Orders</h2>
                 <br/>
-                <!-- Form for updating status -->
+                <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder">+ Add salesorder</a>
                 <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>

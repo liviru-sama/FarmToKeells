@@ -434,18 +434,17 @@
     }
     
     
-// Inside Ccm controller class
 
 public function updateStatus() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve the order IDs and statuses from the form
+        // Retrieve the order IDs and statuses from the form for sales order
         $orderIds = $_POST['order_id'];
         $statuses = $_POST['status'];
 
         // Instantiate Salesorder Model
         $salesorderModel = $this->model('Salesorder');
 
-        // Loop through each order and update its status
+        // Loop through each order and update its status for sales order
         foreach ($orderIds as $key => $orderId) {
             $newStatus = $statuses[$key];
             // Update status in the database
@@ -454,12 +453,38 @@ public function updateStatus() {
                 return;
             }
         }
+
+       
+
         echo json_encode('Status updated successfully');
     } else {
         echo json_encode('Invalid request method');
     }
-    
 }
+
+public function updatePurchaseStatus() {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      // Retrieve the purchase order IDs and statuses from the form
+      $purchaseOrderIds = $_POST['purchase_order_id'] ?? [];
+      $purchaseStatuses = $_POST['purchase_status'] ?? [];
+  
+      // Loop through each purchase order and update its status
+      foreach ($purchaseOrderIds as $key => $purchaseId) {
+        $newPurchaseStatus = $purchaseStatuses[$key]; // Get status for this purchase order
+        // Update purchase status in the database
+        if (!$this->model('Purchaseorder')->updatePurchaseStatus($purchaseId, $newPurchaseStatus)) {
+          echo json_encode(['error' => 'Failed to update purchase status']);
+          return;
+        }
+      }
+  
+      echo json_encode('Purchase status updated successfully');
+    } else {
+      echo json_encode('Invalid request method');
+    }
+  }
+  
+  
 
 
 
@@ -521,6 +546,9 @@ public function existingproductSelection() {
    
     $this->view("ccm/existingproductselection");
 }
+
+
+
 
 }
 ?>

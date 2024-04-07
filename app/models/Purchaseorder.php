@@ -93,11 +93,34 @@ class Purchaseorder {
     }
 
     
+    // Purchaseorder.php (model)
+
+
+
+    // Update purchase status by purchase order ID
+    public function getPurchaseStatus($purchase_id) {
+        $this->db->query('SELECT status FROM purchaseorder WHERE purchase_id = :purchase_id');
+        $this->db->bind(':purchase_id', $purchase_id);
+        $purchase_status = $this->db->single();
+        return $purchase_status ? $purchase_status->purchase_status : null; // Return status if found, otherwise return null
+    } 
     
-
-
-
+    public function updatePurchaseStatus($purchase_id, $newpurchaseStatus) {
+        $this->db->query('UPDATE purchaseorder SET purchase_status = :status WHERE purchase_id = :purchase_id');
+        $this->db->bind(':status', $newpurchaseStatus);
+        $this->db->bind(':purchase_id', $purchase_id);
+        return $this->db->execute();
+      }
+      
+    
+        
+    
 }
+
+
+
+
+
 
         
     
