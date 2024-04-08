@@ -299,3 +299,36 @@ h2{
 }
 
 
+/* Update the iframe styling to match the table background */
+#confirmationDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 10.9); /* Set background color with opacity */
+    border: 1px solid #ccc;
+    z-index: 999; /* Ensure iframe is above other elements */
+    padding: 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(70px);
+    box-shadow: 0 .4rem .8rem #0005;
+
+}
+
+/* Style the Yes and No buttons */
+#confirmationDialog button {
+    padding: 10px 20px;
+    background-color: #2e342f; /* Match the color of table headings */
+    color: rgb(253, 251, 251);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Hover effect for buttons */
+#confirmationDialog button:hover {
+    background-color: #4CAF50; /* Darker green background color */
+}
+

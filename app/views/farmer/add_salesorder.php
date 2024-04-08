@@ -33,9 +33,12 @@
     <section class="form">
         <div class="center">
             <h1>Add Sales order</h1>
-            <form action='<?php echo URLROOT; ?>/farmer/add_salesorder' method="post" id="myForm">
+            <form action='<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchase_id']; ?>' method="post" id="myForm">
+    
+            <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">
+
                 <!-- Hidden input field to store the purchase ID -->
-                <input type="hidden" name="purchase_id" value="<?php echo $purchase_id; ?>">
+                <input type="hidden" name="purchase_id" value="<?php echo isset($data['purchase_id']) ? $data['purchase_id'] : ''; ?>">
 
                 <!-- Rest of your form elements -->
                 <div class="text-field">

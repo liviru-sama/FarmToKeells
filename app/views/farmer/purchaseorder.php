@@ -43,7 +43,9 @@
                                         <?php echo $row['purchase_status'] ?>
                                         <!-- Hidden input field to send order_id with the form -->
                                     </td>
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>">Place Sales Order</a></td>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?user_id=<?php echo $_SESSION['user_id']; ?>"
+>
+Place Sales Order</a></td>
                                 </tr>
                             <?php } ?>
                         </tbody>

@@ -111,21 +111,31 @@
                         <thead>
                             <tr>
                                 <th>Sales Order ID</th>
+                                <th>User ID</th>
+                                <th>User </th>
+                                <th>Conatct No.</th>
                                 <th>Product</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
                                 <th>Expected Supply Date</th>
+                                <th>Address</th> 
                                 <th>Status</th> 
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach ($data['salesorders'] as $row) : ?>
+                                <?php $userInfo = $this->getUserInfo($row->user_id);?>
+                                <!-- Inside the foreach loop for salesorders -->
                                 <tr>
                                     <td><?php echo $row->order_id; ?></td>
+                                    <td><?php echo $row->user_id; ?></td>
+                                    <td><?php echo $userInfo->name; ?></td>
+                                    <td><?php echo $userInfo->mobile; ?></td>
                                     <td><?php echo $row->name; ?></td>
                                     <td><?php echo $row->type; ?></td>
                                     <td><?php echo $row->quantity; ?></td>
                                     <td><?php echo $row->date; ?></td>
+                                    <td><?php echo $row->address; ?></td>
                                     <td class="statusColumn">
                                         <div class="select-container">
                                             <select class="statusInput" name="status[]" onchange="submitForm(this)">

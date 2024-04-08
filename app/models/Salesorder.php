@@ -14,7 +14,13 @@ class Salesorder {
     }
 
     // Other methods related to sales orders...
-
+    public function getSalesordersByPurchaseIdAndUserId($purchase_id, $user_id) {
+        $this->db->query('SELECT * FROM salesorder WHERE purchase_id = :purchase_id AND user_id = :user_id');
+        $this->db->bind(':purchase_id', $purchase_id);
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->resultSet();
+    }
+    
 
     public function view_salesorder($id){
         $this->db->query('SELECT * from salesorder where order_id=:id');
@@ -44,7 +50,7 @@ class Salesorder {
         }
     
         // Prepare SQL statement
-        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id) VALUES (:name, :type, :quantity, :date, :address, :purchase_id)');
+        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id,user_id) VALUES (:name, :type, :quantity, :date, :address, :purchase_id,:user_id)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name']);
@@ -53,6 +59,8 @@ class Salesorder {
         $this->db->bind(':date', $data['date']);
         $this->db->bind(':address', $data['address']);
         $this->db->bind(':purchase_id', $data['purchase_id']);
+        $this->db->bind(':user_id', $data['user_id']);
+
     
         // Execute query
         if ($this->db->execute()) {
@@ -86,20 +94,21 @@ class Salesorder {
 
     
     // Delete product from the database
-public function delete_salesorder($id){
-    // Prepare SQL statement
-    $this->db->query('DELETE FROM salesorder WHERE order_id = :id');
-
-    // Bind parameter
-    $this->db->bind(':id', $id);
-
-    // Execute query
-    if ($this->db->execute()) {
-        return true; // Indicate success
-    } else {
-        return false; // Indicate failure
+    public function delete_salesorder($order_id){
+        // Prepare SQL statement
+        $this->db->query('DELETE FROM salesorder WHERE order_id = :order_id');
+    
+        // Bind parameter
+        $this->db->bind(':order_id', $order_id);
+    
+        // Execute query
+        if ($this->db->execute()) {
+            return true; // Indicate success
+        } else {
+            return false; // Indicate failure
+        }
     }
-}
+    
 
 public function getStatus($order_id) {
     $this->db->query('SELECT status FROM salesorder WHERE order_id = :order_id');
@@ -116,13 +125,23 @@ public function getStatus($order_id) {
     }
     
 
+  
+    
+        // Other methods in the Salesorder model...
+    
+        public function getPurchaseIdByOrderId($order_id) {
+            $this->db->query('SELECT purchase_id FROM salesorder WHERE order_id = :order_id');
+            $this->db->bind(':order_id', $order_id);
+            $row = $this->db->single();
+            return $row ? $row->purchase_id : null;
+        }
+    }
+    
 
 
 
 
 
-
-}
 
         
     

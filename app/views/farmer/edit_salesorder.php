@@ -17,12 +17,12 @@
     <section class="form">
         <div class="center">
             <h1>Edit Sales Order</h1>
-            <form action="<?php echo URLROOT; ?>/farmer/edit_salesorder/<?php echo $data['purchase_id']; ?>" method="post">
+            <form action="<?php echo URLROOT; ?>/farmer/edit_salesorder/<?php echo $data['order_id']; ?>" method="post">
 
-                <input type="hidden" name="id" value="<?php echo $data['id']; ?>">
+                <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
                 <div class="text-field">
                     <label for="name">Name:</label>
-                    <input type="text" name="name" value="<?php echo $data['name']; ?>">
+                    <input type="text" name="name" value="<?php echo $data['name']; ?>" readonly>
                 </div>
                 <div class="text-field">
                     <label for="type">Type:</label>

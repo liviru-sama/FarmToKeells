@@ -7,6 +7,14 @@
         public function __construct() {
             
             $this->adminModel = $this->model('Admins'); 
+            $this
+->userModel = 
+$this
+->
+model
+(
+'User'
+);
         }
     
         public function index(){
@@ -550,8 +558,16 @@ public function existingproductSelection() {
 
 
 
+    // Get name and phone number of a user by ID
+    public function getUserInfo($user_id) {
+        return $this->userModel->getUserInfoById($user_id);
+    }
 }
 ?>
+
+
+
+
 
 
 
