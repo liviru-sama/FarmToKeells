@@ -70,6 +70,7 @@
                         <tr>
                             <th>Purchase Order ID</th>
                             <th>Product</th>
+                            <th>Product image</th>
                             <th>Product Type</th>
                             <th>Needed Quantity (kgs)</th>
                             <th>Expected Supply Date</th>
@@ -79,6 +80,7 @@
                     <tbody>
                         <?php if (!empty($data['purchaseorder'])) : ?>
                             <tr>
+                                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 100px; height: 100px;"></td>
                                 <td><?php echo $data['purchaseorder']->purchase_id; ?></td>
                                 <td><?php echo $data['purchaseorder']->name; ?></td>
                                 <td><?php echo $data['purchaseorder']->type; ?></td>
@@ -115,6 +117,7 @@
                                 <th>User </th>
                                 <th>Conatct No.</th>
                                 <th>Product</th>
+                                <th>Product image</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
                                 <th>Expected Supply Date</th>
@@ -126,7 +129,8 @@
                             <?php foreach ($data['salesorders'] as $row) : ?>
                                 <?php $userInfo = $this->getUserInfo($row->user_id);?>
                                 <!-- Inside the foreach loop for salesorders -->
-                                <tr>
+                                <tr>                                    
+                                    <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 80px; height: 80px;"></td>
                                     <td><?php echo $row->order_id; ?></td>
                                     <td><?php echo $row->user_id; ?></td>
                                     <td><?php echo $userInfo->name; ?></td>

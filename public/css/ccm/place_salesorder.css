@@ -1,5 +1,4 @@
-@import url('main.css');
-
+@import url(main.css);
 * {
     margin: 0;
     padding: 0;
@@ -102,10 +101,10 @@ table {
 }
 
 td img {
-    width: 36px;
-    height: 36px;
+    width: 156px;
+    height: 66px;
     margin-right: .5rem;
-    border-radius: 50%;
+    border-radius: 10%;
     vertical-align: middle;
 }
 
@@ -114,15 +113,14 @@ th,
 td {
     border-collapse: collapse;
     padding: 1rem;
-    text-align: left;
+    text-align: center;
 }
 
 thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #2e342f; /* Changed background color */
-    color: white; /* Set font color to white */
+    background-color: #497d52;
     cursor: pointer;
     text-transform: capitalize;
 }
@@ -142,7 +140,7 @@ tbody tr.hide {
 }
 
 tbody tr:hover {
-    background-color: #7b837b;
+    background-color: #58a75c;
 }
 
 tbody tr td,
@@ -195,7 +193,7 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #2e342f; /* Changed background color */
+    background-color: #2e342f;
     cursor: pointer;
     text-transform: capitalize;
 }
@@ -209,28 +207,6 @@ h2{
     font-weight: bold;
 }
 
-/* Additional CSS for centering headings */
-.table_body h2 {
-    text-align: center;
-}
-
-/* Add CSS for making status editable */
-.editable {
-    cursor: pointer;
-    background-color: #2e342f; /* Set background color */
-    color: white; /* Set text color */
-    font-family: 'inter'; /* Set font family */
-    font-size: 14px; /* Set font size */
-    padding: 8px; /* Adjust padding as needed */
-    border: none; /* Remove border */
-    border-radius: 4px; /* Add border radius */
-    transition: background-color 0.3s, color 0.3s; /* Add transition */
-}
-.editable:hover {
-    background-color: #4CAF50; /* Change background color on hover */
-}
-
-/* Add CSS for the form */
 #statusForm {
     margin-bottom: 20px;
 }
@@ -332,3 +308,9 @@ h2{
     background-color: #4CAF50; /* Darker green background color */
 }
 
+.table__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px; /* Add padding to adjust spacing */
+}

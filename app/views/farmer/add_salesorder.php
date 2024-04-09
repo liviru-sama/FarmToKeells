@@ -40,6 +40,7 @@
                 <!-- Hidden input field to store the purchase ID -->
                 <input type="hidden" name="purchase_id" value="<?php echo isset($data['purchase_id']) ? $data['purchase_id'] : ''; ?>">
 
+                <input type="hidden" name="image" id="productImage" value="">
                 <!-- Rest of your form elements -->
                 <div class="text-field">
                     <input name='name' id="productName" type="text" required>

@@ -377,8 +377,6 @@
             // Check if it's a POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Load the Salesorder model
-
-                
                 $this->model("Salesorder");
                 $salesorderModel = new Salesorder();
                 
@@ -386,18 +384,18 @@
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
-                $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+                $date = isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
                 $purchase_id = trim($_POST['purchase_id']);
                 $user_id = trim($_POST['user_id']);
-
-            
+                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; // Assuming the image is sent as a URL
+                
                 // Check for required fields
-                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)  ) {
+                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
                     echo "Please fill in all fields.";
                     return;
                 }
-            
+                
                 // Attempt to add product
                 $data = [
                     'name' => $name,
@@ -406,21 +404,14 @@
                     'date' => $date,
                     'address' => $address,
                     'purchase_id' => $purchase_id,
-                    'user_id' => $user_id
-
+                    'user_id' => $user_id,
+                    'image' => $image
                 ];
-
+        
                 if ($salesorderModel->add_salesorder($data)) {
-                    // Assuming you have the user session stored in $_SESSION['user_id']
-                     $user_id = $_SESSION['user_id'];
-
-// Redirect to the place_salesorder route with both purchase_id and user_id
+                    // Redirect to the place_salesorder route with both purchase_id and user_id
                     redirect('farmer/place_salesorder/' . $purchase_id . '?user_id=' . $user_id);
-
-                   
                     exit();
-                
-                
                 } else {
                     // Product addition failed
                     echo "Failed to add sales order.";
@@ -433,7 +424,6 @@
                 $this->view("farmer/add_salesorder", ['purchase_id' => $purchase_id]);
             }
         }
-        
         
         public function edit_salesorder(){
             // Check for POST
@@ -552,6 +542,8 @@
                 $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
                 $user_id = trim($_POST['user_id']);
+                $image = trim($_POST['image']);
+
 
             
                 // Check for required fields
@@ -567,7 +559,8 @@
                     'quantity' => $quantity,
                     'date' => $date,
                     'address' => $address,
-                    'user_id' => $user_id
+                    'user_id' => $user_id,
+                    'image' => $image
 
                 ];
 

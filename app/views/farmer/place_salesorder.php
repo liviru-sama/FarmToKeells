@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/place_salesorder.css">
     <style>
         /* Additional CSS for centering headings */
         .table_body h2 {
@@ -31,119 +31,140 @@
 
 <body>
     <section class="header">
-        <h4>PLACE SALES ORDERS</h4>
-        <main class="table">
+    <h4>PLACE SALES ORDERS</h4><main class="table">
             <section class="table_header">
                
             </section>
             <section class="table_body">
-                <br/>
-                <h2>Selected Purchase Order</h2>
-                <br/>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Purchase Order ID</th>
-                            <th>Product</th>
-                            <th>Product Type</th>
-                            <th>Needed Quantity (kgs)</th>
-                            <th>Expected Supply Date</th>
-                            <th>Status</th> <!-- Add a new column for status -->
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($data['purchaseorder'])) : ?>
-                            <tr>
-                                <td><?php echo $data['purchaseorder']->purchase_id; ?></td>
-                                <td><?php echo $data['purchaseorder']->name; ?></td>
-                                <td><?php echo $data['purchaseorder']->type; ?></td>
-                                <td><?php echo $data['purchaseorder']->quantity; ?></td>
-                                <td><?php echo $data['purchaseorder']->date; ?></td>
-                                <td>
-                                        <!-- Display the status from the database -->
-                                        <?php echo $data['purchaseorder']->purchase_status; ?>
-                                        <!-- Hidden input field to send order_id with the form -->
-                                    </td>
-                            </tr>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-                <br/>
-                <h2>Sales Orders</h2>
-                <br/>
-                <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add salesorder</a>
-                <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Sales Order ID</th>
-                                <th>Product</th>
-                                <th>Product Type</th>
-                                <th>Deliverable Quantity (kgs)</th>
-                                <th>Deliverable Date</th>
-                                <th>Address</th>
-                                <th>Status</th>
-                                <th>Edit</th>
-                                <th>Request Transport</th>
-                                <th>Delete</th>
-                                
-                            </tr>
+            <table>
+            <thead> <br/>
+                <th><h2>Selected Purchase Order</h2> </th>
+    </thead> 
+
+               
+    
+       
+    <tbody>
+        <?php if (!empty($data['purchaseorder'])) : ?>
+            <tr>
+                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 200px; height: 200px;"></td>
+                <th>Product: &nbsp; <?php echo $data['purchaseorder']->name; ?></br></br>
+                   Product Type: &nbsp;<?php echo $data['purchaseorder']->type; ?></br></br>
+                   Needed Quantity : &nbsp; <?php echo $data['purchaseorder']->quantity; ?>&nbsp; (kgs)</br></br>
+                   Expected Supply Date: &nbsp; <?php echo $data['purchaseorder']->date; ?></br></br>
+                   Status:           &nbsp;  <?php echo $data['purchaseorder']->purchase_status; ?></br></br>
+
+
+                </th>
+
+
+               
+            </tr>
+        <?php endif; ?>
+    </tbody>
+</table>
+<table>
+<thead><br/>
+<th><h2>Sales Orders</h2>   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add salesorder</a>
+
+                <br/></th>
+                   
+                        
+                           
                         </thead>
                         <tbody>
-                            <?php foreach ($data['salesorders'] as $row) : ?>
-                                <tr>
-                                    <td><?php echo $row->order_id; ?></td>
-                                    <td><?php echo $row->name; ?></td>
-                                    <td><?php echo $row->type; ?></td>
-                                    <td><?php echo $row->quantity; ?></td>
-                                    <td><?php echo $row->date; ?></td>
-                                    <td><?php echo $row->address; ?></td>
-                                    <td>
-                                        <!-- Display the status from the database -->
-                                        <?php echo $row->status; ?>
-                                        <!-- Hidden input field to send order_id with the form -->
-                                    </td>
-                                    <td><a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/farmer/place_order/<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>', '<?php echo $row->order_id; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+    <?php foreach ($data['salesorders'] as $row) : ?>
+        
+        <td class="card">
+    <div class="card__content">
+        <h3 class="card__title" style="color: green; font-family: 'Arial', sans-serif;">Order ID: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $row->order_id; ?></span></h3>
+        <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Product:&nbsp;&nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->name; ?></span></p>
+        <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
+        <div class="card__details">
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Type: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Quantity: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> (kgs)</span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Date: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Address: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Status: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
+        </div>
+    </div>
+    <div class="card__actions">
+        <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
+        <a href="<?php echo URLROOT; ?>/farmer/place_order/<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action"></a>
+        <a href="#" onclick="confirmDelete('<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>', '<?php echo $row->order_id; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action"></a>
+    </div>
+</td>
 
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
+        
+    <?php endforeach; ?>
+</tbody>
+
                     </table>
                   
-                </form>
             </section>
         </main>
     </section>
     <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border: 1px solid #ccc;"></iframe>
     <script>
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    var confirmationDialog = document.getElementById('confirmationDialog');
+
+    // Function to handle click events
+    function handleClick(event) {
+        // Check if the clicked element is not inside the iframe
+        if (event.target !== confirmationDialog && !confirmationDialog.contains(event.target)) {
+            confirmationDialog.style.display = 'none'; // Hide the iframe
+            window.removeEventListener('click', handleClick); // Remove the event listener
+        }
+    }
+
+    // Show the iframe when the delete button is clicked
+   
+
+    // Attach event listener to the parent window
+    function init() {
+        window.addEventListener('click', handleClick);
+    }
+
+    init(); // Call the function to attach event listener
+});
+
+
+
+
+
+
 function confirmDelete(deleteUrl, orderId) {
   var confirmationDialog = document.getElementById('confirmationDialog');
   confirmationDialog.style.display = 'block';
 
   // Write content to iframe with transparent background and adjusted font sizes
   var iframeContent = `<style>
-    body {
+
+  body {
       overflow: hidden; /* Hide scrollbar */
     }
     .button-container {
-      display: flex;
-      justify-content: center;
+        display: flex;
+        justify-content: center;
     }
     .button-container button {
-      margin-right: 10px; /* Add margin between buttons */
-      background-color: black;
-      color: white;
-      padding: 5px 20px;
-      border-radius: 25px;
-      font-size: 20px;
-      cursor: pointer; /* Add cursor for hover effect */
+        background-color: black;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 25px;
+        font-size: 20px;
+        cursor: pointer;
+        width: 100px; /* Set a fixed width */
+        height: 40px; /* Set a fixed height */
     }
     .button-container button:hover {
-      background-color: green; /* Green hover effect */
+        background-color: green;
     }
-  </style>
+</style>
+
   <div style="text-align: center;">
     <p style="font-size: 22px;">Are you sure you want to delete the order with ID ${orderId}?</p>
     <div style="position: absolute; bottom: 2px; width: 100%;" class="button-container">

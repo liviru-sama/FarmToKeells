@@ -49,15 +49,19 @@
 
     <script>
         // JavaScript function to fill the input field "Product" in the parent page
-        function fillProductField(productName) {
-            // Get the parent window and access the input field "Product"
-            var parentWindow = window.parent;
-            var productInput = parentWindow.document.querySelector('input[name="name"]');
-            // Set the value of the input field to the selected product name
-            productInput.value = productName;
-            // Hide the iframe
-            parentWindow.document.getElementById('productSelectionFrame').style.display = 'none';
-        }
+        function fillProductField(productName, imageURL) {
+    // Get the parent window and access the input fields
+    var parentWindow = window.parent;
+    var productInput = parentWindow.document.querySelector('input[name="name"]');
+    var imageInput = parentWindow.document.querySelector('input[name="image"]');
+
+    // Set the value of the input fields to the selected product name and image URL
+    productInput.value = productName;
+    imageInput.value = imageURL;
+
+    // Hide the iframe
+    parentWindow.document.getElementById('productSelectionFrame').style.display = 'none';
+}
     </script>
 </body>
 </html>

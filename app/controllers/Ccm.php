@@ -18,6 +18,8 @@
             
         }
 
+      
+
         public function ccm_login()
         {
           
@@ -301,6 +303,7 @@
             $type = trim($_POST['type']);
             $quantity = trim($_POST['quantity']);
             $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+            $image = isset($_POST['image']) ? trim($_POST['image']) : ''; 
     
             // Check for required fields
             if (empty($name) || empty($type) || empty($quantity) || empty($date)) {
@@ -313,7 +316,8 @@
                 'name' => $name,
                 'type' => $type,
                 'quantity' => $quantity,
-                'date' => $date
+                'date' => $date,
+                'image' => $image
             ];
     
             if ($purchaseorderModel->add_purchaseorder($data)) {
@@ -385,37 +389,42 @@
         }
     }
     
-    
     public function delete_purchaseorder(){
         // Check for POST
-        if ($_GET['id']!=NULL) {
+        if ($_GET['id'] != NULL) {
             
-            // Instantiate Product Model with Database dependency injection
+            // Instantiate Purchaseorder Model with Database dependency injection
             $purchaseorderModel = new Purchaseorder();
     
-            // Sanitize and validate POST data
-            $id = $_GET['id']; // Assuming the id of the product to delete is passed via POST
-            // // Check if id is provided
-            // if (empty($id)) {
-            //     echo "Please provide product ID.";
-            //     return;
-            // }
-
-            // Attempt to delete product
+            // Sanitize and validate GET data
+            $id = $_GET['id'];
+    
+            // Attempt to delete purchase order
             if ($purchaseorderModel->delete_purchaseorder($id)) {
-                // Product deleted successfully
-                // Redirect to view inventory page or display success message
-                redirect('ccm/purchaseorder');
-                exit();
+                // Deletion successful
+                $response = array(
+                    'success' => true,
+                    'message' => 'Purchase order deleted successfully.'
+                );
             } else {
-                // Product deletion failed
-                echo "Failed to delete product.";
+                // Deletion failed
+                $response = array(
+                    'success' => false,
+                    'message' => 'Failed to delete purchase order.'
+                );
             }
         } else {
-            // If not a POST request, redirect to the view inventory page or show an error message
-            echo "Invalid request method.";
+            // Invalid request
+            $response = array(
+                'success' => false,
+                'message' => 'Invalid request method.'
+            );
         }
+    
+        // Return JSON response
+        echo json_encode($response);
     }
+    
 
     public function place_salesorder($purchase_id) {
         // Instantiate Purchaseorder Model
@@ -539,7 +548,15 @@ public function productSelection() {
 
 // controllers/Ccm.php
 
+// PurchaseOrdersController.php
 
+public function confirmationDialog($purchaseId){
+    // Load the confirmation dialog view passing the purchase ID
+    $data = [
+        'purchaseId' => $purchaseId
+    ];
+    $this->view('ccm/confirmation_dialog', $data);
+}
 
 
 

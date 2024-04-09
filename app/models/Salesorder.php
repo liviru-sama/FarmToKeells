@@ -65,9 +65,15 @@ class Salesorder {
         if (!isset($data['purchase_id']) || $data['purchase_id'] === null) {
             return false; // Indicate failure
         }
-    
+        
+        // Retrieve the image URL based on the product name
+        $image = $this->getProductImageURL($data['name']);
+        
+        // Add the image URL to the data array
+        $data['image'] = $image;
+        
         // Prepare SQL statement
-        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id,user_id) VALUES (:name, :type, :quantity, :date, :address, :purchase_id,:user_id)');
+        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :date, :address, :purchase_id, :user_id, :image)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name']);
@@ -77,7 +83,7 @@ class Salesorder {
         $this->db->bind(':address', $data['address']);
         $this->db->bind(':purchase_id', $data['purchase_id']);
         $this->db->bind(':user_id', $data['user_id']);
-
+        $this->db->bind(':image', $data['image']); // Bind the image parameter
     
         // Execute query
         if ($this->db->execute()) {
@@ -158,9 +164,12 @@ public function getStatus($order_id) {
         public function add_salesordercommon($data){
             // Check if purchase_id is set and not null
             
+            // Assuming you have a method to retrieve the image URL based on the product name
+            // Replace getProductImageURL with your actual method
+            $image = $this->getProductImageURL($data['name']);
         
             // Prepare SQL statement
-            $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, user_id) VALUES (:name, :type, :quantity, :date, :address, :user_id)');
+            $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, user_id, image) VALUES (:name, :type, :quantity, :date, :address, :user_id, :image)');
         
             // Bind parameters
             $this->db->bind(':name', $data['name']);
@@ -169,7 +178,7 @@ public function getStatus($order_id) {
             $this->db->bind(':date', $data['date']);
             $this->db->bind(':address', $data['address']);
             $this->db->bind(':user_id', $data['user_id']);
-    
+            $this->db->bind(':image', $image); // Bind the image URL
         
             // Execute query
             if ($this->db->execute()) {
@@ -178,6 +187,43 @@ public function getStatus($order_id) {
                 return false; // Indicate failure
             }
         }
+        
+        // Inside your model class (e.g., Salesorder model)
+public function getProductImageURL($productName) {
+    // Logic to retrieve the image URL based on the product name
+    // This could involve querying your database, accessing an API, or any other means to get the image URL
+    
+    // For demonstration purposes, let's assume you have an array mapping product names to image URLs
+    $productImageMap = [
+        'Carrot' => 'carrot.png',
+        'Brinjal' => 'brinjal.png',
+        'Onions' => 'onion.png',
+        'Cabbage' => 'cabbage.png',
+        'Cucumber' => 'cucumber.png',
+        'Ladies Finger' => 'ladies.png',
+        'Leeks' => 'leeks.png',
+        'Chillie' => 'chillie.png',
+        'Tomato' => 'tomato.png',
+        'Potato' => 'potato.png'
+
+
+
+
+
+
+        // Add more mappings as needed
+    ];
+
+    // Check if the product name exists in the mapping array
+    if (isset($productImageMap[$productName])) {
+        // Return the corresponding image URL
+        return URLROOT . '/public/images/' . $productImageMap[$productName];
+    } else {
+        // If no image is found for the product name, you can return a default image URL or handle it accordingly
+        return URLROOT . '/public/images/default.png';
+    }
+}
+
         
     }
     

@@ -36,6 +36,8 @@
         <div class="center">
             <h1>Add Purchase order</h1>
             <form action='' method="post" id="myForm">
+                  
+            <input type="hidden" name="image" id="productImage" value="">
 
                 <div class="text-field">
                     <input name='name' id="productName" type="text" required>

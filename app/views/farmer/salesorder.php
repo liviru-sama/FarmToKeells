@@ -33,6 +33,7 @@
                             <tr>
                             <th>sales order ID</th>
                         <th>Product </th>
+                        <th>Product image </th>
                         <th>product type</th>
                         <th>needed quantity(kgs) </th>
                         <th>expected supply date</th>
@@ -58,6 +59,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
         <tr>
             <td><?php echo $row->order_id ?></td>
             <td><?php echo $row->name ?></td>
+            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
             <td><?php echo $row->type ?></td>
             <td><?php echo $row->quantity ?></td>
             <td><?php echo $row->date ?></td>

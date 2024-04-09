@@ -1,4 +1,5 @@
-@import url(main.css);
+@import url('main.css');
+
 * {
     margin: 0;
     padding: 0;
@@ -41,6 +42,45 @@ main.table {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Styles for arranging as card */
+tr {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+th, td {
+    flex: 1 1 50%;
+}
+
+th {
+    font-weight: bold;
+}
+
+td:first-child {
+    flex: 0 0 auto;
+}
+
+td img {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .table__header .input-group {
@@ -104,7 +144,7 @@ td img {
     width: 36px;
     height: 36px;
     margin-right: .5rem;
-    border-radius: 50%;
+    border-radius: 10%;
     vertical-align: middle;
 }
 
@@ -120,7 +160,8 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #497d52;
+    background-color: #2e342f; /* Changed background color */
+    color: white; /* Set font color to white */
     cursor: pointer;
     text-transform: capitalize;
 }
@@ -139,9 +180,7 @@ tbody tr.hide {
     transform: translateX(100%);
 }
 
-tbody tr:hover {
-    background-color: #58a75c;
-}
+
 
 tbody tr td,
 tbody tr td p,
@@ -193,7 +232,7 @@ thead th {
     position: sticky;
     top: 0;
     left: 0;
-    background-color: #2e342f;
+    background-color: #2e342f; /* Changed background color */
     cursor: pointer;
     text-transform: capitalize;
 }
@@ -205,4 +244,199 @@ thead th {
 
 h2{
     font-weight: bold;
+}
+
+/* Additional CSS for centering headings */
+.table_body h2 {
+    text-align: center;
+}
+
+/* Add CSS for making status editable */
+.editable {
+    cursor: pointer;
+    background-color: #2e342f; /* Set background color */
+    color: white; /* Set text color */
+    font-family: 'inter'; /* Set font family */
+    font-size: 14px; /* Set font size */
+    padding: 8px; /* Adjust padding as needed */
+    border: none; /* Remove border */
+    border-radius: 4px; /* Add border radius */
+    transition: background-color 0.3s, color 0.3s; /* Add transition */
+}
+.editable:hover {
+    background-color: #4CAF50; /* Change background color on hover */
+}
+
+/* Add CSS for the form */
+#statusForm {
+    margin-bottom: 20px;
+}
+
+/* Style the update status button */
+#statusForm button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#statusForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Style the dropdown container */
+.select-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style the dropdown menu */
+.statusInput {
+    appearance: none;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* Text color */
+    border: 5px solid #4CAF50; /* Green border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Add transition */
+}
+
+/* Hover effect for dropdown */
+.statusInput:hover {
+    background-color: #45a049; /* Darker green background color on hover */
+}
+
+/* Style the dropdown arrow */
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: rgb(251, 248, 248); 
+}
+
+/* Style the dropdown options */
+.statusInput option {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: rgb(251, 248, 248); /* Text color */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Add transition */
+}
+
+/* Hover effect for dropdown options */
+.statusInput option:hover {
+    background-color: #215023; /* Darker green background color on hover */
+}
+
+
+/* Update the iframe styling to match the table background */
+#confirmationDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 10.9); /* Set background color with opacity */
+    border: 1px solid #ccc;
+    z-index: 999; /* Ensure iframe is above other elements */
+    padding: 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(70px);
+    box-shadow: 0 .4rem .8rem #0005;
+
+}
+
+/* Style the Yes and No buttons */
+#confirmationDialog button {
+    padding: 10px 20px;
+    background-color: #2e342f; /* Match the color of table headings */
+    color: rgb(253, 251, 251);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Hover effect for buttons */
+#confirmationDialog button:hover {
+    background-color: #4CAF50; /* Darker green background color */
+}
+
+.table__body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 10px; /* Add padding to adjust spacing */
+}
+
+.card {
+    background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    width: calc(25% - 2px); /* Adjust width for spacing */
+    margin-bottom: 20px;
+    overflow: hidden;
+    flex: 0 0 calc(25% - 2px); /* Set flex property to distribute space evenly */
+}
+
+.card__content {
+    padding: 16px;
+}
+
+.card__image {
+    width: 100%; /* Adjust image width to fill the container */
+    height: 150px;
+    object-fit: cover;
+    border-radius: 25px;
+}
+
+.card__details {
+    padding: 16px;
+}
+
+.card__title {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.card__text {
+    margin-bottom: 4px;
+}
+
+.card__actions {
+    background-color: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px;
+}
+
+.card__action {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.card__action:hover {
+    filter: brightness(0.8);
+    background-color: #67b56a;
+}
+
+
+.card:hover {
+    background-color: #82b084;
+
+}
+
+
+
+.card:last-child {
+    flex: 0 0 calc(25% - 2px); /* Set the flex property of the last card to have a fixed size */
 }
