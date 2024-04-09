@@ -18,15 +18,17 @@
                    
                    
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
-                        <h3>Place SalesOrders</h3>
+                        <h3>Place Orders for a purchaseorder</h3>
                         </a>
                     </div>
         
                     <div class="menu" data-name="p-2">
                   
-                    <a href="<?php echo URLROOT; ?>/farmer/salesorder">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
-                        <h3>View Placed Sales Orders</h3>
+                    <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
+
+
+                        <h3>Post Your available products</h3>
                         </a>
                     </div>
         

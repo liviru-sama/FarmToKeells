@@ -16,18 +16,19 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-        
-                    <div class="menu" data-name="p-1">
-                        <a href="<?php echo URLROOT; ?>/admin/salesorder">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/stock.png" alt=""></a>
-                        <h3>View Sales Orders</h3>
-                    </div>
-        
+                    
                     <div class="menu" data-name="p-2">
                         <a href="<?php echo URLROOT; ?>/ccm/purchaseorder">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt=""></a>
-                        <h3>View Purchase Orders</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">
+                        <h3>View Purchase Orders</h3></a>
                     </div>
+                    <div class="menu" data-name="p-1">
+                        <a href="<?php echo URLROOT; ?>/admin/salesorder">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/stock.png" alt="">
+                        <h3>View Sales Orders</h3></a>
+                    </div>
+        
+                   
         
                     
                  

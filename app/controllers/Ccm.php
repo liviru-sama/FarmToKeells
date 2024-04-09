@@ -7,14 +7,7 @@
         public function __construct() {
             
             $this->adminModel = $this->model('Admins'); 
-            $this
-->userModel = 
-$this
-->
-model
-(
-'User'
-);
+            $this->userModel = $this->model('User');
         }
     
         public function index(){
@@ -561,6 +554,25 @@ public function existingproductSelection() {
     // Get name and phone number of a user by ID
     public function getUserInfo($user_id) {
         return $this->userModel->getUserInfoById($user_id);
+    }
+
+    public function selectorder(){
+        $data = [];
+
+        $this->view('ccm/selectorder', $data);
+    }
+   
+
+      
+    public function displaySalesorders() {
+        // Create an instance of the PurchaseModel
+        $salesorderModel = new SalesorderModel();
+
+        // Call the method to fetch all products
+        $salesorders = $salesorderModel->getAllSalesorders();
+
+        // Pass the fetched products to the view
+        $this->view('ccm/salesorder', $data);
     }
 }
 ?>

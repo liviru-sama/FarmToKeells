@@ -221,3 +221,73 @@ thead th {
 #searchInput::placeholder {
     color: white;
 }
+
+
+
+#statusForm {
+    margin-bottom: 20px;
+}
+
+/* Style the update status button */
+#statusForm button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#statusForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Style the dropdown container */
+.select-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style the dropdown menu */
+.statusInput {
+    appearance: none;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* Text color */
+    border: 5px solid #4CAF50; /* Green border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Add transition */
+}
+
+/* Hover effect for dropdown */
+.statusInput:hover {
+    background-color: #45a049; /* Darker green background color on hover */
+}
+
+/* Style the dropdown arrow */
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: rgb(251, 248, 248); 
+}
+
+/* Style the dropdown options */
+.statusInput option {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: rgb(251, 248, 248); /* Text color */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Add transition */
+}
+
+/* Hover effect for dropdown options */
+.statusInput option:hover {
+    background-color: #215023; /* Darker green background color on hover */
+}
+

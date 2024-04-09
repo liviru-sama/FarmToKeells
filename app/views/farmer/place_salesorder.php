@@ -31,7 +31,7 @@
 
 <body>
     <section class="header">
-        <h4>VIEW SALES ORDERS</h4>
+        <h4>PLACE SALES ORDERS</h4>
         <main class="table">
             <section class="table_header">
                

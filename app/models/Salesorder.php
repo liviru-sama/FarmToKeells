@@ -21,6 +21,23 @@ class Salesorder {
         return $this->db->resultSet();
     }
     
+    public function getSalesordersByUserIdAndPurchaseId($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+    
 
     public function view_salesorder($id){
         $this->db->query('SELECT * from salesorder where order_id=:id');
@@ -135,6 +152,33 @@ public function getStatus($order_id) {
             $row = $this->db->single();
             return $row ? $row->purchase_id : null;
         }
+    
+
+
+        public function add_salesordercommon($data){
+            // Check if purchase_id is set and not null
+            
+        
+            // Prepare SQL statement
+            $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, user_id) VALUES (:name, :type, :quantity, :date, :address, :user_id)');
+        
+            // Bind parameters
+            $this->db->bind(':name', $data['name']);
+            $this->db->bind(':type', $data['type']);
+            $this->db->bind(':quantity', $data['quantity']);
+            $this->db->bind(':date', $data['date']);
+            $this->db->bind(':address', $data['address']);
+            $this->db->bind(':user_id', $data['user_id']);
+    
+        
+            // Execute query
+            if ($this->db->execute()) {
+                return true; // Indicate success
+            } else {
+                return false; // Indicate failure
+            }
+        }
+        
     }
     
 

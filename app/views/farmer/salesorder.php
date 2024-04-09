@@ -16,9 +16,9 @@
 <body>
     <section class="header">
        
-        <h4>SALES ORDERS  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <h4>POST YOUR PRODUCTS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         
-        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder">+ Add sales order</a>
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+ Add New</a>
 
         </h4>
         <main class="table">
@@ -37,7 +37,8 @@
                         <th>needed quantity(kgs) </th>
                         <th>expected supply date</th>
                         <th>address</th>
-                        
+                        <th>status</th>
+
                         <th>edit </th>
                         <th>delete </th>
 
@@ -49,18 +50,31 @@
                                 
 
    
-    <?php while ($row = mysqli_fetch_assoc($data['salesorders'] )) { ?>
+                        <?php 
+// Check if data is not empty and is an array
+if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
+    foreach ($data['salesorders'] as $row) {
+?>
         <tr>
-            <td><?php echo $row['order_id'] ?></td>
-            <td><?php echo $row['name'] ?></td>
-            <td><?php echo $row['type'] ?></td>
-            <td><?php echo $row['quantity'] ?></td>
-            <td><?php echo $row['date'] ?></td>
-            <td><?php echo $row['address'] ?></td>
-            <td><a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row['order_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-            <td><a href="<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row['order_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+            <td><?php echo $row->order_id ?></td>
+            <td><?php echo $row->name ?></td>
+            <td><?php echo $row->type ?></td>
+            <td><?php echo $row->quantity ?></td>
+            <td><?php echo $row->date ?></td>
+            <td><?php echo $row->address ?></td>
+            <td><?php echo $row->status ?></td>
+
+            <td><a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+            <td><a href="<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
         </tr>
-    <?php } ?>
+<?php 
+    }
+} else {
+    // Handle the case where no sales orders are found
+    echo "<tr><td colspan='8'>No sales orders found.</td></tr>";
+}
+?>
+
 
 
                         </tbody>

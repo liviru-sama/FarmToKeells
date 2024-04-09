@@ -6,6 +6,8 @@
             public function __construct() {
                 
                 $this->adminModel = $this->model('Admins'); 
+                $this->userModel = $this->model('User');
+
             }
         
             
@@ -165,17 +167,80 @@
             $this->view('admin/salesorder', $data);
         }
         
-        public function displaySalesorders() {
-            // Create an instance of the PurchaseModel
-            $salesorderModel = new SalesorderModel();
-    
-            // Call the method to fetch all products
-            $salesorders = $salesorderModel->getAllSalesorders();
-    
-            // Pass the fetched products to the view
-            require_once('views/admin/salesorder');
+        
+
+        public function getUserInfo($user_id) {
+            return $this->userModel->getUserInfoById($user_id);
         }
 
+       
+        public function updateStatus() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Retrieve the order IDs and statuses from the form for sales order
+                $orderIds = $_POST['order_id'];
+                $statuses = $_POST['status'];
+        
+                // Instantiate Salesorder Model
+                $salesorderModel = $this->model('Salesorder');
+        
+                // Loop through each order and update its status for sales order
+                foreach ($orderIds as $key => $orderId) {
+                    $newStatus = $statuses[$key];
+                    // Update status in the database
+                    if (!$salesorderModel->updateStatus($orderId, $newStatus)) {
+                        echo json_encode(['error' => 'Failed to update status']);
+                        return;
+                    }
+                }
+        
+               
+        
+                echo json_encode('Status updated successfully');
+            } else {
+                echo json_encode('Invalid request method');
+            }
+        }
+        
+        public function updatePurchaseStatus() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+              // Retrieve the purchase order IDs and statuses from the form
+              $purchaseOrderIds = $_POST['purchase_order_id'] ?? [];
+              $purchaseStatuses = $_POST['purchase_status'] ?? [];
+          
+              // Loop through each purchase order and update its status
+              foreach ($purchaseOrderIds as $key => $purchaseId) {
+                $newPurchaseStatus = $purchaseStatuses[$key]; // Get status for this purchase order
+                // Update purchase status in the database
+                if (!$this->model('Purchaseorder')->updatePurchaseStatus($purchaseId, $newPurchaseStatus)) {
+                  echo json_encode(['error' => 'Failed to update purchase status']);
+                  return;
+                }
+              }
+          
+              echo json_encode('Purchase status updated successfully');
+            } else {
+              echo json_encode('Invalid request method');
+            }
+          }
+          
+          
+          public function place_salesorder($purchase_id) {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = $this->model('Purchaseorder');
+            
+            // Get the selected purchase order
+            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
+        
+            // Instantiate Salesorder Model
+            $salesorderModel = $this->model('Salesorder');
+            
+            // Get relevant sales orders for the selected purchase order
+            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+            
+            // Load the view with purchase order and sales orders data
+            $this->view('ccm/place_salesorder', $data);
+        }
+        
         
     }
 ?>

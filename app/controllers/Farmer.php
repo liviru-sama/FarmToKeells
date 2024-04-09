@@ -314,13 +314,16 @@
 
 
         public function salesorder() {
-            // Instantiate Purchaseorder Model
+            // Retrieve the user ID from the session
+            $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+            
+            // Instantiate Salesorder Model
             $salesorderModel = new Salesorder();
             
-            // Get all purchase orders
-            $data['salesorders'] = $salesorderModel->getAllSalesorders();
+            // Get sales orders for the current user with purchase_id as null
+            $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseId($user_id, null);
             
-            // Load the view with purchase orders data
+            // Load the view with sales orders data
             $this->view('farmer/salesorder', $data);
         }
         
@@ -530,6 +533,66 @@
             $this->db->bind(':order_id', $order_id);
             $row = $this->db->single();
             return $row ? $row['purchase_id'] : null;
+        }
+        
+
+        public function add_salesordercommon(){
+            // Check if it's a POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Load the Salesorder model
+
+                
+                $this->model("Salesorder");
+                $salesorderModel = new Salesorder();
+                
+                // Sanitize and validate POST data
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+                $address = trim($_POST['address']);
+                $user_id = trim($_POST['user_id']);
+
+            
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)  ) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+            
+                // Attempt to add product
+                $data = [
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date,
+                    'address' => $address,
+                    'user_id' => $user_id
+
+                ];
+
+                if ($salesorderModel->add_salesordercommon($data)) {
+                    // Assuming you have the user session stored in $_SESSION['user_id']
+                     $user_id = $_SESSION['user_id'];
+
+// Redirect to the place_salesorder route with both purchase_id and user_id
+                    redirect('farmer/salesorder' . '?user_id=' . $user_id);
+
+                   
+                    exit();
+                
+                
+                } else {
+                    // Product addition failed
+                    echo "Failed to add sales order.";
+                }
+            } else {
+                // If not a POST request, load the add sales order page with the purchase_id
+              
+                
+                // Load the add sales order view with the purchase_id if it exists
+                $this->view("farmer/add_salesordercommon");
+            }
         }
         
     }
