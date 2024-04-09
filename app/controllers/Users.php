@@ -146,17 +146,16 @@ class Users extends Controller{
             $this->view('users/register', $data);
         }
     }
-    
 
     public function user_login(){
 
         // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
-
+    
             // Sanitize POST data    
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+    
             // Init data
             $data = [
                 'username' => trim($_POST['username']),
@@ -164,7 +163,7 @@ class Users extends Controller{
                 'username_err' => '',
                 'password_err' => '',
             ];
-
+    
             // Validate Username
             if (empty($data['username'])) {
                 $data['username_err'] = 'Please enter username';
@@ -175,31 +174,20 @@ class Users extends Controller{
             }
             
             //CHECK FOR USER/EMAIL
-            if ($this->userModel->findUserByUsername($data['username'])) {
-                //USER FOUND
-            } else {
-                //USER NOT FOUND
-                $data['username_err'] = 'No user found';
-            }
-
-            // Make sure errors are empty
-            if (empty($data['username_err']) && empty($data['password_err'])) {
-                // Validated
-                // Check and set logged in user
-                $loggedInUser = $this->userModel->login($data['username'], $data['password']);
-
-                if ($loggedInUser) {
+            $user = $this->userModel->login($data['username'], $data['password']);
+            if ($user) {
+                if ($user->status === 'accept') {
+                    // Validated
                     // Create Session
-                    $this->createUserSession($loggedInUser);
+                    $this->createUserSession($user);
                 } else {
-                    $data['password_err'] = 'Incorrect Password ';
-
+                    // User exists but status is not 'accept'
+                    $data['username_err'] = 'Your account has not been approved yet.';
                     $this->view('users/user_login', $data);
                 }
-
-
             } else {
-                // Load view with errors
+                // User not found
+                $data['username_err'] = 'No user found';
                 $this->view('users/user_login', $data);
             }
         } else {
@@ -210,11 +198,15 @@ class Users extends Controller{
                 'username_err' => '',
                 'password_err' => '',
             ];
-
+    
             // Load view
             $this->view('users/user_login', $data);
         }
     }
+    
+    
+
+
 
     public function createUserSession($user){
         $_SESSION['user_id'] = $user->id;
