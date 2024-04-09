@@ -83,15 +83,23 @@
         
             $row = $this->db->single();
         
-            if ($row && $row->status === 'approved') {
-                $hashed_password = $row->password;
-                if (password_verify($password, $hashed_password)) {
-                    return $row;
+            if ($row) {
+                if ($row->status === 'accept') { // Check if the user status is 'accept'
+                    $hashed_password = $row->password;
+                    if (password_verify($password, $hashed_password)) {
+                        return $row;
+                    }
+                } else {
+                    // User exists but status is not 'accept'
+                    return false;
                 }
             }
         
+            // User not found or password incorrect
             return false;
         }
+        
+
 
         public function getUserById($id) {
             $this->db->query('SELECT * FROM users WHERE id = :id');
@@ -255,46 +263,50 @@
 
         public function getPendingUsers()
         {
-            $this->db->query('SELECT * FROM users WHERE status = "pending"');
+            $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "pending"');
             $result = $this->db->resultSet();
-           
-            if ($this->db->rowCount() > 0) {
-                return $result;
-            } else {
-                return [];
-            }
-        }
-
-        // User model method to get pending registration requests
-        public function getPendingRegistrationRequests()
-        {
-            $this->db->query('SELECT id as user_id, name, email FROM users WHERE status = "pending"');
-            $result = $this->db->resultSet();
-        
+            
             // Log the result
             error_log("Pending Registration Requests: " . print_r($result, true));
-        
+            
             if ($this->db->rowCount() > 0) {
                 return $result;
             } else {
                 return [];
             }
         }
+
         
 
-        public function approveRegistrationRequest($userId)
+        public function acceptRegistrationRequest($userId)
         {
-            $this->db->query('UPDATE users SET status = "approved" WHERE id = :id');
+            $this->db->query('UPDATE users SET status = "accept" WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            return $this->db->execute();
+        }
+    
+        public function rejectRegistrationRequest($userId)
+        {
+            $this->db->query('UPDATE users SET status = "reject" WHERE id = :id');
             $this->db->bind(':id', $userId);
             return $this->db->execute();
         }
 
-        public function rejectRegistrationRequest($userId)
+        public function getAcceptedUsers()
         {
-            $this->db->query('DELETE FROM users WHERE id = :id');
-            $this->db->bind(':id', $userId);
-            return $this->db->execute();
+            $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "accept"');
+            $result = $this->db->resultSet();
+            
+            // Log the result
+            error_log("Accepted Users: " . print_r($result, true));
+            
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
         }
+
 
 
 
