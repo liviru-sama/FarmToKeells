@@ -26,6 +26,34 @@ class Product {
 
 
 
+    public function getExistingProducts() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    
+        // Check for connection errors
+        if (!$conn) {
+            die("Connection failed: " . mysqli_connect_error());
+        }
+    
+        // Query to fetch existing product names
+        $this->db->query('SELECT name FROM product');
+        
+        // Execute the query
+        if (!$this->db->execute()) {
+            die("Error executing query: " . $this->db->getError());
+        }
+        
+        // Fetch all rows from the result set
+        $products = $this->db->resultSet();
+    
+        // Log or print the result set for debugging
+        var_dump($products); // This will print the result set to the browser console or log file
+        
+        return $products;
+    }
+    
+    
+
+
 
     // Add product to the database
     public function add_product($data){
