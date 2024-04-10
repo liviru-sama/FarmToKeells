@@ -383,7 +383,8 @@ h2{
     width: calc(25% - 2px); /* Adjust width for spacing */
     margin-bottom: 20px;
     overflow: hidden;
-    flex: 0 0 calc(25% - 2px); /* Set flex property to distribute space evenly */
+    flex: 0 0 calc(25% - 2px);
+    
 }
 
 .card__content {
@@ -396,6 +397,14 @@ h2{
     object-fit: cover;
     border-radius: 25px;
 }
+
+.card__image:hover {
+    transform: scale(1.08);
+}
+
+
+
+
 
 .card__details {
     padding: 16px;
@@ -426,12 +435,13 @@ h2{
 
 .card__action:hover {
     filter: brightness(0.8);
-    background-color: #67b56a;
+    transform: scale(2);
 }
 
 
 .card:hover {
     background-color: #82b084;
+    transform: scale(1.08);
 
 }
 

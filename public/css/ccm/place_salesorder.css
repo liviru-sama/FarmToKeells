@@ -184,7 +184,9 @@ a.button {
 
 /* Hover effect */
 a.button:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #45a049; 
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 /* Table heading font color */
@@ -266,12 +268,16 @@ h2{
     background-color: #4CAF50; /* Green background color */
     color: rgb(251, 248, 248); /* Text color */
     cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s; /* Add transition */
+    transition: background-color 0.3s; 
+    transform: scale(1.08);
+    /* Add transition */
 }
 
 /* Hover effect for dropdown options */
 .statusInput option:hover {
-    background-color: #215023; /* Darker green background color on hover */
+    background-color: #215023;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 
@@ -305,7 +311,9 @@ h2{
 
 /* Hover effect for buttons */
 #confirmationDialog button:hover {
-    background-color: #4CAF50; /* Darker green background color */
+    background-color: #4CAF50; 
+    transform: scale(1.08);
+    /* Darker green background color */
 }
 
 .table__body {

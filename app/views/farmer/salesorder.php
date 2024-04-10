@@ -16,9 +16,9 @@
 <body>
     <section class="header">
        
-        <h4>POST YOUR PRODUCTS &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        
-        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+ Add New</a>
+        <h4>LET THEM KNOW YOUR AVAILABLE PRODUCTS!!! &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+ADD NEW</a>
 
         </h4>
         <main class="table">
@@ -29,11 +29,14 @@
             <section class="table_body">
                 <form method="post">
                     <table>
+</br>        
                         <thead>
+                        <a style="text-align:right;" href="<?php echo URLROOT; ?>/farmer/cardsalesorder?user_id=<?php echo $_SESSION['user_id']; ?>">Table View</a>
+
                             <tr>
+                            <th>Product image </th>
                             <th>sales order ID</th>
                         <th>Product </th>
-                        <th>Product image </th>
                         <th>product type</th>
                         <th>needed quantity(kgs) </th>
                         <th>expected supply date</th>
@@ -57,9 +60,10 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
     foreach ($data['salesorders'] as $row) {
 ?>
         <tr>
+
+            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
             <td><?php echo $row->order_id ?></td>
             <td><?php echo $row->name ?></td>
-            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
             <td><?php echo $row->type ?></td>
             <td><?php echo $row->quantity ?></td>
             <td><?php echo $row->date ?></td>

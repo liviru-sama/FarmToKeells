@@ -37,7 +37,7 @@
             </section>
             <section class="table_body">
             <table>
-            <thead> <br/>
+            <thead> 
                 <th><h2>Selected Purchase Order</h2> </th>
     </thead> 
 
@@ -47,12 +47,12 @@
     <tbody>
         <?php if (!empty($data['purchaseorder'])) : ?>
             <tr>
-                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 200px; height: 200px;"></td>
-                <th>Product: &nbsp; <?php echo $data['purchaseorder']->name; ?></br></br>
-                   Product Type: &nbsp;<?php echo $data['purchaseorder']->type; ?></br></br>
-                   Needed Quantity : &nbsp; <?php echo $data['purchaseorder']->quantity; ?>&nbsp; (kgs)</br></br>
-                   Expected Supply Date: &nbsp; <?php echo $data['purchaseorder']->date; ?></br></br>
-                   Status:           &nbsp;  <?php echo $data['purchaseorder']->purchase_status; ?></br></br>
+                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 200px; height: 200px;" class="card__image"></td>
+                <th style="color: green; font-family: 'Arial', sans-serif;">Product: &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->name; ?></span></br></br>
+                   Product Type: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->type; ?></span></br></br>
+                   Needed Quantity : &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->quantity; ?>&nbsp; (kgs)</span></br></br>
+                   Expected Supply Date: &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->date; ?></span></br></br>
+                   Status:           &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $data['purchaseorder']->purchase_status; ?></span></br></br>
 
 
                 </th>
@@ -64,8 +64,8 @@
     </tbody>
 </table>
 <table>
-<thead><br/>
-<th><h2>Sales Orders</h2>   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add salesorder</a>
+<thead>
+<th><h2>Sales Orders</h2>   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER  </a>
 
                 <br/></th>
                    

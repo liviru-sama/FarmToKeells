@@ -10,14 +10,18 @@
     
 
     <title>Stock Overview</title>
+    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin/stock_overview.css" media="screen">
     <script src="<?php echo JS;?>/ccm/updatecircle.js"></script>
 
     
 </head>
 <body>
+  
+<p ><h1>Product levels Overview</h1></p>
+<input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="position :center; width: 300px; padding: 10px 20px; background-color: #4CAF50; color: white; border: 1px solid #4CAF50; border-radius: 5px;">
 
-<div id="product-container" class="all">
+<div  class="all">
     <?php
     
 
@@ -33,16 +37,17 @@
         foreach ($products as $product):
             // Calculate percentage
             $percentage = ($product['quantity'] / $maxQuantity) * 100;
-    ?>
+    ?>        <div id="product-container">
             <div class="circle-wrap">
                 <div class="circle">
                     <div class="mask full-1" style="transform: rotate(<?php echo $percentage * 1.8; ?>deg);"></div>
                     <div class="mask half"></div>
                     <div class="inside-circle"><?php echo $percentage; ?>%</div>
                 </div>
-                <div class="product-name"><?php echo $product['name']; ?></div> <!-- Place product name here -->
+                <div class="product-name"><?php echo $product['name']; ?>:&nbsp;<?php echo $product['quantity']; ?>Kgs</div> <!-- Place product name here -->
             </div>
-    <?php
+            </div>
+    <?php   
         endforeach;
     } else {
         // Handle the case where $maxQuantity is zero

@@ -13,52 +13,57 @@
             <div class="container">
                 <div class="dashboard-container">
                     
-                    <div class="menu" data-name="p-1">
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                    
-                   
+                    <div class="menu" data-name="p-1">
+
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
                         <h3>Place Orders for a purchaseorder</h3>
-                        </a>
-                    </div>
+                        
+                    </div></a>
         
-                    <div class="menu" data-name="p-2">
                   
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
+                    <div class="menu" data-name="p-2">
+
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
 
 
                         <h3>Post Your available products</h3>
-                        </a>
-                    </div>
+                       
+                    </div> </a>
         
-                    <div class="menu" data-name="p-3">
+                  
                     <a href="<?php echo URLROOT; ?>/farmer/notifications">
+                    <div class="menu" data-name="p-3">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png">
                         <h3>Notifications</h3>
-                        </a>
-                    </div>
+                        
+                    </div></a>
         
-                    <div class="menu" data-name="p-4">
+                   
                     <a href="<?php echo URLROOT; ?>/farmer/market_prices">
+                    <div class="menu" data-name="p-4">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png">
                         <h3>Market demands and Product Prices</h3>
-                        </a>
-                    </div>
+                        
+                    </div></a>
         
-                    <div class="menu" data-name="p-5">
+                    
                     <a href="<?php echo URLROOT; ?>/farmer/payments">
+                    <div class="menu" data-name="p-5">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash5.png">
                         <h3>Payments</h3>
-                        </a>
-                    </div>
+                        
+                    </div></a>
         
-                    <div class="menu" data-name="p-6">
+                    
                         <a href="<?php echo URLROOT; ?>/farmer/view_profile">
+                        <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png">
                             <h3>Manage Profile</h3>
-                            </a>
-                    </div>
+                           
+                    </div> </a>
         
         
                 </div>

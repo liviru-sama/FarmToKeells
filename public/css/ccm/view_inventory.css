@@ -69,6 +69,7 @@ main.table {
     width: 45%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
+    
 }
 
 .table__header .input-group img {
@@ -125,9 +126,15 @@ td img {
     vertical-align: middle;
 }
 
-table, th, td {
+table, th{
     border-collapse: collapse;
+    padding: 1rem;
     text-align: center;
+}
+
+td {
+    padding: 0.5rem;
+
 }
 
 thead th {
@@ -155,6 +162,7 @@ tbody tr.hide {
 
 tbody tr:hover {
  background-color: #58a75c;
+ transform: scale(1.009);
 }
 
 tbody tr td,
@@ -197,12 +205,15 @@ a.button {
     color: white; /* Text color */
     text-decoration: none; /* Remove underline */
     border: 1px solid #4CAF50; /* Green border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px; 
+    /* Rounded corners */
 }
 
 /* Hover effect */
 a.button:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #45a049;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 /* Table heading font color */
@@ -264,7 +275,9 @@ thead th {
 
 /* Hover effect for dropdown */
 .statusInput:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #45a049;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 /* Style the dropdown arrow */
@@ -282,12 +295,15 @@ thead th {
     background-color: #4CAF50; /* Green background color */
     color: rgb(251, 248, 248); /* Text color */
     cursor: pointer; /* Change cursor to pointer */
-    transition: background-color 0.3s; /* Add transition */
+    transition: background-color 0.3s;
+     /* Add transition */
 }
 
 /* Hover effect for dropdown options */
 .statusInput option:hover {
-    background-color: #215023; /* Darker green background color on hover */
+    background-color: #215023;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 #confirmationDialog {
@@ -319,6 +335,9 @@ thead th {
 
 /* Hover effect for buttons */
 #confirmationDialog button:hover {
-    background-color: #4CAF50; /* Darker green background color */
+    background-color: #4CAF50;
+    transform: scale(1.08);
+
+    /* Darker green background color */
 }
 
