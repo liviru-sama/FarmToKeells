@@ -20,11 +20,10 @@
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                    
                     <div class="menu" data-name="p-1">
-
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
-                        <h3>Place Orders for a purchaseorder</h3>
-                        
-                    </div></a>
+                    <a href="<?php echo URLROOT; ?>/farmer/place_order">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
+                        <h3>Place Order</h3>
+                    </div>
         
                   
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
