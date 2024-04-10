@@ -1,176 +1,124 @@
-@import url(../main.css);
-* {
-    font-family: 'Poppins', sans-serif;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    outline: none;
-    border: none;
-    text-decoration: none;
-    transition: all .2s linear;
-    text-transform: capitalize;
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,700,300);
+
+body {
+    font-family: "Roboto", sans-serif;
 }
 
-html {
-    font-size: 62.5%;
-    overflow-x: hidden;
-}
-
-*{
-    
-    box-sizing: border-box;
-   
-}
- 
-h4{
-    margin: 200px;
-    font-family: 'inter';
-    font-size: 30px;
-    color: #060804;
-    text-align: center ;
-    padding: -15px;
-    
-
-}
-
-h5{
-    background: rgba(12, 12, 12, 1) ;
-    margin-left: 900px;
-    margin-top: 8%;
-    margin-bottom: 8%;
-    border-radius: 20px;
-    padding: 10px;
-    
-    width: 15%;
-    font-family: 'inter';
-    font-size: 25px;
-    color: #f0ecec;
-    text-align: center;
-    
-}
-
-.circle1{
-    width: 160px;
-    height: 160px;
-   /* background: rgba(255,255,255,0.4);*/
-    position: absolute;
-    align-items: center;
-    justify-content: center;
-    margin-left: 100px ;
-    margin-top: -430px;
-    align-items: center;
-    
-    
-}
-
-.circle2{
-    width: 160px;
-    height: 160px;
-    /*background: rgba(255,255,255,0.4);*/
-    position: absolute;
-    align-items: left;
-    justify-content: left;
-    margin-left: 300px ;
-    margin-top: -430px;
-    align-items: center;
-    
-    
-}
-
-.circle3{
-    width: 160px;
-    height: 160px;
-    /*background: rgba(255,255,255,0.4);*/
-    position: absolute;
-    align-items: left;
-    justify-content: left;
-    margin-left: 500px ;
-    margin-top: -430px;
-    align-items: center;
-    
-    
-}
-
-.circle4{
-    width: 160px;
-    height: 160px;
-    /*background: rgba(255,255,255,0.4);*/
-    position: absolute;
-    align-items: left;
-    justify-content: left;
-    margin-left: 700px ;
-    margin-top: -430px;
-    align-items: center;
-    
-    
-}
-
-.circle5{
-    width: 160px;
-    height: 160px;
-    /*background: rgba(255,255,255,0.4);*/
-    position: absolute;
-    align-items: left;
-    justify-content: left;
-    margin-left: 900px ;
-    margin-top: -430px;
-    align-items: center;
-    
-    
-}
-
-h6{
-    font-size: 25px;
-    font-weight: bold;
-    color: #0a0a0a;
-    font-family:'inter';
-    text-align: center;
-    padding: 1px;
-}
-
-.outer{
-    width: 160px;
-    height: 160px;
-    border-radius: 50%;
-    box-shadow: 6px 6px 10px -1px rgba(0,0,0,0.15),
-                -6px -6px 10px -1px rgba(255,255,255,0.7);
+.all {
     padding: 20px;
-}
 
-.inner{
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: inset 4px 4px 6px -1px rgba(0,0,0,0.2),
-                inset -4px -4px 6px -1px rgba(255,255,255,0.7),
-                -0.5px -0.5px 0px rgba(255,255,255,1),
-                0.5px 0.5px 0px rgba(0,0,0,0.15),
-                0px 12px 10px -10px rgba(0,0,0,0.05);
 }
 
-#number{
-    font-weight: 3000px;
-    color: #555;
-    font: bolder;
-    font-family: 'inter';
+#product-container{
+    background-color: rgba(15, 14, 14, 0);
+    backdrop-filter: blur(27px);
+    border-radius: 25px;
+    box-shadow: 0 .4rem .8rem #0005;
+    padding: 20px;
+    margin-left: 15px;
+    
+
 }
 
-circle{
-    fill: none;
-    stroke: #65A534;
-    stroke-width: 20px;
-    stroke-dasharray: 300;
+#product-container:hover{
+    transform: scale(1.1);
+    background-color: #f2f7f2;
+
 }
 
-svg{
+
+.circle-wrap {
+    display: grid;
+    grid-template-columns: repeat(1, 160px);
+    grid-gap: 80px;
+    margin-bottom: 55px;
+    margin-top: 35px;
+    margin-left: 35px;
+    margin-right: 35px;
+    width: 150px;
+    height: 150px;
+    background: rgba(69, 77, 69, 0.5); /* Set background color to transparent white */
+    border-radius: 100%;
+    position: relative; /* Add relative positioning to the circle-wrap */
+}
+
+.circle-wrap .circle .mask,
+.circle-wrap .circle .fill-1,
+.circle-wrap .circle .fill-2,
+.circle-wrap .circle .fill-3 {
+    width: 150px;
+    height: 150px;
     position: absolute;
-    top:0;
-    left: 0;
+    border-radius: 50%;
 }
 
+.circle-wrap .circle .mask {
+    clip: rect(0px, 150px, 150px, 75px);
+}
 
+.circle-wrap .inside-circle {
+    width: 124px;
+    height: 124px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.5); /* Set background color to transparent black */
+    line-height: 120px;
+    text-align: center;
+    margin-top: 13px;
+    margin-left: 13px;
+    color: black; /* Set text color to black */
+    position: absolute;
+    z-index: 100;
+    font-weight: 700;
+    font-size: 2em;
+}
 
+/* Adjust product name position */
+.product-name {
+    position: absolute;
+    bottom: -80px; /* Adjust as needed */
+    width: 100%; /* Ensure the text is centered */
+    text-align: center;
+    font-size: 25px;
+    font-weight:bold;
+    margin-bottom: 15px;
 
+}
+
+/* Add line break between circle and product name */
+.product-name::before {
+    content: "\A";
+    white-space: pre;
+}
+
+/* color animation */
+
+.mask .fill-1,
+.mask .fill-2,
+.mask .fill-3 {
+    background-color: red; /* Set fill color to #4CAF50 */
+    clip: rect(0px, 75px, 150px, 0px);
+}
+
+.mask.full-1 .fill-1,
+.mask.full-2 .fill-2,
+.mask.full-3 .fill-3 {
+    animation: fill ease-in-out 3s; /* Combine animation into one */
+    transform-origin: center; /* Set the transform origin to the center */
+}
+
+@keyframes fill {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(180deg); /* Adjust the rotation degree */
+    }
+}
+
+.card {
+    
+    margin-bottom: 20px;
+    
+    flex: 0 0 calc(25% - 2px); /* Set flex property to distribute space evenly */
+}

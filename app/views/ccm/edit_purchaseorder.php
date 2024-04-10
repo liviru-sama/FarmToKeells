@@ -1,7 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,9 +29,9 @@
                     <label> Category</label>
                 </div>
                 <div class="text-field">
-                    <input type="date" name="date" value="<?=$data['date']?>" required> <!-- Added name attribute -->
+                    <input type="date" name="date" id="purchaseDate" value="<?=$data['date']?>" required> <!-- Added name attribute and id attribute -->
                     <span></span>
-                    <label> date</label>
+                    <label> Date</label>
                 </div>
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
@@ -45,6 +43,15 @@
             </form>
         </div>
     </section>
+
+    <script>
+        // JavaScript code to restrict past dates in the date input field
+        document.addEventListener('DOMContentLoaded', function() {
+            var purchaseDateInput = document.getElementById('purchaseDate');
+            var currentDate = new Date().toISOString().split('T')[0];
+            purchaseDateInput.setAttribute('min', currentDate);
+        });
+    </script>
 </body>
 
 </html>

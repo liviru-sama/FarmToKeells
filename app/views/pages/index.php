@@ -17,6 +17,8 @@
                     <p>Inventory Management System</p>
                     <a href="<?php echo URLROOT; ?>/users/register" class="hero-btn">Register</a>
                     <a href="<?php echo URLROOT; ?>/users/user_login" class="hero-btn">Login</a>
+</br></br>
+
                     <div class="admin-login-link">
                         Are you an Admin? <a href="<?php echo URLROOT; ?>/pages/selectadmin">Click Here</a>
                     </div>

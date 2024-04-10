@@ -217,3 +217,22 @@ input[type="submit"]:hover {
 .text-field select:hover {
     background-color: #65A534; /* Darker green background color on hover */
 }
+
+/* Styles for the dialog box */
+.dialog-box {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #ffffff; /* White background */
+    padding: 20px;
+    border: 1px solid #000000; /* Black border */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); /* Drop shadow effect */
+    z-index: 9999;
+    display: none; /* Initially hidden */
+}
+
+/* Styles for the dialog box content */
+.dialog-box p {
+    margin: 0; /* Remove default margins */
+}
