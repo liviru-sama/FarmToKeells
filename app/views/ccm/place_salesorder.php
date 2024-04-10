@@ -48,13 +48,41 @@
             border-radius: 5px;
             margin-top: 10px;
         }
+        /* Additional CSS for frames */
+        #navbarFrame {
+            width: 100%;
+            height: 5%;
+            background-color: #2e342f; /* Navbar background color */
+        }
+        #leftFrame {
+            width: 5%; /* Adjust width as needed */
+            height: 90vh; /* Adjust height as needed */
+            float: left;
+        }
+        #mainFrame {
+            width: 95%; /* Adjust width as needed */
+            height: 90vh; /* Adjust height as needed */
+        }
     </style>
 </head>
 
 <body>
-    <section class="header">
-        <h4>VIEW SALES ORDERS</h4>
-        <main class="table">
+    <!-- Navbar Frame -->
+    <div id="navbarFrame">
+        <!-- Navbar content goes here -->
+       
+    </div>
+
+    <!-- Left Frame -->
+    <div id="leftFrame">
+        <!-- Additional content goes here, if any -->
+    </div>
+
+    <!-- Main Frame -->
+    <div id="mainFrame">
+    <h4>VIEW SALES ORDERS</h4>
+        <!-- Main content, including the table and forms -->
+        <section class="table">
             <section class="table_header">
                
             </section>
@@ -62,52 +90,51 @@
                 <br/>
                 <h2>Selected Purchase Order</h2>
                 <br/>
+                <!-- Form for updating purchase order status -->
                 <form id="statusForm" name="purchaseOrderUpdateForm" action="<?php echo URLROOT; ?>/Ccm/updatePurchaseStatus" method="POST">
- 
-
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Purchase Order ID</th>
-                            <th>Product</th>
-                            <th>Product image</th>
-                            <th>Product Type</th>
-                            <th>Needed Quantity (kgs)</th>
-                            <th>Expected Supply Date</th>
-                            <th>Status</th> 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (!empty($data['purchaseorder'])) : ?>
+                    <table>
+                        <thead>
                             <tr>
-                                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 100px; height: 100px;"></td>
-                                <td><?php echo $data['purchaseorder']->purchase_id; ?></td>
-                                <td><?php echo $data['purchaseorder']->name; ?></td>
-                                <td><?php echo $data['purchaseorder']->type; ?></td>
-                                <td><?php echo $data['purchaseorder']->quantity; ?></td>
-                                <td><?php echo $data['purchaseorder']->date; ?></td>
-                                <td class="statusColumn">
-                                    <div class="select-container">
-                                        <select class="statusInput" name="purchase_status[]" onchange="submitForm(this)">
-                                             <option value="Pending" <?php echo ($data['purchaseorder']->purchase_status == 'Pending') ? 'selected' : ''; ?>>Pending</option>
-                                             <option value="Completed" <?php echo ($data['purchaseorder']->purchase_status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
-                                        </select>
-
-                                        <span class="select-arrow">&#9662;</span>
-                                    </div>
-                                </td>
-                                
-                                <input type="hidden" name="purchase_order_id[]" value="<?php echo $data['purchaseorder']->purchase_id; ?>">
+                                <th>Purchase Order ID</th>
+                                <th>Product</th>
+                                <th>Product image</th>
+                                <th>Product Type</th>
+                                <th>Needed Quantity (kgs)</th>
+                                <th>Expected Supply Date</th>
+                                <th>Status</th> 
                             </tr>
-                        <?php endif; ?>
-                    </tbody>
-                    <div id="purchaseOrderSuccessMessage"></div>
-                    </form>    
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php if (!empty($data['purchaseorder'])) : ?>
+                                <tr>
+                                    <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 100px; height: 100px;"></td>
+                                    <td><?php echo $data['purchaseorder']->purchase_id; ?></td>
+                                    <td><?php echo $data['purchaseorder']->name; ?></td>
+                                    <td><?php echo $data['purchaseorder']->type; ?></td>
+                                    <td><?php echo $data['purchaseorder']->quantity; ?></td>
+                                    <td><?php echo $data['purchaseorder']->date; ?></td>
+                                    <td class="statusColumn">
+                                        <div class="select-container">
+                                            <select class="statusInput" name="purchase_status[]" onchange="submitForm(this)">
+                                                <option value="Pending" <?php echo ($data['purchaseorder']->purchase_status == 'Pending') ? 'selected' : ''; ?>>Pending</option>
+                                                <option value="Completed" <?php echo ($data['purchaseorder']->purchase_status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
+                                            </select>
+                                            <span class="select-arrow">&#9662;</span>
+                                        </div>
+                                    </td>
+                                    
+                                    <input type="hidden" name="purchase_order_id[]" value="<?php echo $data['purchaseorder']->purchase_id; ?>">
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                        <div id="purchaseOrderSuccessMessage"></div>
+                    </table>
+                </form>
+
                 <br/>
                 <h2>Sales Orders</h2>
                 <br/>
-                <!-- Form for updating status -->
+                <!-- Form for updating sales order status -->
                 <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>
@@ -155,55 +182,54 @@
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
+                        <!-- Success message -->
+                        <div id="successMessage"></div>
                     </table>
-                    <!-- Success message -->
-                    <div id="successMessage"></div>
-                    <div id="purchaseOrderSuccessMessage"></div>
                 </form>
             </section>
-        </main>
-    </section>
+        </section>
+    </div>
 
     <script>
-    // Function to handle the submission of status update
-    function submitForm(select) {
-        const form = select.closest('form');
-        const formData = new FormData(form);
-        fetch(form.getAttribute('action'), {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update status');
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Check if the form belongs to sales orders or purchase orders
-            const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
-            const successMessage = document.getElementById(successMessageId);
-            successMessage.textContent = data;
-            successMessage.style.display = 'block';
-            setTimeout(function() {
-                successMessage.style.display = 'none';
-            }, 3000); // Hide the success message after 3 seconds
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }
+        // Function to handle the submission of status update
+        function submitForm(select) {
+            const form = select.closest('form');
+            const formData = new FormData(form);
+            fetch(form.getAttribute('action'), {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to update status');
+                }
+                return response.text();
+            })
+            .then(data => {
+                // Check if the form belongs to sales orders or purchase orders
+                const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
+                const successMessage = document.getElementById(successMessageId);
+                successMessage.textContent = data;
+                successMessage.style.display = 'block';
+                setTimeout(function() {
+                    successMessage.style.display = 'none';
+                }, 3000); // Hide the success message after 3 seconds
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
 
-    // Set default value to "Pending Approval" for newly created purchase orders
-    document.addEventListener('DOMContentLoaded', function() {
-        const statusInputs = document.querySelectorAll('.statusInput');
-        statusInputs.forEach(function(input) {
-            if (!input.value) {
-                input.value = 'Pending Approval';
-            }
+        // Set default value to "Pending Approval" for newly created purchase orders
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusInputs = document.querySelectorAll('.statusInput');
+            statusInputs.forEach(function(input) {
+                if (!input.value) {
+                    input.value = 'Pending Approval';
+                }
+            });
         });
-    });
-</script>
+    </script>
 
 </body>
 

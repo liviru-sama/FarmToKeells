@@ -223,96 +223,88 @@
         }
 
         public function place_order() {
-
             $request = $this->model('Request');
-            
+            $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
+                    
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
+                // Sanitize input data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-
+        
+                // Fetch order ID and user ID from POST data
+                $orderId = $_POST['order_id']; // Assuming order_id is passed as a hidden input in the form
+                $userId = $_POST['user_id']; // Assuming user_id is passed as a hidden input in the form
+        
+                // Fetch product data from SalesOrder model
+                $salesData = $salesOrder->getSalesOrderData($orderId);
+                $product_name = $salesData->name; // Access the property 'name' of the $salesData object
+        
+                // Load other necessary data
+        
+                // Initialize data array
                 $data = [
-                    'product_id' => trim($_POST['product_id']),
+                    'order_id' => $orderId,
+                    'user_id' => $userId,
+                    'product_name' => $product_name, // Pass product_name retrieved from SalesOrder model
                     'quantity' => trim($_POST['quantity']),
                     'startdate' => trim($_POST['startdate']),
                     'enddate' => trim($_POST['enddate']),
                     'notes' => trim($_POST['notes']),
-                    'user_id' => $_SESSION['user_id']
+                    'errors' => [
+                        'product_err' => '',
+                        'quantity_err' => '',
+                        'startdate_err' => '',
+                        'enddate_err' => ''
+                    ]
                 ];
-
-                $data['errors'] = [
-                    'product_err' => '',
-                    'quantity_err' => '',
-                    'startdate_err' => '',
-                    'enddate_err' => ''
-                ];
-
-                $data['errors']['errnum'] = 0;
-
-                if (empty($data['product_id'])){
-                    $data['errors']['errnum'] =+ 1;
-                    $data['errors']['product_err'] = 'Please select a product';
-                }
-
+        
+                // Validate input data
                 if (empty($data['quantity'])){
-                    $data['errors']['errnum'] =+ 1;
                     $data['errors']['quantity_err'] = 'Please provide a quantity';
                 }
-
-                if (empty($data['startdate'])){
-                    $data['errors']['errnum'] =+ 1;
-                    $data['errors']['startdate_err'] = 'Please provide a Date';
-                }
-
-                if (empty($data['enddate'])){
-                    $data['errors']['errnum'] =+ 1;
-                    $data['errors']['enddate_err'] = 'Please provide a Date';
-                }
-
-                if ($data['startdate'] > $data['enddate']){
-                    $data['errors']['errnum'] =+ 1;
-                    $data['errors']['startdate_err'] = 'Earliest Pickup cannot be after the Latest Pickup';
-                    $data['errors']['enddate_err'] = 'Latest Pickup cannot be before the Earliest Pickup';
-                }
-
-                if ($data['errors']['errnum'] > 0){
+        
+                // Other validation checks...
+        
+                // Check for validation errors
+                $errorCount = count(array_filter($data['errors']));
+                if ($errorCount > 0){
+                    // Load necessary models and data for the view
                     $product = $this->model('Product');
-    
                     $products = $product->getAllProducts();
-                    
                     $data['products'] = $products;
-                    
+        
+                    // Load the view with errors
                     $this->view('farmer/place_order', $data);
                 } else {
+                    // Insert data into database
                     if ($request->insert($data)) {
                         redirect('farmer/place_order');
                     } else {
                         die('Something went wrong');
                     }
                 }
-
             } else {
+                // Load initial data for the view
                 $data = [
-                    'title' => 'Place Order'
+                    'title' => 'Place Order',
+                    'errors' => [
+                        'product_err' => '',
+                        'quantity_err' => '',
+                        'startdate_err' => '',
+                        'enddate_err' => ''
+                    ]
                 ];
-
-                $data['errors'] = [
-                    'product_err' => '',
-                    'quantity_err' => '',
-                    'startdate_err' => '',
-                    'enddate_err' => ''
-                ];
-    
+        
                 $product = $this->model('Product');
-    
                 $products = $product->getAllProducts();
-                
                 $data['products'] = $products;
-                
+        
+                // Load the view
                 $this->view('farmer/place_order', $data);
             }
         }
-
-
+        
+        
+        
         public function salesorder() {
             // Retrieve the user ID from the session
             $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
