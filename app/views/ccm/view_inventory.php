@@ -36,6 +36,7 @@
                             <tr>
                                 <th>PRODUCT ID</th>
                                 <th>PRODUCT NAME </th>
+                                <th>Product image</th>
                                 <th>PRODUCT TYPE</th>
                                 <th>PRESENT QUANTITY(IN kgs) </th>
                                 <th>PRICE</th>
@@ -54,6 +55,7 @@
         <tr>
             <td><?php echo $row['product_id'] ?></td>
             <td><?php echo $row['name'] ?></td>
+            <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
             <td><?php echo $row['type'] ?></td>
             <td><?php echo $row['quantity'] ?></td>
             <td><?php echo $row['price'] ?></td>

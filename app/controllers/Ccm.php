@@ -143,6 +143,7 @@
         
                 // Sanitize and validate POST data
                 $name = trim($_POST['name']);
+                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; 
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
                 $price = trim($_POST['price']);
@@ -163,6 +164,7 @@
                 // Attempt to add product
                 $data = [
                     'name' => $name,
+                    'image' => $image,
                     'type' => $type,
                     'quantity' => $quantity,
                     'price' => $price

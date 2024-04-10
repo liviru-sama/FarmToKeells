@@ -51,6 +51,9 @@
             <h1>Add product</h1>
             <form action='' method="post" id="myForm">
 
+
+            <input type="hidden" name="image" id="productImage" value="">
+ 
                 <div class="text-field">
                     <input name='name' id="productName" type="text" required>
                     <span></span>
@@ -93,16 +96,7 @@
 
     
     <script>
-        function checkForError() {
-            var errorPopup = document.getElementById('error-popup');
-            if (errorPopup.innerHTML.trim() !== "") {
-                errorPopup.style.display = 'block';
-            }
-        }
-
-        
-        // JavaScript code to show/hide the iframe when the product field is clicked
-        document.addEventListener('DOMContentLoaded', function() {
+         document.addEventListener('DOMContentLoaded', function() {
             // Get the product field
             var productField = document.getElementById('productName');
             // Get the product selection iframe
@@ -119,8 +113,12 @@
                     iframe.style.display = 'none';
                 }
             });
+
+            // JavaScript code to restrict past dates in the date input field
+            var purchaseDateInput = document.getElementById('purchaseDate');
+            var currentDate = new Date().toISOString().split('T')[0];
+            purchaseDateInput.setAttribute('min', currentDate);
         });
-   
     </script>
 
 </body>

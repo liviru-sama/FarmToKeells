@@ -20,16 +20,15 @@
             backdrop-filter: blur(50px);
             box-shadow: 0 .4rem .8rem #0005;
             border-radius: .8rem;
-            position: fixed; /* Fixed positioning to display in front of the form */
-            top: 60%; /* Position at the center vertically */
+            position: relative; /* Fixed positioning to display in front of the form */
+            top: 50%; /* Position at the center vertically */
             left: 50%; /* Position at the center horizontally */
             transform: translate(-50%, -50%); /* Center the container */
-            z-index: 999; /* Ensure it's on top of other elements */
+            z-index: 1; /* Ensure it's on top of other elements */
             display: none; /* Initially hide the container */
         }
         #reportInfo {
-            margin-bottom: 20px;
-            border-radius: .8rem;
+            margin
             
         }
         #reportInfo table {
@@ -38,8 +37,26 @@
             box-shadow: 0 .4rem .8rem #0005;
             border-radius: .8rem;
             border-collapse: collapse;
-            width: 60%;
-            margin: 0 auto;
+            width: 350px; /* Example width */
+    height: 100px; /* Example height */
+    background-color: #ccc; /* Example background color */
+    position: relative; /* Absolute positioning */
+    top: 50%; /* Position at the center vertically */
+    left: 50%; /* Position at the center horizontally */
+    transform: translate(-50%, -50%); /* Center the container */
+    z-index: 2; /* Ensure it's above the chart container */
+
+          
+
+   
+
+
+
+            
+
+
+  
+
         }
         #reportInfo th, #reportInfo td {
             
@@ -75,7 +92,7 @@
                 <td><?php echo htmlspecialchars($data['end_date']); ?></td>
             </tr>
         </table>
-    </div>
+    </div></br></br></br></br></br></br></br></br></br></br>
 
     <div id="chartContainer">
         <!-- Display the line chart canvas -->

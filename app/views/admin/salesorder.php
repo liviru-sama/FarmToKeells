@@ -70,12 +70,12 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>Product image</th>
                                 <th>Sales Order ID</th>
                                 <th>User ID</th>
                                 <th>User </th>
                                 <th>Conatct No.</th>
                                 <th>Product</th>
-                                <th>Product image</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
                                 <th>Price</th>
