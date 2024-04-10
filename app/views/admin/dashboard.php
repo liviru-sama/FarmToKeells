@@ -31,7 +31,7 @@
                         <h3>View Orders</h3>
                     </div></a>
         
-                    <a href="farmer-notifications.php">
+                    <a href="<?php echo URLROOT; ?>/admin/manageUsers"">
                     <div class="menu" data-name="p-3">
 
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="">
