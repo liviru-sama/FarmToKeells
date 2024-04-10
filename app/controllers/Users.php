@@ -1,11 +1,13 @@
 <?php
 class Users extends Controller{
-
-
-
     public $userModel;
+
     public function __construct(){
         $this->userModel = $this->model('User');
+
+        // if(!isset($_SESSION['user_id'])){
+        //     redirect('users/user_login');
+        // }
 
     }
     public function index(){
@@ -13,10 +15,10 @@ class Users extends Controller{
             'title' => ''
         ];
 
-            // Check if user is already logged in
-        if(isset($_SESSION['user_id'])){
-            redirect('farmer/dashboard');
-        }
+        //     // Check if user is already logged in
+        // if(isset($_SESSION['user_id'])){
+        //     redirect('farmer/dashboard');
+        // }
         
         $this->view('pages/index', $data);
     }
