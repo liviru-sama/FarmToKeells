@@ -26,6 +26,7 @@ html {
     margin: 0 auto;
     padding: 1rem 2rem;
     margin-top: 1rem;
+    
 }
 
 .container .title {
@@ -39,19 +40,27 @@ html {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
     gap: 1.5rem;
+    
 }
 
 .container .dashboard-container .menu{
     text-align: center;
     padding: 2rem 2rem 2rem 2rem;
-    background: rgba(255, 255, 255, 0.598);
-    box-shadow: 0 0.5rem 1rem ;
+    background-color: #fff5;
+
+    backdrop-filter: blur(27px);
+    box-shadow: 0 .4rem .8rem #0005;
     cursor: pointer;
     height: 30rem;
     width: 30rem;
+    border-radius: 10px;
+
+    
 }
 .container .dashboard-container .menu:hover{
-    background: #65a5346b;
+    background: #6af26e;
+    transform: scale(1.08);
+
     
 }
 
@@ -59,6 +68,8 @@ html {
     align-items: center;
     height: 15rem;
     width: 15rem;
+    border-radius: .8rem;
+
 }
 .container .dashboard-container .menu:hover img{
     transform: scale(.9);

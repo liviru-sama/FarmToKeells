@@ -261,6 +261,19 @@
             return $this->db->execute();
         }
 
+
+
+       
+
+    // Get name and phone number of a user by ID
+    public function getUserInfoById($user_id) {
+        $this->db->query('SELECT name, mobile FROM users WHERE id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->single();
+    }
+
+
+    
         public function getPendingUsers()
         {
             $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "pending"');
