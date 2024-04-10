@@ -65,6 +65,11 @@
                     <label> Stock</label>
                 </div>
                 <div class="text-field">
+                    <input name="price" type="number" required>
+                    <span></span>
+                    <label> Price</label>
+                </div>
+                <div class="text-field">
                     <input name="address" type="text" required>
                     <span></span>
                     <label> Address</label>

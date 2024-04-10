@@ -83,14 +83,25 @@
         <div class="card__details">
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Type: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Quantity: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> (kgs)</span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Price: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?> </span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Date: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Address: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Status: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
+            <?php
+// Assuming $row->quantity and $row->price contain the quantity and price values respectively
+
+// Calculate the total price
+$totalPrice = $row->quantity * $row->price;
+
+// Output the total price
+echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \'Arial\', sans-serif;">Total Price: &nbsp; Rs. <span style="font-size: 20px; color: red; font-weight: bold; font-family: \'Verdana\', sans-serif;">' . $totalPrice . ' .00</span></p>';
+?>
         </div>
     </div>
     <div class="card__actions">
         <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
         <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action"></a>
+        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>" &price=<?php echo $row->quantity; ?>"><img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action"></a>
         <a href="#" onclick="confirmDelete('<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>', '<?php echo $row->order_id; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action"></a>
     </div>
 </td>

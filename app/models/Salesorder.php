@@ -73,12 +73,13 @@ class Salesorder {
         $data['image'] = $image;
         
         // Prepare SQL statement
-        $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :date, :address, :purchase_id, :user_id, :image)');
+        $this->db->query('INSERT INTO salesorder (name, type, quantity, price, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :price, :date, :address, :purchase_id, :user_id, :image)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
+        $this->db->bind(':price', $data['price']);
         $this->db->bind(':date', $data['date']);
         $this->db->bind(':address', $data['address']);
         $this->db->bind(':purchase_id', $data['purchase_id']);
@@ -97,13 +98,14 @@ class Salesorder {
     // Edit product in the database
     public function edit_salesorder($data){
         // Prepare SQL statement
-        $this->db->query('UPDATE salesorder SET name = :name, type = :type, quantity = :quantity, date = :date, address = :address WHERE order_id = :order_id');
+        $this->db->query('UPDATE salesorder SET name = :name, type = :type, quantity = :quantity, price = :price, date = :date, address = :address WHERE order_id = :order_id');
 
         // Bind parameters
         $this->db->bind(':order_id', $data['order_id']);
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
+        $this->db->bind(':price', $data['price']);
         $this->db->bind(':date', $data['date']);
         $this->db->bind(':address', $data['address']);
        
@@ -169,12 +171,13 @@ public function getStatus($order_id) {
             $image = $this->getProductImageURL($data['name']);
         
             // Prepare SQL statement
-            $this->db->query('INSERT INTO salesorder (name, type, quantity, date, address, user_id, image) VALUES (:name, :type, :quantity, :date, :address, :user_id, :image)');
+            $this->db->query('INSERT INTO salesorder (name, type, quantity,price, date, address, user_id, image) VALUES (:name, :type, :quantity, :price, :date, :address, :user_id, :image)');
         
             // Bind parameters
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':type', $data['type']);
             $this->db->bind(':quantity', $data['quantity']);
+            $this->db->bind(':price', $data['price']);
             $this->db->bind(':date', $data['date']);
             $this->db->bind(':address', $data['address']);
             $this->db->bind(':user_id', $data['user_id']);

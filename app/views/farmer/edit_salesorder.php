@@ -33,6 +33,10 @@
                     <input type="text" name="quantity" value="<?php echo $data['quantity']; ?>">
                 </div>
                 <div class="text-field">
+                    <label for="price">Price:</label>
+                    <input type="text" name="quantity" value="<?php echo $data['price']; ?>">
+                </div>
+                <div class="text-field">
                     <label for="date">Date:</label>
                     <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>" min="<?php echo date('Y-m-d'); ?>">
                 </div>
