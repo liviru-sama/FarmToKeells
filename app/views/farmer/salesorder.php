@@ -39,6 +39,7 @@
                         <th>Product </th>
                         <th>product type</th>
                         <th>needed quantity(kgs) </th>
+                        <th>price </th>
                         <th>expected supply date</th>
                         <th>address</th>
                         <th>status</th>
@@ -66,6 +67,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
             <td><?php echo $row->name ?></td>
             <td><?php echo $row->type ?></td>
             <td><?php echo $row->quantity ?></td>
+            <td><?php echo $row->price ?></td>
             <td><?php echo $row->date ?></td>
             <td><?php echo $row->address ?></td>
             <td><?php echo $row->status ?></td>

@@ -30,7 +30,7 @@
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
                     <div class="menu" data-name="p-2">
 
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
+                    <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="">
 
 
                         <h3>Post Your available products</h3>
@@ -56,7 +56,7 @@
                     
                     <a href="<?php echo URLROOT; ?>/farmer/payments">
                     <div class="menu" data-name="p-5">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash5.png">
+                        <img src="<?php echo URLROOT; ?>/public/images/pay.png">
                         <h3>Payments</h3>
                         
                     </div></a>

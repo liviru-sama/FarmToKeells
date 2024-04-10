@@ -78,6 +78,7 @@
                                 <th>Product image</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
+                                <th>Price</th>
                                 <th>Expected Supply Date</th>
                                 <th>Address</th> 
                                 <th>Status</th> 
@@ -102,6 +103,7 @@
         <td><?php echo isset($row->name) ? $row->name : $row['name']; ?></td>
         <td><?php echo isset($row->type) ? $row->type : $row['type']; ?></td>
         <td><?php echo isset($row->quantity) ? $row->quantity : $row['quantity']; ?></td>
+        <td><?php echo isset($row->price) ? $row->price : $row['price']; ?></td>
         <td><?php echo isset($row->date) ? $row->date : $row['date']; ?></td>
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">

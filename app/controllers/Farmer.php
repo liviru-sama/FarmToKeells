@@ -449,6 +449,7 @@
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
+                $price = trim($_POST['price']);
                 $date = isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
                 $purchase_id = trim($_POST['purchase_id']);
@@ -466,6 +467,7 @@
                     'name' => $name,
                     'type' => $type,
                     'quantity' => $quantity,
+                    'price' => $price,
                     'date' => $date,
                     'address' => $address,
                     'purchase_id' => $purchase_id,
@@ -503,6 +505,7 @@
                 print_r(trim($_POST['type'])."</br>");
                 print_r(trim($_POST['date'])."</br>");
                 print_r(trim($_POST['quantity'])."</br>");
+                print_r(trim($_POST['price'])."</br>");
                 print_r(trim($_POST['address'])."</br>");
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
@@ -522,6 +525,7 @@
                     'name' => $name,
                     'type' => $type,
                     'quantity' => $quantity,
+                    'price' => $price,
                     'date' => $date,
                     'address' => $address
                 ];
@@ -604,6 +608,7 @@
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
+                $price = trim($_POST['price']);
                 $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
                 $user_id = trim($_POST['user_id']);
@@ -622,6 +627,7 @@
                     'name' => $name,
                     'type' => $type,
                     'quantity' => $quantity,
+                    'price' => $price,
                     'date' => $date,
                     'address' => $address,
                     'user_id' => $user_id,
