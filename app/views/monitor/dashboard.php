@@ -19,7 +19,7 @@
     
                 <div class="menu" data-name="p-2">
                     <a href="<?php echo URLROOT; ?>/monitor/vehicleList">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png">
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png">
                     <h3>Vehicles</h3></a>
                 </div>
 

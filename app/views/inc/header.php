@@ -22,7 +22,7 @@
         <section class="header">
             <nav>
                 <div>
-                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoBlack.svg" ></a>
+                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/back.png" ></a>
                 </div>
                 <div class="nav-links">
                     <ul>
@@ -38,7 +38,6 @@
 
     <section class="header">
             <nav>
-                <!-- <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoWhite.png"></a> -->
                 <div class="nav-links">
                     <ul>
                         <li><a href="<?php echo URLROOT; ?>/users/contact">Contact</a></li>
