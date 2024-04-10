@@ -15,9 +15,7 @@ class Admin extends Controller{
             // }
 
             }
-            
-            
-        public function admin_login()
+          public function admin_login()
         {
           
                 // Check for POST
@@ -89,11 +87,7 @@ class Admin extends Controller{
             
            
         }
-
-       
-        
-
-       
+           
 
 
         public function stock_overview() {
@@ -113,7 +107,7 @@ class Admin extends Controller{
                 // Handle case where no products are returned or an error occurs
                 // For example, you can return an error message as JSON
                 header('Content-Type: application/json');
-                echo json_encode(['error' => 'No products found']);
+                echo (['error' => 'No products found']);
             }
         }
         

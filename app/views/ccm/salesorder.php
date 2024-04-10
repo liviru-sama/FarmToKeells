@@ -37,6 +37,7 @@
                                 <th>Product</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
+                                <th>Price</th>
                                 <th>Expected Supply Date</th>
                                 <th>Address</th> 
                                 <th>Status</th> 
@@ -54,6 +55,7 @@
                                     <td><?php echo $row->name; ?></td>
                                     <td><?php echo $row->type; ?></td>
                                     <td><?php echo $row->quantity; ?></td>
+                                    <td><?php echo $row->price; ?></td>
                                     <td><?php echo $row->date; ?></td>
                                     <td><?php echo $row->address; ?></td>
                                     <td class="statusColumn">
