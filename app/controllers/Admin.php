@@ -9,11 +9,14 @@ class Admin extends Controller{
                 $this->adminModel = $this->model('Admins'); 
                 $this->userModel = $this->model('User');
 
-            }
-        
-            
-        
+            //     // Check if admin is logged in
+            // if(!isset($_SESSION['admin_id'])) {
+            //     redirect('admin/admin_login');
+            // }
 
+            }
+            
+            
         public function admin_login()
         {
           
