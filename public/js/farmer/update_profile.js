@@ -1,15 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
-    var nameInput = document.getElementById('name');
-    var nameError = document.getElementById('newname-error');
 
-    if (nameInput) {
-        nameInput.addEventListener('focus', function () {
-            if (nameError) {
-                nameError.style.display = 'none';
-            }
-        });
-    }
-});
 
 document.addEventListener('DOMContentLoaded', function() {
     // Get the flash message element
@@ -29,3 +18,5 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000); // Adjust the duration (in milliseconds) as needed
     }
 });
+
+

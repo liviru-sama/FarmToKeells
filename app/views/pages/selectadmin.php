@@ -1,0 +1,60 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login </title>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin/selectadmin.css">
+    
+</head>
+<body>
+    <section class="header">
+        <nav>
+            
+            
+            
+        </nav>
+        <section class="dashboard">
+            <div class="container">
+                <div class="dashboard-container">
+        
+                    
+                    <a href="<?php echo URLROOT; ?>/admin/admin_login">
+                    <div class="menu" data-name="p-1">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="">
+                   
+                        <h3>Keells Admin</h3>
+                    </div>
+                    </a>
+                   
+                        <a href="<?php echo URLROOT; ?>/ccm/ccm_login">
+                        <div class="menu" data-name="p-2">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash9.png" alt=""> 
+                        
+                        <h3>Collection Centre manager</h3>
+                    </div></a>
+        
+                        <a href="<?php echo URLROOT; ?>/transport/tm_login">
+                        <div class="menu" data-name="p-3">
+
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash8.png" alt="">
+                        <h3>Transporatation manager</h3>
+                    </div></a>
+        
+                    
+        
+        
+                </div>
+            </div>
+        </section>
+    </section>
+
+    
+
+</body>
+</html>
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>

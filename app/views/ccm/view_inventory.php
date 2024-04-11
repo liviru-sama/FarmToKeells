@@ -1,30 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<?php
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $name = $_POST['name'];
-    $type = $_POST['type'];
-    $price = $_POST['price'];
-    $quantity = $_POST['quantity'];
-
-    $stmt = $conn->prepare("UPDATE product SET type=?, price=?, quantity=? WHERE name=?");
-    $stmt->bind_param("ssis", $type, $price, $quantity, $name);
-
-    if ($stmt->execute()) {
-        echo "<h2>Data updated successfully</h2>";
-        header('Location:ccm-view-inventory.php');
-    } else {
-        echo "<h2>Error: " . $stmt->error . "</h2>";
-    }
-    // if (isset($_POST['place'])) {
-    //     // This code will be executed when the button is clicked
-    //     header("Location:ccm-view-inventory.");
-    //     exit();
-    // }
-}
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -33,6 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
+    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/view_inventory.css">
 
 </head>
@@ -40,8 +17,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <section class="header">
        
-        <h4>PRODUCT INVENTORY
-        
+        <h4>PRODUCT INVENTORY  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; padding: 10px 20px; background-color: #4CAF50; color: white; border: 1px solid #4CAF50; border-radius: 5px;">
+
+                                 
         <a class="button" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
 
         </h4>
@@ -62,47 +41,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <th>PRICE</th>
 
                                 <th>EDIT</th>
-                                <th>DELETE</th>
                                 
-
-
-
-
-                            </tr>
+                             </tr>
                         </thead>
                         <tbody>
-                        <?php
-                          
+                     
+                            
+                                
+
+   
+    <?php while ($row = mysqli_fetch_assoc($data['products'] )) { ?>
+        <tr>
+            <td><?php echo $row['product_id'] ?></td>
+            <td><?php echo $row['name'] ?></td>
+            <td><?php echo $row['type'] ?></td>
+            <td><?php echo $row['quantity'] ?></td>
+            <td><?php echo $row['price'] ?></td>
+            <td><a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+           
+        </tr>
+    <?php } ?>
 
 
-                            $sql = "select * from product";
-
-                            $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-                            $sql = "SELECT * FROM product";
-                            $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
-
-
-
-                            ?>
-                            <?php
-                            while ($row = mysqli_fetch_assoc($result)) {
-                            ?>
-                                <tr>
-                                    <td><?php echo $row['product_id']  ?></td>
-                                    <td><?php echo $row['name']  ?></td>
-                                    <td>
-                                        <?php echo $row['type']  ?></td>
-                                    <td><?php echo $row['quantity']  ?></td>
-                                    <td><?php echo $row['price']  ?></td>
-
-
-                                    <td> <a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td> <a href="<?php echo URLROOT; ?>/ccm/delete_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></button></td>
-
-                                </tr>
-                            <?php
-                            }
-                            ?> 
                         </tbody>
                     </table>
                 </form>

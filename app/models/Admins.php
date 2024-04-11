@@ -1,42 +1,92 @@
 <?php
-class Admin
-{
-    private $db;
+    class Admins{
+        private $db;
 
-    public function __construct()
-    {
-        $this->db = new Database;
-    }
+        public function __construct(){
+            $this->db = new Database;
+        }
 
-    // Login Admin
-    public function login($username, $password)
-    {
-        $this->db->query('SELECT * FROM admins WHERE admin_username = :username');
-        $this->db->bind(':username', $username);
+        public function findUserByUsername($admin_username){
+            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
+            //Bind value
+            $this->db->bind(':admin_username', $admin_username);
 
-        $row = $this->db->single();
+            $row = $this->db->single();
 
-        if ($row) {
-            // Compare plaintext passwords
-            if ($row->admin_password === $password) {
-                return $row; // Return admin data if password matches
+            //Check row
+            if($this->db->rowCount() > 0){
+                return true;
+            } else {
+                return false;
             }
         }
+
+        //Login User
+        public function admin_login($admin_username, $admin_password){
+            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
+            $this->db->bind(':admin_username', $admin_username);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->admin_password;
+            if(password_verify($admin_password, $hashed_password)){
+               
+            } else {
+                return false;
+            }
+
+        }
+        public function ccm_login($admin_username, $admin_password){
+            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
+            $this->db->bind(':admin_username', $admin_username);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->admin_password;
+            if(password_verify($admin_password, $hashed_password)){
+               
+            } else {
+                return false;
+            }
+
+        }
+
+        public function tm_login($admin_username, $admin_password){
+            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
+            $this->db->bind(':admin_username', $admin_username);
+
+            $row = $this->db->single();
+
+            $hashed_password = $row->admin_password;
+            if(password_verify($admin_password, $hashed_password)){
+               
+            } else {
+                return false;
+            }
+
+        }
+
+        public function getPendingRegistrationRequests()
+            {
+                $this->db->query('SELECT id as user_id, name, email FROM users WHERE status = "pending"');
+                $result = $this->db->resultSet();
+
+                if ($this->db->rowCount() > 0) {
+                    return $result;
+                } else {
+                    return [];
+                }
+            }
+
         
-        return false; // Return false if admin is not found or password does not match
+
+
+        
+
+        
+
+
+    
+
     }
 
-    // Find admin by username
-    public function findAdminByUsername($username)
-    {
-        $this->db->query('SELECT * FROM admins WHERE admin_username = :username');
-        $this->db->bind(':username', $username);
-        $row = $this->db->single();
-
-        return $row ? $row : false; // Return admin data if found, otherwise return false
-    }
-
-    // Register Admin
-  
-}
-?>

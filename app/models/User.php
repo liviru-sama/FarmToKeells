@@ -8,7 +8,7 @@
 
         //Register user
         public function register($data){
-            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, password) VALUES(:name, :username, :email, :nic, :mobile, :password)');
+            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, password, status) VALUES(:name, :username, :email, :nic, :mobile, :password, :status)');
             //Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':username', $data['username']);
@@ -16,11 +16,14 @@
             $this->db->bind(':nic', $data['nic']);
             $this->db->bind(':mobile', $data['mobile']);
             $this->db->bind(':password', $data['password']);
-
-            //Execute
-            if($this->db->execute()){
+            $this->db->bind(':status', 'pending'); // Set initial status to 'pending'
+        
+            // Execute
+            if ($this->db->execute()) {
                 return true;
             } else {
+                // Log the error
+                error_log("User registration failed.");
                 return false;
             }
         }
@@ -77,19 +80,26 @@
         public function login($username, $password){
             $this->db->query('SELECT * FROM users WHERE username = :username');
             $this->db->bind(':username', $username);
-
+        
             $row = $this->db->single();
-
-            $hashed_password = $row->password;
-            if(password_verify($password, $hashed_password)){
-                return $row;
-            } else {
-                return false;
+        
+            if ($row) {
+                if ($row->status === 'accept') { // Check if the user status is 'accept'
+                    $hashed_password = $row->password;
+                    if (password_verify($password, $hashed_password)) {
+                        return $row;
+                    }
+                } else {
+                    // User exists but status is not 'accept'
+                    return false;
+                }
             }
-
+        
+            // User not found or password incorrect
+            return false;
         }
+        
 
-       
 
         public function getUserById($id) {
             $this->db->query('SELECT * FROM users WHERE id = :id');
@@ -97,6 +107,17 @@
         
             return $this->db->single();
         }
+
+        // Add this method to your User class
+        public function getPasswordById($id) {
+            $this->db->query('SELECT password FROM users WHERE id = :id');
+            $this->db->bind(':id', $id);
+
+            $row = $this->db->single();
+
+            return ($this->db->rowCount() > 0) ? $row->password : null;
+        }
+
 
         public function changePassword($data) {
             $this->db->query('UPDATE users SET password = :password WHERE id = :id');
@@ -189,7 +210,7 @@
 
 
         public function updatePassword($user_id, $new_password) {
-            $sql = "UPDATE users SET password = :new_password WHERE user_id = :user_id";
+            $sql = "UPDATE users SET password = :new_password WHERE id = :user_id";
             $this->db->query($sql);
             $this->db->bind(':new_password', $new_password);
             $this->db->bind(':user_id', $user_id);
@@ -197,7 +218,7 @@
             $pwd_updated = $this->db->execute();
             if ($pwd_updated){
                 
-                $sql_users = "UPDATE users SET password = :new_password WHERE user_id = :user_id";
+                $sql_users = "UPDATE users SET password = :new_password WHERE id = :user_id";
                 $this->db->query($sql_users);
                 $this->db->bind(':new_password', $new_password);
                 $this->db->bind(':user_id', $user_id);
@@ -226,6 +247,7 @@
                 return false;
             }
         }
+        
 
         public function update_profile($data) {
             $this->db->query('UPDATE users SET name = :name, email = :email, username = :username WHERE id = :id');
@@ -238,6 +260,68 @@
             // Execute
             return $this->db->execute();
         }
+
+
+
+       
+
+    // Get name and phone number of a user by ID
+    public function getUserInfoById($user_id) {
+        $this->db->query('SELECT name, mobile FROM users WHERE id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->single();
+    }
+
+
+    
+        public function getPendingUsers()
+        {
+            $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "pending"');
+            $result = $this->db->resultSet();
+            
+            // Log the result
+            error_log("Pending Registration Requests: " . print_r($result, true));
+            
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
+        }
+
+        
+
+        public function acceptRegistrationRequest($userId)
+        {
+            $this->db->query('UPDATE users SET status = "accept" WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            return $this->db->execute();
+        }
+    
+        public function rejectRegistrationRequest($userId)
+        {
+            $this->db->query('UPDATE users SET status = "reject" WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            return $this->db->execute();
+        }
+
+        public function getAcceptedUsers()
+        {
+            $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "accept"');
+            $result = $this->db->resultSet();
+            
+            // Log the result
+            error_log("Accepted Users: " . print_r($result, true));
+            
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
+        }
+
+
+
 
     }
 

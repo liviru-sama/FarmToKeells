@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <?php if (isset($data['page']) && $data['page'] === 'index'): ?>
+    <?php if (isset($data->page) && $data->page === 'index'): ?>
         <link rel="stylesheet" type="text/css" href="<?php echo CSS; ?>/main.css">
     <?php endif; ?>
     <style>
@@ -16,14 +16,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;500;600;700&display=swap" rel="stylesheet">
-    
 </head>
 <body>
     <?php if(isset($_SESSION['user_id'])): ?>
         <section class="header">
             <nav>
                 <div>
-                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoBlack.svg" ></a>
+                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/back.png" ></a>
                 </div>
                 <div class="nav-links">
                     <ul>
@@ -39,7 +38,6 @@
 
     <section class="header">
             <nav>
-                <!-- <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/logoWhite.png"></a> -->
                 <div class="nav-links">
                     <ul>
                         <li><a href="<?php echo URLROOT; ?>/users/contact">Contact</a></li>
@@ -48,8 +46,6 @@
             </nav>
         </section>
 
-
     <?php endif; ?>
-    
-     
-    
+</body>
+</html>

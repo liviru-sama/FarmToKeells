@@ -69,6 +69,7 @@ main.table {
     width: 45%;
     background-color: #fff8;
     box-shadow: 0 .1rem .4rem #0002;
+    
 }
 
 .table__header .input-group img {
@@ -120,15 +121,20 @@ td img {
     width: 36px;
     height: 36px;
     margin-right: .5rem;
-    border-radius: 50%;
+    border-radius: 10%;
 
     vertical-align: middle;
 }
 
-table, th, td {
+table, th{
     border-collapse: collapse;
     padding: 1rem;
-    text-align: left;
+    text-align: center;
+}
+
+td {
+    padding: 0.5rem;
+
 }
 
 thead th {
@@ -156,6 +162,7 @@ tbody tr.hide {
 
 tbody tr:hover {
  background-color: #58a75c;
+ transform: scale(1.009);
 }
 
 tbody tr td,
@@ -172,8 +179,8 @@ tbody tr.hide td p {
 }
 
 tbody tr.hide td img {
-    width: 0;
-    height: 0;
+    width: 7;
+    height: 7;
     transition: .2s ease-in-out .5s;
 }
 
@@ -198,12 +205,15 @@ a.button {
     color: white; /* Text color */
     text-decoration: none; /* Remove underline */
     border: 1px solid #4CAF50; /* Green border */
-    border-radius: 5px; /* Rounded corners */
+    border-radius: 5px; 
+    /* Rounded corners */
 }
 
 /* Hover effect */
 a.button:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #45a049;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
 }
 
 /* Table heading font color */
@@ -215,5 +225,119 @@ thead th {
     background-color: #2e342f;
     cursor: pointer;
     text-transform: capitalize;
+}
+
+/* Style the placeholder text */
+#searchInput::placeholder {
+    color: white;
+}
+
+
+
+#statusForm {
+    margin-bottom: 20px;
+}
+
+/* Style the update status button */
+#statusForm button[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    text-decoration: none;
+    border: 1px solid #4CAF50;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#statusForm button[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+/* Style the dropdown container */
+.select-container {
+    position: relative;
+    display: inline-block;
+}
+
+/* Style the dropdown menu */
+.statusInput {
+    appearance: none;
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: white; /* Text color */
+    border: 5px solid #4CAF50; /* Green border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s; /* Add transition */
+}
+
+/* Hover effect for dropdown */
+.statusInput:hover {
+    background-color: #45a049;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
+}
+
+/* Style the dropdown arrow */
+.select-arrow {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: rgb(251, 248, 248); 
+}
+
+/* Style the dropdown options */
+.statusInput option {
+    padding: 10px 20px; /* Adjust padding as needed */
+    background-color: #4CAF50; /* Green background color */
+    color: rgb(251, 248, 248); /* Text color */
+    cursor: pointer; /* Change cursor to pointer */
+    transition: background-color 0.3s;
+     /* Add transition */
+}
+
+/* Hover effect for dropdown options */
+.statusInput option:hover {
+    background-color: #215023;
+    transform: scale(1.08);
+    /* Darker green background color on hover */
+}
+
+#confirmationDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 10.9); /* Set background color with opacity */
+    border: 1px solid #ccc;
+    z-index: 999; /* Ensure iframe is above other elements */
+    padding: 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(70px);
+    box-shadow: 0 .4rem .8rem #0005;
+
+}
+
+/* Style the Yes and No buttons */
+#confirmationDialog button {
+    padding: 10px 20px;
+    background-color: #2e342f; /* Match the color of table headings */
+    color: rgb(253, 251, 251);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+/* Hover effect for buttons */
+#confirmationDialog button:hover {
+    background-color: #4CAF50;
+    transform: scale(1.08);
+
+    /* Darker green background color */
 }
 
