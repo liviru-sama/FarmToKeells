@@ -13,7 +13,7 @@ class Price {
         return $data;
     }
 
-  
+    
 
 
     public function getAllPrices() {
@@ -110,12 +110,11 @@ public function findProductByName($name) {
 
 public function edit_price($data){
     // Prepare SQL statement
-    $this->db->query('UPDATE product SET type = :type, quantity = :quantity, price = :price WHERE product_id = :id');
+    $this->db->query('UPDATE price SET  price = :price WHERE product_id = :id');
 
     // Bind parameters
     $this->db->bind(':id', $data['id']);
-    $this->db->bind(':type', $data['type']);
-    $this->db->bind(':quantity', $data['quantity']);
+  
     $this->db->bind(':price', $data['price']);
 
     // Execute query

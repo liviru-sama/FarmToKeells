@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -145,7 +144,7 @@
             <section class="table_header">
             </br>
             <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT PRICES  
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
                                  
 
@@ -175,7 +174,7 @@
             </div>
         </div>
         <div class="card__actions">
-            <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
+            <a href="<?php echo URLROOT; ?>/ccm/edit_price?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
         </div></br></br>
     
     <?php } ?></td>
@@ -223,6 +222,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function searchcardProducts() {
+    // Declare variables
+    var input, filter, cards, card, productName, i;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    cards = document.getElementsByClassName("card");
+
+    // Loop through all product cards, and hide those that don't match the search query
+    for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        productName = card.getElementsByClassName("card__text")[0];
+        if (productName) {
+            if (productName.textContent.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        }
+    }
+}
 
 </script>
         </body>

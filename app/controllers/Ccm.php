@@ -141,7 +141,48 @@ public function logout() {
             $this->view('ccm/view_price', $data);
         }
         
+public function edit_price() {
+    // Check for POST request
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Instantiate Product Model with Database dependency injection
+        $priceModel = new Price();
 
+        // Sanitize and validate POST data
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $price = trim($_POST['price'] ?? '');
+
+        // Check for required fields
+        if (empty($price)) {
+            echo "Please fill in all fields.";
+            return;
+        }
+
+        // Attempt to edit product
+        $data = [
+            'id' => $id,
+            'price' => $price
+        ];
+
+        if ($priceModel->edit_price($data)) {
+            // Product edited successfully
+            // Redirect to view inventory page or display success message
+            redirect('ccm/view_price');
+            exit();
+        } else {
+            // Product editing failed
+            echo "Failed to edit price.";
+        }
+    } else {
+        // If not a POST request, redirect to the edit product page or show an error message
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $priceModel = new Price();
+        $priceData = $priceModel->view_price($id);
+
+        $this->view("ccm/edit_price", (array)$priceData);
+    }
+}
+
+        
         public function Purchaseorder() {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
@@ -256,37 +297,9 @@ public function logout() {
         
         
 
-        public function delete_product(){
-            // Check for POST
-            if ($_GET['id']!=NULL) {
-                
-                // Instantiate Product Model with Database dependency injection
-                $productModel = new Product();
+       
         
-                // Sanitize and validate POST data
-                $id = $_GET['id']; // Assuming the id of the product to delete is passed via POST
-                // // Check if id is provided
-                // if (empty($id)) {
-                //     echo "Please provide product ID.";
-                //     return;
-                // }
-
-                // Attempt to delete product
-                if ($productModel->delete_product($id)) {
-                    // Product deleted successfully
-                    // Redirect to view inventory page or display success message
-                    redirect('ccm/view_inventory');
-                    exit();
-                } else {
-                    // Product deletion failed
-                    echo "Failed to delete product.";
-                }
-            } else {
-                // If not a POST request, redirect to the view inventory page or show an error message
-                echo "Invalid request method.";
-            }
-        }
-
+        
         
 
 
