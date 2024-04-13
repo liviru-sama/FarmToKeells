@@ -50,17 +50,19 @@
 
                 <div class="text-field">
                     <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
-                        <option value="1">Western</option>
-                        <option value="2">Southern</option>
-                        <option value="3">Central</option>
+                        <option value="Western">Western</option>
+                        <option value="Southern">Southern</option>
+                        <option value="Central">Central</option>
                 </div>
 
                 <!-- <div class="text-field">
-                    <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
-                        <option value="1">Western</option>
-                        <option value="2">Southern</option>
-                        <option value="3">Central</option>
+                    <select name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
+                        <option value="4">Bandarawela</option>
+                        <option value="5">Sooriyawewa</option>
+                        
                 </div> -->
+
+               
 
                
 
