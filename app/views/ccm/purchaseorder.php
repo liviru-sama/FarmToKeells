@@ -1,5 +1,3 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,18 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/view_inventory.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+
+    <style>
+    body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
+        }
+        </style>
 </head>
 
 <body>
-    <section class="header">
-        <h4>PURCHASE ORDERS
-        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add Purchase order</a>
-        </h4>
-        <main class="table">
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1></h1>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <section class="dashboard">
+            <div class="container">
+                <div class="dashboard-container">
+                    <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-1">
+                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Inventory</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2"style="background: #65A534;
+            transform: scale(1.08);"> 
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Orders</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Market Prices</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Stock levels</h6>
+                        </div> </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
+                            <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Time Report</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Inquiry</h6>
+                        </div>
+                    </a>
+
+                   
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <section class="header">
+           
+        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
+    <h5 class="inline-heading" class
+=
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+</a>
+<a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
+<h5 class="inline-heading" class
+=
+"tab-heading" >&nbsp;VIEW THEIR AVAILABLE PRODUCTS</h5></a>
+
+<main class="table">
             <section class="table_header">
             </section>
             <section class="table_body">
+
+            <h2>PURCHASE ORDERS &nbsp;&nbsp;&nbsp;
+        <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add Purchase order</a>
+        </h2>
                 <form method="post">
                     <table>
                         <thead>
@@ -56,6 +137,7 @@
             </section>
         </main>
     </section>
+
     <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
     <script>
@@ -65,8 +147,7 @@
             confirmationdialog.src = iframeSrc;
             confirmationdialog.style.display = 'block';
         </script>
+
 </body>
 
 </html>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>

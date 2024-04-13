@@ -12,83 +12,60 @@ class Transport extends Controller
 
     public function tm_login()
     {
-      
-            // Check for POST
-       
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Process form
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Process form
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
     
-                // Sanitize POST data    
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            $data = [
+                'admin_username' => trim($_POST['admin_username']),
+                'admin_password' => trim($_POST['admin_password']),
+                'admin_username_err' => '',
+                'admin_password_err' => ''
+            ];
     
-                // Init data
-                $data = [
-                    'admin_username' => trim($_POST['admin_username']),
-                    'admin_password' => trim($_POST['admin_password']),
-                    'admin_username_err' => '',
-                    'admin_password_err' => '',
-                ];
+            // Validate Username
+            if (empty($data['admin_username'])) {
+                $data['admin_username_err'] = 'Please enter username';
+            }
     
-                // Validate Username
-                if (empty($data['admin_username'])) {
-                    $data['admin_username_err'] = 'Please enter username';
-                }
-                // Validate Password
-                if (empty($data['admin_password'])) {
-                    $data['admin_password_err'] = 'Please enter password';
-                }
-                
-                //CHECK FOR USER/EMAIL
-                if ($this->adminModel->findUserByUsername($data['admin_username'])) {
-                    //USER FOUND
+            // Validate Password
+            if (empty($data['admin_password'])) {
+                $data['admin_password_err'] = 'Please enter password';
+            }
+    
+            // Check for errors
+            if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+                // Validated
+                // Call the validate_login method in the admin model with username and password
+                $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
+                if ($loggedInAdmin) {
+                    // Create session
+                    $this->createUserSession($loggedInAdmin);
                 } else {
-                    //USER NOT FOUND
-                    $data['admin_username_err'] = 'No user found';
-                }
-    
-                // Make sure errors are empty
-                if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                    // Validated
-                    // Check and set logged in user
-                    $loggedInAdmin = $this->adminModel->admin_login($data['admin_username'], $data['admin_password']);
-    
-                    if ($loggedInAdmin) {
-                        // Create Session
-                        $this->createUserSession($loggedInAdmin);
-                    } else {
-                        $data['admin_password_err'] = 'Incorrect Password ';
-    
-                        $this->view('transport/tm_login', $data);
-                    }
-    
-    
-                } else {
-                    // Load view with errors
+                    $data['admin_password_err'] = 'Incorrect username or password';
                     $this->view('transport/tm_login', $data);
                 }
             } else {
-                // Init data
-                $data = [
-                    'admin_username' => '',
-                    'admin_password' => '',
-                    'admin_username_err' => '',
-                    'admin_password_err' => '',
-                ];
-    
-                // Load view
+                // Load view with errors
                 $this->view('transport/tm_login', $data);
-            
+            }
+        } else {
+            // Load view
+            $this->view('transport/tm_login');
         }
-        
-       
     }
+    
 
-    public function createUserSession($admin_user) {
-        $_SESSION['admin_id'] = $admin_user->admin_id;
-        $_SESSION['admin_username'] = $admin_user->admin_username;
-        // No need to store admin name and email if they are not present in the table
-        redirect('transport/dashboard');
-    }
+    
+    
+  public function createUserSession($admin_user) {
+$_SESSION['admin_id'] = $admin_user->admin_id;
+$_SESSION['admin_username'] = $admin_user->admin_username;
+// Check if the 'admin_id' session variable exists
+
+
+redirect('transport/dashboard');
+}
     
 
 

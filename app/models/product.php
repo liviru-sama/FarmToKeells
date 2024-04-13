@@ -58,10 +58,13 @@ class Product {
     // Add product to the database
     public function add_product($data){
         // Prepare SQL statement
-        $this->db->query('INSERT INTO product (name, type, quantity, price) VALUES (:name, :type, :quantity, :price)');
+        $image = $this->getProductImageURL($data['name']);
+        $data['image'] = $image;
+        $this->db->query('INSERT INTO product (name, image,type, quantity, price) VALUES (:name,:image, :type, :quantity, :price)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name']);
+        $this->db->bind(':image', $data['image']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
         $this->db->bind(':price', $data['price']);
@@ -148,6 +151,43 @@ public function edit_product($data){
 
 // Inside your Product model class
 
+
+public function getProductImageURL($productName) {
+    // Logic to retrieve the image URL based on the product name
+    // This could involve querying your database, accessing an API, or any other means to get the image URL
+    
+    // For demonstration purposes, let's assume you have an array mapping product names to image URLs
+    $productImageMap = [
+        'Carrot' => 'carrot.png',
+        'Brinjal' => 'brinjal.png',
+        'Onions' => 'onion.png',
+        'Cabbage' => 'cabbage.png',
+        'Cucumber' => 'cucumber.png',
+        'Ladies Finger' => 'ladies.png',
+        'Leeks' => 'leeks.png',
+        'Chillie' => 'chillie.png',
+        'Tomato' => 'tomato.png',
+        'Potato' => 'potato.png',
+        'Pumpkin' => 'pumpkin.png'
+
+
+
+
+
+
+
+        // Add more mappings as needed
+    ];
+
+    // Check if the product name exists in the mapping array
+    if (isset($productImageMap[$productName])) {
+        // Return the corresponding image URL
+        return URLROOT . '/public/images/' . $productImageMap[$productName];
+    } else {
+        // If no image is found for the product name, you can return a default image URL or handle it accordingly
+        return URLROOT . '/public/images/default.png';
+    }
+}
 
 
 

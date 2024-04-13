@@ -1,13 +1,13 @@
 <?php
 
-class Product {
+class Price {
     private $db;
 
     public function __construct(){
         $this->db = new Database;
     }
-    public function view_product($id){
-        $this->db->query('SELECT * from product where product_id=:id');
+    public function view_price($id){
+        $this->db->query('SELECT * from price where product_id=:id');
         $this->db->bind(':id',$id);
         $data = $this->db->single();
         return $data;
@@ -16,9 +16,9 @@ class Product {
   
 
 
-    public function getAllProducts() {
+    public function getAllPrices() {
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        $sql = "SELECT * FROM product";
+        $sql = "SELECT * FROM price";
         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
         return $result;
     }
@@ -26,7 +26,7 @@ class Product {
 
 
 
-    public function getExistingProducts() {
+    public function getExistingPrices() {
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
     
         // Check for connection errors
@@ -35,7 +35,7 @@ class Product {
         }
     
         // Query to fetch existing product names
-        $this->db->query('SELECT name FROM product');
+        $this->db->query('SELECT name FROM price');
         
         // Execute the query
         if (!$this->db->execute()) {
@@ -46,9 +46,9 @@ class Product {
         $products = $this->db->resultSet();
     
         // Log or print the result set for debugging
-        var_dump($products); // This will print the result set to the browser console or log file
+        var_dump($prices); // This will print the result set to the browser console or log file
         
-        return $products;
+        return $prices;
     }
     
     
@@ -56,7 +56,7 @@ class Product {
 
 
     // Add product to the database
-    public function add_product($data){
+    public function add_price($data){
         // Prepare SQL statement
         $image = $this->getProductImageURL($data['name']);
         $data['image'] = $image;
@@ -108,7 +108,7 @@ public function findProductByName($name) {
 
     
 
-public function edit_product($data){
+public function edit_price($data){
     // Prepare SQL statement
     $this->db->query('UPDATE product SET type = :type, quantity = :quantity, price = :price WHERE product_id = :id');
 
@@ -130,21 +130,7 @@ public function edit_product($data){
 
     
 
-    // Delete product from the database
-    public function delete_product($id){
-        // Prepare SQL statement
-        $this->db->query('DELETE FROM product WHERE product_id = :id');
-
-        // Bind parameter
-        $this->db->bind(':id', $id);
-
-        // Execute query
-        if ($this->db->execute()) {
-            return true; // Indicate success
-        } else {
-            return false; // Indicate failure
-        }
-    }
+    
 
 
    // Inside your Product model class
@@ -167,9 +153,7 @@ public function getProductImageURL($productName) {
         'Leeks' => 'leeks.png',
         'Chillie' => 'chillie.png',
         'Tomato' => 'tomato.png',
-        'Potato' => 'potato.png',
-        'Pumpkin' => 'pumpkin.png'
-
+        'Potato' => 'potato.png'
 
 
 

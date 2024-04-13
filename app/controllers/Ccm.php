@@ -1,113 +1,123 @@
 <?php
-    class Ccm extends Controller{
+class Ccm extends Controller {
+    public $adminModel;
 
+    public function __construct() {
+        $this->adminModel = $this->model('Admins'); 
+        $this->userModel = $this->model('User');
+    }
 
-        public $adminModel;
-
-        public function __construct() {
-            
-            $this->adminModel = $this->model('Admins'); 
-            $this->userModel = $this->model('User');
-        }
+    public function viewProductPrices() {
+        // Load the view
+        require APPROOT . '/views/ccm/productprices.php';
+    }
     
+
+
+
         public function index(){
             $data = [
                 'title' => ''
             ];
-            $this->view("ccm/product_selection");
             
+            $this->view('ccm/product_selection', $data);
         }
-
-      
 
         public function ccm_login()
         {
-          
-                // Check for POST
-           
-                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                    // Process form
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         
-                    // Sanitize POST data    
-                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                $data = [
+                    'admin_username' => trim($_POST['admin_username']),
+                    'admin_password' => trim($_POST['admin_password']),
+                    'admin_username_err' => '',
+                    'admin_password_err' => ''
+                ];
         
-                    // Init data
-                    $data = [
-                        'admin_username' => trim($_POST['admin_username']),
-                        'admin_password' => trim($_POST['admin_password']),
-                        'admin_username_err' => '',
-                        'admin_password_err' => '',
-                    ];
+                // Validate Username
+                if (empty($data['admin_username'])) {
+                    $data['admin_username_err'] = 'Please enter username';
+                }
         
-                    // Validate Username
-                    if (empty($data['admin_username'])) {
-                        $data['admin_username_err'] = 'Please enter username';
-                    }
-                    // Validate Password
-                    if (empty($data['admin_password'])) {
-                        $data['admin_password_err'] = 'Please enter password';
-                    }
-                    
-                    //CHECK FOR USER/EMAIL
-                    if ($this->adminModel->findUserByUsername($data['admin_username'])) {
-                        //USER FOUND
+                // Validate Password
+                if (empty($data['admin_password'])) {
+                    $data['admin_password_err'] = 'Please enter password';
+                }
+        
+                // Check for errors
+                if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+                    // Validated
+                    // Call the validate_login method in the admin model with username and password
+                    $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
+                    if ($loggedInAdmin) {
+                        // Create session
+                        $this->createUserSession($loggedInAdmin);
                     } else {
-                        //USER NOT FOUND
-                        $data['admin_username_err'] = 'No user found';
-                    }
-        
-                    // Make sure errors are empty
-                    if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                        // Validated
-                        // Check and set logged in user
-                        $loggedInAdmin = $this->adminModel->admin_login($data['admin_username'], $data['admin_password']);
-        
-                        if ($loggedInAdmin) {
-                            // Create Session
-                            $this->createUserSession($loggedInAdmin);
-                        } else {
-                            $data['admin_password_err'] = 'Incorrect Password ';
-        
-                            $this->view('ccm/ccm_login', $data);
-                        }
-        
-        
-                    } else {
-                        // Load view with errors
+                        $data['admin_password_err'] = 'Incorrect username or password';
                         $this->view('ccm/ccm_login', $data);
                     }
                 } else {
-                    // Init data
-                    $data = [
-                        'admin_username' => '',
-                        'admin_password' => '',
-                        'admin_username_err' => '',
-                        'admin_password_err' => '',
-                    ];
-        
-                    // Load view
+                    // Load view with errors
                     $this->view('ccm/ccm_login', $data);
-                
+                }
+            } else {
+                // Load view
+                $this->view('ccm/ccm_login');
             }
-            
-           
-        }
-
-        public function createUserSession($admin_user) {
-            $_SESSION['admin_id'] = $admin_user->admin_id;
-            $_SESSION['admin_username'] = $admin_user->admin_username;
-            // No need to store admin name and email if they are not present in the table
-            redirect('ccm/dashboard');
         }
         
 
+        
+        
+      public function createUserSession($admin_user) {
+    $_SESSION['admin_id'] = $admin_user->admin_id;
+    $_SESSION['admin_username'] = $admin_user->admin_username;
+  // Check if the 'admin_id' session variable exists
 
 
-        public function dashboard(){
-            $data = [];
+    redirect('ccm/dashboard');
+}
 
-            $this->view('ccm/dashboard', $data);
-        }
+        
+public function dashboard(){
+    $data = [];
+
+    $this->view('ccm/dashboard', $data);
+}
+
+public function notifications(){
+   
+
+    $this->view('ccm/notifications');
+}
+
+// CcmController.php
+
+
+
+
+
+public function logout() {
+    // Unset all of the session variables
+    $_SESSION = array();
+  
+    // Destroy the session.
+    session_destroy();
+  
+    // Set a short session expiration time (e.g., 5 minutes) for future sessions
+    ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+  
+    // Redirect to the index page
+    redirect('/pages/index.php');
+  }
+  
+
+
+
+
+     
 
         public function view_inventory(){
             // Instantiate Product Model
@@ -118,6 +128,17 @@
             
             // Load the view with products data
             $this->view('ccm/view_inventory', $data);
+        }
+        
+        public function view_price(){
+            // Instantiate Product Model
+            $priceModel = new Price();
+            
+            // Get all products
+            $data['prices'] = $priceModel->getAllPrices();
+            
+            // Load the view with products data
+            $this->view('ccm/view_price', $data);
         }
         
 
@@ -143,6 +164,7 @@
         
                 // Sanitize and validate POST data
                 $name = trim($_POST['name']);
+                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; 
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
                 $price = trim($_POST['price']);
@@ -163,6 +185,7 @@
                 // Attempt to add product
                 $data = [
                     'name' => $name,
+                    'image' => $image,
                     'type' => $type,
                     'quantity' => $quantity,
                     'price' => $price
@@ -505,46 +528,92 @@ public function displayReportGenerator() {
     $this->view("ccm/report_generator");
 }
 
-
-    // controllers/Ccm.php
-
-    // controllers/Ccm.php
-
-public function displayInventoryHistoryReport() {
-    // Check for POST request
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get the start date, end date, and product name from the form submission
-        $startDate = $_POST['start_date'];
-        $endDate = $_POST['end_date'];
-        $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
-        
-        // Load the InventoryHistory model
-        $inventoryHistoryModel = $this->model('InventoryHistory');
-        
-        // Fetch inventory history report for the given time period and product name
-        $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
-        
-        // Pass the inventory history data and form inputs to the view
-        $data = [
-            'inventory_history' => $inventoryHistory,
-            'product_name' => $productName, // Add product name to data array
-            'start_date' => $startDate, // Add start date to data array
-            'end_date' => $endDate // Add end date to data array
-        ];
-
-        // Load the inventory history report view within the iframe
-        $this->view("ccm/inventory_history_report", $data);
-    } else {
-        // If not a POST request, redirect to the report generator page or show an error message
-        redirect('ccm/report_generator');
-    }
+public function displayReportGeneratorprice() {
+    // Load the report generator view
+    $this->view("ccm/report_generatorprice");
 }
 
+
+    // controllers/Ccm.php
+
+    // controllers/Ccm.php
+
+    public function displayInventoryHistoryReport() {
+        // Check for POST request
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get the start date, end date, and product name from the form submission
+            $startDate = $_POST['start_date'];
+            $endDate = $_POST['end_date'];
+            $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+            
+            // Load the InventoryHistory model
+            $inventoryHistoryModel = $this->model('InventoryHistory');
+            
+            // Fetch inventory history report for the given time period and product name
+            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+            
+            // Filter inventory history to include only records with null price_change
+            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+                return $record->price_change === null;
+            });
+            
+            // Pass the filtered inventory history data and form inputs to the view
+            $data = [
+                'inventory_history' => $filteredInventoryHistory,
+                'product_name' => $productName, // Add product name to data array
+                'start_date' => $startDate, // Add start date to data array
+                'end_date' => $endDate // Add end date to data array
+            ];
+    
+            // Load the inventory history report view within the iframe
+            $this->view("ccm/inventory_history_report", $data);
+        } else {
+            // If not a POST request, redirect to the report generator page or show an error message
+            redirect('ccm/report_generator');
+        }
+    }
+    
+
+    public function displayInventoryHistoryReportprice() {
+        // Check for POST request
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get the start date, end date, and product name from the form submission
+            $startDate = $_POST['start_date'];
+            $endDate = $_POST['end_date'];
+            $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+            
+            // Load the InventoryHistory model
+            $inventoryHistoryModel = $this->model('InventoryHistory');
+            
+            // Fetch inventory history report for the given time period and product name
+            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
+            
+            // Filter inventory history to include only records with null price_change
+            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+                return $record->quantity_change === null;
+            });
+            
+            // Pass the filtered inventory history data and form inputs to the view
+            $data = [
+                'inventory_history' => $filteredInventoryHistory,
+                'product_name' => $productName, // Add product name to data array
+                'start_date' => $startDate, // Add start date to data array
+                'end_date' => $endDate // Add end date to data array
+            ];
+    
+            // Load the inventory history report view within the iframe
+            $this->view("ccm/inventory_history_reportprice", $data);
+        } else {
+            // If not a POST request, redirect to the report generator page or show an error message
+            redirect('ccm/report_generatorprice');
+        }
+    }
 
 public function productSelection() {
    
     $this->view("ccm/product_selection");
 }
+
 
 // controllers/Ccm.php
 
@@ -565,6 +634,11 @@ public function existingproductSelection() {
     $this->view("ccm/existingproductselection");
 }
 
+public function script() {
+   
+    $this->view("ccm/script");
+}
+
 
 
 
@@ -581,17 +655,213 @@ public function existingproductSelection() {
    
 
       
-    public function displaySalesorders() {
-        // Create an instance of the PurchaseModel
-        $salesorderModel = new SalesorderModel();
+    
 
-        // Call the method to fetch all products
-        $salesorders = $salesorderModel->getAllSalesorders();
-
-        // Pass the fetched products to the view
+    public function salesorder() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorders();
+        
+        // Load the view with purchase orders data
         $this->view('ccm/salesorder', $data);
     }
+
+    public function stock_overview() {
+        // Instantiate the Product model
+        $productModel = $this->model('Product');
+        
+        // Get product data from the model
+        $products = $productModel->getAllProducts();
+        
+        // Check if products are retrieved successfully
+        if ($products) {
+            // Load the view file and pass the product data
+            $data['products'] = $products;
+            
+            $this->view('ccm/stock_overview', $data);
+        } else {
+            // Handle case where no products are returned or an error occurs
+            // For example, you can return an error message as JSON
+            header('Content-Type: application/json');
+            echo (['error' => 'No products found']);
+        }
+    }
+
+    public function stock_overviewbar() {
+        // Instantiate the Product model
+        $productModel = $this->model('Product');
+        
+        // Get product data from the model
+        $products = $productModel->getAllProducts();
+        
+        // Check if products are retrieved successfully
+        if ($products) {
+            // Load the view file and pass the product data
+            $data['products'] = $products;
+            
+            $this->view('ccm/stock_overviewbar', $data);
+        } else {
+            // Handle case where no products are returned or an error occurs
+            // For example, you can return an error message as JSON
+            header('Content-Type: application/json');
+            echo (['error' => 'No products found']);
+        }
+
+        
+    }
+    public function marketdemand() {
+        // Instantiate the Product model
+        $priceModel = $this->model('Price');
+        
+        // Get product data from the model
+        $prices = $priceModel->getAllPrices();
+        
+        // Check if products are retrieved successfully
+        if ($prices) {
+            // Load the view file and pass the product data
+            $data['prices'] = $prices;
+            
+            $this->view('ccm/marketdemand', $data);
+        } else {
+            // Handle case where no products are returned or an error occurs
+            // For example, you can return an error message as JSON
+            header('Content-Type: application/json');
+            echo (['error' => 'No products found']);
+        }
 }
+
+
+public function register(){
+
+    // Check for POST
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Process form
+
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Init data
+        $data = [
+            'name' => trim($_POST['name']),
+            'username' => trim($_POST['username']),
+            'email' => trim($_POST['email']),
+            'nic' => trim($_POST['nic']),
+            'mobile' => trim($_POST['mobile']),
+            'password' => trim($_POST['password']),
+            'cpassword' => trim($_POST['cpassword']),
+            'name_err' => '',
+            'username_err' => '',
+            'email_err' => '',
+            'nic_err' => '',
+            'mobile_err' => '',
+            'password_err' => '',
+            'cpassword_err' => ''
+        ];
+
+        // Validate Email
+        if (empty($data['email'])) {
+            $data['email_err'] = 'Please enter email';
+        } elseif (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
+            $data['email_err'] = 'Invalid email format';
+        } else {
+            // Check if email already exists
+            if ($this->userModel->findUserByEmail($data['email'])) {
+                $data['email_err'] = 'Email already exists';
+            }
+        }
+
+        // Validate Name
+        if (empty($data['name'])) {
+            $data['name_err'] = 'Please enter name';
+        }
+
+        // Validate Username
+        if (empty($data['username'])) {
+            $data['username_err'] = 'Please enter username';
+        } else {
+            // Check if username already exists
+            if ($this->userModel->findUserByUsername($data['username'])) {
+                $data['username_err'] = 'Username already exists';
+            }
+        }
+
+        // Validate NIC
+        if (empty($data['nic'])) {
+            $data['nic_err'] = 'Please enter NIC';
+        } elseif (strlen($data['nic']) !== 10 && strlen($data['nic']) !== 12) {
+            $data['nic_err'] = 'NIC must be 10 or 12 characters';
+        }
+
+        // Validate Mobile
+        if (empty($data['mobile'])) {
+            $data['mobile_err'] = 'Please enter mobile';
+        } elseif (!preg_match('/^\d{9,10}$/', $data['mobile'])) {
+            $data['mobile_err'] = 'Mobile must have 9 or 10 digits';
+        }
+
+        // Validate Password
+        if (empty($data['password'])) {
+            $data['password_err'] = 'Please enter password';
+        } elseif (strlen($data['password']) < 6) {
+            $data['password_err'] = 'Password must be at least 6 characters';
+        } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).+$/', $data['password'])) {
+            $data['password_err'] = 'Password must contain at least one letter and one number';
+        }
+
+        // Validate Confirm Password
+        if (empty($data['cpassword'])) {
+            $data['cpassword_err'] = 'Please confirm password';
+        } elseif ($data['password'] !== $data['cpassword']) {
+            $data['cpassword_err'] = 'Passwords do not match';
+        }
+
+        // Make sure errors are empty
+        if (empty($data['email_err']) && empty($data['name_err']) && empty($data['username_err']) && empty($data['nic_err']) && empty($data['mobile_err']) && empty($data['password_err']) && empty($data['cpassword_err'])) {
+            // Validated
+
+            // Hash Password
+            $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+            // Register User
+            if ($this->userModel->register($data)) {
+                flash('register_success', 'Successfully Registered! You can Login.');
+                redirect('users/user_login');
+            } else {
+                die('Something went wrong');
+            }
+        } else {
+            // Load view with errors
+            $this->view('users/register', $data);
+        }
+    } else {
+        // Init data
+        $data = [
+            'name' => '',
+            'username' => '',
+            'email' => '',
+            'nic' => '',
+            'mobile' => '',
+            'password' => '',
+            'cpassword' => '',
+            'name_err' => '',
+            'username_err' => '',
+            'email_err' => '',
+            'nic_err' => '',
+            'mobile_err' => '',
+            'password_err' => '',
+            'cpassword_err' => ''
+        ];
+
+        // Load view
+        $this->view('users/register', $data);
+    }
+}
+
+
+}
+
 ?>
 
 

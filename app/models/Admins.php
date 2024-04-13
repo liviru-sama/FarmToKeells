@@ -22,49 +22,35 @@
         }
 
         //Login User
-        public function admin_login($admin_username, $admin_password){
+      
+
+
+        public function validate_login($admin_username, $admin_password)
+        {
             $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
             $this->db->bind(':admin_username', $admin_username);
-
+        
             $row = $this->db->single();
-
-            $hashed_password = $row->admin_password;
-            if(password_verify($admin_password, $hashed_password)){
-               
-            } else {
-                return false;
+        
+            if ($row) {
+                $stored_password = $row->admin_password;
+                
+                // Compare the plaintext password provided by the user with the stored password
+                if ($admin_password === $stored_password) {
+                    // Password is correct
+                    return $row; // Return the admin object
+                }
             }
-
+        
+            return false; // Invalid username or password
         }
-        public function ccm_login($admin_username, $admin_password){
-            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
-            $this->db->bind(':admin_username', $admin_username);
+        
 
-            $row = $this->db->single();
+        
+        
+        
 
-            $hashed_password = $row->admin_password;
-            if(password_verify($admin_password, $hashed_password)){
-               
-            } else {
-                return false;
-            }
-
-        }
-
-        public function tm_login($admin_username, $admin_password){
-            $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
-            $this->db->bind(':admin_username', $admin_username);
-
-            $row = $this->db->single();
-
-            $hashed_password = $row->admin_password;
-            if(password_verify($admin_password, $hashed_password)){
-               
-            } else {
-                return false;
-            }
-
-        }
+    
 
         public function getPendingRegistrationRequests()
             {

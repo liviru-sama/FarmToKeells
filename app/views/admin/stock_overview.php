@@ -1,4 +1,3 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -10,7 +9,6 @@
     
 
     <title>Stock Overview</title>
-    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin/stock_overview.css" media="screen">
     <script src="<?php echo JS;?>/ccm/updatecircle.js"></script>
 

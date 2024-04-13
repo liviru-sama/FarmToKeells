@@ -658,6 +658,11 @@
                 $this->view("farmer/add_salesordercommon");
             }
         }
+
+        public function marketdemand() {
+   
+            $this->view("ccm/marketdemand");
+        }
         
     }
 

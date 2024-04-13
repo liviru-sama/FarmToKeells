@@ -325,7 +325,7 @@ thead th {
 /* Style the Yes and No buttons */
 #confirmationDialog button {
     padding: 10px 20px;
-    background-color: #2e342f; /* Match the color of table headings */
+    background-color: rgba(46, 52, 47, 0.546); /* Match the color of table headings */
     color: rgb(253, 251, 251);
     border: none;
     border-radius: 25px;

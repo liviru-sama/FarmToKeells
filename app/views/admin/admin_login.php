@@ -12,6 +12,14 @@
     <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -22,7 +30,10 @@
         <div class="center">
             <h1>ADMIN LOGIN</h1>
             
-            <form action='<?php echo URLROOT; ?>/admin/dashboard' method="post" id="myForm">
+            <?php if (!empty($data['admin_password_err'])): ?>
+                <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
+            <?php endif; ?>
+            <form action='<?php echo URLROOT; ?>/admin/admin_login' method="post" id="myForm">
 
             <div class="text-field">
                     <input type="text" name="admin_username" required>
@@ -36,7 +47,6 @@
                     <label>Password</label>
                 </div>
 
-                <div class="pass">Forgot Password?</div>
                 
                 <input type="submit" value="Login">
 

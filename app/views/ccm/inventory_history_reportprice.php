@@ -172,8 +172,8 @@
         data: {
     labels: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->change_date . "', "; ?>],
     datasets: [{
-        label: 'Quantity Change of <?php echo htmlspecialchars($data['product_name']); ?>',
-        data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->quantity_change . "', "; ?>],
+        label: 'Price Change of <?php echo htmlspecialchars($data['product_name']); ?>',
+        data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->price_change . "', "; ?>],
         backgroundColor: 'rgba(255, 255, 255, 0)',
         borderColor: ['#65A534', 'white'], // Set the border colors
         borderWidth: 9,
