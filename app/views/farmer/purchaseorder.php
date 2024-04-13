@@ -7,6 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/view_inventory.css">
+
+    <style>
+        body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
+        }</style>
 </head>
 
 <body>

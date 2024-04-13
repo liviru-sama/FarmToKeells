@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +21,16 @@
             height: 100%;
         }
 
+        
+    /* Existing CSS styles */
+    /* ... */
+
+    /* Error message style */
+    .error-message {
+        color: red;
+        text-align: center;
+        margin-top: 20px; /* Adjust margin top as needed */
+    }
 
       
         /* CSS for styling the iframe */
@@ -91,7 +104,7 @@
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2" > 
+                        <div class="menu" data-name="p-2" "> 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
@@ -132,55 +145,52 @@
 
     <!-- Main content -->
     <div class="main-content">
-    <section class="dashboard">
-            <div class="container">
-                <div class="dashboard-container">
+        <section class="header">
+
         
-                        <a href="<?php echo URLROOT; ?>/ccm/view_inventory">
-                        <div class="menu" data-name="p-1">
-                        <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="">
-                        <h3>Update Inventory</h3>
-                    </div></a>
-        
-                        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder">
-                        <div class="menu" data-name="p-2">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">
-                        <h3>Orders</h3>
-                    </div></a>
-        
-                    <a href="<?php echo URLROOT; ?>/ccm/view_price">
-                    <div class="menu" data-name="p-3">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="">
-                        <h3>Market demands and Product Prices</h3>
-                    </div></a>
-        
-                    <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar">
-                        <div class="menu" data-name="p-6">
-                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="">
-                            <h3>Stock Levels Overview</h3>
-                       
-                    </div> </a> 
-                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
-                    <div class="menu" data-name="p-4">
-                         <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="">
-                        <h3>Report</h3>
-                    </div></a>
-        
-                    <a  href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
-                    <div class="menu" data-name="p-5">
-                        <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="">
-                        <h3>Post Inquriies</h3>
-                       
-                    </div> </a>
-        
-                  
-                       
-        
-        
+
+        </h2>
+
+            
+        <section class="form">
+        <div class="center">
+            <h1>Edit Purchase Order</h1>
+            <form method="post" action=""> <!-- Added action attribute -->
+                <div class="text-field">
+                    <input type="text" name="name" value="<?=$data['name']?>" required> <!-- Added name attribute -->
+                    <span></span>
+                    <label> Product</label>
                 </div>
-            </div>
-        </section></div>
-</body>
+                <div class="text-field">
+                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
+                    <span></span>
+                    <label> Category</label>
+                </div>
+                <div class="text-field">
+                    <input type="date" name="date" id="purchaseDate" value="<?=$data['date']?>" required> <!-- Added name attribute and id attribute -->
+                    <span></span>
+                    <label> Date</label>
+                </div>
+                <div class="text-field">
+                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
+                    <span></span>
+                    <label> Stock</label>
+                </div>
+                <input type="submit" value="Reset" onclick="resetForm()">
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </section>
+
+    <script>
+        // JavaScript code to restrict past dates in the date input field
+        document.addEventListener('DOMContentLoaded', function() {
+            var purchaseDateInput = document.getElementById('purchaseDate');
+            var currentDate = new Date().toISOString().split('T')[0];
+            purchaseDateInput.setAttribute('min', currentDate);
+        });
+    </script>
+        </body>
 
 </html>
 

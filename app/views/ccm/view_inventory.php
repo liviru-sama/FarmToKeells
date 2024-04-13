@@ -121,7 +121,16 @@
 
     <!-- Main content -->
     <div class="main-content">
-      
+   
+    <section class="header">
+           
+           <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="text-decoration: none;">
+       <h5 class="inline-heading" class
+   =
+   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
+   </a></br>
+   <main class="table">
+  
         <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT INVENTORY  
         <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
@@ -132,10 +141,7 @@
     </br>    </br>
     
         <main class="table">
-            <section class="table_header">
-
-
-            </section>
+            
             <section class="table_body">
                 <form method="post">
                     <table>

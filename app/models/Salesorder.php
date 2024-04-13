@@ -203,7 +203,7 @@ public function getProductImageURL($productName) {
         'Onions' => 'onion.png',
         'Cabbage' => 'cabbage.png',
         'Cucumber' => 'cucumber.png',
-        'Ladies Finger' => 'ladies.png',
+        'Ladies Finger' => 'ladiesfinger.png',
         'Leeks' => 'leeks.png',
         'Chillie' => 'chillie.png',
         'Tomato' => 'tomato.png',
@@ -212,7 +212,7 @@ public function getProductImageURL($productName) {
         'Beans' => 'beans.png',
         'Ginger' => 'ginger.png',
         'Corriander' => 'corriander.png',
-        'Capsicum' => 'campsicum.png',
+        'Capsicum' => 'capsicum.png',
         'Broccoli' => 'broccoli.png'
 
 

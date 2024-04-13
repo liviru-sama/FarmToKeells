@@ -130,7 +130,7 @@ class Purchaseorder {
         'Onions' => 'onion.png',
         'Cabbage' => 'cabbage.png',
         'Cucumber' => 'cucumber.png',
-        'Ladies Finger' => 'ladies.png',
+        'Ladies Finger' => 'ladiesfinger.png',
         'Leeks' => 'leeks.png',
         'Chillie' => 'chillie.png',
         'Tomato' => 'tomato.png',
@@ -139,7 +139,7 @@ class Purchaseorder {
         'Beans' => 'beans.png',
         'Ginger' => 'ginger.png',
         'Corriander' => 'corriander.png',
-        'Capsicum' => 'campsicum.png',
+        'Capsicum' => 'capsicum.png',
         'Broccoli' => 'broccoli.png'
     
     

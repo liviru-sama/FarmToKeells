@@ -8,7 +8,14 @@
     <title><?php echo SITENAME; ?></title>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/place_salesorder.css">
     <style>
-        /* Additional CSS for centering headings */
+        
+        body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
+        }/* Additional CSS for centering headings */
         .table_body h2 {
             text-align: center;
         }

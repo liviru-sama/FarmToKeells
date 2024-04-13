@@ -18,7 +18,20 @@
             height: 100%;
         }
 
-
+        #existingproductFrame {
+            position: fixed;
+           
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+            z-index: 9999;
+            display: none; /* Initially hide the iframe */
+            width: 80%; /* Adjust width as needed */
+            height: 100%; /* Adjust height as needed */
+        }
       
         /* CSS for styling the iframe */
         
@@ -36,9 +49,7 @@
         input[type="submit"] {
             width: 100%; /* Make the submit button full width */
         }
-        .iframe-container {
-            margin-top: 20px; /* Add margin to separate the iframe from the form */
-        }
+        
         #report_frame {
             width: 100%;
             height: 400px;
@@ -161,21 +172,63 @@
             <h1 style="font-family: 'inter';">Generate Report for a product price over time</br></br></h1>
             <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReportprice" method="post" >
                 <div class="text-field">
-                    <label for="start_date">Start Date:</label> 
+                    <label for="start_date" style="font-weight: bold;">Start Date:</label> 
                     <input type="date" id="start_date" name="start_date" required>
                 </div>
                 <div class="text-field">
-                    <label for="end_date">End Date:</label> 
+                    <label for="end_date"style="font-weight: bold;">End Date:</label> 
                     <input type="date" id="end_date" name="end_date" required>
                 </div>
                 <div class="text-field">
-                    <label for="product_name">Product Name:</label> 
+                    <label for="product_name" style="font-weight: bold;">Product Name:</label> 
                     <input type="text" id="product_name" name="product_name">
                 </div>
                 <input type="submit" value="Generate Chart"></br></br>
             </form>
         </div>
     </section></section> </main>
+    <iframe id="existingproductFrame" src="<?php echo URLROOT; ?>/ccm/existingproduct"></iframe>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the product field
+        var productField = document.getElementById('product_name');
+        // Get the iframe
+        var iframe = document.getElementById('existingproductFrame');
+
+        // Initially hide the iframe
+        iframe.style.display = 'none';
+
+        // Show the iframe when the product field is clicked
+        productField.addEventListener('click', function() {
+            iframe.style.display = 'block';
+        });
+
+        // Center the iframe on top of the form
+        iframe.style.position = 'fixed';
+        iframe.style.top = '50%';
+        iframe.style.left = '50%';
+        iframe.style.transform = 'translate(-50%, -50%)';
+
+        // Adjust the size of the iframe to cover the whole table header
+        var tableHeaderHeight = document.querySelector('.header').offsetHeight;
+        iframe.style.height = 'calc(60vh )';
+
+        // JavaScript function to fill the input field "Product" in the parent page
+        window.fillProductField = function(productName) {
+            // Get the parent window and access the input fields
+            var productInput = document.getElementById('product_name');
+
+            // Set the value of the input field to the selected product name
+            productInput.value = productName;
+
+            // Hide the iframe
+            iframe.style.display = 'none';
+        };
+    });
+</script>
+
+
 </body>
 
 </html>

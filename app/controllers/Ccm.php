@@ -425,10 +425,8 @@ public function logout() {
             // Attempt to delete purchase order
             if ($purchaseorderModel->delete_purchaseorder($id)) {
                 // Deletion successful
-                $response = array(
-                    'success' => true,
-                    'message' => 'Purchase order deleted successfully.'
-                );
+                header("Location: " . URLROOT . "/ccm/purchaseorder");
+            exit(); // Ensure that no other output is sent
             } else {
                 // Deletion failed
                 $response = array(
@@ -609,6 +607,19 @@ public function displayReportGeneratorprice() {
         }
     }
 
+    public function existingproduct(){
+        // Instantiate Product Model
+        $productModel = new Product();
+        
+        // Get all products
+        $data['products'] = $productModel->getAllProducts();
+        
+        // Load the view with products data
+        $this->view('ccm/existingproduct', $data);
+    }
+    
+    
+
 public function productSelection() {
    
     $this->view("ccm/product_selection");
@@ -624,7 +635,7 @@ public function confirmationDialog($purchaseId){
     $data = [
         'purchaseId' => $purchaseId
     ];
-    $this->view('ccm/confirmation_dialog', $data);
+    $this->view('ccm/confirmationdialog', $data);
 }
 
 

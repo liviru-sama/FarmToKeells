@@ -145,7 +145,25 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <section class="header">
+    <section class="header">
+           
+           <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="text-decoration: none;">
+       <h5 class="inline-heading" class
+   =
+   "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
+   </a>
+   <a href="<?php echo URLROOT; ?>/ccm/edit_product" style="text-decoration: none;">
+   <h5 class="inline-heading" class
+   =
+   "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;ADD PRODUCT</h5></a>
+   
+        
+   
+           
+               <section class="table_header">
+   
+   
+               </section>
 
         
 

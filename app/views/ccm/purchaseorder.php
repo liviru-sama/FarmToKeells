@@ -159,14 +159,16 @@
         </main>
     </section>
 
-    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
+    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
     <script>
         function confirmDelete(purchaseId) {
-            var confirmationdialog = document.getElementById('confirmationdialog');
-            var iframeSrc = "<?php echo URLROOT; ?>/ccm/confirmationdialog/" + purchase_id;
-            confirmationdialog.src = iframeSrc;
-            confirmationdialog.style.display = 'block';
+    var confirmationDialog = document.getElementById('confirmationDialog');
+    var iframeSrc = "<?php echo URLROOT; ?>/ccm/confirmationdialog/" + purchaseId;
+    confirmationDialog.src = iframeSrc;
+    confirmationDialog.style.display = 'block';
+}
+
         </script>
 
 </body>

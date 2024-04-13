@@ -17,10 +17,9 @@
             <div class="container">
                 <div class="dashboard-container">
                     
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                    
                     <div class="menu" data-name="p-1">
-                    <a href="<?php echo URLROOT; ?>/farmer/place_order">
+                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
                         <h3>Place Order</h3>
                     </div>
