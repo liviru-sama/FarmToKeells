@@ -9,8 +9,81 @@ class Admin extends Controller{
                 $this->adminModel = $this->model('Admins'); 
                 $this->userModel = $this->model('User');
 
+            //     // Check if admin is logged in
+            // if(!isset($_SESSION['admin_id'])) {
+            //     redirect('admin/admin_login');
+            // }
+
             }
+          public function admin_login()
+        {
+          
+                // Check for POST
+           
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Process form
         
+                    // Sanitize POST data    
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                    // Init data
+                    $data = [
+                        'admin_username' => trim($_POST['admin_username']),
+                        'admin_password' => trim($_POST['admin_password']),
+                        'admin_username_err' => '',
+                        'admin_password_err' => '',
+                    ];
+        
+                    // Validate Username
+                    if (empty($data['admin_username'])) {
+                        $data['admin_username_err'] = 'Please enter username';
+                    }
+                    // Validate Password
+                    if (empty($data['admin_password'])) {
+                        $data['admin_password_err'] = 'Please enter password';
+                    }
+                    
+                    //CHECK FOR USER/EMAIL
+                    if ($this->adminModel->findUserByUsername($data['admin_username'])) {
+                        //USER FOUND
+                    } else {
+                        //USER NOT FOUND
+                        $data['admin_username_err'] = 'No user found';
+                    }
+        
+                    // Make sure errors are empty
+                    if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+                        // Validated
+                        // Check and set logged in user
+                        $loggedInAdmin = $this->adminModel->admin_login($data['admin_username'], $data['admin_password']);
+        
+                        if ($loggedInAdmin) {
+                            // Create Session
+                            $this->createUserSession($loggedInAdmin);
+                        } else {
+                            $data['admin_password_err'] = 'Incorrect Password ';
+        
+                            $this->view('admin/admin_login', $data);
+                        }
+        
+        
+                    } else {
+                        // Load view with errors
+                        $this->view('admin/admin_login', $data);
+                    }
+                } else {
+                    // Init data
+                    $data = [
+                        'admin_username' => '',
+                        'admin_password' => '',
+                        'admin_username_err' => '',
+                        'admin_password_err' => '',
+                    ];
+        
+                    // Load view
+                    $this->view('admin/admin_login', $data);
+                
+            }
             
         
 
@@ -20,6 +93,9 @@ class Admin extends Controller{
    
                 $this->view("ccm/marketdemand");
             }
+           
+        }
+           
 
 
         public function stock_overview() {
@@ -218,6 +294,7 @@ class Admin extends Controller{
         }
     }
     
+
 
     
     
