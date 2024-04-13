@@ -126,14 +126,21 @@ class Purchaseorder {
         // For demonstration purposes, let's assume you have an array mapping product names to image URLs
         $productImageMap = [
             'Carrot' => 'carrot.png',
-            'Brinjal' => 'brinjal.png',
-            'Onions' => 'onion.png',
-            'Cabbage' => 'cabbage.png',
-            'Cucumber' => 'cucumber.png',
-            'Ladies Finger' => 'ladies.png',
-            'Leeks' => 'leeks.png',
-            'Chillie' => 'chillie.png',
-            'Tomato' => 'tomato.png'
+        'Brinjal' => 'brinjal.png',
+        'Onions' => 'onion.png',
+        'Cabbage' => 'cabbage.png',
+        'Cucumber' => 'cucumber.png',
+        'Ladies Finger' => 'ladies.png',
+        'Leeks' => 'leeks.png',
+        'Chillie' => 'chillie.png',
+        'Tomato' => 'tomato.png',
+        'Potato' => 'potato.png',
+        'Pumpkin' => 'pumpkin.png',
+        'Beans' => 'beans.png',
+        'Ginger' => 'ginger.png',
+        'Corriander' => 'corriander.png',
+        'Capsicum' => 'campsicum.png',
+        'Broccoli' => 'broccoli.png'
     
     
     

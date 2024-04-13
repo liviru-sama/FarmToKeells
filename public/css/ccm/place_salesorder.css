@@ -939,3 +939,71 @@ main.stock {
 .card:last-child {
     flex: 0 0 calc(25% - 2px); /* Set the flex property of the last card to have a fixed size */
 }
+
+
+.containerr{
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 1rem 3rem;
+}
+
+.containerr .title {
+    font-size: 3.5rem;
+    color: #444;
+    margin-bottom: 4rem;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.dashboard-containerr{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    justify-content: center;
+}
+
+.menuu {
+    margin: 0 auto;
+}
+
+.containerr .dashboard-containerr .menuu{
+    text-align: center;
+    padding: 2rem 2rem 2rem 2rem;
+    background: rgba(255, 255, 255, 0.598);
+    /* box-shadow: 0 0.5rem 1rem ; */
+    cursor: pointer;
+    height: 30rem;
+    width: 30rem;
+}
+
+.containerr .dashboard-containerr .menuu:hover{
+    background: #65a5346b;
+}
+
+.containerr .dashboard-containerr .menuu img{
+    align-items: center;
+    height: 15rem;
+    width: 15rem;
+}
+
+.containerr .dashboard-containerr .menuu:hover img{
+    transform: scale(.9);
+    
+}
+
+.containerr .dashboard-containerr .menuu h3{
+    padding: 4rem 0;
+    font-size: 2rem;
+    color: rgba(0, 0, 0, 0.845);
+}
+
+.containerr .dashboard-containerr .menuu:hover h3{
+    font-size: 2.2rem;
+    color: black;
+}
+
+a {
+    text-decoration: none;
+    border: 0;
+}

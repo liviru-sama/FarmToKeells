@@ -110,7 +110,7 @@ public function logout() {
     ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
   
     // Redirect to the index page
-    redirect('/pages/index.php');
+    redirect('ccm/ccm_login');
   }
   
 
@@ -177,8 +177,8 @@ public function logout() {
         
                 // Check if the product with the given name already exists
                 if ($productModel->findProductByName($name)) {
-                    echo "Product with this name already exists.";
-                    $this->view("ccm/add_product");
+                    $error_message = "Product with this name already exists.";
+                    $this->view("ccm/add_product", ['error_message' => $error_message]);
                     return;
                 }
         
@@ -547,19 +547,19 @@ public function displayReportGeneratorprice() {
             $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
             
             // Load the InventoryHistory model
-            $inventoryHistoryModel = $this->model('InventoryHistory');
+            $productHistoryModel = $this->model('productHistory');
             
             // Fetch inventory history report for the given time period and product name
-            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+            $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
             
             // Filter inventory history to include only records with null price_change
-            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+            $filteredproductHistory = array_filter($productHistory, function($record) {
                 return $record->price_change === null;
             });
             
             // Pass the filtered inventory history data and form inputs to the view
             $data = [
-                'inventory_history' => $filteredInventoryHistory,
+                'inventory_history' => $filteredproductHistory,
                 'product_name' => $productName, // Add product name to data array
                 'start_date' => $startDate, // Add start date to data array
                 'end_date' => $endDate // Add end date to data array
@@ -583,19 +583,19 @@ public function displayReportGeneratorprice() {
             $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
             
             // Load the InventoryHistory model
-            $inventoryHistoryModel = $this->model('InventoryHistory');
+            $productHistoryModel = $this->model('productHistory');
             
             // Fetch inventory history report for the given time period and product name
-            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
+            $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
             
             // Filter inventory history to include only records with null price_change
-            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+            $filteredproductHistory = array_filter($productHistory, function($record) {
                 return $record->quantity_change === null;
             });
             
             // Pass the filtered inventory history data and form inputs to the view
             $data = [
-                'inventory_history' => $filteredInventoryHistory,
+                'inventory_history' => $filteredproductHistory,
                 'product_name' => $productName, // Add product name to data array
                 'start_date' => $startDate, // Add start date to data array
                 'end_date' => $endDate // Add end date to data array

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
+    <script src="<?php echo JS;?>add_product.js"></script>
+
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -19,7 +21,7 @@
         
         /* CSS for styling the chart container */
         #chartContainer {
-            width: 75%; /* Set the width of the chart container */
+            width: 100%; /* Set the width of the chart container */
             margin: 20px auto; /* Center the chart container */
             background-color: transparent;
             border: none; /* Remove border */
@@ -84,8 +86,29 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <h1></h1>
+    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo" style="left: 0;">
+    <div class="navbar-icons">
+        
+    <a href="#" id="backButton"  onclick="goBack()">
+        <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon"> </a>
+
+         <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a>
+
+        <!-- Add more icons as needed -->
     </div>
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -134,6 +157,7 @@
                     </a>
 
                     
+
                 </div>
             </div>
         </section>
@@ -141,8 +165,35 @@
 
     <!-- Main content -->
     <div class="main-content">
-    <div id="reportInfo">
-        <table>
+        <section class="header">
+
+        <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
+            </a>
+           
+</br>  <main class="table">
+</br>
+<a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; PRICE REPORT FORM</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); padding: 2px;">PRICE-TIME CHART</h5>
+            </a>
+        
+            <main class="table">
+            <section class="table_body">
+
+
+            
+            <div id="reportInfo">
+        <table></br></br></br>
             <tr>
                 <th>Selected Product</th>
                 <td><?php echo htmlspecialchars($data['product_name']); ?></td>
@@ -157,7 +208,7 @@
                 <td><?php echo htmlspecialchars($data['end_date']); ?></td>
             </tr>
         </table>
-    </div></br></br></br></br></br></br></br></br></br></br>
+    </div></br></br></br></br></br></br></br>
         
             
     <div id="chartContainer">
@@ -220,8 +271,7 @@
         chartContainer.style.display = 'block'; // Show the container
     });
 </script>
-
-
+    </section></section> </main>
 </body>
 
 </html>

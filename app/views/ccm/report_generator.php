@@ -49,10 +49,30 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
-        <h1></h1>
+<div class="navbar">
+    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo" style="left: 0;">
+    <div class="navbar-icons">
+        
+    <a href="#" id="backButton"  onclick="goBack()">
+        <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon"> </a>
+
+         <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a>
+
+        <!-- Add more icons as needed -->
     </div>
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -113,13 +133,20 @@
 
         <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; QUANTITY-TIME CHART</h5></a>
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART</h5></a>
 
     <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >PRICE-TIME CHART</h5>
+                = "tab-heading tab-selected" >GENERATE PRICE-TIME CHART</h5>
             </a>
            
+            </br>  <main class="table">
+</br>
+<a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); padding: 2px;">&nbsp;&nbsp;&nbsp; QUANTITY REPORT FORM</h5></a>
+
+    
 </br>  <main class="table">
 
         
@@ -130,7 +157,7 @@
             <section class="form">
         <div class="form-container"></br></br></br>
         
-            <h1 style="font-family: 'inter';">Generate Report for a product quantity over time</h1>
+            <h1 style="font-family: 'inter';">Generate Report for a product quantity over time</br></br></h1>
             <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReport" method="post" >
                 <div class="text-field">
                     <label for="start_date">Start Date:</label> 
@@ -144,7 +171,7 @@
                     <label for="product_name">Product Name:</label> 
                     <input type="text" id="product_name" name="product_name">
                 </div>
-                <input type="submit" value="Generate Chart">
+                <input type="submit" value="Generate Chart"></br></br>
             </form>
         </div>
     </section></section> </main>

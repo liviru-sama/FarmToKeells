@@ -1,3 +1,6 @@
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +21,16 @@
             height: 100%;
         }
 
+        
+    /* Existing CSS styles */
+    /* ... */
+
+    /* Error message style */
+    .error-message {
+        color: red;
+        text-align: center;
+        margin-top: 20px; /* Adjust margin top as needed */
+    }
 
       
         /* CSS for styling the iframe */
@@ -54,8 +67,29 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <h1></h1>
+    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo" style="left: 0;">
+    <div class="navbar-icons">
+        
+    <a href="#" id="backButton"  onclick="goBack()">
+        <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon"> </a>
+
+         <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a>
+
+        <!-- Add more icons as needed -->
     </div>
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -121,9 +155,11 @@
             <section class="form">
         <div class="center">
             <h1 style="font-family: 'inter';">Add product</h1>
+            <?php if (!empty($data['error_message'])): ?>
+                <div class="error-message"><?php echo $data['error_message']; ?></div>
+            <?php endif; ?>
             <form action='' method="post" id="myForm">
-
-
+            
             <input type="hidden" name="image" id="productImage" value="">
  
                 <div class="text-field">
@@ -159,7 +195,7 @@
 
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Add" onclick="checkForError()">
-
+                
             </form>
         </div>
     </section>
