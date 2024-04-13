@@ -143,7 +143,7 @@
                 <div class="circle">
                     <div class="mask full-1" style="transform: rotate(<?php echo $percentage * 1.8; ?>deg);"></div>
                     <div class="mask half"></div>
-                    <div class="inside-circle"><?php echo $percentage; ?>%</div>
+                    <div class="inside-circle" style="color:#65A534;"><?php echo $percentage; ?>%</div>
                 </div>
                 <div class="product-name"><?php echo $product['name']; ?>:&nbsp;<?php echo $product['quantity']; ?>kgs</div> <!-- Place product name here -->
             </div>

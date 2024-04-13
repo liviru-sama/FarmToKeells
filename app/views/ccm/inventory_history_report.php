@@ -195,19 +195,21 @@
                 <span></span>
             </tr>
             <tr>
-                <th>Selected Start Date</th>
+                <th>From</th>
                 <td><?php echo htmlspecialchars($data['start_date']); ?></td>
             </tr>
             <tr>
-                <th>Selected End Date</th>
+                <th>To</th>
                 <td><?php echo htmlspecialchars($data['end_date']); ?></td>
             </tr>
         </table>
-    </div></br></br></br></br></br></br></br>
-        
-            
+    </div></br></br></br></br></br>  </br></br>  </br>      
     <div id="chartContainer">
-        <!-- Display the line chart canvas -->
+    <p style="text-align: center;">
+    <strong>Quantity change of <?php echo htmlspecialchars($data['product_name']); ?> over time</strong>
+</p>
+
+
         <canvas id="quantityChart"></canvas>
     </div>
    
@@ -222,12 +224,12 @@
         data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->quantity_change . "', "; ?>],
         backgroundColor: 'rgba(255, 255, 255, 0)',
         borderColor: ['#65A534', 'white'], // Set the border colors
-        borderWidth: 9,
+        borderWidth: 13,
         pointBackgroundColor: 'black',
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: 9,
+        pointHoverRadius: 10,
         tension: 0.1,
         fill: false,
         borderDash: [], // Set the border dash to a solid line

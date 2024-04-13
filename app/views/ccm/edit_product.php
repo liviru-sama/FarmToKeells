@@ -140,7 +140,7 @@
 =
 "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
 </a>
-<a href="<?php echo URLROOT; ?>/ccm/edit_product" style="text-decoration: none;">
+<a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $_GET['id']; ?>" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
 "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;EDIT PRODUCT</h5></a>
