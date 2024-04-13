@@ -14,49 +14,50 @@
 </head>
 <body>
     <section class="header">
-        
+    
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
         
                         <a href="<?php echo URLROOT; ?>/ccm/view_inventory">
                         <div class="menu" data-name="p-1">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">
-                        <h3>Update inventory</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="">
+                        <h3>Update Inventory</h3>
                     </div></a>
         
-                        <a href="<?php echo URLROOT; ?>/ccm/selectorder">
+                        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder">
                         <div class="menu" data-name="p-2">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">
                         <h3>Orders</h3>
                     </div></a>
         
-                    <a href="farmer-notifications.php">
+                    <a href="<?php echo URLROOT; ?>/ccm/view_price">
                     <div class="menu" data-name="p-3">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="">
-                        <h3>Notifications</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="">
+                        <h3>Market demands and Product Prices</h3>
                     </div></a>
         
-                    <a href="market-demands.html">
+                    <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="">
+                            <h3>Stock Levels Overview</h3>
+                       
+                    </div> </a> 
+                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
                     <div class="menu" data-name="p-4">
-                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="">
-                        <h3>Market demands and Product Prices</h3>
+                         <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="">
+                        <h3>Report</h3>
                     </div></a>
         
                     <a  href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
                     <div class="menu" data-name="p-5">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash5.png" alt="">
-                        <h3>Reporting And Analysis</h3>
+                        <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="">
+                        <h3>Post Inquriies</h3>
                        
                     </div> </a>
         
                   
-                        <a href="">
-                        <div class="menu" data-name="p-6">
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="">
-                            <h3>Manage Profile</h3>
                        
-                    </div> </a>
         
         
                 </div>

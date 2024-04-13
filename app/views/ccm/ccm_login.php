@@ -1,7 +1,5 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,6 +10,14 @@
     <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <style>
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
 
 <body>
@@ -21,29 +27,27 @@
     <section class="form">
         <div class="center">
             <h1>CCM LOGIN</h1>
-            <form action='<?php echo URLROOT; ?>/ccm/dashboard' method="post" id="myForm">
+            <?php if (!empty($data['admin_password_err'])): ?>
+                <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
+            <?php endif; ?>
+            <form action='<?php echo URLROOT; ?>/ccm/ccm_login' method="post" id="myForm">
 
-            <div class="text-field">
+                <div class="text-field">
                     <input type="text" name="admin_username" required>
                     <span></span>
                     <label>Username</label>
                 </div>
 
                 <div class="text-field">
-                    <input type="password" name="admin_password"  required>
+                    <input type="password" name="admin_password" required>
                     <span></span>
                     <label>Password</label>
                 </div>
 
-                <div class="pass">Forgot Password?</div>
                 
+
                 <input type="submit" value="Login">
 
-
-
-
-
-               
             </form>
         </div>
     </section>

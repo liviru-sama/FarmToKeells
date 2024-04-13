@@ -48,7 +48,7 @@ html {
     padding: 2rem 2rem 2rem 2rem;
     background-color: #fff5;
 
-    backdrop-filter: blur(27px);
+    backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     cursor: pointer;
     height: 30rem;
@@ -58,7 +58,7 @@ html {
     
 }
 .container .dashboard-container .menu:hover{
-    background: #6af26e;
+    background: #65A534;
     transform: scale(1.08);
 
     

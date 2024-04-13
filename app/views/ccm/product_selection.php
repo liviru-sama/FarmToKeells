@@ -26,9 +26,21 @@
         <img src="<?php echo URLROOT; ?>/public/images/tomato.png" alt="brinjal">
         <p>Tomato</p>
     </div>
-    <div class="product" onclick="fillProductField('Ladies Finger')">
+    <div class="product" onclick="fillProductField('LadiesFinger')">
         <img src="<?php echo URLROOT; ?>/public/images/ladies.png" alt="Ladies Finger">
         <p>Ladies Finger</p>
+    </div>
+    <div class="product" onclick="fillProductField('Beans')">
+        <img src="<?php echo URLROOT; ?>/public/images/beans.png" alt="Beans">
+        <p>Beans</p>
+    </div>
+    <div class="product" onclick="fillProductField('Ginger')">
+        <img src="<?php echo URLROOT; ?>/public/images/ginger.png" alt="Ginger">
+        <p>Ginger</p>
+    </div>
+    <div class="product" onclick="fillProductField('Capsicum')">
+        <img src="<?php echo URLROOT; ?>/public/images/capsicum.png" alt="Capsicum">
+        <p>Capsicum</p>
     </div>
     <div class="product" onclick="fillProductField('Cabbage')">
         <img src="<?php echo URLROOT; ?>/public/images/cabbage.png" alt="Cabbage">
@@ -38,6 +50,14 @@
         <img src="<?php echo URLROOT; ?>/public/images/cucumber.png" alt="Cucumber">
         <p>Cucumber</p>
     </div>
+    <div class="product" onclick="fillProductField('Corriander')">
+        <img src="<?php echo URLROOT; ?>/public/images/corriander.png" alt="Corriander">
+        <p>Corriander</p>
+    </div>
+    <div class="product" onclick="fillProductField('Pumpkin')">
+        <img src="<?php echo URLROOT; ?>/public/images/pumpkin.png" alt="Pumpkin">
+        <p>Pumpkin</p>
+    </div>
     <div class="product" onclick="fillProductField('Chillie')">
         <img src="<?php echo URLROOT; ?>/public/images/chillie.png" alt="Chillie">
         <p>Chillie</p>
@@ -46,6 +66,16 @@
         <img src="<?php echo URLROOT; ?>/public/images/leeks.png" alt="Leeks">
         <p>Leeks</p>
     </div>
+    <div class="product" onclick="fillProductField('Broccoli')">
+        <img src="<?php echo URLROOT; ?>/public/images/broccoli.png" alt="Broccoli">
+        <p>Broccoli</p>
+    </div>
+
+    <div class="product" onclick="fillProductField('Potato')">
+        <img src="<?php echo URLROOT; ?>/public/images/potato.png" alt="Leeks">
+        <p>Potato</p>
+    </div>
+
 
     <script>
         // JavaScript function to fill the input field "Product" in the parent page
