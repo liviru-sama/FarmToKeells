@@ -18,7 +18,7 @@ h1 {
     width: 200px;
     margin: 10px;
     padding: 10px;
-    background-color: #fff5;
+    background-color: rgba(10, 8, 8, 0.333);
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     border-radius: .8rem;
@@ -27,13 +27,18 @@ h1 {
 }
 
 .product:hover {
-    transform: translateY(-5px);
-    background-color: #58a75c; /* Change to green on hover */
+    background-color: #65A534;
+    transform: scale(1.08); /* Change to green on hover */
 }
 
 .product img {
     width: 100%;
     border-radius: 5px;
+}
+
+.product img:hover {
+    background-color: #65A534;
+    transform: scale(1.08); /* Change to green on hover */
 }
 
 .product p {

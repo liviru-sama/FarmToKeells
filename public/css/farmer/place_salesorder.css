@@ -264,7 +264,7 @@ h2{
     transition: background-color 0.3s, color 0.3s; /* Add transition */
 }
 .editable:hover {
-    background-color: #4CAF50; /* Change background color on hover */
+    background-color: #65A534; /* Change background color on hover */
 }
 
 /* Add CSS for the form */
@@ -309,7 +309,7 @@ h2{
 
 /* Hover effect for dropdown */
 .statusInput:hover {
-    background-color: #45a049; /* Darker green background color on hover */
+    background-color: #65A534; /* Darker green background color on hover */
 }
 
 /* Style the dropdown arrow */
@@ -324,7 +324,7 @@ h2{
 /* Style the dropdown options */
 .statusInput option {
     padding: 10px 20px; /* Adjust padding as needed */
-    background-color: #4CAF50; /* Green background color */
+    background-color: #65A534; /* Green background color */
     color: rgb(251, 248, 248); /* Text color */
     cursor: pointer; /* Change cursor to pointer */
     transition: background-color 0.3s; /* Add transition */
@@ -366,7 +366,7 @@ h2{
 
 /* Hover effect for buttons */
 #confirmationDialog button:hover {
-    background-color: #4CAF50; /* Darker green background color */
+    background-color: #65A534; /* Darker green background color */
 }
 
 .table__body {
@@ -440,7 +440,7 @@ h2{
 
 
 .card:hover {
-    background-color: #82b084;
+    background-color: #65A534;
     transform: scale(1.08);
 
 }

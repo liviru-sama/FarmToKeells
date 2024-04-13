@@ -1,7 +1,3 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,63 +5,101 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME;?></title>
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/view_inventory.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+
     <style>
-        /* Additional CSS for centering headings */
-        .table_body h2 {
-            text-align: center;
+    body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
         }
-        /* Add CSS for making status editable */
-        .editable {
-            cursor: pointer;
-        }
-        .editable:hover {
-            background-color: #f2f2f2;
-        }
-        /* Add CSS for the form */
-        #statusForm {
-            margin-bottom: 20px;
-        }
-        /* Style for the update status button */
-        #statusForm button[type="submit"] {
-            display: none; /* Hide the submit button initially */
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            border: 1px solid #4CAF50;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        #statusForm button[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        /* Style for success message */
-        #successMessage {
-            display: none;
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-    </style>
+        </style>
 </head>
 
 <body>
-    <section class="header">
-       
-        <h4>SALES ORDERS
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1></h1>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <section class="dashboard">
+            <div class="container">
+                <div class="dashboard-container">
+                    <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-1">
+                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Inventory</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2"style="background: #65A534;
+            transform: scale(1.08);"> 
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Orders</h6>
+                        </div>
+                    </a>
+
+                    <a href="market-demands.html" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Market Prices</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Reporting </h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Inquiry</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Stock levels</h6>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Main content -->
+    <div class="main-content">
+        <section class="header">
+           
+        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
+    <h5 class="inline-heading" class
+=
+"tab-heading">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+</a>
+<a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
+<h5 class="inline-heading"  class
+=
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">VIEW ALL SALES ORDERS</h5></a>
+
+            <main class="table">
+                <section class="table_header">
+
+                </section>
+                <section class="table_body">
+
+            <h2>SALES ORDERS
         
         
-        </h4>
-        <main class="table">
-            <section class="table_header">
-
-
-            </section>
-            <section class="table_body">
+        </h2>
             <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>
@@ -176,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </script>
 
+
 </body>
 
 </html>
-<?php require APPROOT . '/views/inc/footer.php'; ?>

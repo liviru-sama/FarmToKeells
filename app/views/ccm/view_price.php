@@ -69,7 +69,7 @@
             <div class="container">
                 <div class="dashboard-container">
                     <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-1" >
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inventory</h6>
                         </div>
@@ -83,28 +83,28 @@
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
+                        <div class="menu" data-name="p-4" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
 
-                    
+                  
+
+    
+
                     <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Stock levels</h6>
                         </div></a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5">
                             <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Time Report</h6>
                         </div>
                     </a>
-
-    
-
 
                         <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
@@ -121,61 +121,73 @@
 
     <!-- Main content -->
     <div class="main-content">
+
+    <div class="main-content">
+
+    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/marketdemand" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading">MARKET DEMAND </h5></a>
+
+    
+           
+</br>
+
+
       
-        <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT INVENTORY  
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
-                                 
-        <a class="button" class="inline-heading" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
-
-        </h2>
-    </br>    </br>
+        
     
         <main class="table">
             <section class="table_header">
+            </br>
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT PRICES  
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
+                                 
 
+        </h2>
+    </br>    </br>
             </section>
             <section class="table_body">
                 <form method="post">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>PRODUCT ID</th>
-                                <th>PRODUCT NAME </th>
-                                <th>PRODUCT IMAGE</th>
-                                <th>PRODUCT TYPE</th>
-                                <th>PRESENT QUANTITY(IN kgs) </th>
-                                <th>PRICE</th>
-
-                                <th>EDIT</th>
-                                
-                             </tr>
-                        </thead>
+                       
                         <tbody>
                      
                             
                                 
 
    
-    <?php while ($row = mysqli_fetch_assoc($data['products'] )) { ?>
-        <tr>
-            <td><?php echo $row['product_id'] ?></td>
-            <td><?php echo $row['name'] ?></td>
-            <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-            <td><?php echo $row['type'] ?></td>
-            <td><?php echo $row['quantity'] ?></td>
-            <td><?php echo $row['price'] ?></td>
-            <td><a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-           
-        </tr>
-    <?php } ?>
+    <?php while ($row = mysqli_fetch_assoc($data['prices'] )) { ?>
+
+      
+    <td class="card">
+        <div class="card__content">
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: white; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p>
+            <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
+            <div class="card__details">
+                <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">price per kg:</br>&nbsp;&nbsp;<span style="color: white; font-weight: bold; font-size: 20px; font-family: 'Verdana', sans-serif;"><?php echo $row['price']; ?>/=</span></p>
+              
+            </div>
+        </div>
+        <div class="card__actions">
+            <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
+        </div></br></br>
+    
+    <?php } ?></td>
+
 
 
                         </tbody>
                     </table>
                 </form>
             </section><!-- Add this HTML in your parent window where you want the notifications to be displayed -->
+
+
 <div class="notification-frame" id="notificationFrame">
     <iframe src="<?php echo URLROOT; ?>/ccm/notifications" frameborder="0" class="notifications-iframe" id="notificationsIframe"></iframe>
 </div>

@@ -167,7 +167,9 @@ public function getProductImageURL($productName) {
         'Leeks' => 'leeks.png',
         'Chillie' => 'chillie.png',
         'Tomato' => 'tomato.png',
-        'Potato' => 'potato.png'
+        'Potato' => 'potato.png',
+        'Pumpkin' => 'pumpkin.png'
+
 
 
 

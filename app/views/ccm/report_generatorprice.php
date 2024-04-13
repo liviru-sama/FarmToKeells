@@ -21,31 +21,28 @@
 
       
         /* CSS for styling the iframe */
-        #productSelectionFrame {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff5;
-    backdrop-filter: blur(7px);
-    box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
-            z-index: 9999;
-            display: none; /* Initially hide the iframe */
-            width: 80%; /* Adjust width as needed */
-            height: 80%; /* Adjust height as needed */
+        
+        /* CSS for styling the form */
+        .form-container {
+            width: 50%; /* Set the width to occupy half of the page */
+            margin: 0 auto; /* Center the container horizontally */
         }
-    
-        .dialog-box {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: #fff;
-            padding: 20px;
-            border: 1px solid #000;
-            z-index: 9999;
-            display: none; /* Initially hidden */
+        .text-field {
+            margin-bottom: 10px; /* Add some spacing between input fields */
+        }
+        input[type="date"] {
+            width: calc(100% - 10px); /* Adjust the width of the date inputs */
+        }
+        input[type="submit"] {
+            width: 100%; /* Make the submit button full width */
+        }
+        .iframe-container {
+            margin-top: 20px; /* Add margin to separate the iframe from the form */
+        }
+        #report_frame {
+            width: 100%;
+            height: 400px;
+            border: none; /* Remove border from iframe */
         }
     
     </style>
@@ -63,7 +60,7 @@
             <div class="container">
                 <div class="dashboard-container">
                     <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-1">
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inventory</h6>
                         </div>
@@ -87,10 +84,10 @@
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Stock levels</h6>
-                        </div> </a>
+                        </div></a>
 
                     <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5">
+                        <div class="menu" data-name="p-5" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Time Report</h6>
                         </div>
@@ -104,6 +101,7 @@
                     </a>
 
                     
+
                 </div>
             </div>
         </section>
@@ -113,48 +111,43 @@
     <div class="main-content">
         <section class="header">
 
-        
+        <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; QUANTITY-TIME CHART</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">PRICE-TIME CHART</h5>
+            </a>
+           
+</br>  <main class="table">
 
         
-            <section class="table_header">
+            <section class="table_body">
 
 
-            </section>
+            
             <section class="form">
-        <div class="center">
-            <h1 style="font-family: 'inter';">Edit product</h1>
-            <form method="post" action="<?php echo URLROOT; ?>/Ccm/edit_product?id=<?=$data['product_id']?>"> 
-
-            <input type="hidden" name="id" value="<?=$data['product_id']?>">
-
- 
-
+        <div class="form-container"></br></br></br>
+        
+            <h1 style="font-family: 'inter';">Generate Report for a product price over time</h1>
+            <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReportprice" method="post" >
                 <div class="text-field">
-                    <!-- Use a disabled text field to display the product name -->
-                    <input type="text" name="name" value="<?=$data['name']?>" disabled> 
-                    <span></span>
-                    <label> Product</label>
+                    <label for="start_date">Start Date:</label> 
+                    <input type="date" id="start_date" name="start_date" required>
                 </div>
                 <div class="text-field">
-                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Type</label>
+                    <label for="end_date">End Date:</label> 
+                    <input type="date" id="end_date" name="end_date" required>
                 </div>
                 <div class="text-field">
-                    <input type="number" name="price" value="<?=$data['price']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Price</label>
+                    <label for="product_name">Product Name:</label> 
+                    <input type="text" id="product_name" name="product_name">
                 </div>
-                <div class="text-field">
-                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Quantity(in Kgs)</label>
-                </div>
-                <input type="submit" value="Reset" onclick="resetForm()">
-                <input type="submit" value="Save">
+                <input type="submit" value="Generate Chart">
             </form>
         </div>
-    </section>
+    </section></section> </main>
 </body>
 
 </html>
