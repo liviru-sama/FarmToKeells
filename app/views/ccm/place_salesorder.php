@@ -159,7 +159,7 @@
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
-                            <div id="purchaseOrderSuccessMessage" style="background-color:#65A534"></div>
+                            <div id="purchaseOrderSuccessMessage" style="bakcground-color:#65A534"></div>
                     </form>    
                     </table>
                     <h2>Sales Orders</h2>
@@ -193,23 +193,30 @@
                                         <td><?php echo $row->user_id; ?></td>
                                         <td><?php echo $userInfo->name; ?></td>
                                         <td><?php echo $userInfo->mobile; ?></td>
-                                        <td><?php echo $row->name; ?></td>
+                                        <td><?php echo $row->name; ?></td>    
                                         <td><?php echo $row->type; ?></td>
                                         <td><?php echo $row->quantity; ?></td>
                                         <td><?php echo $row->price; ?></td>
                                         <td><?php echo $row->date; ?></td>
                                         <td><?php echo $row->address; ?></td>
                                         <td class="statusColumn">
-                                            <div class="select-container">
-                                                <select class="statusInput" name="status[]" onchange="submitForm(this)">
-                                                <option value="Pending Approval" <?php echo (empty($row->status) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
-                                                    <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
-                                                    <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
-                                                    <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
-                                                </select>
-                                                <span class="select-arrow">&#9662;</span>
-                                            </div>
-                                        </td>
+                                        <div class="select-container">
+        <select class="statusInput" name="status[]" onchange="submitForm(this)" <?php echo ($row->status == 'Completed') ? 'style="pointer-events: none;pointer-events: none; pointer-events: none; 
+  opacity: 0.5;
+  filter: grayscale(100%);"' : ''; ?>>
+            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?>>Pending Approval</option>
+            <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
+            <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
+            <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?> hidden>Completed</option>
+            <?php if ($row->status == 'Completed') : ?>
+                <option value="Completed" selected hidden>Completed</option>
+            <?php endif; ?>
+        </select>
+        <span class="select-arrow">&#9662;</span>
+    </div>
+</td>
+   
+
                                         <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
                                     </tr>
                                 <?php endforeach; ?>
@@ -217,6 +224,7 @@
                         </table>
                         <!-- Success message -->
                         <div id="successMessage"style="background-color:#65A534"></div>
+                        <div id="purchaseOrderSuccessMessage" style="background-color:#65A534"></div>
                     </form>
                 </section>
             </main>
@@ -225,35 +233,33 @@
 
     <script>
         // Function to handle the submission of status update
-     // Function to handle the submission of status update
-function submitForm(select) {
-    const form = select.closest('form');
-    const formData = new FormData(form);
-    fetch(form.getAttribute('action'), {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error('Failed to update status');
+        function submitForm(select) {
+            const form = select.closest('form');
+            const formData = new FormData(form);
+            fetch(form.getAttribute('action'), {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to update status');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    // Check if the form belongs to sales orders or purchase orders
+                    const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
+                    const successMessage = document.getElementById(successMessageId);
+                    successMessage.textContent = data;
+                    successMessage.style.display = 'block';
+                    setTimeout(function() {
+                        successMessage.style.display = 'none';
+                    }, 3000); // Hide the success message after 3 seconds
+                })
+                .catch(error => {
+                    console.error(error);
+                });
         }
-        return response.text();
-    })
-    .then(data => {
-        const successMessage = document.getElementById('successMessage');
-        successMessage.textContent = data;
-        successMessage.style.display = 'block';
-        setTimeout(function() {
-            successMessage.style.display = 'none';
-        }, 3000); // Hide the success message after 3 seconds
-    })
-    .catch(error => {
-        console.error(error);
-    });
-}
-
-console.log("Order IDs:", orderIds);
-console.log("Statuses:", statuses);
 
         // Set default value to "Pending Approval" for newly created purchase orders
         document.addEventListener('DOMContentLoaded', function() {
@@ -277,7 +283,6 @@ console.log("Statuses:", statuses);
         salesOrdersHeading.addEventListener('click', function() {
             salesOrdersHeading.classList.add('tab-selected');
             purchaseOrdersHeading.classList.remove('tab-selected');
-
             // Add logic to show/hide relevant content for sales orders
         });
     </script>
