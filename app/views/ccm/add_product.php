@@ -185,6 +185,8 @@
                     <span></span>
                     <label> Product</label>
                 </div>
+
+                
                 <div class="text-field">
                      <div class="typeselect-container">
         <select class="productstatusInput" name="category" onchange="updateInput(this)">

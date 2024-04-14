@@ -88,7 +88,7 @@
 <th><h2>Sales Orders</h2>  <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER</a>
 <?php else: ?>
-  <a class="button disabled" href="#">+ Add NEW ORDER</a>
+  <a class="button disabled" href="#">Cannot Add New Order</a>
 <?php endif; ?>
 
 

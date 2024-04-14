@@ -53,7 +53,6 @@
 <div class="text-field">
     <div class="select-container">
         <select class="statusInput" name="category" onchange="updateInput(this)">
-            <option value="" disabled selected></option><!-- Empty option for placeholder -->
             <option value="hillcountry">Hill Country</option>
             <option value="organic">Organic</option>
         </select>

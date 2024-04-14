@@ -393,6 +393,20 @@
             $this->view('farmer/salesorder', $data);
         }
         
+          
+        public function table_salesorder() {
+            // Retrieve the user ID from the session
+            $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+            
+            // Instantiate Salesorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get sales orders for the current user with purchase_id as null
+            $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseId($user_id, null);
+            
+            // Load the view with sales orders data
+            $this->view('farmer/table_salesorder', $data);
+        }
 
        
         
