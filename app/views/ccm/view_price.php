@@ -166,7 +166,7 @@
       
     <td class="card">
         <div class="card__content">
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: white; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: white; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p></br>
             <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
             <div class="card__details">
                 <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">price per kg:</br>&nbsp;&nbsp;<span style="color: white; font-weight: bold; font-size: 20px; font-family: 'Verdana', sans-serif;"><?php echo $row['price']; ?>/=</span></p>
