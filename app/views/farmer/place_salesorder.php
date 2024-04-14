@@ -30,6 +30,20 @@
         #statusForm {
             margin-bottom: 20px;
         }
+        
+        .disabled-link {
+  pointer-events: none; /* Disable pointer events */
+  opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  filter: grayscale(100%); /* Optional: grayscale the image */
+}
+
+
+        .button.disabled {
+  opacity: 0.5;
+  cursor: not-allowed; /* Change cursor to indicate non-clickable */
+}
+
+
 
         
     </style>
@@ -71,7 +85,12 @@
 </table>
 <table>
 <thead>
-<th><h2>Sales Orders</h2>   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER  </a>
+<th><h2>Sales Orders</h2>  <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
+  <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER</a>
+<?php else: ?>
+  <a class="button disabled" href="#">+ Add NEW ORDER</a>
+<?php endif; ?>
+
 
                 <br/></th>
                    
@@ -89,9 +108,9 @@
         <div class="card__details">
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Type: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Quantity: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> (kgs)</span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Price: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?> </span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Price per kg: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?> </span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Date: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Address: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Collection Address:<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Status: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
             <?php
 // Assuming $row->quantity and $row->price contain the quantity and price values respectively
@@ -100,15 +119,20 @@
 $totalPrice = $row->quantity * $row->price;
 
 // Output the total price
-echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \'Arial\', sans-serif;">Total Price: &nbsp; Rs. <span style="font-size: 20px; color: red; font-weight: bold; font-family: \'Verdana\', sans-serif;">' . $totalPrice . ' .00</span></p>';
+echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \'Arial\', sans-serif;">Total Price: &nbsp;<span style="font-size: 20px; color: white; font-weight: bold; font-family: \'Verdana\', sans-serif;">' . $totalPrice . '/=</span></p>';
 ?>
         </div>
     </div>
     <div class="card__actions">
         <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
-        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action"></a>
-        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>" &price=<?php echo $row->quantity; ?>"><img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action"></a>
-        <a href="#" onclick="confirmDelete('<?php echo URLROOT; ?>/farmer/delete_salesorder?id=<?php echo $row->order_id; ?>', '<?php echo $row->order_id; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action"></a>
+        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action"></a>
+        <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>">
+    <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>">
+</a>
+<a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
+    <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed') ? 'disabled-link' : ''; ?>">
+</a>
+
     </div>
 </td>
 
@@ -123,6 +147,20 @@ echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \
     </section>
     <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: #ffffff; padding: 20px; border: 1px solid #ccc;"></iframe>
     <script>
+
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the status value from PHP
+  var purchaseStatus = "<?php echo $data['purchaseorder']->purchase_status; ?>";
+
+  // Get the Add New Order button element
+  var addButton = document.querySelector('.button');
+
+  // Disable the button if purchase status is "completed"
+  if (purchaseStatus === 'completed') {
+    addButton.classList.add('disabled');
+    addButton.disabled = true; // Programmatically disable the button
+  }
+});
 
 
 document.addEventListener('DOMContentLoaded', function() {

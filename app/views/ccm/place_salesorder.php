@@ -159,7 +159,7 @@
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
-                            <div id="purchaseOrderSuccessMessage"></div>
+                            <div id="purchaseOrderSuccessMessage" style="bakcground-color:#65A534"></div>
                     </form>    
                     </table>
                     <h2>Sales Orders</h2>
@@ -177,7 +177,7 @@
                                     <th>Product</th>
                                     <th>Product Type</th>
                                     <th>Deliverable Quantity (kgs)</th>
-                                    <th>Price</th>
+                                    <th>Price per kg</th>
                                     <th>Expected Supply Date</th>
                                     <th>Address</th> 
                                     <th>Status</th> 
@@ -216,8 +216,8 @@
                             </tbody>
                         </table>
                         <!-- Success message -->
-                        <div id="successMessage"></div>
-                        <div id="purchaseOrderSuccessMessage"></div>
+                        <div id="successMessage"style="bakcground-color:#65A534"></div>
+                        <div id="purchaseOrderSuccessMessage" style="bakcground-color:#65A534"></div>
                     </form>
                 </section>
             </main>

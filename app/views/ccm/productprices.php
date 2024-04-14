@@ -139,7 +139,7 @@
                                 <th>PRODUCT ID</th>
                                 <th>PRODUCT NAME</th>
                                 <th>PRODUCT IMAGE</th>
-                                <th>PRICE</th>
+                                <th>PRICE per kg</th>
                             </tr>
                         </thead>
                         <tbody>

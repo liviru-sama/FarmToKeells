@@ -305,7 +305,6 @@ thead th {
     transform: scale(1.08);
     /* Darker green background color on hover */
 }
-
 #confirmationDialog {
     display: none;
     position: fixed;
@@ -325,7 +324,7 @@ thead th {
 /* Style the Yes and No buttons */
 #confirmationDialog button {
     padding: 10px 20px;
-    background-color: rgba(46, 52, 47, 0.546); /* Match the color of table headings */
+    background-color: #2e342f; /* Match the color of table headings */
     color: rgb(253, 251, 251);
     border: none;
     border-radius: 25px;
@@ -335,9 +334,7 @@ thead th {
 
 /* Hover effect for buttons */
 #confirmationDialog button:hover {
-    background-color: #4CAF50;
+    background-color: #65A534; 
     transform: scale(1.08);
-
     /* Darker green background color */
 }
-

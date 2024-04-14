@@ -17,7 +17,7 @@
     <section class="form">
         <div class="center">
             <h1>Edit Sales Order</h1>
-            <form action="<?php echo URLROOT; ?>/farmer/edit_salesorder/<?php echo $data['order_id']; ?>" method="post">
+            <form action="<?php echo URLROOT; ?>/farmer/edit_salesordercommon/<?php echo $data['order_id']; ?>&user_id=<?php echo $_SESSION['user_id']; ?>" method="post">
 
                 <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
                 <div class="text-field">

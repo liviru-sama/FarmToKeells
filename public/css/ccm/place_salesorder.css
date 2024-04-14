@@ -345,7 +345,7 @@
         /* Style for success message */
         #successMessage {
             display: none;
-            background-color: #4CAF50;
+            background-color: #65A534;
             color: white;
             padding: 10px 20px;
             border-radius: 5px;

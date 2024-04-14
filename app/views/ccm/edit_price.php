@@ -169,7 +169,7 @@
                     <!-- Make the price field editable -->
                     <input type="number" name="price" value="<?=$data['price']?>" required> 
                     <span></span>
-                    <label> Price</label>
+                    <label> Price per kg</label>
                 </div>
                
                 <input type="submit" value="Reset" onclick="resetForm()">

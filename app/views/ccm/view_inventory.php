@@ -152,7 +152,7 @@
                                 <th>PRODUCT IMAGE</th>
                                 <th>PRODUCT TYPE</th>
                                 <th>PRESENT QUANTITY(IN kgs) </th>
-                                <th>PRICE</th>
+                                <th>PRICE per kg</th>
 
                                 <th>EDIT</th>
                                 

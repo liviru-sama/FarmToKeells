@@ -134,7 +134,7 @@
                                 <th>Product</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
-                                <th>Price</th>
+                                <th>Price per kg</th>
                                 <th>Expected Supply Date</th>
                                 <th>Address</th> 
                                 <th>Status</th> 

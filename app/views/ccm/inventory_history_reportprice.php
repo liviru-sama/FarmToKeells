@@ -212,7 +212,7 @@
             
     <div id="chartContainer">
     <p style="text-align: center;">
-    <strong>Quantity change of <?php echo htmlspecialchars($data['product_name']); ?> over time</br></strong>
+    <strong>Price change of <?php echo htmlspecialchars($data['product_name']); ?> over time</br></strong>
 </p>
         <canvas id="quantityChart"></canvas>
     </div>

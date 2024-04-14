@@ -93,7 +93,7 @@
                 <div class="text-field">
                     <input name="price" type="number" required>
                     <span></span>
-                    <label> Price</label>
+                    <label> Price per kg</label>
                 </div>
                 <div class="text-field">
                     <input name="address" type="text" required>

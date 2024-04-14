@@ -177,7 +177,7 @@
                 <div class="text-field">
                     <input type="number" name="price" value="<?=$data['price']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Price</label>
+                    <label> Price per kg</label>
                 </div>
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->

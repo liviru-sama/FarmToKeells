@@ -319,6 +319,7 @@
                     'user_id' => $userId,
                     'product_name' => $product_name, // Pass product_name retrieved from SalesOrder model
                     'quantity' => trim($_POST['quantity']),
+                    'address' => trim($_POST['address']),
                     'startdate' => trim($_POST['startdate']),
                     'enddate' => trim($_POST['enddate']),
                     'notes' => trim($_POST['notes']),
@@ -529,6 +530,7 @@
                 print_r(trim($_POST['address'])."</br>");
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
+                $price = trim($_POST['price']);
                 $quantity = trim($_POST['quantity']);
                 $date = trim($_POST['date']);
                 $address = trim($_POST['address']);
@@ -678,6 +680,67 @@
                 $this->view("farmer/add_salesordercommon");
             }
         }
+
+        public function edit_salesordercommon(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $salesorderModel = new Salesorder();
+        
+                // Sanitize and validate POST data
+                $order_id = trim($_POST["order_id"]); 
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $price = trim($_POST['price']);
+                $quantity = trim($_POST['quantity']);
+                $date = trim($_POST['date']);
+                $address = trim($_POST['address']);
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'order_id' => $order_id,
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'price' => $price,
+                    'date' => $date,
+                    'address' => $address
+                ];
+        
+                if ($salesorderModel->edit_salesorder($data)) {
+                    // Product edited successfully
+                    // Redirect to salesorder page with the user id
+                    $userId = $_GET['user_id'] ?? null;
+                    if ($userId) {
+                        redirect('farmer/salesorder/' . $userId);
+                    } else {
+                        // If user id is not provided, redirect to some default page
+                        redirect('farmer/dashboard');
+                    }
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit salesorder.";
+                }
+            } else {
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = $_GET['id'] ?? null;
+                if ($id) {
+                    $salesorderModel = new Salesorder();
+                    $salesorderData = $salesorderModel->view_salesorder($id);
+                    $this->view("farmer/edit_salesordercommon", (array)$salesorderData);
+                } else {
+                    // If order id is not provided, redirect to some default page
+                    redirect('farmer/dashboard');
+                }
+            }
+        }
+        
 
         public function marketdemand() {
    
