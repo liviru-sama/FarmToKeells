@@ -66,26 +66,31 @@ class Salesorder {
             return false; // Indicate failure
         }
         
-        // Retrieve the image URL based on the product name
-        $image = $this->getProductImageURL($data['name']);
+        // Check if the required fields are set
+        $required_fields = ['name', 'type', 'quantity', 'price', 'date', 'address'];
+        foreach ($required_fields as $field) {
+            if (!isset($data[$field])) {
+                return false; // Indicate failure
+            }
+        }
         
-        // Add the image URL to the data array
-        $data['image'] = $image;
+        // Retrieve the image URL based on the product name if available
+        $image = isset($data['name']) ? $this->getProductImageURL($data['name']) : null;
         
         // Prepare SQL statement
         $this->db->query('INSERT INTO salesorder (name, type, quantity, price, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :price, :date, :address, :purchase_id, :user_id, :image)');
     
         // Bind parameters
-        $this->db->bind(':name', $data['name']);
-        $this->db->bind(':type', $data['type']);
-        $this->db->bind(':quantity', $data['quantity']);
-        $this->db->bind(':price', $data['price']);
-        $this->db->bind(':date', $data['date']);
-        $this->db->bind(':address', $data['address']);
-        $this->db->bind(':purchase_id', $data['purchase_id']);
-        $this->db->bind(':user_id', $data['user_id']);
-        $this->db->bind(':image', $data['image']); // Bind the image parameter
-    
+        $this->db->bind(':name', $data['name'] ?? null);
+        $this->db->bind(':type', $data['type'] ?? null);
+        $this->db->bind(':quantity', $data['quantity'] ?? null);
+        $this->db->bind(':price', $data['price'] ?? null);
+        $this->db->bind(':date', $data['date'] ?? null);
+        $this->db->bind(':address', $data['address'] ?? null);
+        $this->db->bind(':purchase_id', $data['purchase_id'] ?? null);
+        $this->db->bind(':user_id', $data['user_id'] ?? null);
+        $this->db->bind(':image', $image); // Bind the image parameter
+        
         // Execute query
         if ($this->db->execute()) {
             return true; // Indicate success

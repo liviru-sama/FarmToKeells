@@ -88,9 +88,9 @@ public function dashboard(){
 }
 
 public function notifications(){
-   
+    $data = [];
 
-    $this->view('ccm/notifications');
+    $this->view('ccm/notifications.php',$data);
 }
 
 // CcmController.php

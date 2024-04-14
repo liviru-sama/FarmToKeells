@@ -119,6 +119,25 @@ class Purchaseorder {
       }
       
     
+     
+      public function getProductDetails($purchase_id) {
+        // Query to fetch product name and image based on purchase ID
+        $this->db->query('SELECT name, image FROM purchaseorder WHERE purchase_id = :purchase_id');
+        // Bind the purchase ID parameter
+        $this->db->bind(':purchase_id', $purchase_id);
+        // Execute the query
+        $this->db->execute();
+        // Fetch the result (assuming only one row will be returned)
+        $row = $this->db->single();
+        // Return the product details as an associative array
+        return [
+            'name' => $row->name,
+            'image' => $row->image
+        ];
+    }
+    
+  
+    
       public function getProductImageURL($productName) {
         // Logic to retrieve the image URL based on the product name
         // This could involve querying your database, accessing an API, or any other means to get the image URL

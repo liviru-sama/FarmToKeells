@@ -439,44 +439,39 @@
         }
         
         public function add_salesorder(){
+            // Load the Salesorder model
+            $this->model("Salesorder");
+            $salesorderModel = new Salesorder();
+            
             // Check if it's a POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Load the Salesorder model
-                $this->model("Salesorder");
-                $salesorderModel = new Salesorder();
-                
                 // Sanitize and validate POST data
-                $name = trim($_POST['name']);
-                $type = trim($_POST['type']);
-                $quantity = trim($_POST['quantity']);
-                $price = trim($_POST['price']);
-                $date = isset($_POST['date']) ? trim($_POST['date']) : ''; 
-                $address = trim($_POST['address']);
-                $purchase_id = trim($_POST['purchase_id']);
-                $user_id = trim($_POST['user_id']);
-                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; // Assuming the image is sent as a URL
+                // Code for handling POST data...
                 
-                // Check for required fields
-                if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)) {
-                    echo "Please fill in all fields.";
-                    return;
-                }
-                
-                // Attempt to add product
+                // Initialize the $data array
                 $data = [
-                    'name' => $name,
-                    'type' => $type,
-                    'quantity' => $quantity,
-                    'price' => $price,
-                    'date' => $date,
-                    'address' => $address,
-                    'purchase_id' => $purchase_id,
-                    'user_id' => $user_id,
-                    'image' => $image
-                ];
+                    'purchase_id' => $_POST['purchase_id'] ?? null,
+                    'user_id' => $_POST['user_id'] ?? null,
+                    'name' => $_POST['name'] ?? null,
+                    'type' => $_POST['type'] ?? null,
+                    'quantity' => $_POST['quantity'] ?? null,
+                    'price' => $_POST['price'] ?? null,
+                    'date' => $_POST['date'] ?? null,
+                    'address' => $_POST['address'] ?? null,
+                    'image' => isset($_POST['image']) ? $_POST['image'] : null, // Use submitted image if available
+                  ];
+                  
+                  // Basic validation
+                  if (empty($data['purchase_id']) || empty($data['name']) || empty($data['type']) || empty($data['quantity']) || empty($data['price']) || empty($data['date']) || empty($data['address'])) {
+                    echo "Please fill in all required fields.";
+                    return; // Exit if validation fails
+                  }
+                  
         
                 if ($salesorderModel->add_salesorder($data)) {
                     // Redirect to the place_salesorder route with both purchase_id and user_id
+                    $purchase_id = $data['purchase_id'];
+                    $user_id = $data['user_id'];
                     redirect('farmer/place_salesorder/' . $purchase_id . '?user_id=' . $user_id);
                     exit();
                 } else {
@@ -486,11 +481,36 @@
             } else {
                 // If not a POST request, load the add sales order page with the purchase_id
                 $purchase_id = $_GET['purchase_id'] ?? null;
+                $user_id = $_GET['user_id'] ?? null;
                 
-                // Load the add sales order view with the purchase_id if it exists
-                $this->view("farmer/add_salesorder", ['purchase_id' => $purchase_id]);
+                // Fetch product details using purchase ID
+                $product_name = $product_image = null;
+                if ($purchase_id) {
+                    // Load the Purchaseorder model
+                    $this->model("Purchaseorder");
+                    $purchaseorderModel = new Purchaseorder();
+        
+                    // Get product details using purchase ID
+                    $product_details = $purchaseorderModel->getProductDetails($purchase_id);
+        
+                    // Extract product name and image from the result
+                    $product_name = $product_details['name'];
+                    $product_image = $product_details['image'];
+                }
+        
+                // Load the add sales order view with the purchase_id, user_id, product_name, and product_image
+                $data = [
+                    'purchase_id' => $purchase_id,
+                    'user_id' => $user_id,
+                    'name' => $product_name, // Pass the retrieved product name
+                    'image' => $product_image // Pass the retrieved product image
+                ];
+                $this->view("farmer/add_salesorder", $data);
             }
         }
+        
+        
+        
         
         public function edit_salesorder(){
             // Check for POST

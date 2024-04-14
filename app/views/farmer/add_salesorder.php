@@ -40,13 +40,17 @@
                 <!-- Hidden input field to store the purchase ID -->
                 <input type="hidden" name="purchase_id" value="<?php echo isset($data['purchase_id']) ? $data['purchase_id'] : ''; ?>">
 
-                <input type="hidden" name="image" id="productImage" value="">
-                <!-- Rest of your form elements -->
+                <input type="hidden" name="image" id="productImage" value="<?php echo isset($data['image']) ? $data['image'] : ''; ?>">
+
+
                 <div class="text-field">
-                    <input name='name' id="productName" type="text" required>
-                    <span></span>
-                    <label> Product</label>
-                </div>
+  <input name='name' id="productName" type="text" value="<?php echo isset($data['name']) ? $data['name'] : ''; ?>" readonly>
+  <span></span>
+  <label> Product</label>
+</div>
+
+
+
                 <!-- Add other form fields here -->
 
                 <!-- Submit buttons -->
@@ -82,28 +86,13 @@
     </section>
 
     <!-- Product selection iframe -->
-    <iframe id="productSelectionFrame" src="<?php echo URLROOT; ?>/ccm/product_selection"></iframe>
 
     <script>
         // JavaScript code to show/hide the iframe when the product field is clicked
-        document.addEventListener('DOMContentLoaded', function() {
-            // Get the product field
-            var productField = document.getElementById('productName');
-            // Get the product selection iframe
-            var iframe = document.getElementById('productSelectionFrame');
-
-            // Show the iframe when the product field is clicked
-            productField.addEventListener('click', function() {
-                iframe.style.display = 'block';
-            });
+       
 
             // Hide the iframe when clicking outside of it
-            window.addEventListener('click', function(event) {
-                if (event.target !== productField && !productField.contains(event.target)) {
-                    iframe.style.display = 'none';
-                }
-            });
-
+           
             // Get the sales order date input element
             var salesOrderDateInput = document.getElementById('salesOrderDate');
 

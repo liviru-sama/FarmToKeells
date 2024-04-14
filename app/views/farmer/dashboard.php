@@ -17,12 +17,12 @@
             <div class="container">
                 <div class="dashboard-container">
                     
-                   
+                <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                     <div class="menu" data-name="p-1">
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
+                
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
                         <h3>Place Order</h3>
-                    </div>
+                    </div></a>
         
                   
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
