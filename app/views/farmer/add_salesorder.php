@@ -42,6 +42,7 @@
 
                 <input type="hidden" name="image" id="productImage" value="<?php echo isset($data['image']) ? $data['image'] : ''; ?>">
 
+                <input type="hidden" name="status" id="status" value="Pending Approval">
 
                 <div class="text-field">
   <input name='name' id="productName" type="text" value="<?php echo isset($data['name']) ? $data['name'] : ''; ?>" readonly>

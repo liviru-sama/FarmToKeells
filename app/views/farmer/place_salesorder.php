@@ -88,7 +88,7 @@
 <th><h2>Sales Orders</h2>  <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
   <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER</a>
 <?php else: ?>
-  <a class="button disabled" href="#">Cannot Add New Order</a>
+  <a class="button disabled" href="#">Order is completed</a>
 <?php endif; ?>
 
 
@@ -102,15 +102,15 @@
         
         <td class="card">
     <div class="card__content">
-        <h3 class="card__title" style="color: green; font-family: 'Arial', sans-serif;">Order ID: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $row->order_id; ?></span></h3>
-        <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Product:&nbsp;&nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->name; ?></span></p>
+        <h3 class="card__title" style="color: green; font-family: 'Arial', sans-serif;">Your Order ID:<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $row->order_id; ?></span></h3>
+        <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: black; font-size: 25px; font-weight: bold; font-family: 'Verdana', sans-serif;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row->name; ?></span></p>
         <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
-        <div class="card__details">
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Type: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?></span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Quantity: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> (kgs)</span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Price per kg: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?> </span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Date: &nbsp;&nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Collection Address:<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
+        <div class="card__details"style=" text-align: center;">
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?> product</span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?>kgs</span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">1 kg: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?>/= </span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Deliverable Date:</br><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Collection Address:</br><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
             <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Status: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
             <?php
 // Assuming $row->quantity and $row->price contain the quantity and price values respectively
@@ -130,7 +130,7 @@ echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \
     <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>">
 </a>
 <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
-    <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed') ? 'disabled-link' : ''; ?>">
+    <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval') ? 'disabled-link' : ''; ?>">
 </a>
 
     </div>

@@ -38,7 +38,9 @@
             <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">
 
             <input type="hidden" name="image" id="productImage" value="">
- <!-- Hidden input field to store the purchase ID -->
+
+            <input type="hidden" name="status" id="status" value="Pending Approval">
+
 
                 <!-- Rest of your form elements -->
                 <div class="text-field">

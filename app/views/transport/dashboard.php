@@ -29,11 +29,7 @@
                     <h3>Transport Monitor</h3></a>
                 </div>
     
-                <div class="menu" data-name="p-4">
-                    <a href="<?php echo URLROOT; ?>/notifications">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png">
-                    <h3>Notifications</h3></a>
-                </div>
+                
 
             </div>
         </div>

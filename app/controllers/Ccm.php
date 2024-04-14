@@ -482,8 +482,8 @@ public function edit_price() {
 public function updateStatus() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve the order IDs and statuses from the form for sales order
-        $orderIds = $_POST['order_id'];
-        $statuses = $_POST['status'];
+        $orderIds = $_POST['order_id'] ?? [];
+        $statuses = $_POST['status'] ?? [];
 
         // Instantiate Salesorder Model
         $salesorderModel = $this->model('Salesorder');

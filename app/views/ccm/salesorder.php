@@ -165,7 +165,7 @@
         <td class="statusColumn">
     <div class="select-container">
     <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)">
-    <option value="Pending Approval" <?php echo (empty($row->status) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> disabled hidden>Pending Approval</option>
+    <option value="Pending Approval" <?php echo (empty($row->status) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
     <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
     <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
     <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?>>Completed</option>

@@ -53,16 +53,16 @@ body,
                             
                                 <td class="card" colspan="12">
                                     <div class="card__content">
-                                        <h3 class="card__title" style="color: white; font-family: 'Arial', sans-serif;">Order ID: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->order_id; ?></span></h3>
-                                        <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Product: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->name; ?></span></p></br>
+                                        <h3 class="card__title" style="color: black; font-family: 'Arial', sans-serif;">Your Order ID: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->order_id; ?></span></h3>
+                                        <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;"> <span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;font-size:25px;"><?php echo $row->name; ?></span></p></br>
                                         <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
                                         <div class="card__details">
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Type: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?></span></p>
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Quantity: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> (kgs)</span></p>
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Price per kg: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?></span></p>
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Date: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Collection Address: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
-                                            <p class="card__text" style="color: white; font-family: 'Arial', sans-serif;">Status: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;"><span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?>&nbsp;product </span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;"><span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?> kgs</span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">1 kg: <span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?>/=</span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">Deliverable before:</br><span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">Collection Address:</br><span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
+                                            <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">Status: <span style="color: white; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
                                             <?php
                                             // Calculate the total price
                                             $totalPrice = $row->quantity * $row->price;

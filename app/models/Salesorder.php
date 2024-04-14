@@ -78,13 +78,14 @@ class Salesorder {
         $image = isset($data['name']) ? $this->getProductImageURL($data['name']) : null;
         
         // Prepare SQL statement
-        $this->db->query('INSERT INTO salesorder (name, type, quantity, price, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :price, :date, :address, :purchase_id, :user_id, :image)');
+        $this->db->query('INSERT INTO salesorder (name, type, quantity, price, status, date, address, purchase_id, user_id, image) VALUES (:name, :type, :quantity, :price, :status, :date, :address, :purchase_id, :user_id, :image)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name'] ?? null);
         $this->db->bind(':type', $data['type'] ?? null);
         $this->db->bind(':quantity', $data['quantity'] ?? null);
         $this->db->bind(':price', $data['price'] ?? null);
+        $this->db->bind(':status', $data['status'] ?? null);
         $this->db->bind(':date', $data['date'] ?? null);
         $this->db->bind(':address', $data['address'] ?? null);
         $this->db->bind(':purchase_id', $data['purchase_id'] ?? null);
@@ -176,13 +177,14 @@ public function getStatus($order_id) {
             $image = $this->getProductImageURL($data['name']);
         
             // Prepare SQL statement
-            $this->db->query('INSERT INTO salesorder (name, type, quantity,price, date, address, user_id, image) VALUES (:name, :type, :quantity, :price, :date, :address, :user_id, :image)');
+            $this->db->query('INSERT INTO salesorder (name, type, quantity, price ,status , date, address, user_id, image) VALUES (:name, :type, :quantity, :price, :status, :date, :address, :user_id, :image)');
         
             // Bind parameters
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':type', $data['type']);
             $this->db->bind(':quantity', $data['quantity']);
             $this->db->bind(':price', $data['price']);
+            $this->db->bind(':status', $data['status']);
             $this->db->bind(':date', $data['date']);
             $this->db->bind(':address', $data['address']);
             $this->db->bind(':user_id', $data['user_id']);

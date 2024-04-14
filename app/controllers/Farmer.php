@@ -471,6 +471,7 @@
                     'type' => $_POST['type'] ?? null,
                     'quantity' => $_POST['quantity'] ?? null,
                     'price' => $_POST['price'] ?? null,
+                    'status' => $_POST['status'] ?? null,
                     'date' => $_POST['date'] ?? null,
                     'address' => $_POST['address'] ?? null,
                     'image' => isset($_POST['image']) ? $_POST['image'] : null, // Use submitted image if available
@@ -644,6 +645,7 @@
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
+                $status = trim($_POST['status']);
                 $price = trim($_POST['price']);
                 $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
