@@ -50,15 +50,36 @@
 </div>
 
 
+<div class="text-field">
+    <div class="select-container">
+        <select class="statusInput" name="category" onchange="updateInput(this)">
+            <option value="" disabled selected></option><!-- Empty option for placeholder -->
+            <option value="hillcountry">Hill Country</option>
+            <option value="organic">Organic</option>
+        </select>
+        <input name="type" id="categoryInput" type="text" required>
+        <span></span>
+        <label> Category</label>
+    </div>
+</div>
 
-                <!-- Add other form fields here -->
+<script>
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("categoryInput").value = selectedOption;
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
 
-                <!-- Submit buttons -->
-                <div class="text-field">
-                    <input name='type' type="text" required>
-                    <span></span>
-                    <label> Category</label>
-                </div>
+
+
+
+
+
+
+
+
                 <div class="text-field">
                     <input name="date" id="salesOrderDate" type="date" required>
                     <span></span>
@@ -87,27 +108,29 @@
 
     <!-- Product selection iframe -->
 
-    <script>
-        // JavaScript code to show/hide the iframe when the product field is clicked
-       
+   <script>
 
-            // Hide the iframe when clicking outside of it
-           
-            // Get the sales order date input element
-            var salesOrderDateInput = document.getElementById('salesOrderDate');
 
-            // Get the current date
-            var currentDate = new Date().toISOString().split('T')[0];
+    // JavaScript function to toggle the visibility of the dropdown
+   
+    // Close the dropdown if the user clicks outside of it
+   
 
-            // Set the min attribute to the current date
-            salesOrderDateInput.setAttribute('min', currentDate);
-        });
+    // Get the sales order date input element
+    var salesOrderDateInput = document.getElementById('salesOrderDate');
 
-        // Function to reset the form
-        function resetForm() {
-            document.getElementById('myForm').reset();
-        }
-    </script>
+    // Get the current date
+    var currentDate = new Date().toISOString().split('T')[0];
+
+    // Set the min attribute to the current date
+    salesOrderDateInput.setAttribute('min', currentDate);
+
+    // Function to reset the form
+    function resetForm() {
+        document.getElementById('myForm').reset();
+    }
+</script>
+
 </body>
 
 </html>

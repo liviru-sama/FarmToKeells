@@ -48,12 +48,28 @@
                 </div>
                 <!-- Add other form fields here -->
 
-                <!-- Submit buttons -->
                 <div class="text-field">
-                    <input name='type' type="text" required>
-                    <span></span>
-                    <label> Category</label>
-                </div>
+    <div class="select-container">
+        <select class="statusInput" name="category" onchange="updateInput(this)">
+            <option value="" disabled selected></option><!-- Empty option for placeholder -->
+            <option value="hillcountry">Hill Country</option>
+            <option value="organic">Organic</option>
+        </select>
+        <input name="type" id="categoryInput" type="text" required>
+        <span></span>
+        <label> Category</label>
+    </div>
+</div>
+
+<script>
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("categoryInput").value = selectedOption;
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
+
                 <div class="text-field">
                     <input name="date" id="salesOrderDate" type="date" required>
                     <span></span>

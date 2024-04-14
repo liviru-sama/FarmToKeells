@@ -186,9 +186,25 @@
                     <label> Product</label>
                 </div>
                 <div class="text-field">
-                    <input name='type' type="text" required>
-                    <span></span>
-                    <label> Type</label>
+                     <div class="typeselect-container">
+        <select class="productstatusInput" name="category" onchange="updateInput(this)">
+            <option value="" disabled selected></option><!-- Empty option for placeholder -->
+            <option value="hillcountry">Hill Country</option>
+            <option value="organic">Organic</option>
+        </select>
+        <input name="type" id="categoryInput" type="text" required>
+        <span></span>
+        <label> Category</label>
+    </div>
+
+    <script>
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("categoryInput").value = selectedOption;
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
                 </div>
                 <div class="text-field">
                     <input name="price" type="number" required>
