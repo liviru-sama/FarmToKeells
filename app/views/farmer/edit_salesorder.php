@@ -154,14 +154,10 @@
 
     <div class="main-content">
 
-    <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
+    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp; Card View</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
             </a>
-
-    <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading">Table View </h5></a>
 
                 <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class

@@ -296,7 +296,7 @@
         .navbar-icon-container:hover::after {
             content: attr(data-text); /* Display the value of the data-text attribute */
             position: absolute;
-            top: 100%; /* Position the text below the icon */
+           top:80%;
             left: 50%; /* Center the text horizontally */
             transform: translateX(-50%); /* Center the text horizontally */
             background-color: #65A534; /* Background color for the text */
@@ -939,9 +939,31 @@ main.stock {
     height: 60px;
     cursor: pointer;
     box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
-    border-radius:40px;
-   padding:10px;
+    border-radius: 40px;
+    padding: 10px;
+    position: relative; /* Ensure proper positioning of the pseudo-element */
 }
+
+.card__action:hover::after {
+    content: attr(data-text); /* Display the value of the data-text attribute */
+    position: absolute;
+    top: 100%; /* Position the text below the icon */
+    left: 50%; /* Center the text horizontally */
+    transform: translateX(-50%); /* Center the text horizontally */
+    background-color: white; /* Background color for the text */
+    color: black; /* Text color */
+    border-radius: 5px; /* Border radius for the text */
+    z-index: 2; /* Ensure the text appears above other elements */
+    white-space: nowrap; /* Prevent text from wrapping */
+    padding: 5px;
+    opacity: 0; /* Initially make the text transparent */
+    transition: opacity 0.3s ease; /* Add transition effect */
+}
+
+.card__action:hover::after {
+    opacity: 1; /* Make the text fully visible on hover */
+}
+
 
 .card__action:hover {
     filter: brightness(0.8);

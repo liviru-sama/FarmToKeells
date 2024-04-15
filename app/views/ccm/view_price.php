@@ -161,18 +161,17 @@
     <?php while ($row = mysqli_fetch_assoc($data['prices'] )) { ?>
 
       
-    <td class="card">
+        <td class="card">
         <div class="card__content">
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: white; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p></br>
+            <p class="card__text" style="color: green; font-family:Inter;"><span style="color: black; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"></br><?php echo $row['name']; ?></span></p></br>
+            
             <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
             <div class="card__details">
-                <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">price per kg:</br>&nbsp;&nbsp;<span style="color: white; font-weight: bold; font-size: 20px; font-family: 'Verdana', sans-serif;"><?php echo $row['price']; ?>/=</span></p>
+                <p class="card__text" style="color: black; font-family: 'Inter'; padding:15px;">1 kg: Rs.</br></br><span style="background-color:#65A534; border-radius:10px; padding:9px; color: white; font-weight: bold; font-size: 20px; font-family: 'Inter';"><?php echo $row['price']; ?></span></p>
               
             </div>
         </div>
-        <div class="card__actions">
-            <a href="<?php echo URLROOT; ?>/ccm/edit_price?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
-        </div></br></br>
+      </br></br>
     
     <?php } ?></td>
 

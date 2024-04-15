@@ -165,7 +165,7 @@
             </br>
             <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;Post Your available products here
 
-<a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+ADD NEW</a>
+<a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
 
 </h2>        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search your products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
@@ -189,7 +189,7 @@
                             
                                 <td class="card" colspan="12">
                                     <div class="card__content">
-                                    <p class="card__title" style="color: green; font-family: 'Inter';"><span style="color: black; font-size: 25px; font-weight: bold; font-family: 'Inter';"><?php echo $row->name; ?></span></p>
+                                    <p class="card__text" style="color: green; font-family: 'Inter';"><span style="color: black; font-size: 25px; font-weight: bold; font-family: 'Inter';"><?php echo $row->name; ?></span></p>
 <div style="position: relative; display: inline-block;">
     <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
     <p style="position: absolute; top: calc(-4% + 5px); left: 0; background-color: black; color: white; border-radius: 15px; padding: 5px; font-weight: bold; font-family: 'Inter';">Order ID: <?php echo $row->order_id; ?></p>
@@ -208,7 +208,7 @@
                 echo 'background-color: red;'; // Red
                 break;
             case 'Pending Approval':
-                echo ''; // No color
+                echo 'background-color: white; color:black;'; // No color
                 break;
             default:
                 echo ''; // No color
@@ -230,10 +230,10 @@
                                         </div>
                                     </div></br>
                                     <div class="card__actions">
-                                        <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
-                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"></a>
+                                        <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
+                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>" data-text="Request for payment"></a>
                                         <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>"><img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>"></a>
-                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed') ? 'disabled-link' : ''; ?>"></a>
+                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
                                     </div></br></br></br>
                                 </td>
                             <?php 
@@ -292,6 +292,7 @@ function confirmDelete(deleteUrl, orderId) {
 
   body {
       overflow: hidden; /* Hide scrollbar */
+      background
     }
     .button-container {
         display: flex;

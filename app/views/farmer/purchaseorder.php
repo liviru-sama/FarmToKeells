@@ -145,7 +145,7 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Our purchaseorder</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
             </a>
 
     
@@ -161,7 +161,7 @@
         <main class="table">
             <section class="table_header">
             </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Orders for Specific Demands
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Orders for Keells' Demands
 
 
 </h2>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
@@ -200,7 +200,7 @@
                                         <?php echo $row['purchase_status'] ?>
                                         <!-- Hidden input field to send order_id with the form -->
                                     </td>
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?user_id=<?php echo $_SESSION['user_id']; ?>"
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?<?php echo $_SESSION['user_id']; ?>"
 >
 Place Sales Order for this Purchase Order</a></td>
                                 </tr>
