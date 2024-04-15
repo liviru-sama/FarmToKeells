@@ -71,6 +71,7 @@
     clear: both;
     overflow: hidden;
     word-wrap: break-word;
+    z-index:9999;
 }
 
 
@@ -112,6 +113,8 @@
     border-radius: 10px;
     left:28%;
     background-color:rgba(181, 174, 174, 0.25);
+    z-index:1;
+
 }
 
 
@@ -124,17 +127,20 @@
     background-color: transparent;
     resize: none; /* Prevent resizing */
     box-sizing: border-box;
+    z-index:1;
+
 }
 
 .add-inquiry-form .send-button {
     width: 100%; /* Adjust width to accommodate padding */
-    background-color: #65A534;
-    color: white;
+    background-color:rgba(181, 174, 174, 0.25);
+    color: black;
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
     box-sizing: border-box;
     font-weight:bold;
+
 }
 
 
@@ -265,7 +271,7 @@ usort($data['inquiries'], function($a, $b) {
     <?php foreach ($data['inquiries'] as $inquiry): ?>
         <!-- User inquiry message -->
         <div class="chat-message user-message">
-            <div class="message-content"><?php echo $inquiry->inquiry; ?></br></br></br></br></br></br></div>
+            <div class="message-content"><?php echo $inquiry->inquiry; ?></br></br></br></div>
             <div class="message-time"><?php echo $inquiry->created_at; ?></div>
         </div>
 
@@ -274,7 +280,7 @@ usort($data['inquiries'], function($a, $b) {
             <div class="chat-message admin-message">
                 <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
                 <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
-            </div>
+            </div></br></br></br></br></br></br></br></br>
         <?php else: ?>
             <div class="chat-message admin-message empty-reply"></div>
         <?php endif; ?>
@@ -288,7 +294,7 @@ usort($data['inquiries'], function($a, $b) {
                         <input type="hidden" name="username" value="<?php echo $data['user_data']->username; ?>">
                         <input type="hidden" name="contact_no" value="<?php echo $data['user_data']->mobile; ?>" readonly>
                         <input type="hidden" name="email" value="<?php echo $data['user_data']->email; ?>" readonly>
-                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:white;"required></textarea>
+                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:black;"required></textarea>
                         <input type="submit" value="Send Inquiry" class="send-button">
                     </form>
                 </div>
