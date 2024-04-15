@@ -267,10 +267,9 @@
         }
         
         .navbar-logo {
-            width: 160px; /* Fixed width for the logo */
+            width: 250px; /* Fixed width for the logo */
             height: auto; /* Maintain aspect ratio */
-            margin-right: auto; /* Push other elements away */
-
+            margin-left: auto;
         }
         
         .navbar-icons {
