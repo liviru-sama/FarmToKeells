@@ -69,8 +69,8 @@
     padding: 10px;
     border-radius: 10px;
     clear: both;
-    overflow: hidden; /* Hide overflowing content */
-    word-wrap: break-word; /* Break long words to fit in box */
+    overflow: hidden;
+    word-wrap: break-word;
 }
 
 
@@ -254,11 +254,18 @@
     
 <section class="header"></section>
 <section class="table_body">
+<?php 
+// Sort the inquiries array based on created_at timestamp in ascending order
+usort($data['inquiries'], function($a, $b) {
+    return strtotime($a->created_at) - strtotime($b->created_at);
+});
+?>
+
 <div class="chat-container">
     <?php foreach ($data['inquiries'] as $inquiry): ?>
         <!-- User inquiry message -->
         <div class="chat-message user-message">
-            <div class="message-content"><?php echo $inquiry->inquiry; ?></br></br></div>
+            <div class="message-content"><?php echo $inquiry->inquiry; ?></br></br></br></br></br></br></div>
             <div class="message-time"><?php echo $inquiry->created_at; ?></div>
         </div>
 
@@ -272,6 +279,7 @@
             <div class="chat-message admin-message empty-reply"></div>
         <?php endif; ?>
     <?php endforeach; ?>
+</div>
 
     <div class="chat-form-container">
                 <div class="add-inquiry-form">
@@ -280,7 +288,7 @@
                         <input type="hidden" name="username" value="<?php echo $data['user_data']->username; ?>">
                         <input type="hidden" name="contact_no" value="<?php echo $data['user_data']->mobile; ?>" readonly>
                         <input type="hidden" name="email" value="<?php echo $data['user_data']->email; ?>" readonly>
-                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:white;"required>Your inquiry....</textarea>
+                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:white;"required></textarea>
                         <input type="submit" value="Send Inquiry" class="send-button">
                     </form>
                 </div>
