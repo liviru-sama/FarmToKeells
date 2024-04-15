@@ -645,7 +645,6 @@
                 $name = trim($_POST['name']);
                 $type = trim($_POST['type']);
                 $quantity = trim($_POST['quantity']);
-                $status = trim($_POST['status']);
                 $price = trim($_POST['price']);
                 $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
                 $address = trim($_POST['address']);
@@ -759,8 +758,36 @@
         
 
         public function marketdemand() {
-   
-            $this->view("ccm/marketdemand");
+            // Instantiate the Product model
+            $priceModel = $this->model('Price');
+            
+            // Get product data from the model
+            $prices = $priceModel->getAllPrices();
+            
+            // Check if products are retrieved successfully
+            if ($prices) {
+                // Load the view file and pass the product data
+                $data['prices'] = $prices;
+                
+                $this->view('farmer/marketdemand', $data);
+            } else {
+                // Handle case where no products are returned or an error occurs
+                // For example, you can return an error message as JSON
+                header('Content-Type: application/json');
+                echo (['error' => 'No products found']);
+            }
+    }
+    
+
+        public function view_price(){
+            // Instantiate Product Model
+            $priceModel = new Price();
+            
+            // Get all products
+            $data['prices'] = $priceModel->getAllPrices();
+            
+            // Load the view with products data
+            $this->view('farmer/view_price', $data);
         }
         
     }

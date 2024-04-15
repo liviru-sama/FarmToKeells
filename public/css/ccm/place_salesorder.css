@@ -134,10 +134,7 @@
             transform: translateX(100%);
         }
 
-        tbody tr:hover {
-            background-color: #65A534;
-            transform: scale(1.009);
-        }
+        
 
         tbody tr td,
         tbody tr td p,
@@ -267,7 +264,7 @@
         }
         
         .navbar-logo {
-            width: 250px; /* Fixed width for the logo */
+            width: 220px; /* Fixed width for the logo */
             height: auto; /* Maintain aspect ratio */
             margin-left: auto;
         }
@@ -281,7 +278,7 @@
         .navbar-icon {
             width: 50px; /* Increased width for icons */
             height: auto; /* Maintain aspect ratio */
-            margin-left: 35px; /* Adjust spacing between icons */
+            margin-left: 15px; /* Adjust spacing between icons */
             box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
             border-radius: 50px; /* Border radius */
             padding: 5px; /* Increase the padding to create gap */
@@ -292,7 +289,23 @@
             transform: scale(1.08);
         }
         
+        .navbar-icon-container {
+            position: relative;
+        }
         
+        .navbar-icon-container:hover::after {
+            content: attr(data-text); /* Display the value of the data-text attribute */
+            position: absolute;
+            top: 100%; /* Position the text below the icon */
+            left: 50%; /* Center the text horizontally */
+            transform: translateX(-50%); /* Center the text horizontally */
+            background-color: #65A534; /* Background color for the text */
+            color: white; /* Text color */
+            padding: 5px; /* Padding around the text */
+            border-radius: 5px; /* Border radius for the text */
+            z-index: 2; /* Ensure the text appears above other elements */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
         
         .main-content {
             position: fixed;
@@ -471,7 +484,7 @@ a.button {
 
 /* Hover effect */
 a.button:hover {
-    background-color: #45a049;
+    background-color: #8f9d8f;
     transform: scale(1.08);
     /* Darker green background color on hover */
 }
@@ -525,6 +538,7 @@ form .text-field {
     color: black;
     transform: translateY(-50%);
     font-size: 16px;
+    font-weight: bold;
     font-family: 'inter';
     pointer-events: none;
     transition: .4s;
@@ -862,15 +876,15 @@ main.stock {
 }
 
 .card {
-    background-color: rgba(12, 12, 12, 0.333);
+    background-color: rgba(181, 174, 174, 0.15);
     backdrop-filter: blur(7px);
     box-shadow: 0 .4rem .8rem #0005;
     width: calc(25% - 2px); /* Adjust width for spacing */
     margin-bottom: 20px;
     overflow: hidden;
     flex: 0 0 calc(25% - 2px);
-    
-        width: 100px;
+    border:2px #000000;
+        width: 200px;
         height: 100px;
         /* Add any other styles you need */
     
@@ -878,14 +892,14 @@ main.stock {
 }
 
 .card__content {
-    padding: 16px;
+   
 }
 
 .card__image {
-    width: 100%; /* Adjust image width to fill the container */
+    width: 90%; /* Adjust image width to fill the container */
     height: 150px;
     object-fit: cover;
-    border-radius: 25px;
+    border-radius: 15px;
 }
 
 .card__image:hover {
@@ -914,29 +928,31 @@ main.stock {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px;
+    padding-left: 50px; /* Add left padding */
+    padding-right: 50px; /* Add right padding */
     
+   
 }
 
 .card__action {
-    width: 40px;
-    height: 40px;
+    width: 60px;
+    height: 60px;
     cursor: pointer;
     box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
-    
+    border-radius:40px;
+   padding:10px;
 }
 
 .card__action:hover {
     filter: brightness(0.8);
     transform: scale(1.5);
-    background-color: #e0ebd9;
+    background-color: #ffffff;
 }
 
 
 .card:hover {
     background-color: #65A534;
     transform: scale(1.08);
-
 }
 
 
@@ -966,17 +982,24 @@ main.stock {
     grid-template-columns: 1fr 1fr;
     gap: 1.5rem;
     justify-content: center;
+    z-index: 1;
 }
 
 .menuu {
     margin: 0 auto;
 }
 
+
+
+
+
+
+
 .containerr .dashboard-containerr .menuu{
     text-align: center;
     padding: 2rem 2rem 2rem 2rem;
     background: rgba(255, 255, 255, 0.598);
-    /* box-shadow: 0 0.5rem 1rem ; */
+    position: relative;
     cursor: pointer;
     height: 30rem;
     width: 30rem;

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -6,31 +5,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/place_salesorder.css">
+
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+
     <style>
-        
         body,
         html {
             /* Add your background image URL and properties here */
             background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
             background-size: cover;
             height: 100%;
-        }/* Additional CSS for centering headings */
-        .table_body h2 {
-            text-align: center;
         }
-        /* Add CSS for making status editable */
-        .editable {
-            cursor: pointer;
+
+        #notificationFrame {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+            z-index: 9999;
+            display: none; /* Initially hide the iframe */
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
         }
-        .editable:hover {
-            background-color: #f2f2f2;
-        }
-        /* Add CSS for the form */
-        #statusForm {
-            margin-bottom: 20px;
-        }
-        
+
         .disabled-link {
   pointer-events: none; /* Disable pointer events */
   opacity: 0.5; /* Reduce opacity to indicate disabled state */
@@ -43,97 +44,244 @@
   cursor: not-allowed; /* Change cursor to indicate non-clickable */
 }
 
-
-
-        
     </style>
 </head>
 
 <body>
-    <section class="header">
-    <h4>PLACE SALES ORDERS</h4><main class="table">
+<div class="navbar">
+    <div class="navbar-icons">
+    <div class="navbar-icon-container" data-text="Go Back">
+        <a href="#" id="backButton" onclick="goBack()">
+            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+        </a></div>
+
+
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
+
+
+        <div class="navbar-icon-container" data-text="Contact">
+        <a href="<?php echo URLROOT; ?>/users/contact" >
+                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
+                    </a></div>
+
+
+                    <div class="navbar-icon-container" data-text="View Profile">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon">
+                    </a></div>
+
+
+<div class="navbar-icon-container" data-text="Logout">
+        <a href="<?php echo URLROOT; ?>/ccm/logout">
+            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+        </a></div>
+
+    </div>
+    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+   
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <section class="dashboard">
+            <div class="container">
+                <div class="dashboard-container">
+                    
+                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-1" >
+                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Products</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2" style="background: #65A534; transform: scale(1.08);" > 
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Orders</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4"  >
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Market Prices</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7" >
+                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Transport</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5" >
+                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Payment</h6>
+                        </div>
+                    </a>
+
+                    
+                    </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6" >
+                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Inquiry</h6>
+                        </div>
+                    </a>
+
+                    
+                </div>
+            </div>
+        </section>
+    </div>
+    <!-- Main content -->
+    <div class="main-content">
+
+    <div class="main-content">
+
+    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Our purchaseorder</h5>
+            </a>
+
+            
+    
+           
+</br>
+
+
+      
+        
+    
+        <main class="table">
             <section class="table_header">
-               
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selected purchaseorder
+
+
+</h2>       
+                                 
+
+        </h2>
+    
             </section>
             <section class="table_body">
             <table>
-            <thead> 
-                <th><h2>Selected Purchase Order</h2> </th>
-    </thead> 
+            <thead>
+                                <tr>
+                                   <th>Product image</th>
+                                    <th>Purchase Order ID</th>
+                                    <th>Product</th>
+                                    <th>Product Type</th>
+                                    <th>Needed Quantity (kgs)</th>
+                                    <th>Expected Supply Date</th>
+                                    <th>Status</th> 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php if (!empty($data['purchaseorder'])) : ?>
+                                    <tr>
+                                        <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 50px; "></td>
+                                        <td><?php echo $data['purchaseorder']->purchase_id; ?></td>
+                                        <td><?php echo $data['purchaseorder']->name; ?></td>
+                                        <td><?php echo $data['purchaseorder']->type; ?></td>
+                                        <td><?php echo $data['purchaseorder']->quantity; ?></td>
+                                        <td><?php echo $data['purchaseorder']->date; ?></td>
+                                        <td><?php echo $data['purchaseorder']->purchase_status; ?></td>
 
-               
-    
-       
-    <tbody>
-        <?php if (!empty($data['purchaseorder'])) : ?>
-            <tr>
-                <td><img src="<?php echo $data['purchaseorder']->image; ?>" alt="<?php echo $data['purchaseorder']->name; ?>" style="width: 200px; height: 200px;" class="card__image"></td>
-                <th style="color: green; font-family: 'Arial', sans-serif;">Product: &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->name; ?></span></br></br>
-                   Product Type: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->type; ?></span></br></br>
-                   Needed Quantity : &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->quantity; ?>&nbsp; (kgs)</span></br></br>
-                   Expected Supply Date: &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $data['purchaseorder']->date; ?></span></br></br>
-                   Status:           &nbsp; <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $data['purchaseorder']->purchase_status; ?></span></br></br>
-
+                                                                        </tr>
+                                <?php endif; ?>
+                            </tbody>
+                    </form>    
+                    </table>
+<table>
 
                 </th>
 
+                <section class="table_header">
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Your Sales Orders
 
-               
-            </tr>
-        <?php endif; ?>
-    </tbody>
-</table>
-<table>
-<thead>
-<th><h2>Sales Orders</h2>  <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
-  <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">+ Add NEW ORDER</a>
+ <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
+  <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">Add New Order</a>
 <?php else: ?>
   <a class="button disabled" href="#">Order is completed</a>
 <?php endif; ?>
 
-
-                <br/></th>
-                   
+</h2>                      
                         
                            
                         </thead>
                         <tbody>
     <?php foreach ($data['salesorders'] as $row) : ?>
         
-        <td class="card">
+        <td class="card" style="">
     <div class="card__content">
-        <h3 class="card__title" style="color: green; font-family: 'Arial', sans-serif;">Your Order ID:<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"> <?php echo $row->order_id; ?></span></h3>
-        <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: black; font-size: 25px; font-weight: bold; font-family: 'Verdana', sans-serif;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<?php echo $row->name; ?></span></p>
-        <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
+    <p class="card__title" style="color: green; font-family: 'Inter';"><span style="color: black; font-size: 25px; font-weight: bold; font-family: 'Inter';"><?php echo $row->name; ?></span></p>
+<div style="position: relative; display: inline-block;">
+    <img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" class="card__image">
+    <p style="position: absolute; top: calc(-4% + 5px); left: 0; background-color: black; color: white; border-radius: 15px; padding: 5px; font-weight: bold; font-family: 'Inter';">Order ID: <?php echo $row->order_id; ?></p>
+    <p class="card__text" style="color: white; font-family: 'Inter'; position: absolute; top: calc(15% + 5px); left: 0;">
+        <span style="
+        <?php
+        // Set background color based on status
+        switch ($row->status) {
+            case 'Approved':
+                echo 'background-color: #65A534;'; // Green
+                break;
+            case 'Completed':
+                echo 'background-color: grey;'; // Grey
+                break;
+            case 'Rejected':
+                echo 'background-color: red;'; // Red
+                break;
+            case 'Pending Approval':
+                echo 'background-color: white; color:black;'; // No color
+                break;
+            default:
+                echo ''; // No color
+                break;
+        }
+        ?>
+        border-radius: 5px; padding: 5px; font-weight: bold; font-family: 'Inter', sans-serif;">
+            <?php echo $row->status; ?>
+        </span>
+    </p>
+</div>
+
+</div>
+
+</div>     
+</div>
+
+    </div>
         <div class="card__details"style=" text-align: center;">
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->type; ?> product</span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->quantity; ?>kgs</span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">1 kg: <span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->price; ?>/= </span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Deliverable Date:</br><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->date; ?></span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Collection Address:</br><span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->address; ?></span></p>
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">Status: &nbsp;<span style="color: black; font-weight: bold; font-family: 'Verdana', sans-serif;"><?php echo $row->status; ?></span></p>
-            <?php
-// Assuming $row->quantity and $row->price contain the quantity and price values respectively
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Inter', sans-serif;"><?php echo $row->type; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Inter', sans-serif;"><?php echo $row->quantity; ?>kgs</span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Inter', sans-serif;"><?php echo $row->price; ?>/= </span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Inter', sans-serif;"><?php echo $row->date; ?></span></p>
+            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;"><span style="color: black; font-weight: bold; font-family: 'Inter', sans-serif;"><?php echo $row->address; ?><br/></span></p>
+            
+            <div class="card__actions">
 
-// Calculate the total price
-$totalPrice = $row->quantity * $row->price;
-
-// Output the total price
-echo '<p class="card__text" style="font-size: 20px; color: black; font-family: \'Arial\', sans-serif;">Total Price: &nbsp;<span style="font-size: 20px; color: white; font-weight: bold; font-family: \'Verdana\', sans-serif;">' . $totalPrice . '/=</span></p>';
-?>
+        <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
+        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action" ></a>
+        <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>">
+    <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>"  style="background-color: #65A534;">
+</a>
+<a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval') ? 'disabled-link' : ''; ?>"></a>
+ 
         </div>
     </div>
-    <div class="card__actions">
-        <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row-> order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
-        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action"></a>
-        <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>">
-    <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>">
-</a>
-<a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
-    <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval') ? 'disabled-link' : ''; ?>">
-</a>
-
-    </div>
+    <br/>
 </td>
 
         
@@ -267,6 +415,8 @@ function cancelDelete() {
 
 
 </body>
+
+
 
 </html>
 

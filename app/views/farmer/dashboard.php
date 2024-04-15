@@ -57,7 +57,35 @@ body,
             .navbar-icon:hover {
                 background: #65A534;
                 transform: scale(1.08);
-            }</style>    </head>
+            }
+            
+            .navbar-icon-container {
+    position: relative;
+}
+
+.navbar-icon-container:hover::after {
+            content: attr(data-text); /* Display the value of the data-text attribute */
+            position: absolute;
+            top: 100%; /* Position the text below the icon */
+            left: 50%; /* Center the text horizontally */
+            transform: translateX(-50%); /* Center the text horizontally */
+            background-color: #65A534; /* Background color for the text */
+            color: white; /* Text color */
+            padding: 5px; /* Padding around the text */
+            border-radius: 5px; /* Border radius for the text */
+            z-index: 2; /* Ensure the text appears above other elements */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+.dashboard-container {
+    top: 60px; /* Height of the navbar */
+   
+    padding-top: 80px; /* Additional padding to compensate for navbar height */
+    /* Additional styles for the dashboard container */
+}
+
+/* Adjust container styles as needed */
+</style>    </head>
 <body>
 <?php if(isset($_SESSION['user_id'])): ?>
         <section class="header">
@@ -65,19 +93,27 @@ body,
             <div class="navbar">
                 <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo" style="left: 0;">
                 <div class="navbar-icons">
-                    <a href="<?php echo URLROOT; ?>/users/contact" id="backButton"  onclick="goBack()">
+               
+                    <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
+
+        <div class="navbar-icon-container" data-text="Contact">
+        <a href="<?php echo URLROOT; ?>/users/contact" >
                         <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a>
-                    <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-                    </a>
+                    </a></div>
+
+                    <div class="navbar-icon-container" data-text="View Profile">
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon">
-                    </a>
-                    <a href="<?php echo URLROOT; ?>/users/user_login">
-                        <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-                    </a>
-                    <!-- Add more icons as needed -->
+                    </a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+        <a href="<?php echo URLROOT; ?>/ccm/logout">
+            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+        </a></div>
+
                 </div>
             </div>
         </section>
@@ -86,16 +122,11 @@ body,
             <div class="container" style="top:50%">
                 <div class="dashboard-container">
                     
-                <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
-                    <div class="menu" data-name="p-1">
-                
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
-                        <h3>Place Order</h3>
-                    </div></a>
+              
         
                   
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
-                    <div class="menu" data-name="p-2">
+                    <div class="menu" data-name="p-1">
 
                     <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="">
 
@@ -103,18 +134,20 @@ body,
                         <h3>Post Your available products</h3>
                        
                     </div> </a>
+
+
         
-                  
-                    <a href="<?php echo URLROOT; ?>/farmer/notifications">
-                    <div class="menu" data-name="p-3">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png">
-                        <h3>Notifications</h3>
-                        
+                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
+                    <div class="menu" data-name="p-2">
+                
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
+                        <h3>Place Order For Their demand</h3>
                     </div></a>
+                   
         
                    
-                    <a href="<?php echo URLROOT; ?>/farmer/market_prices">
-                    <div class="menu" data-name="p-4">
+                    <a href="<?php echo URLROOT; ?>/farmer/marketdemand">
+                    <div class="menu" data-name="p-3">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png">
                         <h3>Market demands and Product Prices</h3>
                         
@@ -122,19 +155,28 @@ body,
         
                     
                     <a href="<?php echo URLROOT; ?>/farmer/payments">
-                    <div class="menu" data-name="p-5">
+                    <div class="menu" data-name="p-4">
                         <img src="<?php echo URLROOT; ?>/public/images/pay.png">
                         <h3>Payments</h3>
                         
                     </div></a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/transport">
+                    <div class="menu" data-name="p-4">
+                        <img src="<?php echo URLROOT; ?>/public/images/transport.png">
+                        <h3>Transport</h3>
+                        
+                    </div></a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/inquiry">
+                    <div class="menu" data-name="p-4">
+                        <img src="<?php echo URLROOT; ?>/public/images/inquiry.png">
+                        <h3>Inquiries</h3>
+                        
+                    </div></a>
         
                     
-                        <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <div class="menu" data-name="p-6">
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png">
-                            <h3>Manage Profile</h3>
-                           
-                    </div> </a>
+                       
         
         
                 </div>

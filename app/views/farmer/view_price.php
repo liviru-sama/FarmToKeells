@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
-
     <style>
         body,
         html {
@@ -32,22 +31,6 @@
             width: 80%; /* Adjust width as needed */
             height: 80%; /* Adjust height as needed */
         }
-        #productSelectionFrame {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff5;
-            backdrop-filter: blur(7px);
-            box-shadow: 0 .4rem .8rem #0005;
-            border-radius: .8rem;
-            z-index: 9999;
-            display: none; /* Initially hide the iframe */
-            width: 80%; /* Adjust width as needed */
-            height: 80%; /* Adjust height as needed */
-        }
-
-        
 
     </style>
 </head>
@@ -102,35 +85,35 @@
                 <div class="dashboard-container">
                     
                 <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" >
+                        <div class="menu" data-name="p-1" data-text="Your Products">
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Products</h6>
                         </div>
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"  style="background: #65A534; transform: scale(1.08);"> 
+                        <div class="menu" data-name="p-2" data-text="View Their Purchaseorders and Your Salesorders" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4"  >
+                        <div class="menu" data-name="p-4" data-text="View Current Market Demands and Prices" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
+                        <div class="menu" data-name="p-7" data-text="View Your Transport requests">
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5" >
+                        <div class="menu" data-name="p-5" data-text="View Your Payment Requests">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
                         </div>
@@ -138,7 +121,7 @@
 
                     
                     </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" >
+                        <div class="menu" data-name="p-6" data-text="View Your Inquiries">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
                         </div>
@@ -154,19 +137,16 @@
 
     <div class="main-content">
 
-    <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
+    <a href="<?php echo URLROOT; ?>/farmer/view_price" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;Orders Card View</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
             </a>
 
-    <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
+    <a href="<?php echo URLROOT; ?>/farmer/marketdemand" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading">Orders Table View </h5></a>
+                = "tab-heading">MARKET DEMAND </h5></a>
 
-                <a href="<?php echo URLROOT; ?>/farmer/add_salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Add Order</h5>
-            </a>
+    
            
 </br>
 
@@ -174,111 +154,111 @@
       
         
     
+        <main class="table">
+            <section class="table_header">
+            </br>
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENT MARKET PRICES  
+        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+
+                                 
+
+        </h2>
+    </br>    </br>
+            </section>
+            <section class="table_body">
+                <form method="post">
+                    <table>
+                       
+                        <tbody>
+                     
+                            
+                                
+
+   
+    <?php while ($row = mysqli_fetch_assoc($data['prices'] )) { ?>
+
+      
+    <td class="card">
+        <div class="card__content">
+            <p class="card__text" style="color: green; font-family:Inter;"><span style="color: black; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p></br>
+            
+            <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
+            <div class="card__details">
+                <p class="card__text" style="color: black; font-family: 'Inter'; padding:15px;">1 kg: Rs.</br></br><span style="background-color:#65A534; border-radius:10px; padding:9px; color: white; font-weight: bold; font-size: 20px; font-family: 'Inter';"><?php echo $row['price']; ?></span></p>
+              
+            </div>
+        </div>
+      </br></br>
     
-<section class="header"></section>
-    <section class="form">
-        <div class="center">
-            <h1>Add Sales order</h1>
-            <form action='<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchase_id']; ?>' method="post" id="myForm">
-    
-            <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">
+    <?php } ?></td>
 
-                <!-- Hidden input field to store the purchase ID -->
-                <input type="hidden" name="purchase_id" value="<?php echo isset($data['purchase_id']) ? $data['purchase_id'] : ''; ?>">
 
-                <input type="hidden" name="image" id="productImage" value="<?php echo isset($data['image']) ? $data['image'] : ''; ?>">
 
-                <input type="hidden" name="status" id="status" value="Pending Approval">
+                        </tbody>
+                    </table>
+                </form>
+            </section><!-- Add this HTML in your parent window where you want the notifications to be displayed -->
 
-                <div class="text-field">
-  <input name='name' id="productName" type="text" value="<?php echo isset($data['name']) ? $data['name'] : ''; ?>" readonly>
-  <span></span>
-  <label> Product</label>
+
+<div class="notification-frame" id="notificationFrame">
+    <iframe src="<?php echo URLROOT; ?>/ccm/notifications" frameborder="0" class="notifications-iframe" id="notificationsIframe"></iframe>
 </div>
 
+        </main>
+        <script>
 
-<div class="text-field">
-                     <div class="typeselect-container">
-        <select class="productstatusInput" name="category" onchange="updateInput(this)">
-            <option value="" disabled selected></option><!-- Empty option for placeholder -->
-            <option value="hillcountry">Hill Country</option>
-            <option value="organic">Organic</option>
-        </select>
-        <input name="type" id="categoryInput" type="text" required>
-        <span></span>
-        <label> Category</label>
-    </div>  </div>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the notification icon
+    var notificationsButton = document.getElementById('notificationsButton');
+    // Get the notification frame
+    var notificationFrame = document.getElementById('notificationFrame');
 
-    <script>
-    function updateInput(select) {
-        var selectedOption = select.options[select.selectedIndex].text;
-        document.getElementById("categoryInput").value = selectedOption;
-        // Reset the dropdown to show the placeholder option
-        select.value = ''; // Reset to blank option
+    // Function to toggle the display of the notification frame
+    function toggleNotificationFrame() {
+        notificationFrame.style.display = notificationFrame.style.display === 'none' ? 'block' : 'none';
     }
-</script>
 
+    // Show the notification frame when the notifications icon is clicked
+    notificationsButton.addEventListener('click', function(event) {
+        // Prevent the default action of the notifications icon
+        event.preventDefault();
+        // Toggle the display of the notification frame
+        toggleNotificationFrame();
+    });
 
+    // Hide the notification frame when clicking outside of it
+    window.addEventListener('click', function(event) {
+        // Check if the click event occurred outside of the notification frame and its trigger element
+        if (!notificationFrame.contains(event.target) && event.target !== notificationsButton) {
+            // Hide the notification frame
+            notificationFrame.style.display = 'none';
+        }
+    });
+});
 
+function searchcardProducts() {
+    // Declare variables
+    var input, filter, cards, card, productName, i;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    cards = document.getElementsByClassName("card");
 
-
-
-
-
-
-                <div class="text-field">
-                    <input name="date" id="salesOrderDate" type="date" required>
-                    <span></span>
-                    <label> Date</label>
-                </div>
-                <div class="text-field">
-                    <input name="quantity" type="number" required>
-                    <span></span>
-                    <label> Stock</label>
-                </div>
-                <div class="text-field">
-                    <input name="price" type="number" required>
-                    <span></span>
-                    <label> Price per kg</label>
-                </div>
-                <div class="text-field">
-                    <input name="address" type="text" required>
-                    <span></span>
-                    <label> Address</label>
-                </div>
-                <input type="submit" value="Reset" onclick="resetForm()">
-                <input type="submit" value="Add">
-            </form>
-        </div>
-    </section>
-
-    <!-- Product selection iframe -->
-
-   <script>
-
-
-    // JavaScript function to toggle the visibility of the dropdown
-   
-    // Close the dropdown if the user clicks outside of it
-   
-
-    // Get the sales order date input element
-    var salesOrderDateInput = document.getElementById('salesOrderDate');
-
-    // Get the current date
-    var currentDate = new Date().toISOString().split('T')[0];
-
-    // Set the min attribute to the current date
-    salesOrderDateInput.setAttribute('min', currentDate);
-
-    // Function to reset the form
-    function resetForm() {
-        document.getElementById('myForm').reset();
+    // Loop through all product cards, and hide those that don't match the search query
+    for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        productName = card.getElementsByClassName("card__text")[0];
+        if (productName) {
+            if (productName.textContent.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        }
     }
+}
+
 </script>
-
-</body>
-
+        </body>
 
 </html>
 
