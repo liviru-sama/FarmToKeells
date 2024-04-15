@@ -321,7 +321,13 @@
         }
 
 
-
+        public function getUserDataById($user_id) {
+            $this->db->query('SELECT * FROM users WHERE id = :user_id');
+            $this->db->bind(':user_id', $user_id);
+            $row = $this->db->single();
+    
+            return $row;
+        }
 
     }
 

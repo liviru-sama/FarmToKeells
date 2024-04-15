@@ -790,5 +790,87 @@
             $this->view('farmer/view_price', $data);
         }
         
+
+        public function add_inquiry() {
+            $userModel = $this->model('User');
+        
+            // Get user ID from session or wherever it's stored
+            $user_id = $_SESSION['user_id'];
+        
+            // Get user data using the model method
+            $user_data = $userModel->getUserDataById($user_id);
+        
+            // Pass the user data to the view
+            $data = [
+                'user_data' => $user_data
+            ];
+        
+            $this->view('farmer/inquiry', $data);
+        }
+        
+        
+
+        public function sendInquiry() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+                // Instantiate Inquiry model
+                $inquiryModel = $this->model('Inquiry');
+    
+                // Get form data
+                $data = [
+                    'user_id' => $_POST['user_id'],
+                    'username' => $_POST['username'],
+                    'contact_no' => $_POST['contact_no'],
+                    'email' => $_POST['email'],
+                    'inquiry' => $_POST['inquiry']
+                ];
+    
+                // Store the inquiry in the database
+                if ($inquiryModel->storeInquiry($data)) {
+                    // Inquiry stored successfully
+                    // Redirect to a success page or display a success message
+                    redirect('farmer/inquiry');
+                } else {
+                    // Error occurred while storing the inquiry
+                    // Redirect to an error page or display an error message
+                    redirect('farmer/inquiry');
+                }
+            } else {
+                // If the request method is not POST, redirect to the inquiry form
+                redirect('farmer/inquiry');
+            }
+        }
+
+
+        // Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+public function inquiry() {
+    // Load the Inquiry model
+    $inquiryModel = $this->model('Inquiry');
+
+    // Get user ID from session
+    $user_id = $_SESSION['user_id'];
+
+    // Get user data using the model method
+    $userModel = $this->model('User');
+    $user_data = $userModel->getUserDataById($user_id);
+
+    // Get inquiries of the current user from the database
+    $inquiries = $inquiryModel->getUserInquiries($user_id);
+
+    // Pass the inquiries data to the view
+    $data = [
+        'inquiries' => $inquiries,
+        'user_data' => $user_data
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('farmer/inquiry', $data);
+}
+
     }
+
+    
 

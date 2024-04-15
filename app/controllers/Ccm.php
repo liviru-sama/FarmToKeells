@@ -883,6 +883,21 @@ public function register(){
     }
 }
 
+public function inquiry() {
+    // Load the Inquiry model
+    $inquiryModel = $this->model('Inquiry');
+
+    // Get all inquiries from the database
+    $inquiries = $inquiryModel->getAllInquiries();
+
+    // Pass the inquiries data to the view
+    $data = [
+        'inquiries' => $inquiries
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('ccm/inquiry', $data);
+}
 
 }
 
