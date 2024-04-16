@@ -269,73 +269,53 @@
 <section class="header">  
 </section>
 <section class="table_body">
-<?php 
-// Sort the inquiries array based on created_at timestamp in ascending order
-usort($data['inquiries'], function($a, $b) {
-    return strtotime($a->created_at) - strtotime($b->created_at);
+            <div class="chat-container" id="chatContainer">
+            <?php
+// Sort messages based on ID in ascending order
+usort($data['ccm_chats'], function ($a, $b) {
+    return $a->id - $b->id;
 });
+
+// Display sorted messages
+foreach ($data['ccm_chats'] as $chat):
+    // Skip the message if both admin_reply and ccm_reply are empty
+    if (empty($chat->admin_reply) && empty($chat->ccm_reply)) {
+        continue;
+    }
+
+    // Determine the sender based on whether admin_reply is empty or not
+    $sender = !empty($chat->admin_reply) ? 'admin' : 'user';
+
+    // Determine the CSS class based on the sender
+    $messageClass = $sender === 'admin' ? 'admin-message' : 'user-message';
+
+    // Determine the message content and time based on the sender
+    $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->ccm_reply;
+    $messageTime = $sender === 'admin' ? $chat->admin_reply_time : $chat->created_at;
 ?>
-
-<div class="chat-container" id="chatContainer">
-        <?php foreach ($data['inquiries'] as $inquiry): ?>
-        <!-- User inquiry message -->
-        <div class="chat-message user-message">
-            <div class="message-content" style="text-align:left;">You:</br><?php echo $inquiry->inquiry; ?></br></br></div>
-            <div class="message-time"><?php echo $inquiry->created_at; ?></div>
+    <!-- Display the message -->
+    <div class="chat-message <?php echo $messageClass; ?>">
+        <div class="message-content" style="text-align:<?php echo $sender === 'admin' ? 'left' : 'right'; ?>;">
+            <?php echo $messageContent; ?></br></br>
         </div>
-
-        <!-- Admin reply message -->
-        <?php if (!empty($inquiry->admin_reply)): ?>
-            <div class="chat-message admin-message">
-                <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
-                <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
-            </div></br></br></br></br></br></br></br></br>
-        <?php else: ?>
-            <div class="chat-message admin-message empty-reply"></div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
-
-    <div class="chat-form-container">
-                <div class="add-inquiry-form">
-                    <form action="<?php echo URLROOT; ?>/farmer/sendInquiry" method="post">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                        <input type="hidden" name="username" value="<?php echo $data['user_data']->username; ?>">
-                        <input type="hidden" name="contact_no" value="<?php echo $data['user_data']->mobile; ?>" readonly>
-                        <input type="hidden" name="email" value="<?php echo $data['user_data']->email; ?>" readonly>
-                        <textarea name="inquiry" rows="1" cols="50" style="font-size:20px;color:black;"required placeholder="Ask us Anything..."></textarea>
-                        <input type="submit" value="Send" class="send-button">
-                    </form>
-                </div>
-            </div>
-        </section>
+        <div class="message-time"><?php echo $messageTime; ?></div>
     </div>
-   
+<?php endforeach; ?>
 
-    ...
-</div>
-   
 
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) { 
-    // Function to scroll the chat container to its bottom
-    function scrollChatToBottom() {
-        var chatContainer = document.getElementById('chatContainer');
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+            </div>
 
-    // Call the function when the DOM content is fully loaded
-    scrollChatToBottom();
-});
-
-    function scrollChatToBottom() {
-        var chatContainer = document.getElementById('chatContainer');
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
-
-    // Call the function when the page loads
-    window.onload = scrollChatToBottom;
-</script>
+            <div class="chat-form-container">
+                <div class="add-inquiry-form">
+        <form action="<?php echo URLROOT; ?>/ccm/addChat" method="post">
+           
+                <label for="inquiry"></label>
+                <textarea name="inquiry" rows="1" cols="50" required placeholder="Send message to ADMIN..." style="font-size:25px; color:black;"></textarea>
+                <input type="submit" value="Send" class="send-button">
+            </div>
+            
+        </form>
+    </div>
 
 </body>
 </html>

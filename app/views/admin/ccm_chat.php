@@ -82,6 +82,8 @@
     float: left;
     background-color: white;
     color: black;
+    padding: 20px;
+
 }
 
 .message-time {
@@ -204,35 +206,29 @@
             <div class="container">
                 <div class="dashboard-container">
                     
-                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" >
-                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Products</h6>
-                        </div>
-                    </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-2"  > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/admin/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-4"  >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/admin/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-7" >
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/admin/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5" >
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
@@ -240,7 +236,7 @@
                     </a>
 
                     
-                    </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                    </a> <a href="<?php echo URLROOT; ?>/admin/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Help</h6>
@@ -269,73 +265,79 @@
 <section class="header">  
 </section>
 <section class="table_body">
-<?php 
-// Sort the inquiries array based on created_at timestamp in ascending order
-usort($data['inquiries'], function($a, $b) {
-    return strtotime($a->created_at) - strtotime($b->created_at);
+            <div class="chat-container" id="chatContainer">
+            <?php
+// Sort messages based on ID in ascending order
+usort($data['ccm_chats'], function ($a, $b) {
+    return $a->id - $b->id;
 });
+
+// Initialize variables to keep track of previous message sender and count the number of messages
+$prevSender = null;
+$messageCount = count($data['ccm_chats']);
+$currentMessageIndex = 0;
+
+foreach ($data['ccm_chats'] as $chat):
+    // Determine the sender based on whether admin_reply is empty or not
+    $sender = !empty($chat->admin_reply) ? 'admin' : 'user';
+
+    // Determine the CSS class based on the sender
+    $messageClass = $sender === 'admin' ? 'user-message' : 'admin-message';
+
+    // Determine the message content and time based on the sender
+    $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->ccm_reply;
+    $messageTime = $sender === 'admin' ? $chat->admin_reply_time : $chat->created_at;
+
+    // Skip the message if the content is null
+    if (empty($messageContent)) {
+        continue;
+    }
+
+    // Check if the sender has changed from the previous message
+    $isNewSender = $sender !== $prevSender;
+
+    // Determine if this is the first message
+    $isFirstMessage = $currentMessageIndex === 0;
+
+    // Increase the current message index
+    $currentMessageIndex++;
 ?>
+    <!-- Check if it's a new sender and add a container if so -->
+    <?php if ($isNewSender || $isFirstMessage): ?>
+        <div class="chat-container" <?php if ($isFirstMessage) echo 'style="margin-top: 20px;"'; ?>>
+    <?php endif; ?>
 
-<div class="chat-container" id="chatContainer">
-        <?php foreach ($data['inquiries'] as $inquiry): ?>
-        <!-- User inquiry message -->
-        <div class="chat-message user-message">
-            <div class="message-content" style="text-align:left;">You:</br><?php echo $inquiry->inquiry; ?></br></br></div>
-            <div class="message-time"><?php echo $inquiry->created_at; ?></div>
-        </div>
-
-        <!-- Admin reply message -->
-        <?php if (!empty($inquiry->admin_reply)): ?>
-            <div class="chat-message admin-message">
-                <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
-                <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
-            </div></br></br></br></br></br></br></br></br>
-        <?php else: ?>
-            <div class="chat-message admin-message empty-reply"></div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
-
-    <div class="chat-form-container">
-                <div class="add-inquiry-form">
-                    <form action="<?php echo URLROOT; ?>/farmer/sendInquiry" method="post">
-                        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-                        <input type="hidden" name="username" value="<?php echo $data['user_data']->username; ?>">
-                        <input type="hidden" name="contact_no" value="<?php echo $data['user_data']->mobile; ?>" readonly>
-                        <input type="hidden" name="email" value="<?php echo $data['user_data']->email; ?>" readonly>
-                        <textarea name="inquiry" rows="1" cols="50" style="font-size:20px;color:black;"required placeholder="Ask us Anything..."></textarea>
-                        <input type="submit" value="Send" class="send-button">
-                    </form>
-                </div>
-            </div>
-        </section>
+    <!-- Display the message -->
+    <div class="chat-message <?php echo $messageClass; ?>">
+        <div class="message-content"><?php echo $messageContent; ?></br></br></div>
+        <div class="message-time"><?php echo $messageTime; ?></div>
     </div>
-   
 
-    ...
-</div>
-   
+    <!-- Close the container if it's a new sender or it's the last message -->
+    <?php if ($isNewSender || $chat === end($data['ccm_chats'])): ?>
+        </div>
+    <?php endif; ?>
 
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) { 
-    // Function to scroll the chat container to its bottom
-    function scrollChatToBottom() {
-        var chatContainer = document.getElementById('chatContainer');
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+    <?php
+    // Update the previous sender for the next iteration
+    $prevSender = $sender;
+    ?>
+<?php endforeach; ?>
 
-    // Call the function when the DOM content is fully loaded
-    scrollChatToBottom();
-});
 
-    function scrollChatToBottom() {
-        var chatContainer = document.getElementById('chatContainer');
-        chatContainer.scrollTop = chatContainer.scrollHeight;
-    }
+            </div>
 
-    // Call the function when the page loads
-    window.onload = scrollChatToBottom;
-</script>
+            <div class="chat-form-container">
+                <div class="add-inquiry-form">
+        <form action="<?php echo URLROOT; ?>/admin/addChatadmin" method="post">
+           
+                <label for="admin_reply"></label>
+                <textarea name="admin_reply" rows="1" cols="50" required style="font-size:25px;" placeholder="Send message to CCM..."></textarea>
+                <input type="submit" value="Send" class="send-button">
+            </div>
+            
+        </form>
+    </div>
 
 </body>
 </html>

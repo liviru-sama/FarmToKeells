@@ -62,17 +62,14 @@
     word-wrap: break-word;
     z-index:9999;
     font-size:20px;
-    box-shadow: 0 .4rem .8rem #0005;
 
 }
-
 
 
 .admin-message {
     float: right;
     background-color: #65A534;
     color: white;
-
 }
 
 .message-time {

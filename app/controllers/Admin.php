@@ -406,7 +406,57 @@ public function sendReply() {
     }
 }
 
-  
+
+
+
+
+
+
+
+
+public function addChatadmin() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $admin_reply = $_POST['admin_reply'];
+
+        // Load the CCM Chat model
+        $ccm_chatModel = $this->model('Ccm_Chat');
+
+        // Add the chat message to the database
+        if ($ccm_chatModel->addChatadmin($admin_reply)) {
+            // Redirect to the chat page
+            redirect('admin/ccm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
+public function ccm_chat() {
+    // Load the Inquiry model
+    $ccm_chatModel = $this->model('Ccm_Chat');
+
+    // Get all chats from the database
+    $ccm_chats = $ccm_chatModel->getAllChats();
+
+    // Pass the chat data to the view
+    $data = [
+        'ccm_chats' => $ccm_chats,
+    ];
+
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('admin/ccm_chat', $data);
+}
 
 
 }

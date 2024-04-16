@@ -130,4 +130,66 @@ redirect('transport/dashboard');
     public function resources() {
 
     }
+
+
+    public function ccm_chat() {
+        // Load the Inquiry model
+        $ccm_chatModel = $this->model('ccm_chat');
+    
+        // Get all chats from the database
+        $ccm_chats = $ccm_chatModel->getAllChats();
+    
+        // Pass the chat data to the view
+        $data = [
+            'ccm_chats' => $ccm_chats,
+        ];
+    
+        // Load the 'ccm/ccm_chat' view and pass data to it
+        $this->view('transport/tm_chat', $data);
+    }
+
+    public function add() {
+        // Check if form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+            // Initialize the model
+            $tmChatModel = $this->model('TmChat');
+
+            // Add tm_chat message
+            if ($tmChatModel->addTmChat($_POST['tm_reply'], $_POST['tm_reply_time'])) {
+                // Redirect to the tm_chat page after successful addition
+                redirect('transport/tm_chat');
+            } else {
+                die('Something went wrong.');
+            }
+        } else {
+            // If not a POST request, redirect to the tm_chat page
+            redirect('transport/tm_chat');
+        }
+    }
+
+    public function addChat() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get input data
+            $inquiry = $_POST['inquiry'];
+    
+            // Load the CCM Chat model
+            $ccm_chatModel = $this->model('Ccm_Chat');
+    
+            // Add the chat message to the database
+            if ($ccm_chatModel->addChat($inquiry)) {
+                // Redirect to the chat page
+                redirect('ccm/ccm_chat');
+            } else {
+                // If failed to add, show an error message
+                die('Failed to add chat message.');
+            }
+        } else {
+            // If not a POST request, redirect to home
+            redirect('pages/index');
+        }
+    }
+    
 }

@@ -883,21 +883,54 @@ public function register(){
     }
 }
 
-public function inquiry() {
+
+
+
+
+// CCM controller method to add a new chat message
+public function addChat() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $inquiry = $_POST['inquiry'];
+
+        // Load the CCM Chat model
+        $ccm_chatModel = $this->model('Ccm_Chat');
+
+        // Add the chat message to the database
+        if ($ccm_chatModel->addChat($inquiry)) {
+            // Redirect to the chat page
+            redirect('ccm/ccm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
+public function ccm_chat() {
     // Load the Inquiry model
-    $inquiryModel = $this->model('Inquiry');
+    $ccm_chatModel = $this->model('ccm_chat');
 
-    // Get all inquiries from the database
-    $inquiries = $inquiryModel->getAllInquiries();
+    // Get all chats from the database
+    $ccm_chats = $ccm_chatModel->getAllChats();
 
-    // Pass the inquiries data to the view
+    // Pass the chat data to the view
     $data = [
-        'inquiries' => $inquiries
+        'ccm_chats' => $ccm_chats,
     ];
 
-    // Load the 'farmer/inquiry' view and pass data to it
-    $this->view('ccm/inquiry', $data);
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('ccm/ccm_chat', $data);
 }
+
 
 }
 

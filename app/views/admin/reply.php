@@ -112,6 +112,8 @@
     resize: none; /* Prevent resizing */
     box-sizing: border-box;
     margin-bottom: 10px; /* Add some spacing between textarea and submit button */
+    font-size:20px;
+
 }
 
 .add-inquiry-form .send-button {
@@ -211,11 +213,26 @@
     <div class="main-content">
 
   
+    <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading">Chat with CCM</h5></a>
+
+                <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Chat with TM</h5>
+            </a>
+            
+
     <form action="<?php echo URLROOT; ?>/admin/sendReply" method="post">
     <input type="hidden" name="inquiry_id" value="<?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?>">
       
     <div class="add-inquiry-form">
-        <h2 style="text-align:center;">Reply to Inquiry ID : <?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?></br></br></br></h2>
+        <h2 style="text-align:center;">Reply to <?php echo htmlspecialchars($data['inquiry']->username); ?></br></br></br></h2>
 
         <!-- Display user name and inquiry above the textarea -->
         <?php if (!empty($data['inquiry'])): ?>
@@ -223,8 +240,8 @@
         <?php endif; ?>
 
         <!-- Textarea for admin reply -->
-       >
-       <textarea id="admin_reply" name="admin_reply" rows="4" cols="50" required placeholder="Type your reply..."></textarea>
+       
+       <textarea id="admin_reply" name="admin_reply" rows="4" cols="50" required placeholder="Type your reply..."><?php echo htmlspecialchars($data['inquiry']->admin_reply); ?></textarea>
 
 
 

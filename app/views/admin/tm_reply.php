@@ -36,15 +36,6 @@
 
         
 
-        .text-field textarea {
-    width: 100%;
-    padding: 10px;
-    border: 9px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add border radius */
-    background-color: transparent; /* Set transparent background */
-    resize: vertical; /* Allow vertical resizing */
-    box-sizing: border-box; /* Include padding and border in textarea's total width */
-}
 
 /* Optional: Style the label */
 .text-field label {
@@ -61,18 +52,13 @@
     overflow: hidden;
     word-wrap: break-word;
     z-index:9999;
-    font-size:20px;
-    box-shadow: 0 .4rem .8rem #0005;
-
 }
-
 
 
 .admin-message {
     float: right;
     background-color: #65A534;
     color: white;
-
 }
 
 .message-time {
@@ -105,44 +91,46 @@
 
 .add-inquiry-form {
     position: fixed;
-    bottom: 0;
-    width: 50%;
-    max-width: 800px;
+    width: 100%;
+    max-width: 1000px;
     margin: 0 auto;
-    padding: 20px;
     z-index: 999;
     border-radius: 10px;
-    left:28%;
-    background-color:rgba(181, 174, 174, 0.25);
+    left:18%;
+    background-color:rgba(181, 174, 174, 0.35);
     z-index:1;
+    padding: 50px;
+
 
 }
-
-
-
 .add-inquiry-form textarea {
-    width: 100%; /* Adjust width to accommodate padding */
+    width: calc(100% - 20px); /* Adjust width to accommodate padding */
     padding: 10px;
-    border: 2px solid black;
+    border: 2px solid white;
     border-radius: 10px;
     background-color: transparent;
     resize: none; /* Prevent resizing */
     box-sizing: border-box;
-    z-index:1;
+    margin-bottom: 10px; /* Add some spacing between textarea and submit button */
+    font-size:20px;
 
 }
 
 .add-inquiry-form .send-button {
-    width: 100%; /* Adjust width to accommodate padding */
-    background-color:rgba(181, 174, 174, 0.25);
-    color: black;
+    width: calc(100% - 20px); /* Adjust width to accommodate padding */
+    background-color: #65A534;
+    color: white;
     border-radius: 10px;
     padding: 10px;
     cursor: pointer;
     box-sizing: border-box;
-    font-weight:bold;
+    font-weight: bold;
+    margin: 0 auto; /* Center the button horizontally */
+    border: 2px solid white;
 
 }
+
+
 
     </style>
 </head>
@@ -222,10 +210,9 @@
         </section>
     </div>
 
-   
-
     <div class="main-content">
-        
+
+  
     <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
@@ -240,40 +227,33 @@
                 = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Chat with TM</h5>
             </a>
             
-            <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
-    <?php
-// Define a custom sorting function to sort inquiries based on their creation time
-function sortByCreatedAt($a, $b) {
-    return strtotime($a->created_at) - strtotime($b->created_at);
-}
 
-// Sort the inquiries array using the custom sorting function
-usort($data['inquiries'], 'sortByCreatedAt');
-?>
+    <form action="<?php echo URLROOT; ?>/admin/sendReply" method="post">
+    <input type="hidden" name="inquiry_id" value="<?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?>">
+      
+    <div class="add-inquiry-form">
+        <h2 style="text-align:center;">Reply to Inquiry ID : <?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?></br></br></br></h2>
 
-<div class="chat-container">
-    <?php foreach ($data['inquiries'] as $inquiry): ?>
-        <div class="chat-message user-message">
-            <div class="message-content" style="text-align:left;"><?php echo $inquiry->username . ':</br>' . $inquiry->inquiry; ?></br></br></div>
-            <div class="message-time"><?php echo $inquiry->created_at; ?></div>
-            <a class="button" style="color:white;" href="<?php echo URLROOT; ?>/admin/reply?inquiry_id=<?php echo $inquiry->id; ?>">Reply</a>
-            <div>
-                <!-- Use an anchor tag with the class "button" and href attribute set to "admin/reply" -->
-            </div>
-        </div>
-        <?php if (!empty($inquiry->admin_reply)): ?>
-            <div class="chat-message admin-message">
-                <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
-                <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
-            </div>
-        <?php else: ?>
-            <div class="chat-message admin-message empty-reply"></div>
+        <!-- Display user name and inquiry above the textarea -->
+        <?php if (!empty($data['inquiry'])): ?>
+            <textarea style="border:2px solid black;font-size:20px;" rows="4" cols="50" readonly><?php echo htmlspecialchars($data['inquiry']->username . ':   ' . $data['inquiry']->inquiry); ?></textarea>
         <?php endif; ?>
-    <?php endforeach; ?>
-</div>
 
+        <!-- Textarea for admin reply -->
+       
+       <textarea id="admin_reply" name="admin_reply" rows="4" cols="50" required placeholder="Type your reply..."><?php echo htmlspecialchars($data['inquiry']->admin_reply); ?></textarea>
+
+
+
+        <!-- Submit button -->
+        <input type="submit" value="Send" class="send-button">
     </div>
-        </body>
+</form>
+
+        </body>    </div>
+        </div>
+        </div>
+
 
 </html>
 
