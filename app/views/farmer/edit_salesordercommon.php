@@ -140,7 +140,7 @@
                     </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6" >
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
+                            <h6>Help</h6>
                         </div>
                     </a>
 
@@ -227,11 +227,11 @@
 
                 <div class="text-field">
                     <label for="quantity">Quantity:</label>
-                    <input type="text" name="quantity" value="<?php echo $data['quantity']; ?>">
+                    <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="0" step="1">
                 </div>
                 <div class="text-field">
                     <label for="price">Price per kg:</label>
-                    <input type="text" name="price" value="<?php echo $data['price']; ?>">
+                    <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01">
                 </div>
                 <div class="text-field">
                     <label for="date">Date:</label>

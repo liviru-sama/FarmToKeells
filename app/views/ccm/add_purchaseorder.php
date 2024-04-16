@@ -218,7 +218,7 @@
 
 
                 <div class="text-field">
-                    <input name="quantity" type="number" required>
+                    <input name="quantity" type="number" required min="0" step="1">
                     <span></span>
                     <label> Stock</label>
                 </div>

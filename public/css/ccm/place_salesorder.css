@@ -475,16 +475,16 @@ a.button {
     display: inline-block;
     padding: 8px 10px; /* Adjust padding as needed */
     background-color: #65A534; /* Green background color */
-    color: rgb(11, 11, 11); /* Text color */
+    color: rgb(254, 252, 252); /* Text color */
     text-decoration: none; /* Remove underline */
-    border: 2px solid #030903; /* Green border */
-    border-radius: 6px; 
+    border: 2px solid white; /* Green border */
+    border-radius: 30px; 
     /* Rounded corners */
 }
 
 /* Hover effect */
 a.button:hover {
-    background-color: #8f9d8f;
+    background-color: #505250;
     transform: scale(1.08);
     /* Darker green background color on hover */
 }
@@ -1053,7 +1053,3 @@ main.stock {
     color: black;
 }
 
-a {
-    text-decoration: none;
-    border: 0;
-}

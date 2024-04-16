@@ -66,8 +66,8 @@
 .chat-message {
     margin-bottom: 10px;
     max-width: 70%;
-    padding: 10px;
-    border-radius: 10px;
+    padding: 20px;
+    border-radius: 30px;
     clear: both;
     overflow: hidden;
     word-wrap: break-word;
@@ -97,6 +97,13 @@
 .empty-reply {
     background-color: white; /* Green color */
 }
+
+.chat-container {
+   padding: 20px;
+   position: relative;
+   margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
+}
+
 
 .chat-form-container {
     width: 100%;
@@ -235,7 +242,7 @@
                     </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
+                            <h6>Help</h6>
                         </div>
                     </a>
 
@@ -258,7 +265,8 @@
         
     
     
-<section class="header"></section>
+<section class="header">    <h2 style="text-align: center;font-size:29px;">Ask Us Anything !</h2>
+</section>
 <section class="table_body">
 <?php 
 // Sort the inquiries array based on created_at timestamp in ascending order
@@ -267,11 +275,11 @@ usort($data['inquiries'], function($a, $b) {
 });
 ?>
 
-<div class="chat-container">
-    <?php foreach ($data['inquiries'] as $inquiry): ?>
+<div class="chat-container" id="chatContainer">
+        <?php foreach ($data['inquiries'] as $inquiry): ?>
         <!-- User inquiry message -->
         <div class="chat-message user-message">
-            <div class="message-content"><?php echo $inquiry->inquiry; ?></br></br></br></div>
+            <div class="message-content" style="text-align:left;">You:</br><?php echo $inquiry->inquiry; ?></br></br></div>
             <div class="message-time"><?php echo $inquiry->created_at; ?></div>
         </div>
 
@@ -294,8 +302,8 @@ usort($data['inquiries'], function($a, $b) {
                         <input type="hidden" name="username" value="<?php echo $data['user_data']->username; ?>">
                         <input type="hidden" name="contact_no" value="<?php echo $data['user_data']->mobile; ?>" readonly>
                         <input type="hidden" name="email" value="<?php echo $data['user_data']->email; ?>" readonly>
-                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:black;"required></textarea>
-                        <input type="submit" value="Send Inquiry" class="send-button">
+                        <textarea name="inquiry" rows="4" cols="50" style="font-size:20px;color:white;"required placeholder="Type your questions..."></textarea>
+                        <input type="submit" value="Send" class="send-button">
                     </form>
                 </div>
             </div>
@@ -303,6 +311,35 @@ usort($data['inquiries'], function($a, $b) {
     </div>
    
 
+    ...
+</div>
+   
+
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) { 
+    // Function to scroll the chat container to its bottom
+    function scrollChatToBottom() {
+        var chatContainer = document.getElementById('chatContainer');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Call the function when the DOM content is fully loaded
+    scrollChatToBottom();
+});
+
+    function scrollChatToBottom() {
+        var chatContainer = document.getElementById('chatContainer');
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    // Call the function when the page loads
+    window.onload = scrollChatToBottom;
+</script>
+
+</body>
+</html>
+
+<?php require APPROOT . '/views/inc/footer.php'; ?>
 
 
 </body>

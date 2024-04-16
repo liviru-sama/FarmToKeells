@@ -217,14 +217,35 @@
         </section>
     </div>
 
-    <div class="main-content">
-    <h1>Reply to Inquiry</h1>
-    <form action="<?php echo URLROOT; ?>/admin/sendReply" method="post">
-        <input type="hidden" name="inquiry_id" value="<?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?>">
-        <label for="admin_reply">Admin Reply:</label><br>
-        <textarea id="admin_reply" name="admin_reply" rows="4" cols="50" required></textarea>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="main-content"> <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
+        <div class="chat-container">
+            <?php foreach ($data['inquiries'] as $inquiry): ?>
+            <div class="chat-message user-message">
+                <div class="message-content" style="text-align:left;"><?php echo $inquiry->username . ':</br>' . $inquiry->inquiry; ?></br></br></div>
+                <div class="message-time"><?php echo $inquiry->created_at; ?></div>
+                <a class="button" style="color:white;" href="<?php echo URLROOT; ?>/admin/reply?inquiry_id=<?php echo $inquiry->id; ?>">Reply</a>
+                <div>
+    <!-- Use an anchor tag with the class "button" and href attribute set to "admin/reply" -->
+    
+
+</div>
+
+            </div>
+            <?php if (!empty($inquiry->admin_reply)): ?>
+            <div class="chat-message admin-message">
+                <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
+                <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
+                
+            </div>
+            <?php else: ?>
+                <div class="chat-message admin-message empty-reply"></div>
+            <?php endif; ?>
+
+            <?php endforeach; ?>
+        </div>
+
+        
+    </div>
         </body>
 
 </html>

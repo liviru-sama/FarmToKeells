@@ -41,5 +41,27 @@ public function getUserInquiries($user_id) {
     return $this->db->resultSet();
 }
 
+// Inquiry model
+
+public function updateAdminReply($inquiry_id, $admin_reply) {
+    $this->db->query('UPDATE inquiry SET admin_reply = :admin_reply WHERE id = :inquiry_id');
+    // Bind values
+    $this->db->bind(':admin_reply', $admin_reply);
+    $this->db->bind(':inquiry_id', $inquiry_id);
+    
+    // Execute query
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+public function getInquiryById($inquiry_id) {
+    $this->db->query('SELECT * FROM inquiry WHERE id = :inquiry_id');
+    $this->db->bind(':inquiry_id', $inquiry_id);
+
+    return $this->db->single(); // Assuming single() method fetches a single row
+}
 
 }

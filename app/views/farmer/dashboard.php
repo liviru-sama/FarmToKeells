@@ -168,10 +168,10 @@ body,
                         
                     </div></a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/add_inquiry">
+                    <a href="<?php echo URLROOT; ?>/farmer/inquiry">
                     <div class="menu" data-name="p-4">
                         <img src="<?php echo URLROOT; ?>/public/images/inquiry.png">
-                        <h3>Inquiries</h3>
+                        <h3>Help</h3>
                         
                     </div></a>
         

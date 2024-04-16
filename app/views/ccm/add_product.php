@@ -206,14 +206,14 @@
 </script>
                 </div>
                 <div class="text-field">
-                    <input name="price" type="number" required>
+                    <input name="price" type="number" required min="0" step="0.01">
                     <span></span>
                     <label> Price per kg</label>
                 </div>
 
 
                 <div class="text-field">
-                    <input name="quantity" type="number" required>
+                    <input name="quantity" type="number" required min="0" step="1">
                     <span></span>
                     <label>Quantity(in Kgs)</label>
                 </div>

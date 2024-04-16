@@ -123,7 +123,7 @@
                     </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6" data-text="View Your Inquiries">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
+                            <h6>Help</h6>
                         </div>
                     </a>
 

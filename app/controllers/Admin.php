@@ -350,6 +350,64 @@ redirect('admin/dashboard');
     }
     
 
+    public function reply() {
+        // Get the inquiry ID from the URL
+        $inquiry_id = $_GET['inquiry_id'] ?? null;
+    
+        // Check if the inquiry ID is provided
+        if ($inquiry_id) {
+            // Load the Inquiry model
+            $inquiryModel = $this->model('Inquiry');
+    
+            // Fetch the inquiry data using the inquiry ID
+            $inquiry = $inquiryModel->getInquiryById($inquiry_id);
+    
+            // Check if inquiry data is found
+            if ($inquiry) {
+                // Pass the inquiry data to the view
+                $this->view('admin/reply', ['inquiry_id' => $inquiry_id, 'inquiry' => $inquiry]);
+            } else {
+                // Inquiry not found, display an error message or redirect as needed
+                echo "Inquiry not found!";
+            }
+        } else {
+            // Inquiry ID not provided, display an error message or redirect as needed
+            echo "Inquiry ID not provided!";
+        }
+    }
+    
+
+public function sendReply() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+        // Instantiate the Inquiry model
+        $inquiryModel = $this->model('Inquiry');
+    
+        // Get the inquiry ID from the form
+        $inquiry_id = $_POST['inquiry_id'];
+    
+        // Get the admin reply from the form
+        $admin_reply = $_POST['admin_reply'];
+    
+        // Update the inquiry with the admin reply
+        if ($inquiryModel->updateAdminReply($inquiry_id, $admin_reply)) {
+            // If successful, redirect to the inquiry page or any other desired page
+            redirect('admin/inquiry');
+        } else {
+            // If failed, display an error message or handle it accordingly
+            die('Something went wrong');
+        }
+    } else {
+        // If the form is not submitted via POST method, redirect to home page or any other desired page
+        redirect('pages/index');
+    }
+}
+
+  
+
 
 }
 ?>

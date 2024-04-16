@@ -33,6 +33,103 @@
             height: 80%; /* Adjust height as needed */
         }
 
+
+        
+
+
+/* Optional: Style the label */
+.text-field label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.chat-message {
+    margin-bottom: 10px;
+    max-width: 70%;
+    padding: 20px;
+    border-radius: 30px;
+    clear: both;
+    overflow: hidden;
+    word-wrap: break-word;
+    z-index:9999;
+}
+
+
+.admin-message {
+    float: right;
+    background-color: #65A534;
+    color: white;
+}
+
+.message-time {
+    float: left;
+    color: black;
+    font-size:10px;
+}
+
+.user-message {
+    float:left;
+    background-color: white; /* Green color */
+    color: black;
+    text-align: right;
+}
+
+.empty-reply {
+    background-color: #65A534; /* Green color */
+}
+
+.chat-container {
+   padding: 20px;
+   position: relative;
+   margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
+}
+
+
+.chat-form-container {
+    width: 100%;
+}
+
+.add-inquiry-form {
+    position: fixed;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    z-index: 999;
+    border-radius: 10px;
+    left:18%;
+    background-color:rgba(181, 174, 174, 0.35);
+    z-index:1;
+    padding: 50px;
+
+
+}
+.add-inquiry-form textarea {
+    width: calc(100% - 20px); /* Adjust width to accommodate padding */
+    padding: 10px;
+    border: 2px solid white;
+    border-radius: 10px;
+    background-color: transparent;
+    resize: none; /* Prevent resizing */
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Add some spacing between textarea and submit button */
+}
+
+.add-inquiry-form .send-button {
+    width: calc(100% - 20px); /* Adjust width to accommodate padding */
+    background-color: #65A534;
+    color: white;
+    border-radius: 10px;
+    padding: 10px;
+    cursor: pointer;
+    box-sizing: border-box;
+    font-weight: bold;
+    margin: 0 auto; /* Center the button horizontally */
+    border: 2px solid white;
+
+}
+
+
+
     </style>
 </head>
 
@@ -66,13 +163,7 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" style="background: #65A534; transform: scale(1.08);">
-                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inventory</h6>
-                        </div>
-                    </a>
-
+                   
                     <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
@@ -105,9 +196,9 @@
 
 
                         <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6">
+                        <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
+                            <h6>Reply</h6>
                         </div>
                     </a>
 
@@ -117,60 +208,35 @@
         </section>
     </div>
 
-    <!-- Main content -->
     <div class="main-content">
-   
-    <section class="header">
-           
-           <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="text-decoration: none;">
-       <h5 class="inline-heading" class
-   =
-   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
-   </a></br>
-   <main class="table">
+
   
-        <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT INVENTORY  
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+    <form action="<?php echo URLROOT; ?>/admin/sendReply" method="post">
+    <input type="hidden" name="inquiry_id" value="<?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?>">
+      
+    <div class="add-inquiry-form">
+        <h2 style="text-align:center;">Reply to Inquiry ID : <?php echo htmlspecialchars($_GET['inquiry_id'] ?? ''); ?></br></br></br></h2>
 
-                                 
-        <a class="button" class="inline-heading" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
+        <!-- Display user name and inquiry above the textarea -->
+        <?php if (!empty($data['inquiry'])): ?>
+            <textarea style="border:2px solid black;font-size:20px;" rows="4" cols="50" readonly><?php echo htmlspecialchars($data['inquiry']->username . ':   ' . $data['inquiry']->inquiry); ?></textarea>
+        <?php endif; ?>
 
-        </h2>
-    </br>    </br>
-    
-        <main class="table">
-            
-            <section class="table_body">
-            <section class="form">
-    <table>
-    <thead>
-        <tr>
-            <th>User ID</th>
-            <th>Username</th>
-            <th>Contact Number</th>
-            <th>Email</th>
-            <th>Inquiry</th>
-            <th>Created At</th>
-            <th>Reply</th>
+        <!-- Textarea for admin reply -->
+       >
+       <textarea id="admin_reply" name="admin_reply" rows="4" cols="50" required placeholder="Type your reply..."></textarea>
 
 
-        </tr>
-    </thead>
-    <tbody>
-        <?php foreach ($data['inquiries'] as $inquiry): ?>
-            <tr>
-                <td><?php echo $inquiry->user_id; ?></td>
-                <td><?php echo $inquiry->username; ?></td>
-                <td><?php echo $inquiry->contact_no; ?></td>
-                <td><?php echo $inquiry->email; ?></td>
-                <td><?php echo $inquiry->inquiry; ?></td>
-                <td><?php echo $inquiry->created_at; ?></td>
-                <td><?php echo $inquiry->admin_reply; ?></td>
-            </tr>
-        <?php endforeach; ?>
-    </tbody>
-</table>
-        </body>
+
+        <!-- Submit button -->
+        <input type="submit" value="Send" class="send-button">
+    </div>
+</form>
+
+        </body>    </div>
+        </div>
+        </div>
+
 
 </html>
 
