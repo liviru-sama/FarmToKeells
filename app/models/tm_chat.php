@@ -1,30 +1,54 @@
 <?php
-// TmChat.php
-class TmChat {
+// Inquiry model
+
+// CCM Chat model
+
+class Tm_Chat {
     private $db;
 
     public function __construct() {
         $this->db = new Database;
     }
 
-    // Method to get tm_chats from the database
-    public function getTmChats() {
+    // Method to fetch all chats from the database
+    public function getAllChats() {
         $this->db->query('SELECT * FROM tm_chat');
         return $this->db->resultSet();
     }
 
-    // Additional methods for adding, updating, or deleting chat messages if needed
-    public function addTmChat($tm_reply, $tm_reply_time) {
-        $this->db->query('INSERT INTO tm_chat (tm_reply, tm_reply_time) VALUES (:tm_reply, :tm_reply_time)');
-        $this->db->bind(':tm_reply', $tm_reply);
-        $this->db->bind(':tm_reply_time', $tm_reply_time);
-        
-        // Execute the query
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+    // CCM Chat model method to add a new chat message to the database
+public function addChat($inquiry) {
+    date_default_timezone_set('Asia/Kolkata'); // Replace 'Asia/Kolkata' with your timezone
+    $this->db->query('INSERT INTO tm_chat (tm_reply, created_at) VALUES (:inquiry, NOW())');
+    // Bind values
+    $this->db->bind(':inquiry', $inquiry);
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
     }
 }
-?>
+
+public function addChatadmin($admin_reply) {
+    // Prepare SQL statement
+    $this->db->query('INSERT INTO tm_chat (admin_reply, admin_reply_time) VALUES (:admin_reply, :admin_reply_time)');
+    // Bind values
+    
+$this->db->bind(':admin_reply', $admin_reply);
+$this->db->bind(':admin_reply_time', date('Y-m-d H:i:s'));
+
+    // Execute
+    if ($this->db->execute()) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
+
+}
+

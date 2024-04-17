@@ -44,7 +44,9 @@ public function getUserInquiries($user_id) {
 // Inquiry model
 
 public function updateAdminReply($inquiry_id, $admin_reply) {
-    $this->db->query('UPDATE inquiry SET admin_reply = :admin_reply WHERE id = :inquiry_id');
+    // Prepare SQL statement to update admin_reply and admin_reply_time
+    $this->db->query('UPDATE inquiry SET admin_reply = :admin_reply, admin_reply_time = NOW() WHERE id = :inquiry_id');
+    
     // Bind values
     $this->db->bind(':admin_reply', $admin_reply);
     $this->db->bind(':inquiry_id', $inquiry_id);
@@ -56,6 +58,7 @@ public function updateAdminReply($inquiry_id, $admin_reply) {
         return false;
     }
 }
+
 
 public function getInquiryById($inquiry_id) {
     $this->db->query('SELECT * FROM inquiry WHERE id = :inquiry_id');

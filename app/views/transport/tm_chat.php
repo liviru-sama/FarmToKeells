@@ -204,7 +204,7 @@
             <div class="container">
                 <div class="dashboard-container">
                     
-                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-1" >
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Products</h6>
@@ -272,14 +272,14 @@
             <div class="chat-container" id="chatContainer">
             <?php
 // Sort messages based on ID in ascending order
-usort($data['ccm_chats'], function ($a, $b) {
+usort($data['tm_chats'], function ($a, $b) {
     return $a->id - $b->id;
 });
 
 // Display sorted messages
-foreach ($data['ccm_chats'] as $chat):
+foreach ($data['tm_chats'] as $chat):
     // Skip the message if both admin_reply and ccm_reply are empty
-    if (empty($chat->admin_reply) && empty($chat->ccm_reply)) {
+    if (empty($chat->admin_reply) && empty($chat->tm_reply)) {
         continue;
     }
 
@@ -290,7 +290,7 @@ foreach ($data['ccm_chats'] as $chat):
     $messageClass = $sender === 'admin' ? 'admin-message' : 'user-message';
 
     // Determine the message content and time based on the sender
-    $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->ccm_reply;
+    $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->tm_reply;
     $messageTime = $sender === 'admin' ? $chat->admin_reply_time : $chat->created_at;
 ?>
     <!-- Display the message -->
@@ -307,7 +307,7 @@ foreach ($data['ccm_chats'] as $chat):
 
             <div class="chat-form-container">
                 <div class="add-inquiry-form">
-        <form action="<?php echo URLROOT; ?>/ccm/addChat" method="post">
+        <form action="<?php echo URLROOT; ?>/transport/addChat" method="post">
            
                 <label for="inquiry"></label>
                 <textarea name="inquiry" rows="1" cols="50" required placeholder="Send message to ADMIN..." style="font-size:25px; color:black;"></textarea>

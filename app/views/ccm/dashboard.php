@@ -49,10 +49,10 @@
                         <h3>Report</h3>
                     </div></a>
         
-                    <a  href="<?php echo URLROOT; ?>/ccm/displayReportGenerator">
+                    <a  href="<?php echo URLROOT; ?>/ccm/ccm_chat">
                     <div class="menu" data-name="p-5">
                         <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="">
-                        <h3>Post Inquriies</h3>
+                        <h3>Send Inquriies</h3>
                        
                     </div> </a>
         
