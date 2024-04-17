@@ -40,7 +40,6 @@
             <nav>
                 <div class="nav-links">
                     <ul>
-                        <li><a href="<?php echo URLROOT; ?>/users/contact">Contact</a></li>
                     </ul>
                 </div>
             </nav>

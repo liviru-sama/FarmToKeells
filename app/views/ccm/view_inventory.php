@@ -33,6 +33,35 @@
             height: 80%; /* Adjust height as needed */
         }
 
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
+
     </style>
 </head>
 
@@ -40,18 +69,26 @@
     <!-- Navbar -->
     <div class="navbar">
     <div class="navbar-icons">
-        <a href="#" id="backButton" onclick="goBack()">
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a>
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
+    <div class="navbar-icon-container" data-text="Go Back">
+
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
 </div>
 
 <script>
@@ -127,16 +164,19 @@
    =
    "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
    </a></br>
-   <main class="table">
-  
-        <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT INVENTORY  
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+
+
+   <main class="table"></br>
+   <section class="table_header">
+
+        <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Inventory levels  </h2>   
+       <div> <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
                                  
-        <a class="button" class="inline-heading" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
 
-        </h2>
-    </br>    </br>
+             <a class="button" class="inline-heading" href="<?php echo URLROOT; ?>/ccm/add_product">+ Add Product</a>
+             </div></section>
+    </br>    
     
         <main class="table">
             

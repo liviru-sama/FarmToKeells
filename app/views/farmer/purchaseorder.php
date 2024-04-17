@@ -17,20 +17,36 @@
             height: 100%;
         }
 
-        #notificationFrame {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff5;
-    backdrop-filter: blur(7px);
-    box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
-            z-index: 9999;
-            display: none; /* Initially hide the iframe */
-            width: 80%; /* Adjust width as needed */
-            height: 80%; /* Adjust height as needed */
-        }
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
+
+
 
         .disabled-link {
             pointer-events: none;
@@ -56,10 +72,7 @@
         </a></div>
 
 
-        <div class="navbar-icon-container" data-text="Contact">
-        <a href="<?php echo URLROOT; ?>/users/contact" >
-                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a></div>
+       
 
 
                     <div class="navbar-icon-container" data-text="View Profile">
@@ -158,19 +171,20 @@
       
         
     
-        <main class="table">
+        <main class="table"></br>
             <section class="table_header">
-            </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Orders for Keells' Demands
 
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Orders for Keells' Demands&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h2>
+            
+            <div>
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+</div></section></br>
+      
+               
 
-</h2>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
-                                 
-
-        </h2>
+        
     
-            </section>
+            
             <section class="table_body">
                 <form method="post">
                     <table>

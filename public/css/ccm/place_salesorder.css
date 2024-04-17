@@ -482,6 +482,22 @@ a.button {
     /* Rounded corners */
 }
 
+button {
+    display: inline-block;
+    padding: 8px 10px; /* Adjust padding as needed */
+    background-color: #65A534; /* Green background color */
+    color: rgb(251, 249, 249); /* Text color */
+    text-decoration: none; /* Remove underline */
+    border: 2px solid white; /* Green border */
+    border-radius: 30px; 
+    /* Rounded corners */
+}
+
+button:hover{
+    background-color: #505250;
+    transform: scale(1.08);
+}
+
 /* Hover effect */
 a.button:hover {
     background-color: #505250;
@@ -493,10 +509,10 @@ a.button:hover {
 
 .center {
     position: absolute;
-    top: 50%;
+    top: 53%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 400px;
+    width: 450px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     text-align: center;
@@ -504,13 +520,10 @@ a.button:hover {
 
 .center h1 {
     text-align: center;
-    padding: 20px 0 10px 0;
     font-size: 200%;
 }
 
 .center form {
-    padding: 0 15px;
-    box-sizing: border-box;
 }
 
 form .text-field {
@@ -944,25 +957,7 @@ main.stock {
     position: relative; /* Ensure proper positioning of the pseudo-element */
 }
 
-.card__action:hover::after {
-    content: attr(data-text); /* Display the value of the data-text attribute */
-    position: absolute;
-    top: 100%; /* Position the text below the icon */
-    left: 50%; /* Center the text horizontally */
-    transform: translateX(-50%); /* Center the text horizontally */
-    background-color: white; /* Background color for the text */
-    color: black; /* Text color */
-    border-radius: 5px; /* Border radius for the text */
-    z-index: 2; /* Ensure the text appears above other elements */
-    white-space: nowrap; /* Prevent text from wrapping */
-    padding: 5px;
-    opacity: 0; /* Initially make the text transparent */
-    transition: opacity 0.3s ease; /* Add transition effect */
-}
 
-.card__action:hover::after {
-    opacity: 1; /* Make the text fully visible on hover */
-}
 
 
 .card__action:hover {
@@ -1053,3 +1048,9 @@ main.stock {
     color: black;
 }
 
+.error {
+    color: rgb(201, 10, 10);
+    font-size: 12px; 
+    margin-top: 1px; 
+    
+}

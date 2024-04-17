@@ -16,6 +16,16 @@
             background-size: cover;
             height: 100%;
         }
+
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
         </style>
 </head>
 
@@ -23,18 +33,26 @@
     <!-- Navbar -->
     <div class="navbar">
     <div class="navbar-icons">
-        <a href="#" id="backButton" onclick="goBack()">
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a>
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
+    <div class="navbar-icon-container" data-text="Go Back">
+
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
 </div>
 <script>
     // JavaScript function to go back to the previous page
@@ -109,16 +127,14 @@
 =
 "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">VIEW THEIR AVAILABLE PRODUCTS</h5></a>
 
-            <main class="table">
+            <main class="table"></br>
                 <section class="table_header">
-
-                </section>
+                <h2>&nbsp;&nbsp;&nbsp;View Their Available Products </h2>
+                <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
+</div>   
+                </section></br>
                 <section class="table_body">
 
-            <h2>VIEW THEIR AVAILABLE PRODUCTS
-        
-        
-        </h2>
             <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>
@@ -229,6 +245,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function searchProducts() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those that don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5]; // Index 1 corresponds to the product name column
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = ""; // Show the row if the product name matches the search query
+            } else {
+                tr[i].style.display = "none"; // Hide the row if it doesn't match
+            }
+        }
+    }
+}
 </script>
 
 

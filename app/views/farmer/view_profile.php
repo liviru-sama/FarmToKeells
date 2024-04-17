@@ -26,7 +26,7 @@
 
 .profile-image {
     flex: 0 0 auto; /* Don't allow the image to grow or shrink */
-    margin: 20px; /* Adjust spacing between image and heading */
+    margin: 30px; /* Adjust spacing between image and heading */
     padding:30px;
 }
 
@@ -73,10 +73,7 @@
         </a></div>
 
 
-        <div class="navbar-icon-container" data-text="Contact">
-        <a href="<?php echo URLROOT; ?>/users/contact" >
-                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a></div>
+      
 
 
                     <div class="navbar-icon-container" data-text="View Profile" >
@@ -170,16 +167,19 @@
 <section class="header"></section>
 <section class="form">
     <div class="center">
-        <h1>View Profile</h1>
+       
         <!-- Container for profile image and heading -->
-        <div class="profile-info">
-            <!-- Profile image -->
+       
             <div class="profile-image">
+            <h1>View Profile</h1>
                 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="">
                 <div class="profile-heading">
                 <?php
                 echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>';
                 ?>
+
+<a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Update Profile" class="form-button"></a>  
+
             </div>
             </div>
             <!-- Heading -->
@@ -187,7 +187,6 @@
         </div>
 
         <!-- Update profile button -->
-        <a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Update Profile" class="form-button"></a>  
     </div>
 </section>
 

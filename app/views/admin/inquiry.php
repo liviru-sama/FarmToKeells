@@ -254,8 +254,11 @@ usort($data['inquiries'], 'sortByCreatedAt');
 <div class="chat-container">
     <?php foreach ($data['inquiries'] as $inquiry): ?>
         <div class="chat-message user-message">
-            <div class="message-content" style="text-align:left;"><?php echo $inquiry->username . ':</br>' . $inquiry->inquiry; ?></br></br></div>
-            <div class="message-time"><?php echo $inquiry->created_at; ?></div>
+        <div class="message-content" style="text-align:left;">
+    <span style="color: #65A534;font-weight:bolder;font-size:20px;"><?php echo $inquiry->username; ?>:</span></br>
+    <?php echo $inquiry->inquiry; ?></br></br>
+</div>
+<div class="message-time"><?php echo $inquiry->created_at; ?></div>
             <a class="button" style="color:white;" href="<?php echo URLROOT; ?>/admin/reply?inquiry_id=<?php echo $inquiry->id; ?>">Reply</a>
             <div>
                 <!-- Use an anchor tag with the class "button" and href attribute set to "admin/reply" -->

@@ -55,18 +55,26 @@
     <!-- Navbar -->
     <div class="navbar">
     <div class="navbar-icons">
-        <a href="#" id="backButton" onclick="goBack()">
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a>
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
+    <div class="navbar-icon-container" data-text="Go Back">
+
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
 </div>
 <script>
     // JavaScript function to go back to the previous page
@@ -163,17 +171,31 @@
                 </div>
                 
                 <div class="text-field">
-                    <!-- Make the price field editable -->
-                    <input type="number" name="price" value="<?=$data['price']?>" required> 
-                    <span></span>
-                    <label> Price per kg</label>
-                </div>
+    <!-- Make the price field editable -->
+    <input type="number" name="price" id="priceInput" value="<?=$data['price']?>" required step="any"> 
+    <span></span>
+    <label>Price per kg</label>
+</div>
+
                
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">
             </form>
         </div>
     </section></main></main>
+<script>
+    // Add event listener to the input element
+document.getElementById('priceInput').addEventListener('input', function(event) {
+    // Get the entered value
+    const price = parseFloat(event.target.value);
+    
+    // Check if the entered value is negative or zero
+    if (price <= 0) {
+        // If negative or zero, set the value to empty
+        event.target.value = '';
+    }
+});</script>
+
 </body>
 
 </html>

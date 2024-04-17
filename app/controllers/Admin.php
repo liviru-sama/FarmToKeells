@@ -333,6 +333,23 @@ redirect('admin/dashboard');
         }
     }
 
+
+    public function logout() {
+        // Unset all of the session variables
+        $_SESSION = array();
+      
+        // Destroy the session.
+        session_destroy();
+      
+        // Set a short session expiration time (e.g., 5 minutes) for future sessions
+        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+      
+        // Redirect to the index page
+        redirect('admin/admin_login');
+      }
+
+
+
     public function inquiry() {
         // Load the Inquiry model
         $inquiryModel = $this->model('Inquiry');

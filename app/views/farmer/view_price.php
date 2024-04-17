@@ -32,6 +32,34 @@
             height: 80%; /* Adjust height as needed */
         }
 
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
     </style>
 </head>
 
@@ -50,10 +78,7 @@
         </a></div>
 
 
-        <div class="navbar-icon-container" data-text="Contact">
-        <a href="<?php echo URLROOT; ?>/users/contact" >
-                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a></div>
+       
 
 
                     <div class="navbar-icon-container" data-text="View Profile">
@@ -154,17 +179,17 @@
       
         
     
-        <main class="table">
+        <main class="table"></br>
+
             <section class="table_header">
-            </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENT MARKET PRICES  
-        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Current Market Prices   </h2>
+       <div> <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+       </div>
                                  
+       </section></br>
 
-        </h2>
-    </br>    </br>
-            </section>
+        
+            
             <section class="table_body">
                 <form method="post">
                     <table>

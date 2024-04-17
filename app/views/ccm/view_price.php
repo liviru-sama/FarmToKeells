@@ -31,6 +31,34 @@
             width: 80%; /* Adjust width as needed */
             height: 80%; /* Adjust height as needed */
         }
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
 
     </style>
 </head>
@@ -39,15 +67,23 @@
     <!-- Navbar -->
     <div class="navbar">
     <div class="navbar-icons">
+    <div class="navbar-icon-container" data-text="Go Back">
+
         <a href="#" id="backButton" onclick="goBack()">
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        </a></div>
+
+        <div class="navbar-icon-container" data-text="Notifications">
+
+        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
+        </a></div>
+
+        <div class="navbar-icon-container" data-text="Logout">
+
         <a href="<?php echo URLROOT; ?>/ccm/logout">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a>
+        </a></div>
     </div>
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
@@ -137,17 +173,15 @@
       
         
     
-        <main class="table">
+        <main class="table"> </br>
             <section class="table_header">
-            </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CURRENT MARKET PRICES  
-        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
-                                 
-
-        </h2>
-    </br>    </br>
-            </section>
+           
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Market Prices</h2> 
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+            </div>
+                                
+            </section> </br>   
             <section class="table_body">
                 <form method="post">
                     <table>
@@ -168,10 +202,14 @@
             <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
             <div class="card__details">
                 <p class="card__text" style="color: black; font-family: 'Inter'; padding:15px;">1 kg: Rs.</br></br><span style="background-color:#65A534; border-radius:10px; padding:9px; color: white; font-weight: bold; font-size: 20px; font-family: 'Inter';"><?php echo $row['price']; ?></span></p>
-              
-            </div>
-        </div>
+                <div class="card__action">
+            <a href="<?php echo URLROOT; ?>/ccm/edit_price?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a>
+
+        </div>  </div>
+           
+           </div> 
       </br></br>
+      
     
     <?php } ?></td>
 

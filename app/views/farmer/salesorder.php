@@ -17,6 +17,39 @@
             height: 100%;
         }
 
+
+
+
+.table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
+
+
         #notificationFrame {
             position: fixed;
             top: 50%;
@@ -56,10 +89,7 @@
         </a></div>
 
 
-        <div class="navbar-icon-container" data-text="Contact">
-        <a href="<?php echo URLROOT; ?>/users/contact" >
-                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a></div>
+      
 
 
                     <div class="navbar-icon-container" data-text="View Profile">
@@ -160,20 +190,17 @@
       
         
     
-        <main class="table">
-            <section class="table_header">
-            </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;Post Your available products here
+        <main class="table"></br>
+        <section class="table_header">
+    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Post Your available products here</h2>
+    <div>
+        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search your products...">
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
+    </div>
+</section>
 
-<a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
 
-</h2>        <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search your products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
-                                 
-
-        </h2>
-    
-            </section>
             <section class="table_body">
                 <form method="post">
                 </br>   
@@ -198,16 +225,16 @@
         <?php
         // Set background color based on status
         switch ($row->status) {
-            case 'Approved':
+            case 'Approved' :
                 echo 'background-color: #65A534;'; // Green
                 break;
-            case 'Completed':
+            case 'Completed' :
                 echo 'background-color: grey;'; // Grey
                 break;
             case 'Rejected':
                 echo 'background-color: red;'; // Red
                 break;
-            case 'Pending Approval':
+            case 'Pending Approval'|| 'pending approval' :
                 echo 'background-color: white; color:black;'; // No color
                 break;
             default:

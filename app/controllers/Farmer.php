@@ -295,6 +295,21 @@
             }
         }
 
+        public function logout() {
+            // Unset all of the session variables
+            $_SESSION = array();
+          
+            // Destroy the session.
+            session_destroy();
+          
+            // Set a short session expiration time (e.g., 5 minutes) for future sessions
+            ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+          
+            // Redirect to the index page
+            redirect('user/user_login');
+          }
+
+
         public function place_order() {
             $request = $this->model('Request');
             $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
