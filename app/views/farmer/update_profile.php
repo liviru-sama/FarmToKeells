@@ -24,7 +24,7 @@ form {
     background-color: rgba(148, 144, 144, 0.333);
             backdrop-filter: blur(57px);
             box-shadow: 0 .4rem .8rem #0005;
-            border-radius:40px;
+            border-radius:700px;
             text-align:center;
             padding:10px; 
 }

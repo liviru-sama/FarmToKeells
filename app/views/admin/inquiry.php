@@ -151,20 +151,27 @@
     <!-- Navbar -->
     <div class="navbar">
     <div class="navbar-icons">
-        <a href="#" id="backButton" onclick="goBack()">
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a>
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
-</div>
+    <div class="navbar-icon-container" data-text="Go Back">
 
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
+</div>
 <script>
     // JavaScript function to go back to the previous page
     function goBack() {
@@ -185,13 +192,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Market Prices</h6>
-                        </div>
-                    </a>
-
+                  
                     
                     <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
@@ -199,13 +200,19 @@
                             <h6>Stock levels</h6>
                         </div></a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5">
-                            <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Time Report</h6>
+                   
+                    <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7">
+                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Transport</h6>
                         </div>
                     </a>
-
+                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
+                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Payment</h6>
+                        </div>
+                    </a>
     
 
 
@@ -213,6 +220,13 @@
                         <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Reply</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Users</h6>
                         </div>
                     </a>
 

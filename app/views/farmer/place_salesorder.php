@@ -180,14 +180,15 @@
     
         <main class="table">                  
 </br> 
-            <section class="table_header">
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Selected purchaseorder
+            <section class="table_header" style="text-align:center;display: flex;
+    justify-content: center;">
+            <h2 class="inline-heading" >Selected Purchaseorder</h2>    
                   
 
-</h2>       
+   
                                  
 
-        </h2>
+      
     
             </section>
             <section class="table_body">
@@ -223,19 +224,16 @@
 
                 </th>
                                 </br>
-                <section class="table_header">
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Manage Your Sales Orders
+                                <section class="table_header" style="text-align: center; display: flex; justify-content: space-between; align-items: center;">
+    <h2 class="inline-heading" style="margin: 0 auto;">Manage Your Sales Orders</h2>
+    <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">Add New Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <?php else: ?>
+        <a class="button disabled" href="#">Order is completed</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <?php endif; ?>
+</section>
 
- 
-
-</h2>        <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
-  <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">Add New Order</a>
-<?php else: ?>
-  <a class="button disabled" href="#">Order is completed</a>
-<?php endif; ?>              
-          
-                        </thead>                  
-</br>                   
+                
                   
 </br>                   <tbody>
     <?php foreach ($data['salesorders'] as $row) : ?>

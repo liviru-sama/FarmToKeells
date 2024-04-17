@@ -159,39 +159,27 @@
 
 <body>
 <div class="navbar">
-    <div class="navbar-icons">
+<div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
-        <a href="#" id="backButton" onclick="goBack()">
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a></div>
 
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
 
-        <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a></div>
+<div class="navbar-icon-container" data-text="Notifications">
 
-
-        <div class="navbar-icon-container" data-text="Contact">
-        <a href="<?php echo URLROOT; ?>/users/contact" >
-                        <img src="<?php echo URLROOT; ?>/public/images/mail.png" alt="back" class="navbar-icon">
-                    </a></div>
-
-
-                    <div class="navbar-icon-container" data-text="View Profile">
-                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon">
-                    </a></div>
-
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a></div>
 
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
 </div>
 <script>
     // JavaScript function to go back to the previous page
@@ -255,7 +243,19 @@
     
                
            
-</br>
+    <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Chat with CCM</h5></a>
+
+                <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Chat with TM</h5>
+            </a>
 
 
       

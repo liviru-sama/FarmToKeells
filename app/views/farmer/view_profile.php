@@ -21,7 +21,7 @@
         .profile-info {
     display: flex;
     align-items: center; /* Align items vertically */
-    margin-bottom: 20px; /* Adjust spacing between profile image/heading and update button */
+    margin-bottom: 10px; /* Adjust spacing between profile image/heading and update button */
 }
 
 .profile-image {
@@ -31,8 +31,8 @@
 }
 
 .profile-image img {
-    width: 300px; /* Adjust the width of the profile image */
-    height: 300px; /* Maintain aspect ratio */
+    width: 200px; /* Adjust the width of the profile image */
+    height: 200px; /* Maintain aspect ratio */
     padding:30px;
 }
 
@@ -53,6 +53,9 @@
     margin: 20px 10px;
 }
 
+.center{
+border-radius:50px;
+top:58%;}
 
         
     </style>
@@ -154,7 +157,7 @@
     </div>
 
     <!-- Main content -->
-    <div class="main-content">
+    <div class="main-content" >
 
     <a href="<?php echo URLROOT; ?>/farmer/view_profile" style="text-decoration: none;background: #65A534; transform: scale(1.08);">
                 <h5 class="inline-heading" class
@@ -214,7 +217,7 @@
     </div>
 </div>
 
-<a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Update Profile" class="form-button"></a>  
+<a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Edit Your Profile" class="form-button"></a>  
 
             </div>
             </div>
