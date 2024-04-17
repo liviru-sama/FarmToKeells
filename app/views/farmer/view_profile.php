@@ -158,7 +158,7 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/view_profile" style="text-decoration: none;background: #65A534; transform: scale(1.08);">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; View Profile</h5>
+                = "tab-heading tab-selected" >View Your Profile</h5>
             </a>
 
    
@@ -176,7 +176,43 @@
                 <div class="profile-heading">
                 <?php
                 echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>';
-                ?>
+                ?></br>
+
+<div class="card-white" style="text-align: center;">
+    <div class="subgrid-4" style="display: inline-block;">
+
+        <div class="rectangle" style="margin: auto;">
+            
+            <table style="margin: auto; text-align: left;">
+                <tr>
+                    <td class="p-regular-grey" style="padding-right: 10px;">Username</td>
+                    <td class="p-regular-grey">:</td>
+                    <td class="p-title"><?php echo $_SESSION['user_username'];?></td>
+                </tr>
+                <tr>
+                    <td class="p-regular-grey" style="padding-right: 10px;">Name</td>
+                    <td class="p-regular-grey">:</td>
+                    <td class="p-title"><?php echo $_SESSION['user_name'];?></td>
+                </tr>
+                <tr>
+                    <td class="p-regular-grey" style="padding-right: 10px;">E-mail</td>
+                    <td class="p-regular-grey">:</td>
+                    <td class="p-title"><?php echo $_SESSION['user_email'];?></td>
+                </tr>
+                <tr>
+                    <td class="p-regular-grey" style="padding-right: 10px;">Mobile</td>
+                    <td class="p-regular-grey">:</td>
+                    <td class="p-title"><?php echo $_SESSION['user_mobile'];?></td>
+                </tr>
+                <tr>
+                    <td class="p-regular-grey" style="padding-right: 10px;">NIC</td>
+                    <td class="p-regular-grey">:</td>
+                    <td class="p-title"><?php echo $_SESSION['user_nic'];?></td>
+                </tr>
+            </table>
+        </div> 
+    </div>
+</div>
 
 <a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Update Profile" class="form-button"></a>  
 
