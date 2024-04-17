@@ -143,9 +143,8 @@
                     <div class="text-field">
                         <div class="typeselect-container">
                             <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option value="" disabled selected></option><!-- Empty option for placeholder -->
-                                <option value="hillcountry">Hill Country</option>
-                                <option value="organic">Organic</option>
+                                <option style="color:white;" value="hillcountry">Hill Country</option>
+                                <option style="color:white;" value="organic">Organic</option>
                             </select>
                             <input name="type" id="categoryInput" type="text" required>
                             <span></span>

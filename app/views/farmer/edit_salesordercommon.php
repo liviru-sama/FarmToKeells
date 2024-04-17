@@ -170,9 +170,8 @@
                         <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="openDropdown()">
                         <div class="typeselect-container" id="typeDropdown" style="display: none;">
                             <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option value="" disabled selected></option><!-- Empty option for placeholder -->
-                                <option value="hillcountry">Hill Country</option>
-                                <option value="organic">Organic</option>
+                                <option style="color:white;" value="hillcountry">Hill Country</option>
+                                <option style="color:white;" value="organic">Organic</option>
                             </select>
                             <span></span>
 

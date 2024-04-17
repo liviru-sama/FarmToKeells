@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>register.css">
+        <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
         <script src="<?php echo JS;?>register.js"></script>
         <title><?php echo SITENAME;?></title>
         <style>
@@ -146,11 +146,26 @@
                 <div class="error" id="mobile-error"><?php echo $data['mobile_err']; ?></div>
 
                 <div class="text-field">
-                    <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
-                        <option value="1">Western</option>
-                        <option value="2">Southern</option>
-                        <option value="3">Central</option>
-                </div>
+                        <div class="typeselect-container">
+                            <select class="productstatusInput" name="province"  onchange="updateInput(this)">
+                            <option style="color:white;" value="Central">Central</option>
+
+                                <option style="color:white;" value="Southern">Southern</option>
+                                <option style="color:white;" value="Northern">Northern</option>
+                                <option style="color:white;" value="Western">Western</option>
+                                <option style="color:white;" value="North Western">North Western</option>
+                                <option style="color:white;" value="North Central">North Central</option>
+                                <option style="color:white;" value="Sabaragamuwa">Sabaragamuwa</option>
+                                <option style="color:white;" value="Eastern">Eastern</option>
+                                <option style="color:white;" value="Uva">Uva</option>
+
+
+                            </select>
+                            <input name="province" id="province" type="text" required>
+                            <span></span>
+                            <label>Province</label>
+                        </div>
+                    </div>
 
                 <!-- <div class="text-field">
                     <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
@@ -233,7 +248,14 @@
             </div>
         </form>
     </div> -->
-        
+        <script> function updateInput(select) {
+    var selectedOption = select.options[select.selectedIndex].text;
+    // Set the value of the province input field directly
+    document.getElementById("province").value = selectedOption;
+    // Reset the dropdown to show the placeholder option
+    select.value = ''; // Reset to blank option
+}
+</script>
     </body>
 </html>
 
