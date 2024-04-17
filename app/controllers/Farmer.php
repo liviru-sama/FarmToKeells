@@ -28,6 +28,11 @@
             $this->view('farmer/view_profile', $data);
         }
 
+
+        
+
+       
+
         public function update_profile(){
             $data = [
                 'username' => $_SESSION['user_username'],
@@ -470,6 +475,10 @@
         
         public function add_salesorder(){
             // Load the Salesorder model
+
+            $userModel = $this->Model('User');
+            $address = $userModel->getCollectionCenterAddress($_SESSION['user_id']);
+
             $this->model("Salesorder");
             $salesorderModel = new Salesorder();
             
@@ -534,7 +543,9 @@
                     'purchase_id' => $purchase_id,
                     'user_id' => $user_id,
                     'name' => $product_name, // Pass the retrieved product name
-                    'image' => $product_image // Pass the retrieved product image
+                    'image' => $product_image, // Pass the retrieved product image
+                    'address' => $address
+
                 ];
                 $this->view("farmer/add_salesorder", $data);
             }
@@ -651,8 +662,6 @@
             // Check if it's a POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Load the Salesorder model
-
-                
                 $this->model("Salesorder");
                 $salesorderModel = new Salesorder();
                 
@@ -665,9 +674,7 @@
                 $address = trim($_POST['address']);
                 $user_id = trim($_POST['user_id']);
                 $image = trim($_POST['image']);
-
-
-            
+        
                 // Check for required fields
                 if (empty($name) || empty($type) || empty($quantity) || empty($date) || empty($address)  ) {
                     echo "Please fill in all fields.";
@@ -684,32 +691,36 @@
                     'address' => $address,
                     'user_id' => $user_id,
                     'image' => $image
-
                 ];
-
+        
                 if ($salesorderModel->add_salesordercommon($data)) {
                     // Assuming you have the user session stored in $_SESSION['user_id']
-                     $user_id = $_SESSION['user_id'];
-
-// Redirect to the place_salesorder route with both purchase_id and user_id
+                    $user_id = $_SESSION['user_id'];
+        
+                    // Redirect to the place_salesorder route with both purchase_id and user_id
                     redirect('farmer/salesorder' . '?user_id=' . $user_id);
-
-                   
                     exit();
-                
-                
                 } else {
                     // Product addition failed
                     echo "Failed to add sales order.";
                 }
             } else {
-                // If not a POST request, load the add sales order page with the purchase_id
-              
-                
-                // Load the add sales order view with the purchase_id if it exists
-                $this->view("farmer/add_salesordercommon");
+                // Load the User model to get the collection center address
+                $userModel = $this->model('User');
+        
+                // Get the collection center address for the logged-in user
+                $address = $userModel->getCollectionCenterAddress($_SESSION['user_id']);
+        
+                // Data to be passed to the view
+                $data = [
+                    'address' => $address
+                    // Add other data for the view
+                ];
+        
+                $this->view("farmer/add_salesordercommon", $data);
             }
         }
+        
 
         public function edit_salesordercommon(){
             // Check for POST

@@ -168,10 +168,10 @@
                         <label> Price per kg</label>
                     </div>
                     <div class="text-field">
-                        <input name="address" type="text" required>
-                        <span></span>
-                        <label> Address</label>
-                    </div>
+                    <input name="address" type="text" value="<?php echo isset($data['address']) ? $data['address'] : ''; ?>" required>
+    <span></span>
+    <label>Address</label>
+</div>
                     <input type="submit" value="Reset" onclick="resetForm()">
                     <input type="submit" value="Add">
                 </form>

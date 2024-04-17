@@ -509,13 +509,14 @@ a.button:hover {
 
 .center {
     position: absolute;
-    top: 53%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 450px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     text-align: center;
+    padding:20px;
 }
 
 .center h1 {

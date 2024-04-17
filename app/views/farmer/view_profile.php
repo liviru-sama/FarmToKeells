@@ -158,7 +158,7 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/view_profile" style="text-decoration: none;background: #65A534; transform: scale(1.08);">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >View Your Profile</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;View Profile</h5>
             </a>
 
    
@@ -171,7 +171,7 @@
         <!-- Container for profile image and heading -->
        
             <div class="profile-image">
-            <h1>View Profile</h1>
+            <h1>View Your Profile</h1>
                 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="">
                 <div class="profile-heading">
                 <?php
