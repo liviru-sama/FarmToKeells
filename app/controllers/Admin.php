@@ -442,6 +442,50 @@ public function addChatadmin() {
 // Farmer controller method to retrieve inquiries
 // Farmer controller method to retrieve inquiries of the current user
 // Farmer controller method to retrieve inquiries
+public function tm_chat() {
+    // Load the Inquiry model
+    $tm_chatModel = $this->model('Tm_Chat');
+
+    // Get all chats from the database
+    $tm_chats = $tm_chatModel->getAllChats();
+
+    // Pass the chat data to the view
+    $data = [
+        'tm_chats' => $tm_chats,
+    ];
+
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('admin/tm_chat', $data);
+}
+
+public function addChatadmintm() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $admin_reply = $_POST['admin_reply'];
+
+        // Load the CCM Chat model
+        $tm_chatModel = $this->model('Tm_Chat');
+
+        // Add the chat message to the database
+        if ($tm_chatModel->addChatadmintm($admin_reply)) {
+            // Redirect to the chat page
+            redirect('admin/tm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
 public function ccm_chat() {
     // Load the Inquiry model
     $ccm_chatModel = $this->model('Ccm_Chat');
@@ -457,7 +501,6 @@ public function ccm_chat() {
     // Load the 'ccm/ccm_chat' view and pass data to it
     $this->view('admin/ccm_chat', $data);
 }
-
 
 }
 ?>

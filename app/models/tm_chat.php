@@ -30,13 +30,12 @@ public function addChat($inquiry) {
     }
 }
 
-public function addChatadmin($admin_reply) {
+public function addChatadmintm($admin_reply) {
     // Prepare SQL statement
-    $this->db->query('INSERT INTO tm_chat (admin_reply, admin_reply_time) VALUES (:admin_reply, :admin_reply_time)');
+    $this->db->query('INSERT INTO tm_chat (admin_reply, admin_reply_time) VALUES (:admin_reply, NOW())');
     // Bind values
     
 $this->db->bind(':admin_reply', $admin_reply);
-$this->db->bind(':admin_reply_time', date('Y-m-d H:i:s'));
 
     // Execute
     if ($this->db->execute()) {
