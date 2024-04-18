@@ -113,4 +113,18 @@ input[type="submit"]:hover{
     margin-top: 1px; 
     text-align: center;
 }
+.link{
+    margin: 3px 0 30px auto;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.671);
+}
+.link a{
+    color: rgba(0, 0, 0, 0.671);
+    text-decoration: none;
+}
+.link a:hover{
+    color: #65A534;
+    text-decoration: underline;
+}
 

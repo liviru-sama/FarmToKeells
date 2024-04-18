@@ -4,102 +4,23 @@ class Admin extends Controller{
     public $adminModel;
     public $userModel;
 
-            public function __construct() {
+        public function __construct() {
                 
-                $this->adminModel = $this->model('Admins'); 
-                $this->userModel = $this->model('User');
+            $this->adminModel = $this->model('Admins'); 
+            $this->userModel = $this->model('User');
 
             //     // Check if admin is logged in
             // if(!isset($_SESSION['admin_id'])) {
             //     redirect('admin/admin_login');
             // }
 
-            }
-        //   public function admin_login()
-        // {
-          
-        //         // Check for POST
-           
-        //         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //             // Process form
-        
-        //             // Sanitize POST data    
-        //             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
-        //             // Init data
-        //             $data = [
-        //                 'admin_username' => trim($_POST['admin_username']),
-        //                 'admin_password' => trim($_POST['admin_password']),
-        //                 'admin_username_err' => '',
-        //                 'admin_password_err' => '',
-        //             ];
-        
-        //             // Validate Username
-        //             if (empty($data['admin_username'])) {
-        //                 $data['admin_username_err'] = 'Please enter username';
-        //             }
-        //             // Validate Password
-        //             if (empty($data['admin_password'])) {
-        //                 $data['admin_password_err'] = 'Please enter password';
-        //             }
-                    
-        //             //CHECK FOR USER/EMAIL
-        //             if ($this->adminModel->findUserByUsername($data['admin_username'])) {
-        //                 //USER FOUND
-        //             } else {
-        //                 //USER NOT FOUND
-        //                 $data['admin_username_err'] = 'No user found';
-        //             }
-        
-        //             // Make sure errors are empty
-        //             if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-        //                 // Validated
-        //                 // Check and set logged in user
-        //                 $loggedInAdmin = $this->adminModel->admin_login($data['admin_username'], $data['admin_password']);
-        
-        //                 if ($loggedInAdmin) {
-        //                     // Create Session
-        //                     $this->createUserSession($loggedInAdmin);
-        //                 } else {
-        //                     $data['admin_password_err'] = 'Incorrect Password ';
-        
-        //                     $this->view('admin/admin_login', $data);
-        //                 }
-        
-        
-        //             } else {
-        //                 // Load view with errors
-        //                 $this->view('admin/admin_login', $data);
-        //             }
-        //         } else {
-        //             // Init data
-        //             $data = [
-        //                 'admin_username' => '',
-        //                 'admin_password' => '',
-        //                 'admin_username_err' => '',
-        //                 'admin_password_err' => '',
-        //             ];
-        
-        //             // Load view
-        //             $this->view('admin/admin_login', $data);
-                
-        //     }
-
-        // }
-            
-        
-
+        }
        
-       
-            public function marketdemand() {
+        public function marketdemand() {
    
-                $this->view("ccm/marketdemand");
-            }
+            $this->view("ccm/marketdemand");
+        }
            
-        
-           
-
-
         public function stock_overview() {
             // Instantiate the Product model
             $productModel = $this->model('Product');
@@ -121,11 +42,6 @@ class Admin extends Controller{
             }
         }
         
-        
-        
-
-        
-
         public function selectorder(){
             $data = [];
 
@@ -153,7 +69,6 @@ class Admin extends Controller{
             // Pass the fetched products to the view
             require_once('views/admin/purchaseorder');
         }
-    
 
         public function salesorder() {
             // Instantiate Purchaseorder Model
@@ -166,13 +81,10 @@ class Admin extends Controller{
             $this->view('admin/salesorder', $data);
         }
         
-        
-
         public function getUserInfo($user_id) {
             return $this->userModel->getUserInfoById($user_id);
         }
 
-       
         public function updateStatus() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Retrieve the order IDs and statuses from the form for sales order
@@ -191,9 +103,6 @@ class Admin extends Controller{
                         return;
                     }
                 }
-        
-               
-        
                 echo json_encode('Status updated successfully');
             } else {
                 echo json_encode('Invalid request method');
@@ -223,7 +132,7 @@ class Admin extends Controller{
           }
           
           
-          public function place_salesorder($purchase_id) {
+        public function place_salesorder($purchase_id) {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = $this->model('Purchaseorder');
             
@@ -243,71 +152,69 @@ class Admin extends Controller{
         
     
 
-    public function index(){
-        $data = [
-            'title' => ''
-        ];
-
-        $this->view('admin/dashboard', $data);
-    }    
-
-    public function admin_login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Process form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
+        public function index(){
             $data = [
-                'admin_username' => trim($_POST['admin_username']),
-                'admin_password' => trim($_POST['admin_password']),
-                'admin_username_err' => '',
-                'admin_password_err' => ''
+                'title' => ''
             ];
-    
-            // Validate Username
-            if (empty($data['admin_username'])) {
-                $data['admin_username_err'] = 'Please enter username';
-            }
-    
-            // Validate Password
-            if (empty($data['admin_password'])) {
-                $data['admin_password_err'] = 'Please enter password';
-            }
-    
-            // Check for errors
-            if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                // Validated
-                // Call the validate_login method in the admin model with username and password
-                $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
-                if ($loggedInAdmin) {
-                    // Create session
-                    $this->createUserSession($loggedInAdmin);
+
+            $this->view('admin/dashboard', $data);
+        }    
+
+        public function admin_login(){
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                $data = [
+                    'admin_username' => trim($_POST['admin_username']),
+                    'admin_password' => trim($_POST['admin_password']),
+                    'admin_username_err' => '',
+                    'admin_password_err' => ''
+                ];
+        
+                // Validate Username
+                if (empty($data['admin_username'])) {
+                    $data['admin_username_err'] = 'Please enter username';
+                }
+        
+                // Validate Password
+                if (empty($data['admin_password'])) {
+                    $data['admin_password_err'] = 'Please enter password';
+                }
+        
+                // Check for errors
+                if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+                    // Validated
+                    // Call the validate_login method in the admin model with username and password
+                    $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
+                    if ($loggedInAdmin) {
+                        // Create session
+                        $this->createUserSession($loggedInAdmin);
+                    } else {
+                        $data['admin_password_err'] = 'Incorrect username or password';
+                        $this->view('admin/admin_login', $data);
+                    }
                 } else {
-                    $data['admin_password_err'] = 'Incorrect username or password';
+                    // Load view with errors
                     $this->view('admin/admin_login', $data);
                 }
             } else {
-                // Load view with errors
-                $this->view('admin/admin_login', $data);
+                // Load view
+                $this->view('admin/admin_login');
             }
-        } else {
-            // Load view
-            $this->view('admin/admin_login');
         }
-    }
     
 
 
     
     
-  public function createUserSession($admin_user) {
-$_SESSION['admin_id'] = $admin_user->admin_id;
-$_SESSION['admin_username'] = $admin_user->admin_username;
-// Check if the 'admin_id' session variable exists
+        public function createUserSession($admin_user) {
+            $_SESSION['admin_id'] = $admin_user->admin_id;
+            $_SESSION['admin_username'] = $admin_user->admin_username;
 
-
-redirect('admin/dashboard');
-}
+            // Check if the 'admin_id' session variable exists
+            redirect('admin/dashboard');
+        }       
 
     
 
@@ -333,11 +240,7 @@ redirect('admin/dashboard');
         $this->view('admin/manageUsers', $data);
     }
 
-
-
-
-    public function acceptUser()
-    {
+    public function acceptUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
@@ -359,8 +262,7 @@ redirect('admin/dashboard');
         }
     }
 
-    public function rejectUser()
-    {
+    public function rejectUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
@@ -382,8 +284,7 @@ redirect('admin/dashboard');
         }
     }
 
-    public function deleteUser()
-    {
+    public function deleteUser(){
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
