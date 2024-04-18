@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
+    <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -18,9 +18,9 @@
             height: 100%;
         }
 
-        #notificationFrame {
+        #existingproductFrame {
             position: fixed;
-            top: 50%;
+           
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff5;
@@ -30,126 +30,37 @@
             z-index: 9999;
             display: none; /* Initially hide the iframe */
             width: 80%; /* Adjust width as needed */
-            height: 80%; /* Adjust height as needed */
+            height: 100%; /* Adjust height as needed */
         }
-
-
+      
+        /* CSS for styling the iframe */
         
-
-        .text-field textarea {
-    width: 100%;
-    padding: 10px;
-    border: 9px solid #ccc; /* Add a border */
-    border-radius: 10px; /* Add border radius */
-    background-color: transparent; /* Set transparent background */
-    resize: vertical; /* Allow vertical resizing */
-    box-sizing: border-box; /* Include padding and border in textarea's total width */
-}
-
-/* Optional: Style the label */
-.text-field label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.chat-message {
-    margin-bottom: 10px;
-    max-width: 70%;
-    padding: 20px;
-    border-radius: 30px;
-    clear: both;
-    overflow: hidden;
-    word-wrap: break-word;
-    z-index:9999;
-    font-size:20px;
-    box-shadow: 0 .4rem .8rem #0005;
-
-}
-
-
-
-.admin-message {
-    float: right;
-    background-color: #65A534;
-    color: white;
-
-}
-
-.message-time {
-    float: left;
-    color: black;
-    font-size:10px;
-}
-
-.user-message {
-    float:left;
-    background-color: white; /* Green color */
-    color: black;
-    text-align: right;
-}
-
-.empty-reply {
-    background-color: #65A534; /* Green color */
-}
-
-.chat-container {
-   padding: 20px;
-   position: relative;
-   margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
-}
-
-
-.chat-form-container {
-    width: 100%;
-}
-
-.add-inquiry-form {
-    position: fixed;
-    bottom: 0;
-    width: 50%;
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    z-index: 999;
-    border-radius: 10px;
-    left:28%;
-    background-color:rgba(181, 174, 174, 0.25);
-    z-index:1;
-
-}
-
-
-
-.add-inquiry-form textarea {
-    width: 100%; /* Adjust width to accommodate padding */
-    padding: 10px;
-    border: 2px solid black;
-    border-radius: 10px;
-    background-color: transparent;
-    resize: none; /* Prevent resizing */
-    box-sizing: border-box;
-    z-index:1;
-
-}
-
-.add-inquiry-form .send-button {
-    width: 100%; /* Adjust width to accommodate padding */
-    background-color:rgba(181, 174, 174, 0.25);
-    color: black;
-    border-radius: 10px;
-    padding: 10px;
-    cursor: pointer;
-    box-sizing: border-box;
-    font-weight:bold;
-
-}
-
+        /* CSS for styling the form */
+        .form-container {
+            width: 50%; /* Set the width to occupy half of the page */
+            margin: 0 auto; /* Center the container horizontally */
+        }
+        .text-field {
+            margin-bottom: 10px; /* Add some spacing between input fields */
+        }
+        input[type="date"] {
+            width: calc(100% - 10px); /* Adjust the width of the date inputs */
+        }
+        input[type="submit"] {
+            width: 100%; /* Make the submit button full width */
+        }
+        
+        #report_frame {
+            width: 100%;
+            height: 400px;
+            border: none; /* Remove border from iframe */
+        }
+    
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
+<div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
 
@@ -195,7 +106,7 @@
                   
                     
                     <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6">
+                        <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);" >
                             <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Stock levels</h6>
                         </div></a>
@@ -217,80 +128,121 @@
 
 
                         <a href="<?php echo URLROOT; ?>/admin/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-6" >
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Reply</h6>
                         </div>
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
+                        <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Users</h6>
                         </div>
                     </a>
-
 
                 </div>
             </div>
         </section>
     </div>
 
-   
-
+    <!-- Main content -->
     <div class="main-content">
+        <section class="header">
+
+        <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;STOCK LEVELS</h5></a>
+
+
+        <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
+            </a>
+           
+
+            </br>  <main class="table">
+</br>
+<a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); padding: 2px;">&nbsp;&nbsp;&nbsp; PRICE REPORT FORM</h5></a>
+
+    
+ <main class="table">
+
         
-    <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
-            </a>
+            <section class="table_body">
 
-    <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading">Message CCM</h5></a>
 
-                <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Message TM</h5>
-            </a>
             
-            <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
-    <?php
-// Define a custom sorting function to sort inquiries based on their creation time
-function sortByCreatedAt($a, $b) {
-    return strtotime($a->created_at) - strtotime($b->created_at);
-}
-
-// Sort the inquiries array using the custom sorting function
-usort($data['inquiries'], 'sortByCreatedAt');
-?>
-
-<div class="chat-container">
-    <?php foreach ($data['inquiries'] as $inquiry): ?>
-        <div class="chat-message user-message">
-        <div class="message-content" style="text-align:left;">
-    <span style="color: #65A534;font-weight:bolder;font-size:20px;"><?php echo $inquiry->username; ?>:</span></br>
-    <?php echo $inquiry->inquiry; ?></br></br>
-</div>
-<div class="message-time"><?php echo $inquiry->created_at; ?></div>
-            <a class="button" style="color:white;" href="<?php echo URLROOT; ?>/admin/reply?inquiry_id=<?php echo $inquiry->id; ?>">Reply</a>
-            <div>
-                <!-- Use an anchor tag with the class "button" and href attribute set to "admin/reply" -->
-            </div>
+            <section class="form">
+        <div class="form-container"></br></br></br>
+        
+            <h1 style="font-family: 'inter';">Generate Report for a product price over time</br></br></h1>
+            <form action="<?php echo URLROOT; ?>/admin/displayInventoryHistoryReportprice" method="post" >
+                <div class="text-field">
+                    <label for="start_date" style="font-weight: bold;">Start Date:</label> 
+                    <input type="date" id="start_date" name="start_date" required>
+                </div>
+                <div class="text-field">
+                    <label for="end_date"style="font-weight: bold;">End Date:</label> 
+                    <input type="date" id="end_date" name="end_date" required>
+                </div>
+                <div class="text-field">
+                    <label for="product_name" style="font-weight: bold;">Product Name:</label> 
+                    <input type="text" id="product_name" name="product_name">
+                </div>
+                <input type="submit" value="Generate Chart"></br></br>
+            </form>
         </div>
-        <?php if (!empty($inquiry->admin_reply)): ?>
-            <div class="chat-message admin-message">
-                <div class="message-content"><?php echo $inquiry->admin_reply; ?></br></br></div>
-                <div class="message-time"><?php echo $inquiry->admin_reply_time; ?></div>
-            </div>
-        <?php else: ?>
-            <div class="chat-message admin-message empty-reply"></div>
-        <?php endif; ?>
-    <?php endforeach; ?>
-</div>
+    </section></section> </main>
+    <iframe id="existingproductFrame" src="<?php echo URLROOT; ?>/admin/existingproduct"></iframe>
 
-    </div>
-        </body>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Get the product field
+        var productField = document.getElementById('product_name');
+        // Get the iframe
+        var iframe = document.getElementById('existingproductFrame');
+
+        // Initially hide the iframe
+        iframe.style.display = 'none';
+
+        // Show the iframe when the product field is clicked
+        productField.addEventListener('click', function() {
+            iframe.style.display = 'block';
+        });
+
+        // Center the iframe on top of the form
+        iframe.style.position = 'fixed';
+        iframe.style.top = '50%';
+        iframe.style.left = '50%';
+        iframe.style.transform = 'translate(-50%, -50%)';
+
+        // Adjust the size of the iframe to cover the whole table header
+        var tableHeaderHeight = document.querySelector('.header').offsetHeight;
+        iframe.style.height = 'calc(60vh )';
+
+        // JavaScript function to fill the input field "Product" in the parent page
+        window.fillProductField = function(productName) {
+            // Get the parent window and access the input fields
+            var productInput = document.getElementById('product_name');
+
+            // Set the value of the input field to the selected product name
+            productInput.value = productName;
+
+            // Hide the iframe
+            iframe.style.display = 'none';
+        };
+    });
+</script>
+
+
+</body>
 
 </html>
 

@@ -158,7 +158,7 @@
                 <div class="dashboard-container">
                    
                     <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"  > 
+                        <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
@@ -231,58 +231,55 @@
 
 <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" >&nbsp;&nbsp;&nbsp;BAR CHART VIEW </h5></a>
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;BAR CHART VIEW </h5></a>
 
     <a href="<?php echo URLROOT; ?>/admin/stock_overview" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected"style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >CIRCULAR PROGRESS BAR VIEW</h5>
+                = "tab-heading tab-selected" >CIRCULAR PROGRESS BAR VIEW</h5>
             </a>
 </br>
 
     <main class="stock" style="text-align: center;">
-</br>
-</br>
+    
 
 <h2 class="inline-heading" style="text-align: center;color:black; ">Current Inventory Levels at Warehouse</h2>
 
-<div  class="all">
+</br>
+</br></br>
+</br>
+<div class="bar-container">
     <?php
-    
-
     // New code: Accessing product data passed from the controller through $data array
     $products = $data['products'];
 
-    // Set the maximum quantity to 100
-    $maxQuantity = 100;
-
-    // Check if $maxQuantity is greater than zero
+    // Find the product with the maximum quantity (assuming it's already in 100kgs)
+    $maxQuantity = 100; // Assuming the maximum quantity is 100kgs
     if ($maxQuantity > 0) {
-        // Iterate through each product
-        foreach ($products as $product):
-            // Calculate percentage
-            $percentage = ($product['quantity'] / $maxQuantity) * 100;
-    ?>        <div id="product-container">
-            <div class="circle-wrap">
-                <div class="circle">
-                    <div class="mask full-1" style="transform: rotate(<?php echo $percentage * 1.8; ?>deg);"></div>
-                    <div class="mask half"></div>
-                    <div class="inside-circle" style="color:#65A534;"><?php echo $percentage; ?>%</div>
+        // Iterate through each product to generate bars
+        foreach ($products as $product) {
+            // Calculate the height of the bar based on the percentage of the maximum quantity (100kgs)
+            $barHeight = ($product['quantity'] / $maxQuantity) * 100;
+            ?>
+            <div class="bar" style="height: <?php echo $barHeight; ?>%;">
+                <div class="bar-name"><?php echo $product['name']; ?></div>
+                <div class="bar-graph">
+                    <span class="bar-percentage" style="font-weight:bold; font-size: 25px;"><?php echo round($barHeight); ?>kgs</span>
                 </div>
-                <div class="product-name"><?php echo $product['name']; ?>:&nbsp;<?php echo $product['quantity']; ?>kgs</div> <!-- Place product name here -->
             </div>
-            </div>
-    <?php   
-        endforeach;
+    <?php
+        }
     } else {
-        // Handle the case where $maxQuantity is zero
-        echo "Error: Maximum quantity is zero.";
+        // Handle the case where $maxQuantity is zero or negative
+        echo "Error: Maximum quantity is zero or negative.";
     }
     ?>
-
+    <div class="axis-line x-axis-line"></div>
+    <div class="axis-line y-axis-line"></div>
+    <div class="axis-label y-axis-label">Quantity in kgs</div>
 </div>
 
-</main></div>
-
+    </div>
+    </main>
 </body>
 
 </html>

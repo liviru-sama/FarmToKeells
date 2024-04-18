@@ -36,15 +36,6 @@
 
         
 
-        .button-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center; /* Centers items horizontally */
-    align-items: center; /* Centers items vertically */
-}
-
-
-
 
     </style>
 </head>
@@ -140,99 +131,104 @@
 
    
 
-    <div class="main-content" >
+    <div class="main-content">
+        <section class="header">
+           
+        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
+    <h5 class="inline-heading" class
+=
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+</a>
+<a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
+<h5 class="inline-heading" class
+=
+"tab-heading" >&nbsp;VIEW THEIR AVAILABLE PRODUCTS</h5></a>
 
-    <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Manage Users</h5>
-            </a>
-
-
-    <main class="table" style="text-align:center;"></br>
+<main class="table"></br>
             <section class="table_header">
-    <h2 >Pending Users</h2></br>
-  
-    <?php $pendingUsers = $data['pendingUsers']; ?>
-    <?php if (!empty($pendingUsers)): ?>
-        <section class="table_body">
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Collection Center</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pendingUsers as $user): ?>
-                    <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-    <div class="button-container">
-        <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="accept">Accept</button>
-        </form>
-        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="reject" style="background-color:red;">Reject</button>
-        </form>
-    </div>
-</td>
+            <h2> &nbsp;&nbsp;&nbsp;  Keells Purchase Orders </h2>
+<div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No pending users.</p>
-    <?php endif; ?>
+            <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add New</a>
+            </div>
+            </section></br>
+            <section class="table_body">
 
-    </br> <h2>Accepted Users</h2></br>
+           
+     
+                <form method="post">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Purchase order ID</th>
+                                <th>Product</th>
+                                <th>Product image</th>
+                                <th>Product type</th>
+                                <th>Needed quantity(kgs)</th>
+                                <th>Expected supply date</th>
+                                <th>Status</th>
+                                <th>View sales order</th>
+                                <th>EDIT</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'])) { ?>
+                                <tr>
+                                    <td><?php echo $row['purchase_id'] ?></td>
+                                    <td><?php echo $row['name'] ?></td>
+                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                    <td><?php echo $row['quantity'] ?></td>
+                                    <td><?php echo $row['date'] ?></td>
+                                    <td><?php echo $row['purchase_status'] ?></td>                                   
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/ccm/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
+                                    <td><a href="<?php echo URLROOT; ?>/ccm/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+                                </tr>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </form>
+            </section>
+        </main>
+    </section>
 
-    <?php $acceptedUsers = $data['acceptedUsers']; ?>
-    <?php if (!empty($acceptedUsers)): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Collection Center</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($acceptedUsers as $user): ?>
-                    <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete">Delete</button>
-                            </form>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No accepted users.</p>
-    <?php endif; ?>
+    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
-        </body>
+    <script>
+        function confirmDelete(purchaseId) {
+    var confirmationDialog = document.getElementById('confirmationDialog');
+    var iframeSrc = "<?php echo URLROOT; ?>/ccm/confirmationdialog/" + purchaseId;
+    confirmationDialog.src = iframeSrc;
+    confirmationDialog.style.display = 'block';
+}
+
+function searchProducts() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those that don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1]; // Index 1 corresponds to the product name column
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = ""; // Show the row if the product name matches the search query
+            } else {
+                tr[i].style.display = "none"; // Hide the row if it doesn't match
+            }
+        }
+    }
+}
+
+        </script>
+
+</body>
 
 </html>
 

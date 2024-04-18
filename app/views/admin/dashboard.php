@@ -136,7 +136,7 @@ body,
                         <h3>Stock Overview</h3>
                     </div></a>
         
-                        <a href="<?php echo URLROOT; ?>/admin/selectorder">
+                        <a href="<?php echo URLROOT; ?>/admin/purchaseorder">
                         <div class="menu" data-name="p-2">
 
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">

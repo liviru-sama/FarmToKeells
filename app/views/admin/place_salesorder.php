@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
+    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -16,6 +17,52 @@
             background-size: cover;
             height: 100%;
         }
+
+        #notificationFrame {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff5;
+    backdrop-filter: blur(7px);
+    box-shadow: 0 .4rem .8rem #0005;
+    border-radius: .8rem;
+            z-index: 9999;
+            display: none; /* Initially hide the iframe */
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+        }
+
+
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
+
 
     </style>
 </head>
@@ -32,13 +79,13 @@
 
 <div class="navbar-icon-container" data-text="Notifications">
 
-<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+<a href="<?php echo URLROOT; ?>/admin/notifications" id="notificationsButton" onclick="toggleNotifications()" >
     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
 
-<a href="<?php echo URLROOT; ?>/ccm/logout">
+<a href="<?php echo URLROOT; ?>/admin/logout">
     <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
 </a></div>
 </div>
@@ -57,49 +104,53 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1">
-                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inventory</h6>
-                        </div>
-                    </a>
-
-                    <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                   
+                    <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-2" style="background: #65A534; transform: scale(1.08);"> 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Market Prices</h6>
-                        </div>
-                    </a>
-
-                    <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
+                  
+                    
+                    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Stock levels</h6>
+                        </div></a>
+
+                   
+                    <a href="<?php echo URLROOT; ?>/admin/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7">
+                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Transport</h6>
                         </div>
                     </a>
-
-                    <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/admin/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5">
-                            <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Time Report</h6>
+                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Payment</h6>
                         </div>
                     </a>
+    
 
-                    <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6">
+
+                        <a href="<?php echo URLROOT; ?>/admin/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6" >
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
+                            <h6>Reply</h6>
                         </div>
                     </a>
 
-                    
+                    <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4" >
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Users</h6>
+                        </div>
+                    </a>
+
+
                 </div>
             </div>
         </section>
@@ -109,13 +160,15 @@
     <div class="main-content">
         <section class="header">
 
-            <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
-            </a>
-            <a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading" >VIEW THEIR AVAILABLE PRODUCTS</h5></a>
+        <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
+    <h5 class="inline-heading" class
+=
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+</a>
+<a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
+<h5 class="inline-heading" class
+=
+"tab-heading" >&nbsp;VIEW All SALESORDERS</h5></a>
 
             <main class="table">
                 <section class="table_header">
@@ -209,7 +262,7 @@
         <select class="statusInput" name="status[]" onchange="submitForm(this)" <?php echo ($row->status == 'Completed') ? 'style="pointer-events: none;pointer-events: none; pointer-events: none; 
   opacity: 0.5;
   filter: grayscale(100%);"' : ''; ?>>
-            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?> hidden>Pending Approval</option>
+            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?>hidden >Pending Approval</option>
             <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
             <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
             <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?> hidden>Completed</option>

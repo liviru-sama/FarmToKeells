@@ -143,7 +143,7 @@
                                 <th>Sales Order ID</th>
                                 <th>User ID</th>
                                 <th>User </th>
-                                <th>Conatct No.</th>
+                                <th>Contact No.</th>
                                 <th>Product</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
@@ -157,7 +157,7 @@
                         <?php foreach ($data['salesorders'] as $row) : ?>
     <!-- Inside the foreach loop for salesorders -->
     <tr>        
-        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " style="width: 50px; "></td>
+        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " style="width: 100px; height: 100px;"></td>
         <td><?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?></td>
         <td><?php echo isset($row->user_id) ? $row->user_id : $row['user_id']; ?></td>
         <?php if (is_object($row)) : ?>

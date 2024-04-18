@@ -19,47 +19,182 @@ class Admin extends Controller{
 
        
        
-            public function marketdemand() {
-   
-                $this->view("ccm/marketdemand");
-            }
-           
+            
         
-           
-
-
-        public function stock_overview() {
-            // Instantiate the Product model
-            $productModel = $this->model('Product');
-            
-            // Get product data from the model
-            $products = $productModel->getAllProducts();
-            
-            // Check if products are retrieved successfully
-            if ($products) {
-                // Load the view file and pass the product data
-                $data['products'] = $products;
+            public function stock_overview() {
+                // Instantiate the Product model
+                $productModel = $this->model('Product');
                 
-                $this->view('admin/stock_overview', $data);
+                // Get product data from the model
+                $products = $productModel->getAllProducts();
+                
+                // Check if products are retrieved successfully
+                if ($products) {
+                    // Load the view file and pass the product data
+                    $data['products'] = $products;
+                    
+                    $this->view('admin/stock_overview', $data);
+                } else {
+                    // Handle case where no products are returned or an error occurs
+                    // For example, you can return an error message as JSON
+                    header('Content-Type: application/json');
+                    echo (['error' => 'No products found']);
+                }
+            }
+
+
+            public function stock_overviewbar() {
+                // Instantiate the Product model
+                $productModel = $this->model('Product');
+                
+                // Get product data from the model
+                $products = $productModel->getAllProducts();
+                
+                // Check if products are retrieved successfully
+                if ($products) {
+                    // Load the view file and pass the product data
+                    $data['products'] = $products;
+                    
+                    $this->view('admin/stock_overviewbar', $data);
+                } else {
+                    // Handle case where no products are returned or an error occurs
+                    // For example, you can return an error message as JSON
+                    header('Content-Type: application/json');
+                    echo (['error' => 'No products found']);
+                }
+        
+                
+            }
+        
+            public function view_price(){
+                // Instantiate Product Model
+                $priceModel = new Price();
+                
+                // Get all products
+                $data['prices'] = $priceModel->getAllPrices();
+                
+                // Load the view with products data
+                $this->view('admin/view_price', $data);
+            }
+
+
+            public function marketdemand() {
+                // Instantiate the Product model
+                $priceModel = $this->model('Price');
+                
+                // Get product data from the model
+                $prices = $priceModel->getAllPrices();
+                
+                // Check if products are retrieved successfully
+                if ($prices) {
+                    // Load the view file and pass the product data
+                    $data['prices'] = $prices;
+                    
+                    $this->view('admin/marketdemand', $data);
+                } else {
+                    // Handle case where no products are returned or an error occurs
+                    // For example, you can return an error message as JSON
+                    header('Content-Type: application/json');
+                    echo (['error' => 'No products found']);
+                }
+        }
+        
+        
+
+        
+
+        public function displayReportGenerator() {
+            // Load the report generator view
+            $this->view("admin/report_generator");
+        }
+        
+        public function displayReportGeneratorprice() {
+            // Load the report generator view
+            $this->view("admin/report_generatorprice");
+        }
+        
+        public function displayInventoryHistoryReport() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get the start date, end date, and product name from the form submission
+                $startDate = $_POST['start_date'];
+                $endDate = $_POST['end_date'];
+                $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+                
+                // Load the InventoryHistory model
+                $productHistoryModel = $this->model('productHistory');
+                
+                // Fetch inventory history report for the given time period and product name
+                $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+                
+                // Filter inventory history to include only records with null price_change
+                $filteredproductHistory = array_filter($productHistory, function($record) {
+                    return $record->price_change === null;
+                });
+                
+                // Pass the filtered inventory history data and form inputs to the view
+                $data = [
+                    'inventory_history' => $filteredproductHistory,
+                    'product_name' => $productName, // Add product name to data array
+                    'start_date' => $startDate, // Add start date to data array
+                    'end_date' => $endDate // Add end date to data array
+                ];
+        
+                // Load the inventory history report view within the iframe
+                $this->view("admin/inventory_history_report", $data);
             } else {
-                // Handle case where no products are returned or an error occurs
-                // For example, you can return an error message as JSON
-                header('Content-Type: application/json');
-                echo (['error' => 'No products found']);
+                // If not a POST request, redirect to the report generator page or show an error message
+                redirect('admin/report_generator');
             }
         }
         
+    
+        public function displayInventoryHistoryReportprice() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get the start date, end date, and product name from the form submission
+                $startDate = $_POST['start_date'];
+                $endDate = $_POST['end_date'];
+                $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+                
+                // Load the InventoryHistory model
+                $productHistoryModel = $this->model('productHistory');
+                
+                // Fetch inventory history report for the given time period and product name
+                $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
+                
+                // Filter inventory history to include only records with null price_change
+                $filteredproductHistory = array_filter($productHistory, function($record) {
+                    return $record->quantity_change === null;
+                });
+                
+                // Pass the filtered inventory history data and form inputs to the view
+                $data = [
+                    'inventory_history' => $filteredproductHistory,
+                    'product_name' => $productName, // Add product name to data array
+                    'start_date' => $startDate, // Add start date to data array
+                    'end_date' => $endDate // Add end date to data array
+                ];
         
-        
-
-        
-
-        public function selectorder(){
-            $data = [];
-
-            $this->view('admin/selectorder', $data);
+                // Load the inventory history report view within the iframe
+                $this->view("admin/inventory_history_reportprice", $data);
+            } else {
+                // If not a POST request, redirect to the report generator page or show an error message
+                redirect('admin/report_generatorprice');
+            }
         }
-
+    
+        public function existingproduct(){
+            // Instantiate Product Model
+            $productModel = new Product();
+            
+            // Get all products
+            $data['products'] = $productModel->getAllProducts();
+            
+            // Load the view with products data
+            $this->view('admin/existingproduct', $data);
+        }
+        
         public function purchaseorder() {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
@@ -101,6 +236,24 @@ class Admin extends Controller{
         }
 
        
+        public function place_salesorder($purchase_id) {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = $this->model('Purchaseorder');
+            
+            // Get the selected purchase order
+            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
+        
+            // Instantiate Salesorder Model
+            $salesorderModel = $this->model('Salesorder');
+            
+            // Get relevant sales orders for the selected purchase order
+            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+            
+            // Load the view with purchase order and sales orders data
+            $this->view('admin/place_salesorder', $data);
+        }
+        
+        
         public function updateStatus() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Retrieve the order IDs and statuses from the form for sales order
@@ -151,22 +304,7 @@ class Admin extends Controller{
           }
           
           
-          public function place_salesorder($purchase_id) {
-            // Instantiate Purchaseorder Model
-            $purchaseorderModel = $this->model('Purchaseorder');
-            
-            // Get the selected purchase order
-            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
-        
-            // Instantiate Salesorder Model
-            $salesorderModel = $this->model('Salesorder');
-            
-            // Get relevant sales orders for the selected purchase order
-            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
-            
-            // Load the view with purchase order and sales orders data
-            $this->view('ccm/place_salesorder', $data);
-        }
+       
         
         
     
