@@ -220,12 +220,21 @@
           
                 <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" >&nbsp;&nbsp;&nbsp;QUANTITY-TIME CHART </h5></a>
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART </h5></a>
 
     <a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >PRICE-TIME CHART</h5>
+                = "tab-heading tab-selected" >GENERATE PRICE-TIME CHART</h5>
             </a>
+            <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/admin/marketdemand" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading">MARKET DEMAND </h5></a>
+
             </br>  <main class="table">
 </br>
 

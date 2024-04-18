@@ -18,49 +18,42 @@
             height: 100%;
         }
 
-        #existingproductFrame {
+
+      
+        /* CSS for styling the iframe */
+        #productSelectionFrame {
             position: fixed;
-           
+            top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
             background-color: #fff5;
-    backdrop-filter: blur(7px);
-    box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
             z-index: 9999;
             display: none; /* Initially hide the iframe */
             width: 80%; /* Adjust width as needed */
-            height: 100%; /* Adjust height as needed */
+            height: 80%; /* Adjust height as needed */
         }
-      
-        /* CSS for styling the iframe */
-        
-        /* CSS for styling the form */
-        .form-container {
-            width: 50%; /* Set the width to occupy half of the page */
-            margin: 0 auto; /* Center the container horizontally */
-        }
-        .text-field {
-            margin-bottom: 10px; /* Add some spacing between input fields */
-        }
-        input[type="date"] {
-            width: calc(100% - 10px); /* Adjust the width of the date inputs */
-        }
-        input[type="submit"] {
-            width: 100%; /* Make the submit button full width */
-        }
-        
-        #report_frame {
-            width: 100%;
-            height: 400px;
-            border: none; /* Remove border from iframe */
+    
+        .dialog-box {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            border: 1px solid #000;
+            z-index: 9999;
+            display: none; /* Initially hidden */
         }
     
     </style>
 </head>
 
 <body>
-<div class="navbar">
+     <!-- Navbar -->
+     <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
 
@@ -140,7 +133,6 @@
                             <h6>Users</h6>
                         </div>
                     </a>
-
                 </div>
             </div>
         </section>
@@ -148,107 +140,83 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <section class="header">
 
-        <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
+   
+
+    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;STOCK LEVELS</h5></a>
 
+  
 
-        <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
+          
+  
+                <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" >&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART&nbsp;&nbsp;&nbsp;</h5></a>
 
     <a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GENERATE PRICE-TIME CHART&nbsp;&nbsp;&nbsp;</h5>
             </a>
-            <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
+
+
+    <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT PRICES</h5>
             </a>
 
     <a href="<?php echo URLROOT; ?>/admin/marketdemand" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading">MARKET DEMAND </h5></a>
-
-
-            </br>  <main class="table">
-</br>
-<a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); padding: 2px;">&nbsp;&nbsp;&nbsp; PRICE REPORT FORM</h5></a>
-
-    
- <main class="table">
-
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; MARKET DEMAND </h5></a>
         
-            <section class="table_body">
+            <section class="table_header">
 
 
-            
+            </section>
+
+
             <section class="form">
-        <div class="form-container"></br></br></br>
-        
-            <h1 style="font-family: 'inter';">Generate Report for a product price over time</br></br></h1>
-            <form action="<?php echo URLROOT; ?>/admin/displayInventoryHistoryReportprice" method="post" >
+        <div class="center">
+            <h1 style="font-family: 'inter';">Edit price</h1>
+            <form method="post" action="<?php echo URLROOT; ?>/admin/edit_price?id=<?=$data['product_id']?>"> 
+
+            <input type="hidden" name="id" value="<?=$data['product_id']?>">
+
+ 
+
                 <div class="text-field">
-                    <label for="start_date" style="font-weight: bold;">Start Date:</label> 
-                    <input type="date" id="start_date" name="start_date" required>
+                    <!-- Use a disabled text field to display the product name -->
+                    <input type="text" name="name" value="<?=$data['name']?>" disabled> 
+                    <span></span>
+                    <label> Product</label>
                 </div>
+                
                 <div class="text-field">
-                    <label for="end_date"style="font-weight: bold;">End Date:</label> 
-                    <input type="date" id="end_date" name="end_date" required>
-                </div>
-                <div class="text-field">
-                    <label for="product_name" style="font-weight: bold;">Product Name:</label> 
-                    <input type="text" id="product_name" name="product_name">
-                </div>
-                <input type="submit" value="Generate Chart"></br></br>
+    <!-- Make the price field editable -->
+    <input type="number" name="price" id="priceInput" value="<?=$data['price']?>" required step="any"> 
+    <span></span>
+    <label>Price per kg</label>
+</div>
+
+               
+                <input type="submit" value="Reset" onclick="resetForm()">
+                <input type="submit" value="Save">
             </form>
         </div>
-    </section></section> </main>
-    <iframe id="existingproductFrame" src="<?php echo URLROOT; ?>/admin/existingproduct"></iframe>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the product field
-        var productField = document.getElementById('product_name');
-        // Get the iframe
-        var iframe = document.getElementById('existingproductFrame');
-
-        // Initially hide the iframe
-        iframe.style.display = 'none';
-
-        // Show the iframe when the product field is clicked
-        productField.addEventListener('click', function() {
-            iframe.style.display = 'block';
-        });
-
-        // Center the iframe on top of the form
-        iframe.style.position = 'fixed';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-
-        // Adjust the size of the iframe to cover the whole table header
-        var tableHeaderHeight = document.querySelector('.header').offsetHeight;
-        iframe.style.height = 'calc(60vh )';
-
-        // JavaScript function to fill the input field "Product" in the parent page
-        window.fillProductField = function(productName) {
-            // Get the parent window and access the input fields
-            var productInput = document.getElementById('product_name');
-
-            // Set the value of the input field to the selected product name
-            productInput.value = productName;
-
-            // Hide the iframe
-            iframe.style.display = 'none';
-        };
-    });
-</script>
-
+    </section></main></main>
+<script>
+    // Add event listener to the input element
+document.getElementById('priceInput').addEventListener('input', function(event) {
+    // Get the entered value
+    const price = parseFloat(event.target.value);
+    
+    // Check if the entered value is negative or zero
+    if (price <= 0) {
+        // If negative or zero, set the value to empty
+        event.target.value = '';
+    }
+});</script>
 
 </body>
 

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <script src="<?php echo JS;?>add_product.js"></script>
 
+    <script src="<?php echo JS;?>/ccm/updatecircle.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
     <style>
@@ -18,49 +18,110 @@
             height: 100%;
         }
 
-        #existingproductFrame {
-            position: fixed;
-           
+        .bar-container {
+            top:18%;
+            left:0%;
+            display: flex;
+            align-items: flex-end;
+            height: 400px; /* Adjust height as needed */
+            position: relative;
+        }
+
+        .bar {
+    background-color: #65A534;
+    margin: 0 20px; /* Adjust margin as needed */
+    border-radius: 5px;
+    text-align: center;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    position: relative;
+    width: 150px;
+    backdrop-filter: blur(19px);
+    box-shadow: 0 .9rem .8rem #0005;
+}
+
+
+        .bar-name {
+            margin-top: 5px;
+            position: absolute;
+            bottom: -25px;
             left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff5;
-    backdrop-filter: blur(7px);
-    box-shadow: 0 .4rem .8rem #0005;
-    border-radius: .8rem;
-            z-index: 9999;
-            display: none; /* Initially hide the iframe */
-            width: 80%; /* Adjust width as needed */
-            height: 100%; /* Adjust height as needed */
+            transform: translateX(-50%);
+            color: #fff;
+            font-weight: bold;
+            font-size: 15px;
+
         }
-      
-        /* CSS for styling the iframe */
-        
-        /* CSS for styling the form */
-        .form-container {
-            width: 50%; /* Set the width to occupy half of the page */
-            margin: 0 auto; /* Center the container horizontally */
-        }
-        .text-field {
-            margin-bottom: 10px; /* Add some spacing between input fields */
-        }
-        input[type="date"] {
-            width: calc(100% - 10px); /* Adjust the width of the date inputs */
-        }
-        input[type="submit"] {
-            width: 100%; /* Make the submit button full width */
-        }
-        
-        #report_frame {
+
+        .bar::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
             width: 100%;
-            height: 400px;
-            border: none; /* Remove border from iframe */
+            height: 3px;
+            background-color: #000;
         }
-    
+
+        .bar-graph {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #000;
+        }
+
+        .bar-percentage {
+            color:white;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .axis-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        .x-axis-line {
+            bottom: 10;
+            border-bottom: 5px solid #000;
+            left: -1%;
+        }
+
+        .y-axis-line {
+            left: -1%;
+            border-left: 7px solid #000;
+        }
+
+        .axis-label {
+            color: #fff;
+            font-weight: bold;
+            position: absolute;
+        }
+
+        .x-axis-label {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .y-axis-label {
+    top: 50%;
+    left: -3%; /* Adjust the distance from the vertical line */
+    transform: translateY(-50%) rotate(-90deg);
+}
+
     </style>
 </head>
 
 <body>
-<div class="navbar">
+ <!-- Navbar -->
+ <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
 
@@ -140,7 +201,7 @@
                             <h6>Users</h6>
                         </div>
                     </a>
-
+                    
                 </div>
             </div>
         </section>
@@ -148,108 +209,92 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <section class="header">
 
-        <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
+    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;STOCK LEVELS</h5></a>
 
+  
 
-        <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
+          
+  
+                <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" >&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART</h5></a>
 
     <a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;GENERATE PRICE-TIME CHART</h5>
             </a>
-            <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
+
+
+    <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
             </a>
 
     <a href="<?php echo URLROOT; ?>/admin/marketdemand" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading">MARKET DEMAND </h5></a>
-
-
-            </br>  <main class="table">
-</br>
-<a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); padding: 2px;">&nbsp;&nbsp;&nbsp; PRICE REPORT FORM</h5></a>
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; MARKET DEMAND </h5></a>
 
     
- <main class="table">
+           
+</br>
 
-        
-            <section class="table_body">
+    <main class="stock">
 
+</br>
 
-            
-            <section class="form">
-        <div class="form-container"></br></br></br>
-        
-            <h1 style="font-family: 'inter';">Generate Report for a product price over time</br></br></h1>
-            <form action="<?php echo URLROOT; ?>/admin/displayInventoryHistoryReportprice" method="post" >
-                <div class="text-field">
-                    <label for="start_date" style="font-weight: bold;">Start Date:</label> 
-                    <input type="date" id="start_date" name="start_date" required>
+<h2 class="inline-heading" style="text-align: center;color:black; ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Market Demand of Products</h2>
+
+</br>
+</br>
+<div class="bar-container">
+    <?php
+    // New code: Accessing product data passed from the controller through $data array
+    $prices = $data['prices'];
+
+    // Find the product with the maximum quantity
+    $maxQuantity = 0;
+    foreach ($prices as $price) {
+        if ($price['price'] > $maxQuantity) {
+            $maxQuantity = $price['price'];
+        }
+    }
+
+    // Check if $maxQuantity is greater than zero
+    if ($maxQuantity > 0) {
+        // Iterate through each product to generate bars
+        foreach ($prices as $price) {
+            // Calculate the height of the bar based on the percentage of (100 - quantity)
+            $barHeight = (( $price['price']) / 500) * 100; // Percentage that 100 - quantity
+
+            // Check if the calculated percentage is negative and set it to 0 if true
+            if ($barHeight < 0) {
+                $barHeight = 0;
+            }
+            ?>
+            <div class="bar" style="height: <?php echo $barHeight; ?>%;">
+                <div class="bar-name" style="bottom: -35px;"><?php echo $price['name']; ?></div>
+                <div class="bar-graph">
+                <span class="bar-percentage" style="font-weight:bold; font-size: 25px;"><?php echo round($barHeight); ?>%</span>
+
                 </div>
-                <div class="text-field">
-                    <label for="end_date"style="font-weight: bold;">End Date:</label> 
-                    <input type="date" id="end_date" name="end_date" required>
-                </div>
-                <div class="text-field">
-                    <label for="product_name" style="font-weight: bold;">Product Name:</label> 
-                    <input type="text" id="product_name" name="product_name">
-                </div>
-                <input type="submit" value="Generate Chart"></br></br>
-            </form>
-        </div>
-    </section></section> </main>
-    <iframe id="existingproductFrame" src="<?php echo URLROOT; ?>/admin/existingproduct"></iframe>
+            </div>
+    <?php
+        }
+    } else {
+        // Handle the case where $maxQuantity is zero
+        echo "Error: Maximum quantity is zero.";
+    }
+    ?>
+    <div class="axis-line x-axis-line"></div>
+    <div class="axis-line y-axis-line"></div>
+    <div class="axis-label y-axis-label">Market Demand</div>
+</div>
 
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the product field
-        var productField = document.getElementById('product_name');
-        // Get the iframe
-        var iframe = document.getElementById('existingproductFrame');
-
-        // Initially hide the iframe
-        iframe.style.display = 'none';
-
-        // Show the iframe when the product field is clicked
-        productField.addEventListener('click', function() {
-            iframe.style.display = 'block';
-        });
-
-        // Center the iframe on top of the form
-        iframe.style.position = 'fixed';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-
-        // Adjust the size of the iframe to cover the whole table header
-        var tableHeaderHeight = document.querySelector('.header').offsetHeight;
-        iframe.style.height = 'calc(60vh )';
-
-        // JavaScript function to fill the input field "Product" in the parent page
-        window.fillProductField = function(productName) {
-            // Get the parent window and access the input fields
-            var productInput = document.getElementById('product_name');
-
-            // Set the value of the input field to the selected product name
-            productInput.value = productName;
-
-            // Hide the iframe
-            iframe.style.display = 'none';
-        };
-    });
-</script>
-
-
+    </div>
+    </main>
 </body>
 
 </html>

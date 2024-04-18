@@ -435,7 +435,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(255, 255, 255, 10.9); /* Set background color with opacity */
+    background-color: white; /* Set background color with opacity */
     border: 1px solid #ccc;
     z-index: 999; /* Ensure iframe is above other elements */
     padding: 20px;

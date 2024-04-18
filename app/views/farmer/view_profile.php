@@ -175,7 +175,33 @@ top:58%;}
        
             <div class="profile-image">
             <h1>View Your Profile</h1>
-                <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="">
+            
+
+
+            <?php if (!empty($userData['image'])) : ?>
+    <!-- If a profile picture exists, display it -->
+    <img src="<?php echo URLROOT . '/images/uploads/' . $userData['image']; ?>" alt="/public/images/farmer_dashboard/dash6.png">
+<?php else : ?>
+    <!-- If no profile picture exists, display the default profile picture -->
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="Default Profile Picture">
+<?php endif; ?>
+
+
+<form action="<?php echo URLROOT; ?>/farmer/updateProfilePic" method="POST" enctype="multipart/form-data" style="display: none;">
+    <input type="file" name="profile_image" id="profile-picture-input" accept="image/*" onchange="this.form.submit()">
+</form>
+
+
+<button onclick="chooseProfilePicture()">Upload Profile Picture</button>
+</br></br>
+
+<script>
+    function chooseProfilePicture() {
+        document.getElementById('profile-picture-input').click();
+    }
+</script>
+
+
                 <div class="profile-heading">
                 <?php
                 echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>';
@@ -216,6 +242,7 @@ top:58%;}
         </div> 
     </div>
 </div>
+
 
 <a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button" value="Edit Your Profile" class="form-button"></a>  
 

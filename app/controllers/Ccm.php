@@ -1,20 +1,56 @@
 <?php
 class Ccm extends Controller {
     public $adminModel;
+    public $ccmModel; // Fix the property name
+
 
     public function __construct() {
-        $this->adminModel = $this->model('Admins'); 
         $this->userModel = $this->model('User');
+        $this->ccmModel = $this->model('CcmModel'); // Instantiate the CcmModel
+        $this->adminModel = $this->model('AdminModel'); // Instantiate the CcmModel
+        $this->tmModel = $this->model('TmModel'); // Instantiate the CcmModel
+
+
+
     }
+    
 
     public function viewProductPrices() {
         // Load the view
         require APPROOT . '/views/ccm/productprices.php';
     }
     
+    public function addAdminCredentials() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize input data
+            $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+            $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
 
+            // Hash the admin password
+            $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
+            // Call the model method to insert admin credentials
+            if ($this->adminModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
+                // Admin credentials inserted successfully
+                // You can redirect to a success page or perform other actions
+                echo "Admin credentials inserted successfully";
+            } else {
+                // Failed to insert admin credentials
+                // You can redirect to an error page or perform other actions
+                echo "Failed to insert admin credentials";
+            }
+        } else {
+            
+        }
+    }
 
+    public function ccm_register() {
+        // Load the view file
+        $this->view('ccm/ccm_register');
+    }
+    
+    
         public function index(){
             $data = [
                 'title' => ''
@@ -23,50 +59,62 @@ class Ccm extends Controller {
             $this->view('ccm/product_selection', $data);
         }
 
-        public function ccm_login()
-        {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Process form
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
-                $data = [
-                    'admin_username' => trim($_POST['admin_username']),
-                    'admin_password' => trim($_POST['admin_password']),
-                    'admin_username_err' => '',
-                    'admin_password_err' => ''
-                ];
-        
-                // Validate Username
-                if (empty($data['admin_username'])) {
-                    $data['admin_username_err'] = 'Please enter username';
-                }
-        
-                // Validate Password
-                if (empty($data['admin_password'])) {
-                    $data['admin_password_err'] = 'Please enter password';
-                }
-        
-                // Check for errors
-                if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                    // Validated
-                    // Call the validate_login method in the admin model with username and password
-                    $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
-                    if ($loggedInAdmin) {
-                        // Create session
-                        $this->createUserSession($loggedInAdmin);
-                    } else {
-                        $data['admin_password_err'] = 'Incorrect username or password';
-                        $this->view('ccm/ccm_login', $data);
-                    }
-                } else {
-                    // Load view with errors
-                    $this->view('ccm/ccm_login', $data);
-                }
-            } else {
-                // Load view
-                $this->view('ccm/ccm_login');
-            }
+
+
+        public function validate_login($admin_username, $admin_password)
+{
+    $loggedInAdmin = $this->ccmModel->validateLogin($admin_username, $admin_password);
+    if ($loggedInAdmin) {
+        return $loggedInAdmin;
+    }
+    return false; // Invalid username or password
+}
+ 
+     public function ccm_login()
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Process form
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'admin_username' => trim($_POST['admin_username']),
+            'admin_password' => trim($_POST['admin_password']),
+            'admin_username_err' => '',
+            'admin_password_err' => ''
+        ];
+
+        // Validate Username
+        if (empty($data['admin_username'])) {
+            $data['admin_username_err'] = 'Please enter username';
         }
+
+        // Validate Password
+        if (empty($data['admin_password'])) {
+            $data['admin_password_err'] = 'Please enter password';
+        }
+
+        // Check for errors
+        if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+            // Validated
+            // Call the validate_login method in the ccm model with username and password
+            $loggedInAdmin = $this->ccmModel->validateLogin($data['admin_username'], $data['admin_password']);
+            if ($loggedInAdmin) {
+                // Create session
+                $this->createUserSession($loggedInAdmin);
+            } else {
+                $data['admin_password_err'] = 'Incorrect username or password';
+                $this->view('ccm/ccm_login', $data);
+            }
+        } else {
+            // Load view with errors
+            $this->view('ccm/ccm_login', $data);
+        }
+    } else {
+        // Load view
+        $this->view('ccm/ccm_login');
+    }
+}
+
         
 
         

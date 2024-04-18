@@ -363,5 +363,36 @@ public function getCollectionCenterAddress($userId) {
     }
 }
 
+
+
+
+public function updateProfilePicture($userId, $fileName) {
+    $this->db->query('UPDATE users SET image = :fileName WHERE id = :userId');
+    $this->db->bind(':fileName', $fileName);
+    $this->db->bind(':userId', $userId);
+
+    return $this->db->execute();
+}
+
+
+public function getUserImage($userId) {
+    // Query to retrieve the image column for the specified user ID
+    $this->db->query('SELECT image FROM users WHERE id = :userId');
+    $this->db->bind(':userId', $userId);
+    
+    // Execute the query and fetch a single row
+    $row = $this->db->single();
+
+    // Debug output if no image is found
+    if (!$row) {
+        echo "No image found for user ID: $userId";
     }
+
+    // Return the row containing the image column value (or null if no image found)
+    return $row;
+}
+
+
+
+}
 

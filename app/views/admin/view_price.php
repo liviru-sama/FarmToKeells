@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -32,8 +31,6 @@
             width: 80%; /* Adjust width as needed */
             height: 80%; /* Adjust height as needed */
         }
-
-
         .table_header {
     display: flex;
     justify-content: space-between; /* Align items to both ends */
@@ -63,13 +60,12 @@
     text-decoration: none; /* Remove default underline */
 }
 
-
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
-    <div class="navbar">
+   <!-- Navbar -->
+   <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
 
@@ -106,7 +102,7 @@
                 <div class="dashboard-container">
                    
                     <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2" style="background: #65A534; transform: scale(1.08);" > 
+                        <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
@@ -115,7 +111,7 @@
                   
                     
                     <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6">
+                        <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);" >
                             <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Stock levels</h6>
                         </div></a>
@@ -149,113 +145,159 @@
                             <h6>Users</h6>
                         </div>
                     </a>
-
-
                 </div>
             </div>
         </section>
     </div>
 
+    <!-- Main content -->
+    <div class="main-content">
+
    
 
-    <div class="main-content">
-        <section class="header">
-           
-        <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
-    <h5 class="inline-heading" class
-=
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
-</a>
-<a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
-<h5 class="inline-heading" class
-=
-"tab-heading" >&nbsp;VIEW All SALESORDERS</h5></a>
+    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;STOCK LEVELS</h5></a>
 
-<main class="table"></br>
+  
+
+          
+  
+                <a href="<?php echo URLROOT; ?>/admin/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART&nbsp;&nbsp;&nbsp;</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/admin/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GENERATE PRICE-TIME CHART&nbsp;&nbsp;&nbsp;</h5>
+            </a>
+
+
+    <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT PRICES</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/admin/marketdemand" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; MARKET DEMAND </h5></a>
+
+    
+    
+           
+</br>
+
+
+      
+        
+    
+        <main class="table"> </br>
             <section class="table_header">
-            <h2> &nbsp;&nbsp;&nbsp; All Keells Purchase Orders </h2>
-<div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
-            <a class="button" href="<?php echo URLROOT; ?>/admin/add_purchaseorder">+ Add New</a>
-            </div>
-            </section></br>
-            <section class="table_body">
-
            
-     
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Market Prices</h2> 
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+            </div>
+                                
+            </section> </br>   
+            <section class="table_body">
                 <form method="post">
                     <table>
-                        <thead>
-                            <tr>
-                                <th>Purchase order ID</th>
-                                <th>Product</th>
-                                <th>Product image</th>
-                                <th>Product type</th>
-                                <th>Needed quantity(kgs)</th>
-                                <th>Expected supply date</th>
-                                <th>Status</th>
-                                <th>View sales order</th>
-                                <th>EDIT</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
+                       
                         <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'])) { ?>
-                                <tr>
-                                    <td><?php echo $row['purchase_id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                    <td><?php echo $row['quantity'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
-                                </tr>
-                            <?php } ?>
+                     
+                            
+                                
+
+   
+    <?php while ($row = mysqli_fetch_assoc($data['prices'] )) { ?>
+
+      
+        <td class="card">
+        <div class="card__content">
+            <p class="card__text" style="color: green; font-family:Inter;"><span style="color: black; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"></br><?php echo $row['name']; ?></span></p></br>
+            
+            <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
+            <div class="card__details">
+                <p class="card__text" style="color: black; font-family: 'Inter'; padding:15px;">1 kg: Rs.</br></br><span style="background-color:#65A534; border-radius:10px; padding:9px; color: white; font-weight: bold; font-size: 20px; font-family: 'Inter';"><?php echo $row['price']; ?></span></p>
+                <div class="card__action">
+            <a href="<?php echo URLROOT; ?>/admin/edit_price?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a>
+
+        </div>  </div>
+           
+           </div> 
+      </br></br>
+      
+    
+    <?php } ?></td>
+
+
+
                         </tbody>
                     </table>
                 </form>
-            </section>
+            </section><!-- Add this HTML in your parent window where you want the notifications to be displayed -->
+
+
+<div class="notification-frame" id="notificationFrame">
+    <iframe src="<?php echo URLROOT; ?>/ccm/notifications" frameborder="0" class="notifications-iframe" id="notificationsIframe"></iframe>
+</div>
+
         </main>
-    </section>
+        <script>
 
-    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get the notification icon
+    var notificationsButton = document.getElementById('notificationsButton');
+    // Get the notification frame
+    var notificationFrame = document.getElementById('notificationFrame');
 
-    <script>
-        function confirmDelete(purchaseId) {
-    var confirmationDialog = document.getElementById('confirmationDialog');
-    var iframeSrc = "<?php echo URLROOT; ?>/admin/confirmationdialog/" + purchaseId;
-    confirmationDialog.src = iframeSrc;
-    confirmationDialog.style.display = 'block';
-}
+    // Function to toggle the display of the notification frame
+    function toggleNotificationFrame() {
+        notificationFrame.style.display = notificationFrame.style.display === 'none' ? 'block' : 'none';
+    }
 
-function searchProducts() {
+    // Show the notification frame when the notifications icon is clicked
+    notificationsButton.addEventListener('click', function(event) {
+        // Prevent the default action of the notifications icon
+        event.preventDefault();
+        // Toggle the display of the notification frame
+        toggleNotificationFrame();
+    });
+
+    // Hide the notification frame when clicking outside of it
+    window.addEventListener('click', function(event) {
+        // Check if the click event occurred outside of the notification frame and its trigger element
+        if (!notificationFrame.contains(event.target) && event.target !== notificationsButton) {
+            // Hide the notification frame
+            notificationFrame.style.display = 'none';
+        }
+    });
+});
+
+function searchcardProducts() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
+    var input, filter, cards, card, productName, i;
     input = document.getElementById("searchInput");
     filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
+    cards = document.getElementsByClassName("card");
 
-    // Loop through all table rows, and hide those that don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1]; // Index 1 corresponds to the product name column
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = ""; // Show the row if the product name matches the search query
+    // Loop through all product cards, and hide those that don't match the search query
+    for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        productName = card.getElementsByClassName("card__text")[0];
+        if (productName) {
+            if (productName.textContent.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
             } else {
-                tr[i].style.display = "none"; // Hide the row if it doesn't match
+                card.style.display = "none";
             }
         }
     }
 }
 
-        </script>
-
-</body>
+</script>
+        </body>
 
 </html>
 

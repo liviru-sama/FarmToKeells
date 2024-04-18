@@ -4,10 +4,12 @@ class Admin extends Controller{
     public $adminModel;
     public $userModel;
 
+
             public function __construct() {
                 
-                $this->adminModel = $this->model('Admins'); 
+                $this->adminModel = $this->model('AdminModel'); 
                 $this->userModel = $this->model('User');
+
 
             //     // Check if admin is logged in
             // if(!isset($_SESSION['admin_id'])) {
@@ -17,6 +19,36 @@ class Admin extends Controller{
             }
 
         
+    
+            public function addAdminCredentials() {
+                // Check if the form is submitted
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+                    $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+        
+                    // Hash the admin password
+                    $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+        
+                    // Call the model method to insert admin credentials
+                    if ($this->admModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
+                        // Admin credentials inserted successfully
+                        // You can redirect to a success page or perform other actions
+                        echo "Admin credentials inserted successfully";
+                    } else {
+                        // Failed to insert admin credentials
+                        // You can redirect to an error page or perform other actions
+                        echo "Failed to insert admin credentials";
+                    }
+                } else {
+                    
+                }
+            }
+        
+            public function admin_register() {
+                // Load the view file
+                $this->view('admin/admin_register');
+            }
 
        
        
@@ -100,7 +132,46 @@ class Admin extends Controller{
                 }
         }
         
+        public function edit_price() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $priceModel = new Price();
         
+                // Sanitize and validate POST data
+                $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+                $price = trim($_POST['price'] ?? '');
+        
+                // Check for required fields
+                if (empty($price)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'id' => $id,
+                    'price' => $price
+                ];
+        
+                if ($priceModel->edit_price($data)) {
+                    // Product edited successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('admin/view_price');
+                    exit();
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit price.";
+                }
+            } else {
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+                $priceModel = new Price();
+                $priceData = $priceModel->view_price($id);
+        
+                $this->view("admin/edit_price", (array)$priceData);
+            }
+        }
 
         
 
@@ -236,6 +307,159 @@ class Admin extends Controller{
             return $this->userModel->getUserInfoById($user_id);
         }
 
+
+        public function add_purchaseorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $this->model("Purchaseorder");
+    
+                // Instantiate Product Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate POST data
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; 
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to add product
+                $data = [
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date,
+                    'image' => $image
+                ];
+        
+                if ($purchaseorderModel->add_purchaseorder($data)) {
+                    // Product added successfully
+                    // Redirect to view inventory page
+                    redirect('admin/purchaseorder');
+                    exit();
+                } else {
+                    // Product addition failed
+                    echo "Failed to add purchase order.";
+                }
+            } else {
+                // If not a POST request, redirect to the add product page or show an error message
+                 //echo "Invalid request method.";
+                $this->view("admin/add_purchaseorder");
+            }
+        }
+
+        public function confirmationDialog($purchaseId){
+            // Load the confirmation dialog view passing the purchase ID
+            $data = [
+                'purchaseId' => $purchaseId
+            ];
+            $this->view('admin/confirmationdialog', $data);
+        }
+
+        public function indexprod(){
+            $data = [
+                'title' => ''
+            ];
+            
+            $this->view('ccm/product_selection', $data);
+        } 
+        public function productSelection() {
+   
+            $this->view("admin/product_selection");
+        }
+        
+        public function edit_purchaseorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate POST data
+                // $id = $_POST['id']; // Assuming the id of the product to edit is passed via POST
+                $id = trim($_GET["id"]); 
+                print_r(trim($_POST['name'])."</br>");
+                print_r(trim($_POST['type'])."</br>");
+                print_r(trim($_POST['date'])."</br>");
+                print_r(trim($_POST['quantity'])."</br>");
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date = trim($_POST['date']);
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'id' => $id,
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date
+                ];
+        
+                if ($purchaseorderModel->edit_purchaseorder($data)) {
+                    // Product edited successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('admin/purchaseorder');
+                    exit();
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit purchaseorder.";
+                }
+            } else {
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = $_GET['id'];
+                $purchaseorderModel = new Purchaseorder();
+                $purchaseorderData = $purchaseorderModel->view_purchaseorder($id);
+                
+                $this->view("admin/edit_purchaseorder",(array)$purchaseorderData);
+            }
+        }
+        
+        public function delete_purchaseorder(){
+            // Check for POST
+            if ($_GET['id'] != NULL) {
+                
+                // Instantiate Purchaseorder Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate GET data
+                $id = $_GET['id'];
+        
+                // Attempt to delete purchase order
+                if ($purchaseorderModel->delete_purchaseorder($id)) {
+                    // Deletion successful
+                    header("Location: " . URLROOT . "/admin/purchaseorder");
+                exit(); // Ensure that no other output is sent
+                } else {
+                    // Deletion failed
+                    $response = array(
+                        'success' => false,
+                        'message' => 'Failed to delete purchase order.'
+                    );
+                }
+            } else {
+                // Invalid request
+                $response = array(
+                    'success' => false,
+                    'message' => 'Invalid request method.'
+                );
+            }
+        
+            // Return JSON response
+            echo json_encode($response);
+        }
+        
        
         public function place_salesorder($purchase_id) {
             // Instantiate Purchaseorder Model
@@ -319,49 +543,50 @@ class Admin extends Controller{
     }    
 
     public function admin_login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Process form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-            $data = [
-                'admin_username' => trim($_POST['admin_username']),
-                'admin_password' => trim($_POST['admin_password']),
-                'admin_username_err' => '',
-                'admin_password_err' => ''
-            ];
-    
-            // Validate Username
-            if (empty($data['admin_username'])) {
-                $data['admin_username_err'] = 'Please enter username';
-            }
-    
-            // Validate Password
-            if (empty($data['admin_password'])) {
-                $data['admin_password_err'] = 'Please enter password';
-            }
-    
-            // Check for errors
-            if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                // Validated
-                // Call the validate_login method in the admin model with username and password
-                $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
-                if ($loggedInAdmin) {
-                    // Create session
-                    $this->createUserSession($loggedInAdmin);
-                } else {
-                    $data['admin_password_err'] = 'Incorrect username or password';
-                    $this->view('admin/admin_login', $data);
-                }
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Process form
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'admin_username' => trim($_POST['admin_username']),
+            'admin_password' => trim($_POST['admin_password']),
+            'admin_username_err' => '',
+            'admin_password_err' => ''
+        ];
+
+        // Validate Username
+        if (empty($data['admin_username'])) {
+            $data['admin_username_err'] = 'Please enter username';
+        }
+
+        // Validate Password
+        if (empty($data['admin_password'])) {
+            $data['admin_password_err'] = 'Please enter password';
+        }
+
+        // Check for errors
+        if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+            // Validated
+            // Call the validate_login method in the ccm model with username and password
+            $loggedInAdmin = $this->adminModel->validateLogin($data['admin_username'], $data['admin_password']);
+            if ($loggedInAdmin) {
+                // Create session
+                $this->createUserSession($loggedInAdmin);
             } else {
-                // Load view with errors
+                $data['admin_password_err'] = 'Incorrect username or password';
                 $this->view('admin/admin_login', $data);
             }
         } else {
-            // Load view
-            $this->view('admin/admin_login');
+            // Load view with errors
+            $this->view('admin/admin_login', $data);
         }
+    } else {
+        // Load view
+        $this->view('admin/admin_login');
     }
+}
+
     
 
 

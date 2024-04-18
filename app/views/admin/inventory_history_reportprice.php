@@ -190,6 +190,16 @@
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
             </a>
+
+            <a href="<?php echo URLROOT; ?>/admin/view_price" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected">&nbsp;&nbsp;&nbsp; PRODUCT PRICES</h5>
+            </a>
+
+    <a href="<?php echo URLROOT; ?>/admin/marketdemand" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading">MARKET DEMAND </h5></a>
+
             </br>  <main class="table">
 </br>
 

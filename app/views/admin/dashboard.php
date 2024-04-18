@@ -129,7 +129,7 @@ body,
         
                   
         
-                        <a href="<?php echo URLROOT; ?>/admin/stock_overview">
+                        <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar">
                         <div class="menu" data-name="p-1">
 
                         <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="">

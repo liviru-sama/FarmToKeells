@@ -136,11 +136,11 @@
     <div class="main-content">
 
         <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-            <h5 class="inline-heading" class="tab-heading tab-selected">&nbsp;&nbsp;&nbsp; Card View</h5>
+            <h5 class="inline-heading" class="tab-heading tab-selected">&nbsp;&nbsp;&nbsp;Orders Card View</h5>
         </a>
 
         <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
-            <h5 class="inline-heading" class="tab-heading">Table View </h5>
+            <h5 class="inline-heading" class="tab-heading">Orders Table View </h5>
         </a>
 
         <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon" style="text-decoration: none;">

@@ -1,4 +1,8 @@
 <?php
+
+
+
+
     class Farmer extends Controller{
         public $userModel;
 
@@ -896,7 +900,100 @@ public function inquiry() {
     $this->view('farmer/inquiry', $data);
 }
 
+public function updateProfilePic() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Check if file is uploaded successfully
+      if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+        $userId = $_SESSION['user_id'];
+        $fileName = $_FILES['profile_image']['name'];
+        $fileTmpName = $_FILES['profile_image']['tmp_name'];
+        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  
+        // Check if the file extension is allowed
+        if (in_array($fileExtension, $allowedExtensions)) {
+          // Generate a unique file name
+          $newFileName = uniqid('', true) . '.' . $fileExtension;
+  
+          // Define the uploads directory
+          $uploadsDirectory = 'images/uploads/';
+  
+          // Check if uploads directory exists, create it if not
+          if (!is_dir($uploadsDirectory)) {
+            if (!mkdir($uploadsDirectory, 0775, true)) {
+              // Handle directory creation error
+              flash('profile_pic_error', 'Failed to create uploads directory', 'alert alert-danger');
+              redirect('farmer/view_profile');
+            }
+          }
+  
+          // Move the uploaded file to the directory
+          if (move_uploaded_file($fileTmpName, $uploadsDirectory . $newFileName)) {
+            // Update the profile picture in the database
+            if ($this->userModel->updateProfilePicture($userId, $newFileName)) {
+              // Profile picture updated successfully
+              redirect('farmer/view_profile');
+            } else {
+              // Error updating profile picture in the database
+              flash('profile_pic_error', 'Failed to update profile picture', 'alert alert-danger');
+              redirect('farmer/view_profile');
+            }
+          } else {
+            // Failed to move uploaded file
+            flash('profile_pic_error', 'Failed to move uploaded file', 'alert alert-danger');
+            redirect('farmer/view_profile');
+          }
+        } else {
+          // File extension not allowed
+          flash('profile_pic_error', 'File extension not allowed', 'alert alert-danger');
+          redirect('farmer/view_profile');
+        }
+      } else {
+        // File upload failed
+        flash('profile_pic_error', 'File upload failed', 'alert alert-danger');
+        redirect('farmer/view_profile');
+      }
+    } else {
+      // Access method directly without POST request
+      redirect('farmer/view_profile');
+    }
+  }
+  
+  public function viewProfileImage() {
+    // Get the logged-in user's ID from the session
+    $userId = $_SESSION['user_id'];
+
+    // Call the model method to retrieve the user's image
+    $userImage = $this->userModel->getUserImage($userId);
+
+    // Check if the user image exists
+    if ($userImage) {
+        // If the user image exists, extract the image value
+        $imageValue = $userImage->image;
+    } else {
+        // If no user image exists, set a default value or handle it as needed
+        $imageValue = null; // or set a default image value
     }
 
+    // Pass the image value to the view
+    $data = [
+        'profileImage' => $imageValue
+    ];
+
+    // Load the view with the image value
+    $this->view('farmer/view_profile', $data);
+}
+
+
+
+  
+
+  
+}
+
+?>
+
+
+    
     
 
