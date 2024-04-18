@@ -23,8 +23,34 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <h1></h1>
-    </div>
+    <div class="navbar-icons">
+    <div class="navbar-icon-container" data-text="Go Back">
+
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -66,7 +92,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
@@ -138,7 +164,7 @@
                                     </tr>
                                 <?php endif; ?>
                             </tbody>
-                            <div id="purchaseOrderSuccessMessage"></div>
+                            <div id="purchaseOrderSuccessMessage" style="bakcground-color:#65A534"></div>
                     </form>    
                     </table>
                     <h2>Sales Orders</h2>
@@ -156,7 +182,7 @@
                                     <th>Product</th>
                                     <th>Product Type</th>
                                     <th>Deliverable Quantity (kgs)</th>
-                                    <th>Price</th>
+                                    <th>Price per kg</th>
                                     <th>Expected Supply Date</th>
                                     <th>Address</th> 
                                     <th>Status</th> 
@@ -172,31 +198,38 @@
                                         <td><?php echo $row->user_id; ?></td>
                                         <td><?php echo $userInfo->name; ?></td>
                                         <td><?php echo $userInfo->mobile; ?></td>
-                                        <td><?php echo $row->name; ?></td>
+                                        <td><?php echo $row->name; ?></td>    
                                         <td><?php echo $row->type; ?></td>
                                         <td><?php echo $row->quantity; ?></td>
                                         <td><?php echo $row->price; ?></td>
                                         <td><?php echo $row->date; ?></td>
                                         <td><?php echo $row->address; ?></td>
                                         <td class="statusColumn">
-                                            <div class="select-container">
-                                                <select class="statusInput" name="status[]" onchange="submitForm(this)">
-                                                    <option value="Pending Approval" <?php echo ($row->status == 'Pending Approval') ? 'selected' : ''; ?> disabled hidden>Pending Approval</option>
-                                                    <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
-                                                    <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
-                                                    <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?>>Completed</option>
-                                                </select>
-                                                <span class="select-arrow">&#9662;</span>
-                                            </div>
-                                        </td>
+                                        <div class="select-container">
+        <select class="statusInput" name="status[]" onchange="submitForm(this)" <?php echo ($row->status == 'Completed') ? 'style="pointer-events: none;pointer-events: none; pointer-events: none; 
+  opacity: 0.5;
+  filter: grayscale(100%);"' : ''; ?>>
+            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?>>Pending Approval</option>
+            <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
+            <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
+            <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?> hidden>Completed</option>
+            <?php if ($row->status == 'Completed') : ?>
+                <option value="Completed" selected hidden>Completed</option>
+            <?php endif; ?>
+        </select>
+        <span class="select-arrow">&#9662;</span>
+    </div>
+</td>
+   
+
                                         <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
                                     </tr>
                                 <?php endforeach; ?>
                             </tbody>
                         </table>
                         <!-- Success message -->
-                        <div id="successMessage"></div>
-                        <div id="purchaseOrderSuccessMessage"></div>
+                        <div id="successMessage"style="background-color:#65A534"></div>
+                        <div id="purchaseOrderSuccessMessage" style="background-color:#65A534"></div>
                     </form>
                 </section>
             </main>

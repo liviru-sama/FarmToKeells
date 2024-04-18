@@ -339,7 +339,29 @@
         }
 
 
+        public function getUserDataById($user_id) {
+            $this->db->query('SELECT * FROM users WHERE id = :user_id');
+            $this->db->bind(':user_id', $user_id);
+            $row = $this->db->single();
+    
+            return $row;
+        }
 
+
+       // Get the collection center address for a user
+public function getCollectionCenterAddress($userId) {
+    $this->db->query('SELECT collectioncenter FROM users WHERE id = :id');
+    $this->db->bind(':id', $userId);
+    $row = $this->db->single();
+
+    // Debug output
+    if ($row) {
+        return $row->collectioncenter;
+    } else {
+        echo "No address found for user ID: $userId";
+        return null;
+    }
+}
 
     }
 

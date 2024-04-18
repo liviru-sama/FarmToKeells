@@ -23,6 +23,9 @@ class Product {
         return $result;
     }
 
+   
+    
+
 
 
 
@@ -163,12 +166,17 @@ public function getProductImageURL($productName) {
         'Onions' => 'onion.png',
         'Cabbage' => 'cabbage.png',
         'Cucumber' => 'cucumber.png',
-        'Ladies Finger' => 'ladies.png',
+        'Ladies Finger' => 'ladiesfinger.png',
         'Leeks' => 'leeks.png',
         'Chillie' => 'chillie.png',
         'Tomato' => 'tomato.png',
         'Potato' => 'potato.png',
-        'Pumpkin' => 'pumpkin.png'
+        'Pumpkin' => 'pumpkin.png',
+        'Beans' => 'beans.png',
+        'Ginger' => 'ginger.png',
+        'Corriander' => 'corriander.png',
+        'Capsicum' => 'capsicum.png',
+        'Broccoli' => 'broccoli.png'
 
 
 

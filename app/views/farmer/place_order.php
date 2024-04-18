@@ -34,6 +34,12 @@
             </div>
             <div class="error" id="quantity-error"><?= $data['errors']['quantity_err']; ?></div>
 
+            <div class="text-field">
+                <input type="text" name="address" id="address" value="<?= isset($_GET['address']) ? htmlspecialchars($_GET['address']) : ''; ?>" readonly>
+                <span></span>
+                <label>Collection Address</label>
+            </div>
+
             <!-- Other form fields -->
             <div class="text-field">
                 <input type="date" name="startdate" id="startdate" required>

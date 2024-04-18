@@ -88,9 +88,9 @@ public function dashboard(){
 }
 
 public function notifications(){
-   
+    $data = [];
 
-    $this->view('ccm/notifications');
+    $this->view('ccm/notifications.php',$data);
 }
 
 // CcmController.php
@@ -110,7 +110,7 @@ public function logout() {
     ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
   
     // Redirect to the index page
-    redirect('/pages/index.php');
+    redirect('ccm/ccm_login');
   }
   
 
@@ -141,7 +141,48 @@ public function logout() {
             $this->view('ccm/view_price', $data);
         }
         
+public function edit_price() {
+    // Check for POST request
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Instantiate Product Model with Database dependency injection
+        $priceModel = new Price();
 
+        // Sanitize and validate POST data
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $price = trim($_POST['price'] ?? '');
+
+        // Check for required fields
+        if (empty($price)) {
+            echo "Please fill in all fields.";
+            return;
+        }
+
+        // Attempt to edit product
+        $data = [
+            'id' => $id,
+            'price' => $price
+        ];
+
+        if ($priceModel->edit_price($data)) {
+            // Product edited successfully
+            // Redirect to view inventory page or display success message
+            redirect('ccm/view_price');
+            exit();
+        } else {
+            // Product editing failed
+            echo "Failed to edit price.";
+        }
+    } else {
+        // If not a POST request, redirect to the edit product page or show an error message
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $priceModel = new Price();
+        $priceData = $priceModel->view_price($id);
+
+        $this->view("ccm/edit_price", (array)$priceData);
+    }
+}
+
+        
         public function Purchaseorder() {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
@@ -177,8 +218,8 @@ public function logout() {
         
                 // Check if the product with the given name already exists
                 if ($productModel->findProductByName($name)) {
-                    echo "Product with this name already exists.";
-                    $this->view("ccm/add_product");
+                    $error_message = "Product with this name already exists.";
+                    $this->view("ccm/add_product", ['error_message' => $error_message]);
                     return;
                 }
         
@@ -256,37 +297,9 @@ public function logout() {
         
         
 
-        public function delete_product(){
-            // Check for POST
-            if ($_GET['id']!=NULL) {
-                
-                // Instantiate Product Model with Database dependency injection
-                $productModel = new Product();
+       
         
-                // Sanitize and validate POST data
-                $id = $_GET['id']; // Assuming the id of the product to delete is passed via POST
-                // // Check if id is provided
-                // if (empty($id)) {
-                //     echo "Please provide product ID.";
-                //     return;
-                // }
-
-                // Attempt to delete product
-                if ($productModel->delete_product($id)) {
-                    // Product deleted successfully
-                    // Redirect to view inventory page or display success message
-                    redirect('ccm/view_inventory');
-                    exit();
-                } else {
-                    // Product deletion failed
-                    echo "Failed to delete product.";
-                }
-            } else {
-                // If not a POST request, redirect to the view inventory page or show an error message
-                echo "Invalid request method.";
-            }
-        }
-
+        
         
 
 
@@ -425,10 +438,8 @@ public function logout() {
             // Attempt to delete purchase order
             if ($purchaseorderModel->delete_purchaseorder($id)) {
                 // Deletion successful
-                $response = array(
-                    'success' => true,
-                    'message' => 'Purchase order deleted successfully.'
-                );
+                header("Location: " . URLROOT . "/ccm/purchaseorder");
+            exit(); // Ensure that no other output is sent
             } else {
                 // Deletion failed
                 $response = array(
@@ -471,8 +482,8 @@ public function logout() {
 public function updateStatus() {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve the order IDs and statuses from the form for sales order
-        $orderIds = $_POST['order_id'];
-        $statuses = $_POST['status'];
+        $orderIds = $_POST['order_id'] ?? [];
+        $statuses = $_POST['status'] ?? [];
 
         // Instantiate Salesorder Model
         $salesorderModel = $this->model('Salesorder');
@@ -547,19 +558,19 @@ public function displayReportGeneratorprice() {
             $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
             
             // Load the InventoryHistory model
-            $inventoryHistoryModel = $this->model('InventoryHistory');
+            $productHistoryModel = $this->model('productHistory');
             
             // Fetch inventory history report for the given time period and product name
-            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+            $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
             
             // Filter inventory history to include only records with null price_change
-            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+            $filteredproductHistory = array_filter($productHistory, function($record) {
                 return $record->price_change === null;
             });
             
             // Pass the filtered inventory history data and form inputs to the view
             $data = [
-                'inventory_history' => $filteredInventoryHistory,
+                'inventory_history' => $filteredproductHistory,
                 'product_name' => $productName, // Add product name to data array
                 'start_date' => $startDate, // Add start date to data array
                 'end_date' => $endDate // Add end date to data array
@@ -583,19 +594,19 @@ public function displayReportGeneratorprice() {
             $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
             
             // Load the InventoryHistory model
-            $inventoryHistoryModel = $this->model('InventoryHistory');
+            $productHistoryModel = $this->model('productHistory');
             
             // Fetch inventory history report for the given time period and product name
-            $inventoryHistory = $inventoryHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
+            $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
             
             // Filter inventory history to include only records with null price_change
-            $filteredInventoryHistory = array_filter($inventoryHistory, function($record) {
+            $filteredproductHistory = array_filter($productHistory, function($record) {
                 return $record->quantity_change === null;
             });
             
             // Pass the filtered inventory history data and form inputs to the view
             $data = [
-                'inventory_history' => $filteredInventoryHistory,
+                'inventory_history' => $filteredproductHistory,
                 'product_name' => $productName, // Add product name to data array
                 'start_date' => $startDate, // Add start date to data array
                 'end_date' => $endDate // Add end date to data array
@@ -608,6 +619,19 @@ public function displayReportGeneratorprice() {
             redirect('ccm/report_generatorprice');
         }
     }
+
+    public function existingproduct(){
+        // Instantiate Product Model
+        $productModel = new Product();
+        
+        // Get all products
+        $data['products'] = $productModel->getAllProducts();
+        
+        // Load the view with products data
+        $this->view('ccm/existingproduct', $data);
+    }
+    
+    
 
 public function productSelection() {
    
@@ -624,7 +648,7 @@ public function confirmationDialog($purchaseId){
     $data = [
         'purchaseId' => $purchaseId
     ];
-    $this->view('ccm/confirmation_dialog', $data);
+    $this->view('ccm/confirmationdialog', $data);
 }
 
 
@@ -857,6 +881,54 @@ public function register(){
         // Load view
         $this->view('users/register', $data);
     }
+}
+
+
+
+
+
+// CCM controller method to add a new chat message
+public function addChat() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $inquiry = $_POST['inquiry'];
+
+        // Load the CCM Chat model
+        $ccm_chatModel = $this->model('Ccm_Chat');
+
+        // Add the chat message to the database
+        if ($ccm_chatModel->addChat($inquiry)) {
+            // Redirect to the chat page
+            redirect('ccm/ccm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
+public function ccm_chat() {
+    // Load the Inquiry model
+    $ccm_chatModel = $this->model('ccm_chat');
+
+    // Get all chats from the database
+    $ccm_chats = $ccm_chatModel->getAllChats();
+
+    // Pass the chat data to the view
+    $data = [
+        'ccm_chats' => $ccm_chats,
+    ];
+
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('ccm/ccm_chat', $data);
 }
 
 

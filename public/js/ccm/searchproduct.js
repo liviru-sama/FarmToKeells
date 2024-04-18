@@ -21,3 +21,25 @@ function searchProducts() {
         }
     }
 }
+
+function searchcardProducts() {
+    // Declare variables
+    var input, filter, cards, card, productName, i;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    cards = document.getElementsByClassName("card");
+
+    // Loop through all product cards, and hide those that don't match the search query
+    for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        productName = card.getElementsByClassName("card__text")[0];
+        if (productName) {
+            if (productName.textContent.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        }
+    }
+}
+

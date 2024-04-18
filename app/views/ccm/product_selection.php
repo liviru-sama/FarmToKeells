@@ -26,10 +26,6 @@
         <img src="<?php echo URLROOT; ?>/public/images/tomato.png" alt="brinjal">
         <p>Tomato</p>
     </div>
-    <div class="product" onclick="fillProductField('LadiesFinger')">
-        <img src="<?php echo URLROOT; ?>/public/images/ladies.png" alt="Ladies Finger">
-        <p>Ladies Finger</p>
-    </div>
     <div class="product" onclick="fillProductField('Beans')">
         <img src="<?php echo URLROOT; ?>/public/images/beans.png" alt="Beans">
         <p>Beans</p>
