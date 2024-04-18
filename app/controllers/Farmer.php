@@ -1,4 +1,11 @@
 <?php
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
     class Farmer extends Controller{
         public $userModel;
 
@@ -28,11 +35,67 @@
             $this->view('farmer/view_profile', $data);
         }
 
+        public function forgotPassword() {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $email = $_POST['email'];
+    
+                // Check if the email exists in the database
+                $user = $this->userModel->findUserByEmail($email);
+                if ($user) {
+                    // Generate a unique token for password reset
+                    $token = bin2hex(random_bytes(32));
+    
+                    // Update the user's token and token expiration time in the database
+                    $userId = $user->id;
+                    if ($this->userModel->updateResetToken($userId, $token)) {
+                        // Send the password reset email
+                        $subject = 'Password Reset Link';
+                        $body = 'Click on the following link to reset your password: ' . URLROOT . '/farmer/resetPassword/' . $token;
+    
+                        // Create a PHPMailer instance
+                        $mail = new PHPMailer(true);
+    
+                        try {
+                            // Server settings
+                            $mail->isSMTP();
+                            $mail->Host       = 'smtp.example.com'; // SMTP server
+                            $mail->SMTPAuth   = true;
+                            $mail->Username   = 'your@example.com'; // SMTP username
+                            $mail->Password   = 'your_password';   // SMTP password
+                            $mail->SMTPSecure = 'tls';
+                            $mail->Port       = 587;
+    
+                            // Recipients
+                            $mail->setFrom('your@example.com', 'Your Name');
+                            $mail->addAddress($email); // Add a recipient
+    
+                            // Content
+                            $mail->isHTML(true);
+                            $mail->Subject = $subject;
+                            $mail->Body    = $body;
+    
+                            $mail->send();
+                            
+                            // Redirect to a success page or display a message
+                            flash('forgot_password_success', 'Password reset link has been sent to your email.');
+                            redirect('farmer/forgotPassword');
+                        } catch (Exception $e) {
+                            die('Email sending failed: ' . $mail->ErrorInfo);
+                        }
+                    } else {
+                        die('Token update failed.');
+                    }
+                } else {
+                    // Email not found
+                    flash('forgot_password_error', 'Email not found.');
+                    redirect('farmer/forgotPassword');
+                }
+            } else {
+                $this->view('farmer/forgotPassword');
+            }
+        }
 
         
-
-       
-
         public function update_profile(){
             $data = [
                 'username' => $_SESSION['user_username'],
@@ -54,7 +117,7 @@
             $this->view('farmer/update_profile', $data);
         }
 
-
+    
         public function deleteUser($user_id){
             if($this->userModel->deleteUser($user_id)){
                 // Clear the session and redirect to the login page

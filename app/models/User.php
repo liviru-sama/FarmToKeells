@@ -1,4 +1,5 @@
 <?php
+
     class User{
         private $db;
 
@@ -337,6 +338,40 @@
                 return [];
             }
         }
+
+        public function getRejectedUsers()
+        {
+            $this->db->query('SELECT id, name, mobile, province, collectioncenter FROM users WHERE status = "reject"');
+            $result = $this->db->resultSet();
+            
+            // Log the result
+            error_log("Rejected Users: " . print_r($result, true));
+            
+            if ($this->db->rowCount() > 0) {
+                return $result;
+            } else {
+                return [];
+            }
+        }
+
+        // Add this method to your User model
+        public function updateResetToken($userId, $token) {
+            $this->db->query('UPDATE users SET reset_token = :token, reset_token_expire = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = :id');
+            $this->db->bind(':token', $token);
+            $this->db->bind(':id', $userId);
+
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+ 
+
+
 
 
         public function getUserDataById($user_id) {
