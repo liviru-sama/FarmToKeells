@@ -62,9 +62,8 @@
                         <label style="top: -5px;">Driver</label>
                     </div>
                     <div class="error" id="D_id-error"><?php echo $data['errors']['D_id_err']; ?></div>
-
-                    <input type="submit" value="Add Vehicle">
                 </form>
+                <button class="edit" id="edit">Edit</button>
             </div>
         </section>
     </body>

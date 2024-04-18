@@ -1,3 +1,5 @@
+<?php require APPROOT . '/views/inc/header.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -301,12 +301,12 @@ class Monitor extends Controller
                 
                 $data['Drivers'] = $UnassignedDrivers;
                 
-                $this->view('Monitor/addVehicle', $data);
+                $this->view('Monitor/vehicleInfo', $data);
             } else {
                 $vehicles = $this->model('Vehicle');
 
                 if ($vehicles->insert($data)) {
-                    redirect('Monitor/addVehicle');
+                    redirect('Monitor/vehicleInfo');
                 } else {
                     die('Something went wrong');
                 }
@@ -330,7 +330,7 @@ class Monitor extends Controller
             
             $data['Drivers'] = $UnassignedDrivers;
             
-            $this->view('Monitor/addVehicle', $data);
+            $this->view('Monitor/vehicleInfo', $data);
         }
     }
 }
