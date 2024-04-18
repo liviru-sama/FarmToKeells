@@ -130,4 +130,64 @@ redirect('transport/dashboard');
     public function resources() {
 
     }
+
+
+    public function addChat() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get input data
+            $inquiry = $_POST['inquiry'];
+    
+            // Load the CCM Chat model
+            $tm_chatModel = $this->model('Tm_Chat');
+    
+            // Add the chat message to the database
+            if ($tm_chatModel->addChat($inquiry)) {
+                // Redirect to the chat page
+                redirect('transport/tm_chat');
+            } else {
+                // If failed to add, show an error message
+                die('Failed to add chat message.');
+            }
+        } else {
+            // If not a POST request, redirect to home
+            redirect('transport/tm_chat');
+        }
+    }
+    
+    
+    
+    // Farmer controller method to retrieve inquiries
+    // Farmer controller method to retrieve inquiries of the current user
+    // Farmer controller method to retrieve inquiries
+    public function tm_chat() {
+        // Load the Inquiry model
+        $tm_chatModel = $this->model('Tm_chat');
+    
+        date_default_timezone_set('Asia/Kolkata'); // Replace 'Asia/Kolkata' with your timezone
+        $tm_chats = $tm_chatModel->getAllChats();
+    
+        // Pass the chat data to the view
+        $data = [
+            'tm_chats' => $tm_chats,
+        ];
+    
+        // Load the 'ccm/ccm_chat' view and pass data to it
+        $this->view('transport/tm_chat', $data);
+    }
+    
+    
+    public function logout() {
+        // Unset all of the session variables
+        $_SESSION = array();
+      
+        // Destroy the session.
+        session_destroy();
+      
+        // Set a short session expiration time (e.g., 5 minutes) for future sessions
+        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+      
+        // Redirect to the index page
+        redirect('transport/tm_login');
+      }
+    
 }

@@ -84,8 +84,34 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <h1></h1>
-    </div>
+    <div class="navbar-icons">
+    <div class="navbar-icon-container" data-text="Go Back">
+
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -126,7 +152,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
@@ -141,27 +167,54 @@
 
     <!-- Main content -->
     <div class="main-content">
+        <section class="header">
+
+        <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >GENERATE PRICE-TIME CHART</h5>
+            </a>
+           
+</br>  <main class="table">
+</br>
+<a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading" >&nbsp;&nbsp;&nbsp; QUANTITY REPORT FORM</h5></a>
+
+    <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); padding: 2px;">QUANTITY-TIME CHART</h5>
+            </a>
+        
+            <main class="table">
+            <section class="table_body">
+
     <div id="reportInfo">
-        <table>
+        <table></br></br></br>
             <tr>
                 <th>Selected Product</th>
                 <td><?php echo htmlspecialchars($data['product_name']); ?></td>
                 <span></span>
             </tr>
             <tr>
-                <th>Selected Start Date</th>
+                <th>From</th>
                 <td><?php echo htmlspecialchars($data['start_date']); ?></td>
             </tr>
             <tr>
-                <th>Selected End Date</th>
+                <th>To</th>
                 <td><?php echo htmlspecialchars($data['end_date']); ?></td>
             </tr>
         </table>
-    </div></br></br></br></br></br></br></br></br></br></br>
-        
-            
+    </div></br></br></br></br></br>  </br></br>  </br>      
     <div id="chartContainer">
-        <!-- Display the line chart canvas -->
+    <p style="text-align: center;">
+    <strong>Quantity change of <?php echo htmlspecialchars($data['product_name']); ?> over time</strong>
+</p>
+
+
         <canvas id="quantityChart"></canvas>
     </div>
    
@@ -176,12 +229,12 @@
         data: [<?php foreach ($data['inventory_history'] as $record) echo "'" . $record->quantity_change . "', "; ?>],
         backgroundColor: 'rgba(255, 255, 255, 0)',
         borderColor: ['#65A534', 'white'], // Set the border colors
-        borderWidth: 9,
+        borderWidth: 13,
         pointBackgroundColor: 'black',
         pointBorderColor: '#ffffff',
         pointBorderWidth: 2,
-        pointRadius: 5,
-        pointHoverRadius: 7,
+        pointRadius: 9,
+        pointHoverRadius: 10,
         tension: 0.1,
         fill: false,
         borderDash: [], // Set the border dash to a solid line
