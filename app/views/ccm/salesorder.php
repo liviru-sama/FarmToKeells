@@ -16,15 +16,50 @@
             background-size: cover;
             height: 100%;
         }
+
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
         </style>
 </head>
 
 <body>
     <!-- Navbar -->
     <div class="navbar">
-        <h1></h1>
-    </div>
+    <div class="navbar-icons">
+    <div class="navbar-icon-container" data-text="Go Back">
 
+<a href="#" id="backButton" onclick="goBack()">
+    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Notifications">
+
+<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+</a></div>
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/ccm/logout">
+    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+</a></div>
+</div>
+<img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+
+</div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
     <!-- Sidebar -->
     <div class="sidebar">
         <section class="dashboard">
@@ -65,7 +100,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
@@ -92,16 +127,14 @@
 =
 "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">VIEW THEIR AVAILABLE PRODUCTS</h5></a>
 
-            <main class="table">
+            <main class="table"></br>
                 <section class="table_header">
-
-                </section>
+                <h2>&nbsp;&nbsp;&nbsp;View Their Available Products </h2>
+                <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
+</div>   
+                </section></br>
                 <section class="table_body">
 
-            <h2>VIEW THEIR AVAILABLE PRODUCTS
-        
-        
-        </h2>
             <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>
@@ -114,7 +147,7 @@
                                 <th>Product</th>
                                 <th>Product Type</th>
                                 <th>Deliverable Quantity (kgs)</th>
-                                <th>Price</th>
+                                <th>Price per kg</th>
                                 <th>Expected Supply Date</th>
                                 <th>Address</th> 
                                 <th>Status</th> 
@@ -144,16 +177,18 @@
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">
     <div class="select-container">
-    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)">
-    <option value="Pending Approval" <?php echo (empty($row->status) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> disabled hidden>Pending Approval</option>
-    <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
-    <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
-    <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?>>Completed</option>
-</select>
-
+        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && $row['status'] == 'Completed') ? 'style="pointer-events: none; pointer-events: none; 
+  opacity: 0.5;
+  filter: grayscale(100%);"' : ''; ?>>
+            <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
+            <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
+            <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
+            <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
+        </select>
         <span class="select-arrow">&#9662;</span>
     </div>
 </td>
+
 
         <input type="hidden" name="order_id[]" value="<?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?>">
     </tr>
@@ -210,6 +245,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+function searchProducts() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector("table");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those that don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[5]; // Index 1 corresponds to the product name column
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = ""; // Show the row if the product name matches the search query
+            } else {
+                tr[i].style.display = "none"; // Hide the row if it doesn't match
+            }
+        }
+    }
+}
 </script>
 
 

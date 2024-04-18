@@ -15,78 +15,7 @@ class Admin extends Controller{
             // }
 
             }
-        //   public function admin_login()
-        // {
-          
-        //         // Check for POST
-           
-        //         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        //             // Process form
-        
-        //             // Sanitize POST data    
-        //             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
-        //             // Init data
-        //             $data = [
-        //                 'admin_username' => trim($_POST['admin_username']),
-        //                 'admin_password' => trim($_POST['admin_password']),
-        //                 'admin_username_err' => '',
-        //                 'admin_password_err' => '',
-        //             ];
-        
-        //             // Validate Username
-        //             if (empty($data['admin_username'])) {
-        //                 $data['admin_username_err'] = 'Please enter username';
-        //             }
-        //             // Validate Password
-        //             if (empty($data['admin_password'])) {
-        //                 $data['admin_password_err'] = 'Please enter password';
-        //             }
-                    
-        //             //CHECK FOR USER/EMAIL
-        //             if ($this->adminModel->findUserByUsername($data['admin_username'])) {
-        //                 //USER FOUND
-        //             } else {
-        //                 //USER NOT FOUND
-        //                 $data['admin_username_err'] = 'No user found';
-        //             }
-        
-        //             // Make sure errors are empty
-        //             if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-        //                 // Validated
-        //                 // Check and set logged in user
-        //                 $loggedInAdmin = $this->adminModel->admin_login($data['admin_username'], $data['admin_password']);
-        
-        //                 if ($loggedInAdmin) {
-        //                     // Create Session
-        //                     $this->createUserSession($loggedInAdmin);
-        //                 } else {
-        //                     $data['admin_password_err'] = 'Incorrect Password ';
-        
-        //                     $this->view('admin/admin_login', $data);
-        //                 }
-        
-        
-        //             } else {
-        //                 // Load view with errors
-        //                 $this->view('admin/admin_login', $data);
-        //             }
-        //         } else {
-        //             // Init data
-        //             $data = [
-        //                 'admin_username' => '',
-        //                 'admin_password' => '',
-        //                 'admin_username_err' => '',
-        //                 'admin_password_err' => '',
-        //             ];
-        
-        //             // Load view
-        //             $this->view('admin/admin_login', $data);
-                
-        //     }
 
-        // }
-            
         
 
        
@@ -406,7 +335,190 @@ redirect('admin/dashboard');
     }
 
 
+    public function logout() {
+        // Unset all of the session variables
+        $_SESSION = array();
+      
+        // Destroy the session.
+        session_destroy();
+      
+        // Set a short session expiration time (e.g., 5 minutes) for future sessions
+        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+      
+        // Redirect to the index page
+        redirect('admin/admin_login');
+      }
 
+
+
+    public function inquiry() {
+        // Load the Inquiry model
+        $inquiryModel = $this->model('Inquiry');
+    
+        // Get all inquiries from the database
+        $inquiries = $inquiryModel->getAllInquiries();
+    
+        // Pass the inquiries data to the view
+        $data = [
+            'inquiries' => $inquiries
+        ];
+    
+        // Load the 'farmer/inquiry' view and pass data to it
+        $this->view('admin/inquiry', $data);
+    }
+    
+
+    public function reply() {
+        // Get the inquiry ID from the URL
+        $inquiry_id = $_GET['inquiry_id'] ?? null;
+    
+        // Check if the inquiry ID is provided
+        if ($inquiry_id) {
+            // Load the Inquiry model
+            $inquiryModel = $this->model('Inquiry');
+    
+            // Fetch the inquiry data using the inquiry ID
+            $inquiry = $inquiryModel->getInquiryById($inquiry_id);
+    
+            // Check if inquiry data is found
+            if ($inquiry) {
+                // Pass the inquiry data to the view
+                $this->view('admin/reply', ['inquiry_id' => $inquiry_id, 'inquiry' => $inquiry]);
+            } else {
+                // Inquiry not found, display an error message or redirect as needed
+                echo "Inquiry not found!";
+            }
+        } else {
+            // Inquiry ID not provided, display an error message or redirect as needed
+            echo "Inquiry ID not provided!";
+        }
+    }
+    
+
+public function sendReply() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+    
+        // Instantiate the Inquiry model
+        $inquiryModel = $this->model('Inquiry');
+    
+        // Get the inquiry ID from the form
+        $inquiry_id = $_POST['inquiry_id'];
+    
+        // Get the admin reply from the form
+        $admin_reply = $_POST['admin_reply'];
+    
+        // Update the inquiry with the admin reply
+        if ($inquiryModel->updateAdminReply($inquiry_id, $admin_reply)) {
+            // If successful, redirect to the inquiry page or any other desired page
+            redirect('admin/inquiry');
+        } else {
+            // If failed, display an error message or handle it accordingly
+            die('Something went wrong');
+        }
+    } else {
+        // If the form is not submitted via POST method, redirect to home page or any other desired page
+        redirect('pages/index');
+    }
+}
+
+
+
+
+
+
+
+
+
+public function addChatadmin() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $admin_reply = $_POST['admin_reply'];
+
+        // Load the CCM Chat model
+        $ccm_chatModel = $this->model('Ccm_Chat');
+
+        // Add the chat message to the database
+        if ($ccm_chatModel->addChatadmin($admin_reply)) {
+            // Redirect to the chat page
+            redirect('admin/ccm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
+public function tm_chat() {
+    // Load the Inquiry model
+    $tm_chatModel = $this->model('Tm_Chat');
+
+    // Get all chats from the database
+    $tm_chats = $tm_chatModel->getAllChats();
+
+    // Pass the chat data to the view
+    $data = [
+        'tm_chats' => $tm_chats,
+    ];
+
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('admin/tm_chat', $data);
+}
+
+public function addChatadmintm() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Get input data
+        $admin_reply = $_POST['admin_reply'];
+
+        // Load the CCM Chat model
+        $tm_chatModel = $this->model('Tm_Chat');
+
+        // Add the chat message to the database
+        if ($tm_chatModel->addChatadmintm($admin_reply)) {
+            // Redirect to the chat page
+            redirect('admin/tm_chat');
+        } else {
+            // If failed to add, show an error message
+            die('Failed to add chat message.');
+        }
+    } else {
+        // If not a POST request, redirect to home
+        redirect('pages/index');
+    }
+}
+
+
+
+
+// Farmer controller method to retrieve inquiries
+// Farmer controller method to retrieve inquiries of the current user
+// Farmer controller method to retrieve inquiries
+public function ccm_chat() {
+    // Load the Inquiry model
+    $ccm_chatModel = $this->model('Ccm_Chat');
+
+    // Get all chats from the database
+    $ccm_chats = $ccm_chatModel->getAllChats();
+
+    // Pass the chat data to the view
+    $data = [
+        'ccm_chats' => $ccm_chats,
+    ];
+
+    // Load the 'ccm/ccm_chat' view and pass data to it
+    $this->view('admin/ccm_chat', $data);
+}
 
 }
 ?>

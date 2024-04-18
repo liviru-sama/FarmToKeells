@@ -1,14 +1,111 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>register.css">
+        <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
         <script src="<?php echo JS;?>register.js"></script>
         <title><?php echo SITENAME;?></title>
+        <style>
+        body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
+        }
+        .error-message {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .navbar {
+                position: fixed; /* Fixed position */
+                left: 0%; /* Adjust as needed */
+                right: 0%; /* Adjust as needed */
+                width: 100%; /* Take up the remaining width */
+                display: flex;
+                justify-content: space-between; /* Distribute items along the main axis */
+                align-items: center;
+                padding: 20px;
+                top: 0px; /* Stick to the top of the viewport */
+                z-index: 1;
+                height: 20px; /* Fixed height for navbar */
+                /* Example background color */
+                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
+            }
+        
+            .navbar-logo {
+    width: auto; /* Allow the logo to adjust its width based on its content */
+    height: 40px; /* Set a fixed height for consistency */
+    margin-right: 30px; /* Adjust as needed */
+}
+
+            .navbar-icons {
+                display: flex;
+                align-items: center;
+            }
+            
+            .navbar-icon {
+                width: 50px; /* Increased width for icons */
+                height: auto; /* Maintain aspect ratio */
+                margin-left: 35px; /* Adjust spacing between icons */
+                box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
+                border-radius: 50px; /* Border radius */
+                padding: 5px; /* Increase the padding to create gap */
+            }
+        
+            .navbar-icon:hover {
+                background: #65A534;
+                transform: scale(1.08);
+            }
+            
+            .navbar-icon-container {
+    position: relative;
+}
+
+.navbar-icon-container:hover::after {
+            content: attr(data-text); /* Display the value of the data-text attribute */
+            position: absolute;
+            top: 100%; /* Position the text below the icon */
+            left: 50%; /* Center the text horizontally */
+            transform: translateX(-50%); /* Center the text horizontally */
+            background-color: #65A534; /* Background color for the text */
+            color: white; /* Text color */
+            padding: 5px; /* Padding around the text */
+            border-radius: 5px; /* Border radius for the text */
+            z-index: 2; /* Ensure the text appears above other elements */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        .center{
+        top:62%;}
+    </style>
     </head>
     <body>
+
+    <div class="navbar">
+    <div class="navbar-icons">
+        <div class="navbar-icon-container" data-text="Go Back">
+            <a href="#" id="backButton" onclick="goBack()">
+                <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+            </a>
+        </div>
+       
+    </div>
+    <div class="navbar-logo-container">
+        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+    </div>
+</div>
+
+        <script>
+        // JavaScript function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     <section class="form">
         <div class="center">
             <h1>Farmer Registration</h1>
@@ -42,19 +139,39 @@
                 <div class="error" id="nic-error"><?php echo $data['nic_err']; ?></div>
 
                 <div class="text-field">
-                    <input type="text" name="mobile" id="mobile" value="<?php echo $data['mobile']; ?>" required>
+                    <input type="number" name="mobile" id="mobile" value="<?php echo $data['mobile']; ?>" required>
                     <span></span>
                     <label>Mobile Number</label>
                 </div>
                 <div class="error" id="mobile-error"><?php echo $data['mobile_err']; ?></div>
 
                 <div class="text-field">
+                        <div class="typeselect-container">
+                            <select class="productstatusInput" name="province"  onchange="updateInput(this)">
+                            <option style="color:white;" value="Central">Central</option>
+
+                                <option style="color:white;" value="Southern">Southern</option>
+                                <option style="color:white;" value="Northern">Northern</option>
+                                <option style="color:white;" value="Western">Western</option>
+                                <option style="color:white;" value="North Western">North Western</option>
+                                <option style="color:white;" value="North Central">North Central</option>
+                                <option style="color:white;" value="Sabaragamuwa">Sabaragamuwa</option>
+                                <option style="color:white;" value="Eastern">Eastern</option>
+                                <option style="color:white;" value="Uva">Uva</option>
+
+
+                            </select>
+                            <input name="province" id="province" type="text" required>
+                            <span></span>
+                            <label>Province</label>
+                        </div>
+                    </div>
+=======
                     <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
                         <option value="Western">Western</option>
                         <option value="Southern">Southern</option>
                         <option value="Central">Central</option>
                 </div>
-
                 <!-- <div class="text-field">
                     <select name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
                         <option value="4">Bandarawela</option>
@@ -138,7 +255,14 @@
             </div>
         </form>
     </div> -->
-        
+        <script> function updateInput(select) {
+    var selectedOption = select.options[select.selectedIndex].text;
+    // Set the value of the province input field directly
+    document.getElementById("province").value = selectedOption;
+    // Reset the dropdown to show the placeholder option
+    select.value = ''; // Reset to blank option
+}
+</script>
     </body>
 </html>
 

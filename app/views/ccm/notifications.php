@@ -56,13 +56,7 @@
         </div>
     </td>
 </tr>
- <!-- PHP code to fetch messages from the database and loop through them -->
-                <?php 
-                // Sample PHP code for fetching messages (replace it with actual database queries)
-                for ($i = 0; $i < 5; $i++) {
-                    echo "<tr><td>Message " . ($i + 1) . "</td></tr>";
-                }
-                ?>
+
             </tbody>
         </table></div>
     </div>

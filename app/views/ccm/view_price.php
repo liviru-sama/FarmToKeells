@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
-    <script src="<?php echo JS;?>ccm/searchproduct.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -32,6 +31,34 @@
             width: 80%; /* Adjust width as needed */
             height: 80%; /* Adjust height as needed */
         }
+        .table_header {
+    display: flex;
+    justify-content: space-between; /* Align items to both ends */
+    align-items: center; /* Vertically center items */
+}
+
+.inline-heading {
+    margin: 0; /* Remove default margin */
+}
+
+#searchInput {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    margin-right: 10px; /* Adjust margin-right as needed */
+    width:300px;
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #65A534;
+    color: white;
+    border: 2px solid #4CAF50;
+    border-radius: 5px;
+    text-decoration: none; /* Remove default underline */
+}
 
     </style>
 </head>
@@ -39,22 +66,27 @@
 <body>
     <!-- Navbar -->
     <div class="navbar">
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo" style="left: 0;">
     <div class="navbar-icons">
-        
-    <a href="#" id="backButton"  onclick="goBack()">
-        <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon"> </a>
+    <div class="navbar-icon-container" data-text="Go Back">
 
-         <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <a href="#" id="backButton" onclick="goBack()">
+            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+        </a></div>
+
+        <div class="navbar-icon-container" data-text="Notifications">
+
+        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a>
+        </a></div>
 
-            <a href="<?php echo URLROOT; ?>/ccm/logout">
-    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-</a>
+        <div class="navbar-icon-container" data-text="Logout">
 
-        <!-- Add more icons as needed -->
+        <a href="<?php echo URLROOT; ?>/ccm/logout">
+            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+        </a></div>
     </div>
+    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+   
 </div>
 <script>
     // JavaScript function to go back to the previous page
@@ -106,7 +138,7 @@
                         </div>
                     </a>
 
-                        <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
@@ -141,17 +173,15 @@
       
         
     
-        <main class="table">
+        <main class="table"> </br>
             <section class="table_header">
-            </br>
-            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;PRODUCT PRICES  
-        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
-
-                                 
-
-        </h2>
-    </br>    </br>
-            </section>
+           
+            <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Current Market Prices</h2> 
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search for products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+            </div>
+                                
+            </section> </br>   
             <section class="table_body">
                 <form method="post">
                     <table>
@@ -165,18 +195,21 @@
     <?php while ($row = mysqli_fetch_assoc($data['prices'] )) { ?>
 
       
-    <td class="card">
+        <td class="card">
         <div class="card__content">
-            <p class="card__text" style="color: green; font-family: 'Arial', sans-serif;">&nbsp;&nbsp; <span style="color: white; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"><?php echo $row['name']; ?></span></p>
+            <p class="card__text" style="color: green; font-family:Inter;"><span style="color: black; font-weight: bold; font-size: 20px;font-family: 'Verdana', sans-serif;"></br><?php echo $row['name']; ?></span></p></br>
+            
             <img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" class="card__image">
             <div class="card__details">
-                <p class="card__text" style="color: black; font-family: 'Arial', sans-serif;">price per kg:</br>&nbsp;&nbsp;<span style="color: white; font-weight: bold; font-size: 20px; font-family: 'Verdana', sans-serif;"><?php echo $row['price']; ?>/=</span></p>
-              
-            </div>
-        </div>
-        <div class="card__actions">
-            <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a>
-        </div></br></br>
+                <p class="card__text" style="color: black; font-family: 'Inter'; padding:15px;">1 kg: Rs.</br></br><span style="background-color:#65A534; border-radius:10px; padding:9px; color: white; font-weight: bold; font-size: 20px; font-family: 'Inter';"><?php echo $row['price']; ?></span></p>
+                <div class="card__action">
+            <a href="<?php echo URLROOT; ?>/ccm/edit_price?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a>
+
+        </div>  </div>
+           
+           </div> 
+      </br></br>
+      
     
     <?php } ?></td>
 
@@ -223,6 +256,27 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function searchcardProducts() {
+    // Declare variables
+    var input, filter, cards, card, productName, i;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    cards = document.getElementsByClassName("card");
+
+    // Loop through all product cards, and hide those that don't match the search query
+    for (i = 0; i < cards.length; i++) {
+        card = cards[i];
+        productName = card.getElementsByClassName("card__text")[0];
+        if (productName) {
+            if (productName.textContent.toUpperCase().indexOf(filter) > -1) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        }
+    }
+}
 
 </script>
         </body>

@@ -119,6 +119,25 @@ class Purchaseorder {
       }
       
     
+     
+      public function getProductDetails($purchase_id) {
+        // Query to fetch product name and image based on purchase ID
+        $this->db->query('SELECT name, image FROM purchaseorder WHERE purchase_id = :purchase_id');
+        // Bind the purchase ID parameter
+        $this->db->bind(':purchase_id', $purchase_id);
+        // Execute the query
+        $this->db->execute();
+        // Fetch the result (assuming only one row will be returned)
+        $row = $this->db->single();
+        // Return the product details as an associative array
+        return [
+            'name' => $row->name,
+            'image' => $row->image
+        ];
+    }
+    
+  
+    
       public function getProductImageURL($productName) {
         // Logic to retrieve the image URL based on the product name
         // This could involve querying your database, accessing an API, or any other means to get the image URL
@@ -126,14 +145,21 @@ class Purchaseorder {
         // For demonstration purposes, let's assume you have an array mapping product names to image URLs
         $productImageMap = [
             'Carrot' => 'carrot.png',
-            'Brinjal' => 'brinjal.png',
-            'Onions' => 'onion.png',
-            'Cabbage' => 'cabbage.png',
-            'Cucumber' => 'cucumber.png',
-            'Ladies Finger' => 'ladies.png',
-            'Leeks' => 'leeks.png',
-            'Chillie' => 'chillie.png',
-            'Tomato' => 'tomato.png'
+        'Brinjal' => 'brinjal.png',
+        'Onions' => 'onion.png',
+        'Cabbage' => 'cabbage.png',
+        'Cucumber' => 'cucumber.png',
+        'Ladies Finger' => 'ladiesfinger.png',
+        'Leeks' => 'leeks.png',
+        'Chillie' => 'chillie.png',
+        'Tomato' => 'tomato.png',
+        'Potato' => 'potato.png',
+        'Pumpkin' => 'pumpkin.png',
+        'Beans' => 'beans.png',
+        'Ginger' => 'ginger.png',
+        'Corriander' => 'corriander.png',
+        'Capsicum' => 'capsicum.png',
+        'Broccoli' => 'broccoli.png'
     
     
     

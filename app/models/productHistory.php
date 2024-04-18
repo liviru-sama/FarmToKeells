@@ -1,7 +1,7 @@
 
 <?php
 
-class InventoryHistory {
+class ProductHistory {
     private $db;
 
     public function __construct() {
@@ -11,7 +11,7 @@ class InventoryHistory {
     // Method to fetch inventory history data for a given date range
     public function getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName) {
         // Prepare the SQL query with optional product name filter and null price change condition
-        $sql = 'SELECT * FROM inventory_history WHERE change_date BETWEEN :start_date AND :end_date';
+        $sql = 'SELECT * FROM product_history WHERE change_date BETWEEN :start_date AND :end_date';
         if ($productName) {
             $sql .= ' AND product_name = :product_name';
         }
@@ -32,7 +32,7 @@ class InventoryHistory {
     
     public function getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName) {
         // Prepare the SQL query with optional product name filter and null price change condition
-        $sql = 'SELECT * FROM inventory_history WHERE change_date BETWEEN :start_date AND :end_date';
+        $sql = 'SELECT * FROM product_history WHERE change_date BETWEEN :start_date AND :end_date';
         if ($productName) {
             $sql .= ' AND product_name = :product_name';
         }
