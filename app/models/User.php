@@ -8,13 +8,15 @@
 
         //Register user
         public function register($data){
-            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, password, status) VALUES(:name, :username, :email, :nic, :mobile, :password, :status)');
+            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, province, collectioncenter, password, status) VALUES(:name, :username, :email, :nic, :mobile, :province, :collectioncenter, :password, :status)');
             //Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':username', $data['username']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':nic', $data['nic']);
             $this->db->bind(':mobile', $data['mobile']);
+            $this->db->bind(':province', $data['province']);
+            $this->db->bind(':collectioncenter', $data['collectioncenter']);
             $this->db->bind(':password', $data['password']);
             $this->db->bind(':status', 'pending'); // Set initial status to 'pending'
         
@@ -49,6 +51,22 @@
             $this->db->query('SELECT * FROM users WHERE username = :username');
             //Bind value
             $this->db->bind(':username', $username);
+
+            $row = $this->db->single();
+
+            //Check row
+            if($this->db->rowCount() > 0){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        //find user by nic
+        public function findUserByNic($nic){
+            $this->db->query('SELECT * FROM users WHERE nic = :nic');
+            //Bind value
+            $this->db->bind(':nic', $nic);
 
             $row = $this->db->single();
 

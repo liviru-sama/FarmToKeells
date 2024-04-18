@@ -1,38 +1,33 @@
 @import url(main.css);
 
 .center{
-    position: relative;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-    min-width: 25rem;
-    width: 65vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     text-align: center;
 }
 .center h1{
     text-align: center;
+    padding: 20px 0 10px 0;
     font-size: 200%;
+    
 }
 .center form{
+    padding: 0 30px;
     box-sizing: border-box;
     text-align: center;
+    
 }
 form .text-field{
     position: relative;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid black;
     margin: 30px 0;
 }
 .text-field input{
-    width: 100%;
-    padding: 0 5px;
-    height: 40px;
-    font-size: 16px;
-    border: none;
-    background: none;
-    outline: none;
-}
-.text-field select{
     width: 100%;
     padding: 0 5px;
     height: 40px;
@@ -50,7 +45,6 @@ form .text-field{
     font-size: 16px;
     pointer-events: none;
     transition: .4s;
-    top: -5px;
 }
 .text-field span::before{
     content: '';
@@ -64,18 +58,11 @@ form .text-field{
 }
 .text-field input:focus ~ label,
 .text-field input:valid ~ label{
+    top: -5px;
     color:  #65A534;
 }
 .text-field input:focus ~ span::before,
 .text-field input:valid ~ span::before{
-    width: 100%;
-}
-.text-field select:focus ~ label,
-.text-field select:valid ~ label{
-    color:  #65A534;
-}
-.text-field select:focus ~ span::before,
-.text-field select:valid ~ span::before{
     width: 100%;
 }
 .pass{
@@ -87,6 +74,7 @@ form .text-field{
     text-decoration: underline;
 }
 input[type="submit"]{
+
     color: white;
     width: 40%;
     height: 50px;
@@ -96,13 +84,29 @@ input[type="submit"]{
     font-size: 18px;
     cursor: pointer;
     outline: none;
-    margin: 1rem auto 0;
+    margin: 10px auto;
+    
 }
 input[type="submit"]:hover{
     color: black;
     background-color: #65A534;
     transition: 0.5s;
 }
+.signup-link{
+    margin: 3px 0 30px auto;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.671);
+}
+.signup-link a{
+    color: rgba(0, 0, 0, 0.671);
+    text-decoration: none;
+}
+.signup-link a:hover{
+    color: #65A534;
+    text-decoration: underline;
+}
+
 .error {
     color: rgb(255, 0, 0);
     font-size: 12px; 
@@ -110,21 +114,3 @@ input[type="submit"]:hover{
     text-align: center;
 }
 
-.unrequired input:focus ~ label,
-.unrequired input:valid ~ label{
-    top: -5px;
-    color: black;
-}
-.unrequired input:focus ~ span::before,
-.unrequired input:valid ~ span::before{
-    width: 0%;
-}
-
-.edit {
-    margin-left: auto;
-    padding: 0.5rem 2rem;
-    border-radius: 5px;
-    background-color: #60ba49;
-    border: 1px solid #60ba49;
-    cursor: pointer;
-}

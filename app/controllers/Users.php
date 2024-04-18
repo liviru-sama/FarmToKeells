@@ -39,6 +39,8 @@ class Users extends Controller{
                 'email' => trim($_POST['email']),
                 'nic' => trim($_POST['nic']),
                 'mobile' => trim($_POST['mobile']),
+                'province' => trim($_POST['province']),
+                'collectioncenter' => trim($_POST['collectioncenter']),
                 'password' => trim($_POST['password']),
                 'cpassword' => trim($_POST['cpassword']),
                 'name_err' => '',
@@ -82,6 +84,11 @@ class Users extends Controller{
                 $data['nic_err'] = 'Please enter NIC';
             } elseif (strlen($data['nic']) !== 10 && strlen($data['nic']) !== 12) {
                 $data['nic_err'] = 'NIC must be 10 or 12 characters';
+            }else{
+                // Check if NIC already exists
+                if ($this->userModel->findUserByNic($data['nic'])) {
+                    $data['nic_err'] = 'NIC already exists';
+                }
             }
     
             // Validate Mobile
@@ -133,6 +140,8 @@ class Users extends Controller{
                 'email' => '',
                 'nic' => '',
                 'mobile' => '',
+                'province' => '',
+                'collectioncenter' => '',
                 'password' => '',
                 'cpassword' => '',
                 'name_err' => '',
@@ -217,6 +226,9 @@ class Users extends Controller{
         $_SESSION['user_email'] = $user->email;
         $_SESSION['user_nic'] = $user->nic;
         $_SESSION['user_mobile'] = $user->mobile;
+        $_SESSION['user_province'] = $user->province;
+        $_SESSION['user_collectioncenter'] = $user->collectioncenter;
+        
         redirect('farmer/dashboard');
     }
 
@@ -227,6 +239,8 @@ class Users extends Controller{
         unset($_SESSION['user_email']);
         unset($_SESSION['user_nic']);
         unset($_SESSION['user_mobile']);
+        unset($_SESSION['user_province']);
+        unset($_SESSION['user_collectioncenter']);
         session_destroy();
         redirect('users/user_login');
     }
