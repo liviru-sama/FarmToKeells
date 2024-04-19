@@ -71,7 +71,7 @@ label{color:white;
 
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
+        <a href="<?php echo URLROOT; ?>/users/user_login">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
@@ -248,9 +248,9 @@ label{color:white;
                                 <label for="fname" class="p-regular-grey">New Password :</label>
                                 <input type="password" id="new_password" name="new_password" class="form-default">
                                 <label for="fname" class="p-regular-grey">Confirm Password :</label>
-                                <input type="password" id="confirm_password" name="confirm_password" placeholder="" class="form-default">
+                                <input type="password" id="confirm_new_password" name="confirm_password" placeholder="" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
-                                </br> </br> <!-- <div class="error" id="new-password-error"><?php echo $data['new_password_err']; ?></div> -->
+                                <!-- </br> </br> <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div> -->
                             </form>
                         </div>
 

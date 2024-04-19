@@ -228,29 +228,16 @@
 
 
 
-        public function updatePassword($user_id, $new_password) {
-            $sql = "UPDATE users SET password = :new_password WHERE id = :user_id";
-            $this->db->query($sql);
-            $this->db->bind(':new_password', $new_password);
-            $this->db->bind(':user_id', $user_id);
-            
-            $pwd_updated = $this->db->execute();
-            if ($pwd_updated){
-                
-                $sql_users = "UPDATE users SET password = :new_password WHERE id = :user_id";
-                $this->db->query($sql_users);
-                $this->db->bind(':new_password', $new_password);
-                $this->db->bind(':user_id', $user_id);
-                $this->db->execute();
+        public function updatePassword($id, $new_password)
+    {
+        $this->db->query('UPDATE users SET password = :password WHERE id = :id');
+        // Bind values
+        $this->db->bind(':id', $id);
+        $this->db->bind(':password', $new_password);
 
-
-                
-                return true; // Password update successful
-            } else{
-                return false; // Password update failed
-            }
-
-        }
+        // Execute the query
+        return $this->db->execute();
+    }
 
 
 
@@ -354,13 +341,12 @@
             }
         }
 
-        // Add this method to your User model
+        // Update user's reset token in the database
         public function updateResetToken($userId, $token) {
             $this->db->query('UPDATE users SET reset_token = :token, reset_token_expire = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE id = :id');
             $this->db->bind(':token', $token);
             $this->db->bind(':id', $userId);
 
-            // Execute
             if ($this->db->execute()) {
                 return true;
             } else {
@@ -368,10 +354,25 @@
             }
         }
 
+        // Get user by reset token
+        public function getUserByResetToken($token) {
+            $this->db->query('SELECT * FROM users WHERE reset_token = :token AND reset_token_expire > NOW()');
+            $this->db->bind(':token', $token);
+            return $this->db->single();
+        }
 
- 
+        // Update password by reset token
+        public function updatePasswordByResetToken($token, $password) {
+            $this->db->query('UPDATE users SET password = :password, reset_token = NULL, reset_token_expire = NULL WHERE reset_token = :token AND reset_token_expire > NOW()');
+            $this->db->bind(':password', $password);
+            $this->db->bind(':token', $token);
 
-
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
 
 
         public function getUserDataById($user_id) {

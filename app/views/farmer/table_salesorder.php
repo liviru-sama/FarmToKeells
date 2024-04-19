@@ -81,7 +81,7 @@
 
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/ccm/logout">
+        <a href="<?php echo URLROOT; ?>/users/user_login">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
