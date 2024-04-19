@@ -187,7 +187,7 @@
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Stock</label>
+                    <label>Needed Quantity in kgs</label>
                 </div>
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">

@@ -135,7 +135,7 @@
                 = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
             </a>
 
-            <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
+            <a href="<?php echo URLROOT; ?>/farmer/payment" style="text-decoration: none;">
             <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
         </a> 
             <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">

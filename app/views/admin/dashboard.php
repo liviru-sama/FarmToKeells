@@ -150,7 +150,7 @@ body,
                         <h3>Manage users</h3>
                     </div></a>
         
-                    <a href="market-demands.html">
+                    <a href="admin/transport">
                     <div class="menu" data-name="p-4">
 
                          <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="">
@@ -160,7 +160,7 @@ body,
                        
                         
 
-                    <a href="">
+                    <a href="<?php echo URLROOT; ?>/admin/payment">
                         <div class="menu" data-name="p-6">
 
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="">

@@ -1236,6 +1236,33 @@ public function edit_payment() {
     $this->view('farmer/edit_payment', $data);
 }
 
+
+public function payment()
+{
+    // Check if the user is logged in
+    if (!isLoggedIn()) {
+        redirect('users/login');
+    }
+
+    // Get the user ID from the session
+    $userId = $_SESSION['user_id'];
+
+    // Load the Paymentrequests model
+    $paymentRequestsModel = $this->model('Paymentrequests');
+
+    // Get payment requests for the current user
+    $paymentRequests = $paymentRequestsModel->getPaymentRequestsByUserId($userId);
+
+    // Pass payment requests data to the view
+    $data = [
+        'paymentRequests' => $paymentRequests
+    ];
+
+    // Load the view
+    $this->view('farmer/payment', $data);
+}
+
+
 }
 
 ?>

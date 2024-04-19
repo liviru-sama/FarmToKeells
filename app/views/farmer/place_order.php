@@ -30,7 +30,7 @@
             <div class="text-field">
                 <input type="text" name="quantity" id="quantity" value="<?= isset($_GET['quantity']) ? htmlspecialchars($_GET['quantity']) : ''; ?>" readonly>
                 <span></span>
-                <label>Quantity (kg)</label>
+                <label>Quantity( in kg)</label>
             </div>
             <div class="error" id="quantity-error"><?= $data['errors']['quantity_err']; ?></div>
 

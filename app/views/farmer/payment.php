@@ -33,7 +33,44 @@
             height: 80%; /* Adjust height as needed */
         }
 
-      
+       
+       
+
+        /* Style for the list */
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center; /* Center the list items */
+            list-style: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+        }
+
+        li {
+            text-align: left; /* Align list item content to the left */
+            margin-bottom: 20px; /* Add some space between list items */
+        }
+
+        strong {
+            display: inline-block;
+            width: 200px; /* Adjust the width as needed */
+            font-weight: bold;
+            text-align: right; /* Align labels to the right */
+            padding-right: 10px; /* Add space between label and value */
+        }
+
+        span {
+            display: inline-block;
+            text-align: left; /* Align values to the left */
+        }
+
+        h1 {
+            text-align: center; /* Center the heading */
+            margin-top: 20px; /* Add some margin from the top */
+        }
     </style>
 </head>
 
@@ -131,46 +168,106 @@
     <div class="main-content" >
 
     <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
-            </a>
-            <a href="<?php echo URLROOT; ?>/farmer/payment" style="text-decoration: none;">
-            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
+            <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
+        </a>
+        <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
+            <h5 class="inline-heading "style="background: #65A534; transform: scale(1.08); border-radius: 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
         </a> 
-
-            <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Edit Your Payment Details</h5>
-            </a>
         <section class="header">
-            <!-- Header content -->
-        </section>
-        <section class="form">
-            <div class="center">
-        <h1>Edit Payment Details</h1>
-        <form action="<?php echo URLROOT; ?>/farmer/handle_edit_payment" method="post">
-            <div class="text-field">
-                <label for="bank_account_number">Your Bank Account Number:</label><br>
-                <input type="text" id="bank_account_number" name="bank_account_number" value="<?php echo $data['bank_account_number']; ?>"><br>
-            </div>
-            <div class="text-field">
-                <label for="account_name">Account Holder Name:</label><br>
-                <input type="text" id="account_name" name="account_name" value="<?php echo $data['account_name']; ?>"><br>
-            </div>
-            <div class="text-field">
-                <label for="bank">Bank Name:</label><br>
-                <input type="text" id="bank" name="bank" value="<?php echo $data['bank']; ?>"><br>
-            </div>
-            <div class="text-field">
-                <label for="branch">Bank Branch:</label><br>
-                <input type="text" id="branch" name="branch" value="<?php echo $data['branch']; ?>"><br>
-            </div>
-            <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-            <input type="submit" value="Submit">
-        </form>
-    </div>
+        <main class="table" style="text-align:center;"></br>
+
+            <?php if (!empty($data['paymentRequests'])) : ?>
+    <h2>Your Pending Payments</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Your Payment ID</th>
+                <th>Your Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+                <th>Your Bank Account Number</th>
+                <th>Your Bank Account Name</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status === 'pending') : ?>
+                    <?php $pendingFound = true; ?>
+                    <tr>
+                        <!-- Display pending payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
+                        <td><?php echo $paymentRequest->account_name; ?></td>
+                        <td><?php echo $paymentRequest->bank; ?></td>
+                        <td><?php echo $paymentRequest->branch; ?></td>
+                        <td><?php echo $paymentRequest->status; ?></td>
+                       
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php if (!$pendingFound) : ?>
+    <p>No pending payment requests found.</p>
+<?php endif; ?>
+
+                </br> </br> 
+    <h2>Your Completed Payments</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Your Payment ID</th>
+                <th>Your Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+                <th>Your Bank Account Number</th>
+                <th>Your Bank Account Name</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status !== 'pending') : ?>
+                    <?php $completedFound = true; ?>
+                    <tr>
+                        <!-- Display completed payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
+                        <td><?php echo $paymentRequest->account_name; ?></td>
+                        <td><?php echo $paymentRequest->bank; ?></td>
+                        <td><?php echo $paymentRequest->branch; ?></td>
+                        <td><?php echo $paymentRequest->status; ?></td>
+                       
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else : ?>
+    <p>No payment requests found.</p>
+<?php endif; ?>
+
+    
 
 </body>
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+

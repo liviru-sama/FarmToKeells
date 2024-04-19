@@ -164,7 +164,7 @@
                     <div class="text-field">
                         <input name="quantity" type="number" min="0" step="1" required>
                         <span></span>
-                        <label> Stock</label>
+                        <label>Deliverable Quantity in kgs</label>
                     </div>
                     <div class="text-field">
                         <input name="price" type="number" min="0" step="0.01" required>

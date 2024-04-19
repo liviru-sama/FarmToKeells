@@ -212,7 +212,7 @@
                 <div class="text-field">
                     <input name="quantity" type="number" required min="0" step="1">
                     <span></span>
-                    <label> Stock</label>
+                    <label>Needed Quantity in kgs</label>
                 </div>
 
                 <input type="submit" value="Reset" onclick="resetForm()">

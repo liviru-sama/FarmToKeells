@@ -175,7 +175,7 @@
                     </div>
 
                     <div class="text-field">
-                        <label for="quantity">Quantity:</label>
+                        <label for="quantity">Deliverable Quantity in kgs:</label>
                         <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="0" step="1">
                     </div>
                     <div class="text-field">
