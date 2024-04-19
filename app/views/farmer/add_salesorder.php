@@ -38,7 +38,7 @@
 <body>
     <div class="navbar">
         <div class="navbar-icons">
-        <div class="navbar-icon-container" data-text="Go Back">
+                  <div class="navbar-icon-container" data-text="Go Back">
         <a href="#" id="backButton" onclick="goBack()">
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
@@ -64,6 +64,7 @@
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
+        
     </div>
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    

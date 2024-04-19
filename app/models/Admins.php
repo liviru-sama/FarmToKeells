@@ -20,11 +20,7 @@
                 return false;
             }
         }
-
-        //Login User
-      
-
-
+    
         public function validate_login($admin_username, $admin_password)
         {
             $this->db->query('SELECT * FROM admins WHERE admin_username = :admin_username');
@@ -45,13 +41,6 @@
             return false; // Invalid username or password
         }
         
-
-        
-        
-        
-
-    
-
         public function getPendingRegistrationRequests()
             {
                 $this->db->query('SELECT id as user_id, name, email FROM users WHERE status = "pending"');
