@@ -4,56 +4,60 @@ class Transport extends Controller
 {
      
     public $adminModel;
+    public $tmModel;
+
 
     public function __construct() {
-        
+        $this->tmModel = $this->model('TmModel'); // Instantiate the CcmModel
+
         $this->adminModel = $this->model('Admins'); 
     }
 
     public function tm_login()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Process form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-            $data = [
-                'admin_username' => trim($_POST['admin_username']),
-                'admin_password' => trim($_POST['admin_password']),
-                'admin_username_err' => '',
-                'admin_password_err' => ''
-            ];
-    
-            // Validate Username
-            if (empty($data['admin_username'])) {
-                $data['admin_username_err'] = 'Please enter username';
-            }
-    
-            // Validate Password
-            if (empty($data['admin_password'])) {
-                $data['admin_password_err'] = 'Please enter password';
-            }
-    
-            // Check for errors
-            if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                // Validated
-                // Call the validate_login method in the admin model with username and password
-                $loggedInAdmin = $this->adminModel->validate_login($data['admin_username'], $data['admin_password']);
-                if ($loggedInAdmin) {
-                    // Create session
-                    $this->createUserSession($loggedInAdmin);
-                } else {
-                    $data['admin_password_err'] = 'Incorrect username or password';
-                    $this->view('transport/tm_login', $data);
-                }
+{
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Process form
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data = [
+            'admin_username' => trim($_POST['admin_username']),
+            'admin_password' => trim($_POST['admin_password']),
+            'admin_username_err' => '',
+            'admin_password_err' => ''
+        ];
+
+        // Validate Username
+        if (empty($data['admin_username'])) {
+            $data['admin_username_err'] = 'Please enter username';
+        }
+
+        // Validate Password
+        if (empty($data['admin_password'])) {
+            $data['admin_password_err'] = 'Please enter password';
+        }
+
+        // Check for errors
+        if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+            // Validated
+            // Call the validate_login method in the tm model with username and password
+            $loggedInAdmin = $this->tmModel->validateLogin($data['admin_username'], $data['admin_password']);
+            if ($loggedInAdmin) {
+                // Create session
+                $this->createUserSession($loggedInAdmin);
             } else {
-                // Load view with errors
+                $data['admin_password_err'] = 'Incorrect username or password';
                 $this->view('transport/tm_login', $data);
             }
         } else {
-            // Load view
-            $this->view('transport/tm_login');
+            // Load view with errors
+            $this->view('transport/tm_login', $data);
         }
+    } else {
+        // Load view
+        $this->view('transport/tm_login');
     }
+}
+
     
 
     

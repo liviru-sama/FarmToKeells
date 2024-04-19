@@ -116,7 +116,7 @@
 
 .add-inquiry-form {
     position: fixed;
-    top: 10%;
+    top: 13%;
     width: 80%;
     max-width: 800px;
     margin: 0 auto;
@@ -168,13 +168,13 @@
 
 <div class="navbar-icon-container" data-text="Notifications">
 
-<a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
+<a href="<?php echo URLROOT; ?>/admin/notifications" id="notificationsButton" onclick="toggleNotifications()" >
     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
 
-<a href="<?php echo URLROOT; ?>/ccm/logout">
+<a href="<?php echo URLROOT; ?>/admin/logout">
     <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
 </a></div>
 </div>
@@ -195,42 +195,50 @@
                 <div class="dashboard-container">
                     
 
-                    <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"  > 
+                <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/admin/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4"  >
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Market Prices</h6>
-                        </div>
-                    </a>
+                  
+                    
+                    <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Stock levels</h6>
+                        </div></a>
 
+                   
                     <a href="<?php echo URLROOT; ?>/admin/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
+                        <div class="menu" data-name="p-7">
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>
                     </a>
-
                     <a href="<?php echo URLROOT; ?>/admin/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5" >
+                        <div class="menu" data-name="p-5">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
                         </div>
                     </a>
+    
 
-                    
-                    </a> <a href="<?php echo URLROOT; ?>/admin/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+
+                        <a href="<?php echo URLROOT; ?>/admin/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Help</h6>
+                            <h6>Reply</h6>
                         </div>
                     </a>
 
+                    <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Users</h6>
+                        </div>
+                    </a>
                     
                 </div>
             </div>
@@ -245,18 +253,16 @@
            
     <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp; User Inquiries</h5>
             </a>
 
     <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Chat with CCM</h5></a>
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Message CCM</h5></a>
 
                 <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Chat with TM</h5>
-            </a>
-
+                = "tab-heading" >Message TM</h5></a>
 
       
         

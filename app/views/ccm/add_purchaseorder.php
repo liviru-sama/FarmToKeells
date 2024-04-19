@@ -169,11 +169,7 @@
 
 <section class="header">
            
-        <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
-    <h5 class="inline-heading" class
-=
-"tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;PURCHASE ORDERS</h5>
-</a>
+       
 <a href="<?php echo URLROOT; ?>/ccm/add_purchaseorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =

@@ -40,7 +40,7 @@ label{color:white;
 }
 
 .rectangle{
-    padding:10px;
+    padding:20px;
 }
         
     </style>
@@ -56,12 +56,12 @@ label{color:white;
 
 
         <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
         </a></div>
 
 
-       
+      
 
 
                     <div class="navbar-icon-container" data-text="View Profile" >
@@ -71,7 +71,9 @@ label{color:white;
 
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/users/user_login">
+
+          <a href="<?php echo URLROOT; ?>/users/user_login">
+
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 

@@ -24,6 +24,22 @@
     .button-container button:hover {
         background-color: #65A534;
     }
+
+    #confirmationDialog {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white; /* Set background color with opacity */
+    border: 1px solid #ccc;
+    z-index: 999; /* Ensure iframe is above other elements */
+    padding: 20px;
+    border-radius: 25px;
+    backdrop-filter: blur(70px);
+    box-shadow: 0 .4rem .8rem #0005;
+
+}
 </style>
 
 <div style="text-align: center;">
