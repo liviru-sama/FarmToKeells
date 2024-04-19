@@ -985,10 +985,119 @@ public function updateProfilePic() {
 }
 
 
-
+public function view_payment() {
+    // Check if the user is logged in (assuming you have an isLoggedIn() function)
+    if (!isLoggedIn()) {
+      // Redirect or handle unauthorized access
+      redirect('users/login');
+    }
   
-
+    // Get the user ID from the session
+    $user_id = $_SESSION['user_id'];
   
+    // Load the PaymentDetailsModel
+    $paymentDetailsModel = $this->model('PaymentDetailsModel');
+  
+    // Retrieve payment details for the current user
+    $paymentDetails = $paymentDetailsModel->view_payment($user_id);
+  
+    // Pass payment details to the view
+    $this->view('farmer/view_payment', ['paymentDetails' => $paymentDetails]);
+}
+
+
+public function add_payment() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Initialize PaymentDetailsModel
+        $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+        // Prepare data
+        $data = [
+            'user_id' => $_POST['user_id'],
+            'bank_account_number' => trim($_POST['bank_account_number']),
+            'account_name' => trim($_POST['account_name']),
+            'bank' => trim($_POST['bank']),
+            'branch' => trim($_POST['branch']),
+        ];
+
+        // Add payment details
+        if ($paymentDetailsModel->add_payment($data)) {
+            redirect('farmer/view_payment');
+        } else {
+            die('Failed to add payment details');
+        }
+    } else {
+        // Load view
+        $this->view('farmer/add_payment');
+    }
+}
+
+
+public function handle_edit_payment() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Initialize PaymentDetailsModel
+        $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+        // Prepare data
+        $data = [
+            'user_id' => $_POST['user_id'],
+            'bank_account_number' => trim($_POST['bank_account_number']),
+            'account_name' => trim($_POST['account_name']),
+            'bank' => trim($_POST['bank']),
+            'branch' => trim($_POST['branch']),
+        ];
+
+        // Update payment details
+        if ($paymentDetailsModel->edit_payment($data['user_id'], $data)) {
+            redirect('farmer/view_payment');
+        } else {
+            die('Failed to edit payment details');
+        }
+    } else {
+        // Redirect or handle GET request
+        redirect('farmer/view_payment');
+    }
+}
+
+public function edit_payment() {
+    $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+    // Check if the user is logged in
+    if (!isLoggedIn()) {
+        redirect('users/user_login');
+    }
+
+    // Get current user's payment details
+    $paymentDetails = $paymentDetailsModel->view_payment($_SESSION['user_id']);
+
+    // Check if payment details exist
+    if ($paymentDetails) {
+        // Extract the first row of payment details (assuming there's only one)
+        $paymentDetails = $paymentDetails[0];
+        // Prepare data to pass to the view
+        $data = [
+            'bank_account_number' => $paymentDetails->bank_account_number,
+            'account_name' => $paymentDetails->account_name,
+            'bank' => $paymentDetails->bank,
+            'branch' => $paymentDetails->branch
+        ];
+    } else {
+        // If payment details not found, redirect to add_payment page
+        redirect('farmer/add_payment');
+    }
+
+    // Load the edit_payment view with payment details
+    $this->view('farmer/edit_payment', $data);
+}
+
 }
 
 ?>

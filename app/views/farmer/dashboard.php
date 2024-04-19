@@ -144,7 +144,7 @@
                     <h3>Market demands and Product Prices</h3>
                 </div>
             </a>
-            <a href="<?php echo URLROOT; ?>/farmer/payments">
+            <a href="<?php echo URLROOT; ?>/farmer/view_payment">
                 <div class="menu" data-name="p-4">
                     <img src="<?php echo URLROOT; ?>/public/images/pay.png">
                     <h3>Payments</h3>
