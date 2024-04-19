@@ -9,6 +9,8 @@
 </head>
 <body>
     <h1>Forgot Password</h1>
+    <?php flash('forgot_password_success'); ?>
+    <?php flash('forgot_password_error', '', 'error-class'); ?>
     <form method="post" action="<?= URLROOT; ?>/farmer/forgotPassword">
         <label for="email">Email</label>
         <input type="email" name="email" id="email" required>

@@ -9,7 +9,9 @@ use PHPMailer\PHPMailer\Exception;
     class Farmer extends Controller{
         public $userModel;
 
+
         public function __construct(){
+                                        
             $this->userModel = $this->model('User');
         }
         
@@ -38,47 +40,51 @@ use PHPMailer\PHPMailer\Exception;
         public function forgotPassword() {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $email = $_POST['email'];
-    
+        
                 // Check if the email exists in the database
                 $user = $this->userModel->findUserByEmail($email);
                 if ($user) {
                     // Generate a unique token for password reset
                     $token = bin2hex(random_bytes(32));
-    
+        
                     // Update the user's token and token expiration time in the database
                     $userId = $user->id;
                     if ($this->userModel->updateResetToken($userId, $token)) {
                         // Send the password reset email
+                        $resetPasswordLink = URLROOT . '/farmer/resetPassword/' . $token;
+
                         $subject = 'Password Reset Link';
-                        $body = 'Click on the following link to reset your password: ' . URLROOT . '/farmer/resetPassword/' . $token;
-    
+                        $body = 'Click on the following link to reset your password: ' . $resetPasswordLink; 
+
+        
                         // Create a PHPMailer instance
                         $mail = new PHPMailer(true);
-    
+        
                         try {
                             // Server settings
                             $mail->isSMTP();
-                            $mail->Host       = 'smtp.example.com'; // SMTP server
+                            $mail->Host       = 'smtp.mailgun.org'; // SMTP server
                             $mail->SMTPAuth   = true;
-                            $mail->Username   = 'your@example.com'; // SMTP username
-                            $mail->Password   = 'your_password';   // SMTP password
+                            $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+                            $mail->Password   = 'd7240906d5e43a41c6bcac90911ec945-4b670513-ecf1418a';   // SMTP password
                             $mail->SMTPSecure = 'tls';
                             $mail->Port       = 587;
-    
+        
                             // Recipients
-                            $mail->setFrom('your@example.com', 'Your Name');
+                            $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
                             $mail->addAddress($email); // Add a recipient
-    
+        
                             // Content
                             $mail->isHTML(true);
                             $mail->Subject = $subject;
                             $mail->Body    = $body;
-    
+        
                             $mail->send();
-                            
+        
                             // Redirect to a success page or display a message
                             flash('forgot_password_success', 'Password reset link has been sent to your email.');
                             redirect('farmer/forgotPassword');
+
                         } catch (Exception $e) {
                             die('Email sending failed: ' . $mail->ErrorInfo);
                         }
@@ -94,6 +100,76 @@ use PHPMailer\PHPMailer\Exception;
                 $this->view('farmer/forgotPassword');
             }
         }
+        
+
+        public function resetPassword($token){
+
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Retrieve the token from the URL query parameters
+            $token = $_GET['token'];
+            // Validate password reset form data
+            $data = [
+                'password' => trim($_POST['password']),
+                'confirm_password' => trim($_POST['confirm_password']),
+                'token' => $token,
+                'password_err' => '',
+                'confirm_password_err' => ''
+            ];
+
+            // Password validation
+            if (empty($data['password'])) {
+                $data['password_err'] = 'Please enter a password.';
+            } elseif (strlen($data['password']) < 6) {
+                $data['password_err'] = 'Password must be at least 6 characters.';
+            }
+
+            // Confirm password validation
+            if (empty($data['confirm_password'])) {
+                $data['confirm_password_err'] = 'Please confirm password.';
+            } else {
+                if ($data['password'] != $data['confirm_password']) {
+                    $data['confirm_password_err'] = 'Passwords do not match.';
+                }
+            }
+
+            // Check for no errors
+            if (empty($data['password_err']) && empty($data['confirm_password_err'])) {
+                // Hash password
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+
+                // Update password in database
+                if ($this->userModel->updatePasswordByResetToken($data['token'], $data['password'])) {
+                    // Password updated successfully, redirect to login page or any other page
+                    flash('reset_password_success', 'Password has been reset successfully.');
+                    redirect('farmer/user_login');
+                } else {
+                    // Error updating password
+                    die('Error updating password.');
+                }
+            } else {
+                // Load view with errors
+                $this->view('farmer/resetPassword', $data);
+            }
+        } else {
+            // Check if the token is valid
+            $user = $this->userModel->getUserByResetToken($token);
+            if ($user) {
+                // If token is valid, load the reset password form
+                $data = [
+                    'token' => $token
+                ];
+                $this->view('farmer/resetPassword', $data);
+            } else {
+                // If token is invalid or expired, show an error message or redirect to another page
+                flash('reset_password_error', 'Invalid or expired token.');
+                redirect('farmer/forgotPassword');
+            }
+        }
+    }
+
+
+
 
         
         public function update_profile(){
@@ -133,68 +209,9 @@ use PHPMailer\PHPMailer\Exception;
             }
         }
 
-        public function changePassword($id) {
-            // Initialize the variable outside the if-else blocks
-            $data = [
-                'id' => $id,
-                'current_password' => '',
-                'new_password' => '',
-                'confirm_new_password' => '',
-                'new_password_err' => ''
-            ];
-        
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Sanitize POST array
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
-                // Set the form data to the $data array
-                $data['current_password'] = trim($_POST['current_password']);
-                $data['new_password'] = trim($_POST['new_password']);
-                $data['confirm_new_password'] = isset($_POST['confirm_new_password']) ? trim($_POST['confirm_new_password']) : '';
-        
-                // Validate new password
-                if (empty($data['current_password']) || empty($data['new_password']) || empty($data['confirm_new_password'])) {
-                    $data['new_password_err'] = 'All fields must be filled';
-                } elseif (strlen($data['new_password']) < 6) {
-                    $data['new_password_err'] = 'Password must be at least 6 characters';
-                } elseif (!preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/', $data['new_password'])) {
-                    $data['new_password_err'] = 'Password must contain at least one uppercase letter, one lowercase letter, and one number';
-                } elseif ($data['new_password'] !== $data['confirm_new_password']) {
-                    $data['new_password_err'] = 'New password and confirm new password do not match';
-                }
-        
-                if (empty($data['new_password_err'])) {
-                    // Get the current password from the database
-                    $current_password = $this->userModel->getPasswordById($id);
-        
-                    // Check if the entered current password matches the one in the database
-                    if ($current_password !== false && password_verify($data['current_password'], $current_password)) {
-                        // The current password is correct
-                        // Hash the new password
-                        $data['new_password'] = password_hash($data['new_password'], PASSWORD_DEFAULT);
-        
-                        // Update the password in the database
-                        if ($this->userModel->changePassword($data)) {
-                            // Password changed successfully
-                            flash('user_message', 'Password changed successfully');
-                            redirect('farmer/update_profile');
-                        } else {
-                            die('Something went wrong');
-                        }
-                    } else {
-                        // The current password is incorrect
-                        $data['new_password_err'] = 'Current password is incorrect';
-                        $this->view('farmer/update_profile', $data);
-                    }
-                } else {
-                    // Load the view with errors
-                    $this->view('farmer/update_profile', $data);
-                }
-            } else {
-                // Load the form view if it's not a POST request
-                $this->view('farmer/update_profile', $data);
-            }
-        }
+
+
+
 
 
 
@@ -360,6 +377,68 @@ use PHPMailer\PHPMailer\Exception;
                     'new_mobile_err' => ''
                 ];
                 $this->view('farmer/update_profile', $data);
+            }
+        }
+
+        // Update password action
+        public function changePassword($id)
+        {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+                // Initialize data array
+                $data = [
+                    'id' => $id,
+                    'current_password' => trim($_POST['current_password']),
+                    'new_password' => trim($_POST['new_password']),
+                    'confirm_new_password' => trim($_POST['confirm_new_password']),
+                    'current_password_err' => '',
+                    'new_password_err' => '',
+                    'confirm_new_password_err' => ''
+                ];
+
+                // Validate current password
+                $user = $this->userModel->getUserById($id);
+                if (!$user || !password_verify($data['current_password'], $user->password)) {
+                    $data['current_password_err'] = 'Current password is incorrect';
+                }
+
+                // Validate new password
+                if (empty($data['new_password'])) {
+                    $data['new_password_err'] = 'Please enter a new password';
+                } elseif (strlen($data['new_password']) < 6) {
+                    $data['new_password_err'] = 'Password must be at least 6 characters';
+                } elseif (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d).+$/', $data['new_password'])) {
+                    $data['new_password_err'] = 'Password must contain at least one letter and one number';
+                }
+
+                // Validate confirm new password
+                if (empty($data['confirm_new_password'])) {
+                    $data['confirm_new_password_err'] = 'Please confirm the new password';
+                } elseif ($data['new_password'] != $data['confirm_new_password']) {
+                    $data['confirm_new_password_err'] = 'Passwords do not match';
+                }
+
+                // Check if all errors are empty
+                if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_new_password_err'])) {
+                    // Hash new password
+                    $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
+
+                    // Update password in the database
+                    if ($this->userModel->updatePassword($id, $hashed_password)) {
+                        flash('user_message', 'Password updated successfully');
+                        redirect('farmer/update_profile');
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    // Load view with errors
+                    $this->view('farmer/update_profile', $data);
+                }
+            } else {
+                // Redirect to the update profile page
+                redirect('farmer/update_profile');
             }
         }
 

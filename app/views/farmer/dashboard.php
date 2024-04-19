@@ -51,7 +51,7 @@
             background: #65A534;
             transform: scale(1.08);
         }
-=======
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -147,7 +147,7 @@
                     </a>
                 </div>
         <div class="navbar-icon-container" data-text="Logout">
-            <a href="<?php echo URLROOT; ?>/farmer/logout">
+            <a href="<?php echo URLROOT; ?>/users/user_login">
                 <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
             </a>
         </div>
