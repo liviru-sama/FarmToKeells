@@ -150,7 +150,7 @@
 
 <main class="table"></br>
             <section class="table_header">
-            <h2> &nbsp;&nbsp;&nbsp;  Keells Purchase Orders </h2>
+            <h2> &nbsp;&nbsp;&nbsp;All Keells Purchase Orders </h2>
 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
             <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add New</a>

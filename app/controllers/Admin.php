@@ -3,11 +3,15 @@ class Admin extends Controller{
 
     public $adminModel;
     public $userModel;
-
-        public function __construct() {
+  
+          public function __construct() {
                 
             $this->adminModel = $this->model('Admins'); 
             $this->userModel = $this->model('User');
+
+
+
+
 
             //     // Check if admin is logged in
             // if(!isset($_SESSION['admin_id'])) {
@@ -17,41 +21,233 @@ class Admin extends Controller{
             }
 
         
+    
+            public function addAdminCredentials() {
+                // Check if the form is submitted
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+                    $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+        
+                    // Hash the admin password
+                    $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+        
+                    // Call the model method to insert admin credentials
+                    if ($this->admModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
+                        // Admin credentials inserted successfully
+                        // You can redirect to a success page or perform other actions
+                        echo "Admin credentials inserted successfully";
+                    } else {
+                        // Failed to insert admin credentials
+                        // You can redirect to an error page or perform other actions
+                        echo "Failed to insert admin credentials";
+                    }
+                } else {
+                    
+                }
+            }
+        
+            public function admin_register() {
+                // Load the view file
+                $this->view('admin/admin_register');
+            }
+  
+            public function stock_overviewbar() {
+                // Instantiate the Product model
+                $productModel = $this->model('Product');
+                
+                // Get product data from the model
+                $products = $productModel->getAllProducts();
+                
+                // Check if products are retrieved successfully
+                if ($products) {
+                    // Load the view file and pass the product data
+                    $data['products'] = $products;
+                    
+                    $this->view('admin/stock_overviewbar', $data);
+                } else {
+                    // Handle case where no products are returned or an error occurs
+                    // For example, you can return an error message as JSON
+                    header('Content-Type: application/json');
+                    echo (['error' => 'No products found']);
+                }
 
        
        
-        public function marketdemand() {
-   
-            $this->view("ccm/marketdemand");
-        }
-           
-        public function stock_overview() {
-            // Instantiate the Product model
-            $productModel = $this->model('Product');
-            
-            // Get product data from the model
-            $products = $productModel->getAllProducts();
-            
-            // Check if products are retrieved successfully
-            if ($products) {
-                // Load the view file and pass the product data
-                $data['products'] = $products;
+
                 
-                $this->view('admin/stock_overview', $data);
+            }
+        
+            public function view_price(){
+                // Instantiate Product Model
+                $priceModel = new Price();
+                
+                // Get all products
+                $data['prices'] = $priceModel->getAllPrices();
+                
+                // Load the view with products data
+                $this->view('admin/view_price', $data);
+            }
+
+
+            public function marketdemand() {
+                // Instantiate the Product model
+                $priceModel = $this->model('Price');
+                
+                // Get product data from the model
+                $prices = $priceModel->getAllPrices();
+                
+                // Check if products are retrieved successfully
+                if ($prices) {
+                    // Load the view file and pass the product data
+                    $data['prices'] = $prices;
+                    
+                    $this->view('admin/marketdemand', $data);
+                } else {
+                    // Handle case where no products are returned or an error occurs
+                    // For example, you can return an error message as JSON
+                    header('Content-Type: application/json');
+                    echo (['error' => 'No products found']);
+                }
+        }
+          public function edit_price() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $priceModel = new Price();
+        
+                // Sanitize and validate POST data
+                $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+                $price = trim($_POST['price'] ?? '');
+        
+                // Check for required fields
+                if (empty($price)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'id' => $id,
+                    'price' => $price
+                ];
+        
+                if ($priceModel->edit_price($data)) {
+                    // Product edited successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('admin/view_price');
+                    exit();
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit price.";
+                }
             } else {
-                // Handle case where no products are returned or an error occurs
-                // For example, you can return an error message as JSON
-                header('Content-Type: application/json');
-                echo (['error' => 'No products found']);
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+                $priceModel = new Price();
+                $priceData = $priceModel->view_price($id);
+        
+                $this->view("admin/edit_price", (array)$priceData);
+            }
+        }
+      public function selectorder(){
+                $data = [];
+      }
+        
+
+
+        public function displayReportGenerator() {
+            // Load the report generator view
+            $this->view("admin/report_generator");
+        }
+        
+        public function displayReportGeneratorprice() {
+            // Load the report generator view
+            $this->view("admin/report_generatorprice");
+        }
+        
+        public function displayInventoryHistoryReport() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get the start date, end date, and product name from the form submission
+                $startDate = $_POST['start_date'];
+                $endDate = $_POST['end_date'];
+                $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+                
+                // Load the InventoryHistory model
+                $productHistoryModel = $this->model('productHistory');
+                
+                // Fetch inventory history report for the given time period and product name
+                $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+                
+                // Filter inventory history to include only records with null price_change
+                $filteredproductHistory = array_filter($productHistory, function($record) {
+                    return $record->price_change === null;
+                });
+                
+                // Pass the filtered inventory history data and form inputs to the view
+                $data = [
+                    'inventory_history' => $filteredproductHistory,
+                    'product_name' => $productName, // Add product name to data array
+                    'start_date' => $startDate, // Add start date to data array
+                    'end_date' => $endDate // Add end date to data array
+                ];
+        
+                // Load the inventory history report view within the iframe
+                $this->view("admin/inventory_history_report", $data);
+            } else {
+                // If not a POST request, redirect to the report generator page or show an error message
+                redirect('admin/report_generator');
             }
         }
         
-        public function selectorder(){
-            $data = [];
-
-            $this->view('admin/selectorder', $data);
+    
+        public function displayInventoryHistoryReportprice() {
+            // Check for POST request
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Get the start date, end date, and product name from the form submission
+                $startDate = $_POST['start_date'];
+                $endDate = $_POST['end_date'];
+                $productName = isset($_POST['product_name']) ? $_POST['product_name'] : null; // Check if product name is set
+                
+                // Load the InventoryHistory model
+                $productHistoryModel = $this->model('productHistory');
+                
+                // Fetch inventory history report for the given time period and product name
+                $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductNameprice($startDate, $endDate, $productName);
+                
+                // Filter inventory history to include only records with null price_change
+                $filteredproductHistory = array_filter($productHistory, function($record) {
+                    return $record->quantity_change === null;
+                });
+                
+                // Pass the filtered inventory history data and form inputs to the view
+                $data = [
+                    'inventory_history' => $filteredproductHistory,
+                    'product_name' => $productName, // Add product name to data array
+                    'start_date' => $startDate, // Add start date to data array
+                    'end_date' => $endDate // Add end date to data array
+                ];
+        
+                // Load the inventory history report view within the iframe
+                $this->view("admin/inventory_history_reportprice", $data);
+            } else {
+                // If not a POST request, redirect to the report generator page or show an error message
+                redirect('admin/report_generatorprice');
+            }
         }
-
+    
+        public function existingproduct(){
+            // Instantiate Product Model
+            $productModel = new Product();
+            
+            // Get all products
+            $data['products'] = $productModel->getAllProducts();
+            
+            // Load the view with products data
+            $this->view('admin/existingproduct', $data);
+        }
+        
         public function purchaseorder() {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
@@ -88,6 +284,178 @@ class Admin extends Controller{
         public function getUserInfo($user_id) {
             return $this->userModel->getUserInfoById($user_id);
         }
+          public function add_purchaseorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $this->model("Purchaseorder");
+    
+                // Instantiate Product Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate POST data
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date= isset($_POST['date']) ? trim($_POST['date']) : ''; 
+                $image = isset($_POST['image']) ? trim($_POST['image']) : ''; 
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to add product
+                $data = [
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date,
+                    'image' => $image
+                ];
+        
+                if ($purchaseorderModel->add_purchaseorder($data)) {
+                    // Product added successfully
+                    // Redirect to view inventory page
+                    redirect('admin/purchaseorder');
+                    exit();
+                } else {
+                    // Product addition failed
+                    echo "Failed to add purchase order.";
+                }
+            } else {
+                // If not a POST request, redirect to the add product page or show an error message
+                 //echo "Invalid request method.";
+                $this->view("admin/add_purchaseorder");
+            }
+        }
+
+        public function confirmationDialog($purchaseId){
+            // Load the confirmation dialog view passing the purchase ID
+            $data = [
+                'purchaseId' => $purchaseId
+            ];
+            $this->view('admin/confirmationdialog', $data);
+        }
+
+        public function indexprod(){
+            $data = [
+                'title' => ''
+            ];
+            
+            $this->view('ccm/product_selection', $data);
+        } 
+        public function productSelection() {
+   
+            $this->view("admin/product_selection");
+        }
+        
+        public function edit_purchaseorder(){
+            // Check for POST
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Instantiate Product Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate POST data
+                // $id = $_POST['id']; // Assuming the id of the product to edit is passed via POST
+                $id = trim($_GET["id"]); 
+                print_r(trim($_POST['name'])."</br>");
+                print_r(trim($_POST['type'])."</br>");
+                print_r(trim($_POST['date'])."</br>");
+                print_r(trim($_POST['quantity'])."</br>");
+                $name = trim($_POST['name']);
+                $type = trim($_POST['type']);
+                $quantity = trim($_POST['quantity']);
+                $date = trim($_POST['date']);
+        
+                // Check for required fields
+                if (empty($name) || empty($type) || empty($quantity) || empty($date)) {
+                    echo "Please fill in all fields.";
+                    return;
+                }
+        
+                // Attempt to edit product
+                $data = [
+                    'id' => $id,
+                    'name' => $name,
+                    'type' => $type,
+                    'quantity' => $quantity,
+                    'date' => $date
+                ];
+        
+                if ($purchaseorderModel->edit_purchaseorder($data)) {
+                    // Product edited successfully
+                    // Redirect to view inventory page or display success message
+                    redirect('admin/purchaseorder');
+                    exit();
+                } else {
+                    // Product editing failed
+                    echo "Failed to edit purchaseorder.";
+                }
+            } else {
+                // If not a POST request, redirect to the edit product page or show an error message
+                $id = $_GET['id'];
+                $purchaseorderModel = new Purchaseorder();
+                $purchaseorderData = $purchaseorderModel->view_purchaseorder($id);
+                
+                $this->view("admin/edit_purchaseorder",(array)$purchaseorderData);
+            }
+        }
+        
+        public function delete_purchaseorder(){
+            // Check for POST
+            if ($_GET['id'] != NULL) {
+                
+                // Instantiate Purchaseorder Model with Database dependency injection
+                $purchaseorderModel = new Purchaseorder();
+        
+                // Sanitize and validate GET data
+                $id = $_GET['id'];
+        
+                // Attempt to delete purchase order
+                if ($purchaseorderModel->delete_purchaseorder($id)) {
+                    // Deletion successful
+                    header("Location: " . URLROOT . "/admin/purchaseorder");
+                exit(); // Ensure that no other output is sent
+                } else {
+                    // Deletion failed
+                    $response = array(
+                        'success' => false,
+                        'message' => 'Failed to delete purchase order.'
+                    );
+                }
+            } else {
+                // Invalid request
+                $response = array(
+                    'success' => false,
+                    'message' => 'Invalid request method.'
+                );
+            }
+        
+            // Return JSON response
+            echo json_encode($response);
+        }
+        
+       
+        public function place_salesorder($purchase_id) {
+            // Instantiate Purchaseorder Model
+            $purchaseorderModel = $this->model('Purchaseorder');
+            
+            // Get the selected purchase order
+            $data['purchaseorder'] = $purchaseorderModel->getPurchaseorderById($purchase_id);
+        
+            // Instantiate Salesorder Model
+            $salesorderModel = $this->model('Salesorder');
+            
+            // Get relevant sales orders for the selected purchase order
+            $data['salesorders'] = $salesorderModel->getSalesordersByPurchaseId($purchase_id);
+            
+            // Load the view with purchase order and sales orders data
+            $this->view('admin/place_salesorder', $data);
+        }
+  
+  
+
 
         public function updateStatus() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -136,7 +504,7 @@ class Admin extends Controller{
           }
           
           
-        public function place_salesorder($purchase_id) {
+ public function place_salesorder($purchase_id) {
             // Instantiate Purchaseorder Model
             $purchaseorderModel = $this->model('Purchaseorder');
             
@@ -152,10 +520,7 @@ class Admin extends Controller{
             // Load the view with purchase order and sales orders data
             $this->view('ccm/place_salesorder', $data);
         }
-        
-        
     
-
         public function index(){
             $data = [
                 'title' => ''
@@ -207,8 +572,6 @@ class Admin extends Controller{
                 $this->view('admin/admin_login');
             }
         }
-    
-
 
     
     
@@ -324,7 +687,6 @@ class Admin extends Controller{
         // Redirect to the index page
         redirect('admin/admin_login');
       }
-
 
 
     public function inquiry() {

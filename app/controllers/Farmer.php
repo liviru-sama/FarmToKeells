@@ -1038,7 +1038,209 @@ public function inquiry() {
     $this->view('farmer/inquiry', $data);
 }
 
+public function updateProfilePic() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+      // Check if file is uploaded successfully
+      if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+        $userId = $_SESSION['user_id'];
+        $fileName = $_FILES['profile_image']['name'];
+        $fileTmpName = $_FILES['profile_image']['tmp_name'];
+        $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+        $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+  
+        // Check if the file extension is allowed
+        if (in_array($fileExtension, $allowedExtensions)) {
+          // Generate a unique file name
+          $newFileName = uniqid('', true) . '.' . $fileExtension;
+  
+          // Define the uploads directory
+          $uploadsDirectory = 'images/uploads/';
+  
+          // Check if uploads directory exists, create it if not
+          if (!is_dir($uploadsDirectory)) {
+            if (!mkdir($uploadsDirectory, 0775, true)) {
+              // Handle directory creation error
+              flash('profile_pic_error', 'Failed to create uploads directory', 'alert alert-danger');
+              redirect('farmer/view_profile');
+            }
+          }
+  
+          // Move the uploaded file to the directory
+          if (move_uploaded_file($fileTmpName, $uploadsDirectory . $newFileName)) {
+            // Update the profile picture in the database
+            if ($this->userModel->updateProfilePicture($userId, $newFileName)) {
+              // Profile picture updated successfully
+              redirect('farmer/view_profile');
+            } else {
+              // Error updating profile picture in the database
+              flash('profile_pic_error', 'Failed to update profile picture', 'alert alert-danger');
+              redirect('farmer/view_profile');
+            }
+          } else {
+            // Failed to move uploaded file
+            flash('profile_pic_error', 'Failed to move uploaded file', 'alert alert-danger');
+            redirect('farmer/view_profile');
+          }
+        } else {
+          // File extension not allowed
+          flash('profile_pic_error', 'File extension not allowed', 'alert alert-danger');
+          redirect('farmer/view_profile');
+        }
+      } else {
+        // File upload failed
+        flash('profile_pic_error', 'File upload failed', 'alert alert-danger');
+        redirect('farmer/view_profile');
+      }
+    } else {
+      // Access method directly without POST request
+      redirect('farmer/view_profile');
+    }
+  }
+  
+  public function viewProfileImage() {
+    // Get the logged-in user's ID from the session
+    $userId = $_SESSION['user_id'];
+
+    // Call the model method to retrieve the user's image
+    $userImage = $this->userModel->getUserImage($userId);
+
+    // Check if the user image exists
+    if ($userImage) {
+        // If the user image exists, extract the image value
+        $imageValue = $userImage->image;
+    } else {
+        // If no user image exists, set a default value or handle it as needed
+        $imageValue = null; // or set a default image value
     }
 
+    // Pass the image value to the view
+    $data = [
+        'profileImage' => $imageValue
+    ];
+
+    // Load the view with the image value
+    $this->view('farmer/view_profile', $data);
+}
+
+
+public function view_payment() {
+    // Check if the user is logged in (assuming you have an isLoggedIn() function)
+    if (!isLoggedIn()) {
+      // Redirect or handle unauthorized access
+      redirect('users/login');
+    }
+  
+    // Get the user ID from the session
+    $user_id = $_SESSION['user_id'];
+  
+    // Load the PaymentDetailsModel
+    $paymentDetailsModel = $this->model('PaymentDetailsModel');
+  
+    // Retrieve payment details for the current user
+    $paymentDetails = $paymentDetailsModel->view_payment($user_id);
+  
+    // Pass payment details to the view
+    $this->view('farmer/view_payment', ['paymentDetails' => $paymentDetails]);
+}
+
+
+public function add_payment() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Initialize PaymentDetailsModel
+        $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+        // Prepare data
+        $data = [
+            'user_id' => $_POST['user_id'],
+            'bank_account_number' => trim($_POST['bank_account_number']),
+            'account_name' => trim($_POST['account_name']),
+            'bank' => trim($_POST['bank']),
+            'branch' => trim($_POST['branch']),
+        ];
+
+        // Add payment details
+        if ($paymentDetailsModel->add_payment($data)) {
+            redirect('farmer/view_payment');
+        } else {
+            die('Failed to add payment details');
+        }
+    } else {
+        // Load view
+        $this->view('farmer/add_payment');
+    }
+}
+
+
+public function handle_edit_payment() {
+    // Check if the form is submitted
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        // Sanitize POST data
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        // Initialize PaymentDetailsModel
+        $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+        // Prepare data
+        $data = [
+            'user_id' => $_POST['user_id'],
+            'bank_account_number' => trim($_POST['bank_account_number']),
+            'account_name' => trim($_POST['account_name']),
+            'bank' => trim($_POST['bank']),
+            'branch' => trim($_POST['branch']),
+        ];
+
+        // Update payment details
+        if ($paymentDetailsModel->edit_payment($data['user_id'], $data)) {
+            redirect('farmer/view_payment');
+        } else {
+            die('Failed to edit payment details');
+        }
+    } else {
+        // Redirect or handle GET request
+        redirect('farmer/view_payment');
+    }
+}
+
+public function edit_payment() {
+    $paymentDetailsModel = $this->model('PaymentDetailsModel');
+
+    // Check if the user is logged in
+    if (!isLoggedIn()) {
+        redirect('users/user_login');
+    }
+
+    // Get current user's payment details
+    $paymentDetails = $paymentDetailsModel->view_payment($_SESSION['user_id']);
+
+    // Check if payment details exist
+    if ($paymentDetails) {
+        // Extract the first row of payment details (assuming there's only one)
+        $paymentDetails = $paymentDetails[0];
+        // Prepare data to pass to the view
+        $data = [
+            'bank_account_number' => $paymentDetails->bank_account_number,
+            'account_name' => $paymentDetails->account_name,
+            'bank' => $paymentDetails->bank,
+            'branch' => $paymentDetails->branch
+        ];
+    } else {
+        // If payment details not found, redirect to add_payment page
+        redirect('farmer/add_payment');
+    }
+
+    // Load the edit_payment view with payment details
+    $this->view('farmer/edit_payment', $data);
+}
+
+}
+
+?>
+
+
+    
     
 

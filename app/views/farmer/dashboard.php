@@ -52,77 +52,36 @@
             transform: scale(1.08);
         }
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>ccm/dashboard.css">
-        <title><?php echo SITENAME;?></title>
-    </head>
-<body>
-    
-            <div class="container">
-                <div class="dashboard-container">
-                    
-                    <div class="menu" data-name="p-1">
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" ></a>
-                    <h3>Place Orders for a Purchase Order</h3>
-                    </div></a>
-        
-                    <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>">
-                    <div class="menu" data-name="p-2">
-                    <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="">
-                    <h3>Post Your available products</h3>
-                    </div> </a>
-        
-                    <a href="<?php echo URLROOT; ?>/farmer/notifications">
-                    <div class="menu" data-name="p-3">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png">
-                    <h3>Notifications</h3>
-                    </div></a>
-        
-                    <a href="<?php echo URLROOT; ?>/farmer/market_prices">
-                    <div class="menu" data-name="p-4">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png">
-                    <h3>Market demands and Product Prices</h3>
-                    </div></a>
-        
-                    
-                    <a href="<?php echo URLROOT; ?>/farmer/payments">
-                    <div class="menu" data-name="p-5">
-                    <img src="<?php echo URLROOT; ?>/public/images/pay.png">
-                    <h3>Payments</h3>
-                    </div></a>
-        
-                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                    <div class="menu" data-name="p-6">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png">
-                    <h3>Manage Profile</h3> 
-                    </div> </a>
-        
+
         .navbar-icon-container {
-            position: relative;
-        }
-        
-        .navbar-icon-container:hover::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: #65A534;
-            color: white;
-            padding: 5px;
-            border-radius: 5px;
-            z-index: 2;
-            white-space: nowrap;
-        }
+    position: relative;
+}
+        .navbar-icon-container[data-text]:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #65A534;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    z-index: 2;
+    white-space: nowrap;
+}
+
+
 
         .dashboard-container {
-            top: 60px;
-            padding-top: 80px;
-        }
-    </style>
+    top: 60px; /* Height of the navbar */
+   
+    padding-top: 80px; /* Additional padding to compensate for navbar height */
+    /* Additional styles for the dashboard container */
+}
+
+        </style>
+   
+
 </head> 
 <body>
     <?php if(isset($_SESSION['user_id'])): ?>
@@ -186,7 +145,7 @@
                     <h3>Market demands and Product Prices</h3>
                 </div>
             </a>
-            <a href="<?php echo URLROOT; ?>/farmer/payments">
+            <a href="<?php echo URLROOT; ?>/farmer/view_payment">
                 <div class="menu" data-name="p-4">
                     <img src="<?php echo URLROOT; ?>/public/images/pay.png">
                     <h3>Payments</h3>

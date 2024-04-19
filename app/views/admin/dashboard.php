@@ -129,14 +129,14 @@ body,
         
                   
         
-                        <a href="<?php echo URLROOT; ?>/admin/stock_overview">
+                        <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar">
                         <div class="menu" data-name="p-1">
 
                         <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="">
                         <h3>Stock Overview</h3>
                     </div></a>
         
-                        <a href="<?php echo URLROOT; ?>/admin/selectorder">
+                        <a href="<?php echo URLROOT; ?>/admin/purchaseorder">
                         <div class="menu" data-name="p-2">
 
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="">

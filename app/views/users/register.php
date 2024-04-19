@@ -32,7 +32,7 @@
                 padding: 20px;
                 top: 0px; /* Stick to the top of the viewport */
                 z-index: 1;
-                height: 20px; /* Fixed height for navbar */
+                height: 60px; /* Fixed height for navbar */
                 /* Example background color */
                 box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
             }
