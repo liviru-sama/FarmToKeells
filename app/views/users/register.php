@@ -166,15 +166,13 @@
                             <label>Province</label>
                         </div>
                     </div>
-                   
-                <!-- <div class="text-field">
-                    <select name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
-                        <option value="4">Bandarawela</option>
-                        <option value="5">Sooriyawewa</option>
-                        
-                </div> -->
 
-               
+                <!-- <div class="text-field">
+                    <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
+                        <option value="1">Western</option>
+                        <option value="2">Southern</option>
+                        <option value="3">Central</option>
+                </div> -->
 
                
 
@@ -261,8 +259,4 @@
     </body>
 </html>
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
-
-
-
-
+<?php require APPROOT . '/views/inc/footer.php';?>

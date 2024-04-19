@@ -232,8 +232,45 @@
         <p>No accepted users.</p>
     <?php endif; ?>
 
-        </body>
+    <h2>Rejected Users</h2>
 
+    <?php $rejectedUsers = $data['rejectedUsers']; ?>
+    <?php if (!empty($rejectedUsers)): ?>
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>Province</th>
+                    <th>Collection Center</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rejectedUsers as $user): ?>
+                    <tr>
+                        <td><?= $user->id; ?></td>
+                        <td><?= $user->name; ?></td>
+                        <td><?= $user->mobile; ?></td> 
+                        <td><?= $user->province; ?></td>
+                        <td><?= $user->collectioncenter; ?></td>
+                        <td>
+                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
+                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
+                                <button type="submit" name="delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php else: ?>
+        <p>No rejected users.</p>
+    <?php endif; ?>
+    
+
+</body>
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

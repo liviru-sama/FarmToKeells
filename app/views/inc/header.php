@@ -22,7 +22,6 @@
         <section class="header">
             <nav>
                 <div>
-                    <a href="<?php echo URLROOT; ?>/"><img src="<?php echo URLROOT; ?>/public/images/back.png" ></a>
                 </div>
                 <div class="nav-links">
                     <ul>

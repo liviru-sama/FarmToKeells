@@ -144,24 +144,20 @@
         <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
         </a></div>
-
-
-      
-
-
-                    <div class="navbar-icon-container" data-text="View Profile" >
+          
+          <div class="navbar-icon-container" data-text="View Profile" >
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
                     </a></div>
 
 
-<div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/farmer/logout">
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a></div>
-
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+    <div class="navbar-icon-container" data-text="Logout">
+                <a href="<?php echo URLROOT; ?>/users/user_login">
+                    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+                </a>
+            </div>
+        </div>
+        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
     <script>

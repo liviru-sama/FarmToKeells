@@ -1,4 +1,3 @@
-
 <?php
 
 class _404 {
@@ -8,5 +7,3 @@ class _404 {
             include_once APPROOT . '/views/404.php';
         }
     }
-    
-
