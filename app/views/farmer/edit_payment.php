@@ -110,7 +110,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
@@ -134,6 +134,9 @@
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
             </a>
+            <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
+            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
+        </a> 
 
             <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
                 <h5 class="inline-heading" class

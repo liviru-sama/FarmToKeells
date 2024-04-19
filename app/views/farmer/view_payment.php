@@ -147,7 +147,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
@@ -170,19 +170,22 @@
     <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
             <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
         </a>
+        <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
+            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
+        </a> 
         <section class="header">
             <!-- Header content -->
         </section>
         <section class="table_body">
-            <h1 style="text-align:center;">Payment Details</h1></br>
+            <h1 style="text-align:center;">Your Bank Account Details for Payments</h1></br>
             <?php if (!empty($data['paymentDetails']) && is_array($data['paymentDetails'])) : ?>
-                <ul>
+                <ul style="font-size:20px;">
                     <?php foreach ($data['paymentDetails'] as $payment) : ?>
                         <li>
-                        </br><strong>Bank Account Number&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
+                        </br><strong>Account Number&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
                         </br><strong>Account Name&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->account_name; ?></span><br>
                         </br><strong>Bank&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank; ?></span><br>
-                        </br><strong>Branch&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->branch; ?></span><br>
+                        </br><strong>Branch&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->branch; ?></span><br><br><br>
                         </li>
                     <?php endforeach; ?>
                     <a href="<?php echo URLROOT; ?>/farmer/edit_payment" class="button">Edit Your Payment Details</a>

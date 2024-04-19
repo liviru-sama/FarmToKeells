@@ -2,12 +2,14 @@
 class Admin extends Controller{
 
     public $adminModel;
+    public $adminsModel;
     public $userModel;
 
 
             public function __construct() {
                 
-                $this->adminModel = $this->model('AdminModel'); 
+                $this->adminModel = $this->model('AdminModel');
+                $this->adminsModel = $this->model('Admins'); 
                 $this->userModel = $this->model('User');
 
 
@@ -31,7 +33,7 @@ class Admin extends Controller{
                     $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
         
                     // Call the model method to insert admin credentials
-                    if ($this->admModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
+                    if ($this->adminModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
                         // Admin credentials inserted successfully
                         // You can redirect to a success page or perform other actions
                         echo "Admin credentials inserted successfully";

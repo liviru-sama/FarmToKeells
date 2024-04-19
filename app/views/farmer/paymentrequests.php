@@ -33,7 +33,44 @@
             height: 80%; /* Adjust height as needed */
         }
 
-      
+       
+       
+
+        /* Style for the list */
+        ul {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center; /* Center the list items */
+            list-style: none; /* Remove default list styles */
+            padding: 0; /* Remove default padding */
+            margin: 0; /* Remove default margin */
+        }
+
+        li {
+            text-align: left; /* Align list item content to the left */
+            margin-bottom: 20px; /* Add some space between list items */
+        }
+
+        strong {
+            display: inline-block;
+            width: 200px; /* Adjust the width as needed */
+            font-weight: bold;
+            text-align: right; /* Align labels to the right */
+            padding-right: 10px; /* Add space between label and value */
+        }
+
+        span {
+            display: inline-block;
+            text-align: left; /* Align values to the left */
+        }
+
+        h1 {
+            text-align: center; /* Center the heading */
+            margin-top: 20px; /* Add some margin from the top */
+        }
     </style>
 </head>
 
@@ -131,36 +168,39 @@
     <div class="main-content" >
 
     <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
-            </a>
-
-            <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
-            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
+            <h5 class="inline-heading tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
+        </a>
+        <a href="<?php echo URLROOT; ?>/farmer/paymentrequests" style="text-decoration: none;">
+            <h5 class="inline-heading " style="background: #65A534; transform: scale(1.08); border-radius: 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;View Order Payments</h5>
         </a> 
-            <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Add Your Payment Details</h5>
-            </a>
         <section class="header">
             <!-- Header content -->
         </section>
-        <section class="form">
-            <div class="center">
-        <h1>Add Payment Details</h1>
-    <form action="<?php echo URLROOT; ?>/farmer/add_payment" method="post">
-    <div class="text-field"> <label for="bank_account_number">Your Bank Account Number:</label><br>
-        <input type="text" id="bank_account_number" name="bank_account_number"><br></div>
-        <div class="text-field"> <label for="account_name">Account Holder Name:</label><br>
-        <input type="text" id="account_name" name="account_name"><br></div>
-        <div class="text-field"> <label for="bank">Bank Name:</label><br>
-        <input type="text" id="bank" name="bank"><br></div>
-        <div class="text-field"> <label for="branch">Bank Branch:</label><br>
-        <input type="text" id="branch" name="branch"><br></div>
-        <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
-        <input type="submit" value="Submit">
-    </form>
+        <section class="table_body">
+            <h1 style="text-align:center;">Your Bank Account Details for Payments</h1></br>
+            <?php if (!empty($data['paymentDetails']) && is_array($data['paymentDetails'])) : ?>
+                <ul style="font-size:20px;">
+                    <?php foreach ($data['paymentDetails'] as $payment) : ?>
+                        <li>
+                        </br><strong>Account Number&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
+                        </br><strong>Account Name&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->account_name; ?></span><br>
+                        </br><strong>Bank&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank; ?></span><br>
+                        </br><strong>Branch&nbsp;&nbsp;&nbsp;:</strong>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->branch; ?></span><br><br><br>
+                        </li>
+                    <?php endforeach; ?>
+                    <a href="<?php echo URLROOT; ?>/farmer/edit_payment" class="button">Edit Your Payment Details</a>
+
+                </ul>
+            <?php else : ?>
+                <p>No payment details found.</p>
+                <!-- Add button for adding payment details -->
+                <a href="<?php echo URLROOT; ?>/farmer/add_payment" class="button">Add Your Payment Details</a>
+            <?php endif; ?>
+        </section>
+    </div>
+
 </body>
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
