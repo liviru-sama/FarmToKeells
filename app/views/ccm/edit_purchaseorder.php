@@ -218,12 +218,12 @@
                 <div class="text-field">
                     <input type="date" name="date" id="purchaseDate" value="<?=$data['date']?>" required> <!-- Added name attribute and id attribute -->
                     <span></span>
-                    <label> Date</label>
+                    <label>Expected supply date</label>
                 </div>
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Stock</label>
+                    <label>Needed Quantity in kgs</label>
                 </div>
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">

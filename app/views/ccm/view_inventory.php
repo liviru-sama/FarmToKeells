@@ -162,7 +162,7 @@
            <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="text-decoration: none;">
        <h5 class="inline-heading" class
    =
-   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
+   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;UPDATE INVENTORY</h5>
    </a></br>
 
 

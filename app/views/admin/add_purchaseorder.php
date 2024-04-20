@@ -205,7 +205,7 @@
                 <div class="text-field">
                     <input name="date" id="purchaseDate" type="date" required>
                     <span></span>
-                    <label> Date</label>
+                    <label>Expected supply date</label>
                 </div>
 
 
