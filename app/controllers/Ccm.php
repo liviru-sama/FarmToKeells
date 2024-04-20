@@ -307,10 +307,12 @@ public function edit_price() {
                
                 $type = trim($_POST['type'] ?? '');
                 $quantity = trim($_POST['quantity'] ?? '');
+                $poor_quantity = trim($_POST['poor_quantity'] ?? '');
+
                 $price = trim($_POST['price'] ?? '');
         
                 // Check for required fields
-                if ( empty($type) || empty($quantity) || empty($price)) {
+                if ( empty($type) || empty($price)) {
                     echo "Please fill in all fields.";
                     return;
                 }
@@ -321,6 +323,8 @@ public function edit_price() {
                     
                     'type' => $type,
                     'quantity' => $quantity,
+                    'poor_quantity' => $poor_quantity,
+
                     'price' => $price
                 ];
         
@@ -723,6 +727,7 @@ public function script() {
 
       
     
+    
 
     public function salesorder() {
         // Instantiate Purchaseorder Model
@@ -734,6 +739,51 @@ public function script() {
         // Load the view with purchase orders data
         $this->view('ccm/salesorder', $data);
     }
+
+    public function salesorderpending() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderspending();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderpending', $data);
+    }
+
+    public function salesorderapproved() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderapproved', $data);
+    }
+    
+    public function salesorderrejected() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersrejected();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderrejected', $data);
+    }
+
+    public function salesordercompleted() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesordercompleted', $data);
+    }
+    
 
     public function stock_overview() {
         // Instantiate the Product model

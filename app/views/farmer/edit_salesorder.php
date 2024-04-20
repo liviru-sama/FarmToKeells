@@ -77,7 +77,7 @@
 
 
 <div class="navbar-icon-container" data-text="Logout">
-<a href="<?php echo URLROOT; ?>/users/user_login">
+<a href="<?php echo URLROOT; ?>/farmer/logout">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
@@ -224,10 +224,15 @@
                     <label for="quantity">Deliverable Quantity in kgs:</label>
                     <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="0" step="1">
                 </div>
-                <div class="text-field" >
-                    <label for="price">Price per kg:</label>
-                    <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01">
-                </div>
+                <div class="text-field">
+    <label for="price">Price per kg:</label>
+    <?php if ($data['status'] === 'Pending Approval'): ?>
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01">
+    <?php else: ?>
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01" readonly>
+    <?php endif; ?>
+</div>
+
                 <div class="text-field">
                     <label for="date">Date:</label>
                     <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>" min="<?php echo date('Y-m-d'); ?>">

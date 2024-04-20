@@ -82,8 +82,9 @@
                     </a></div>
 
 
+<div class="navbar-icon-container" data-text="Logout">
 
-          <a href="<?php echo URLROOT; ?>/users/user_login">
+<a href="<?php echo URLROOT; ?>/farmer/logout">
 
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
@@ -238,7 +239,8 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
 
           
 
-<td> <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"></a></td> 
+<td>    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
+</td> 
 <td> <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"></a></td> 
 <td> <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>"><img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>"></a></td> 
 <td> <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>"></a></td> 
@@ -248,7 +250,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
     }
 } else {
     // Handle the case where no sales orders are found
-    echo "<tr><td colspan='8'>No sales orders found.</td></tr>";
+    echo "<tr><td colspan='8'>You havent posted your products yet</td></tr>";
 }
 ?>
 

@@ -153,14 +153,41 @@
         <input type="text" id="bank_account_number" name="bank_account_number"><br></div>
         <div class="text-field"> <label for="account_name">Account Holder Name:</label><br>
         <input type="text" id="account_name" name="account_name"><br></div>
-        <div class="text-field"> <label for="bank">Bank Name:</label><br>
-        <input type="text" id="bank" name="bank"><br></div>
+        <div class="text-field" > <div class="typeselect-container">
+                            <select class="productstatusInput" name="bank"  onchange="updateInput(this)">
+                            <option style="color:white;" value="Commercial Bank (COMB)">Commercial Bank (COMB)</option>
+
+                                <option style="color:white;" value="Bank of Ceylon (BOC)">Bank of Ceylon (BOC)</option>
+                                <option style="color:white;" value="People's Bank">People's Bank</option>
+                                <option style="color:white;" value="Hatton National Bank (HNB)">Hatton National Bank (HNB)</option>
+                                <option style="color:white;" value="National Development Bank (NDB)">National Development Bank (NDB)</option>
+                                <option style="color:white;" value="Nations trust Bank (NTB)">Nations trust Bank (NTB)</option>
+                                <option style="color:white;" value="Sampath Bank (SAMP) ">Sampath Bank (SAMP) </option>
+                                <option style="color:white;" value="Seylan Bank (SEYB)">Seylan Bank (SEYB)</option>
+                                <option style="color:white;" value="DFCC Bank (DFCC)">DFCC Bank (DFCC)</option>
+
+
+                            </select>
+                            <input name="bank" id="bank" type="text" required>
+                            <span></span>
+                            <label for="bank" >Bank</label></div></div>
         <div class="text-field"> <label for="branch">Bank Branch:</label><br>
         <input type="text" id="branch" name="branch"><br></div>
         <input type="hidden" name="user_id" value="<?php echo $_SESSION['user_id']; ?>">
         <input type="submit" value="Submit">
     </form>
+
+    <script> function updateInput(select) {
+    var selectedOption = select.options[select.selectedIndex].text;
+    // Set the value of the province input field directly
+    document.getElementById("bank").value = selectedOption;
+    // Reset the dropdown to show the placeholder option
+    select.value = ''; // Reset to blank option
+}
+</script>
 </body>
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+

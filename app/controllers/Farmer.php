@@ -453,7 +453,7 @@ use PHPMailer\PHPMailer\Exception;
             ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
           
             // Redirect to the index page
-            redirect('user/user_login');
+            redirect('users/user_login');
           }
 
 

@@ -302,7 +302,50 @@ class Admin extends Controller{
             // Load the view with purchase orders data
             $this->view('admin/salesorder', $data);
         }
+
+        public function salesorderpending() {
+            // Instantiate Purchaseorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get all purchase orders
+            $data['salesorders'] = $salesorderModel->getAllSalesorderspending();
+            
+            // Load the view with purchase orders data
+            $this->view('admin/salesorderpending', $data);
+        }
+
+        public function salesorderapproved() {
+            // Instantiate Purchaseorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get all purchase orders
+            $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+            
+            // Load the view with purchase orders data
+            $this->view('admin/salesorderapproved', $data);
+        }
         
+        public function salesorderrejected() {
+            // Instantiate Purchaseorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get all purchase orders
+            $data['salesorders'] = $salesorderModel->getAllSalesordersrejected();
+            
+            // Load the view with purchase orders data
+            $this->view('admin/salesorderrejected', $data);
+        }
+
+        public function salesordercompleted() {
+            // Instantiate Purchaseorder Model
+            $salesorderModel = new Salesorder();
+            
+            // Get all purchase orders
+            $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+            
+            // Load the view with purchase orders data
+            $this->view('admin/salesordercompleted', $data);
+        }
         
 
         public function getUserInfo($user_id) {
@@ -619,9 +662,12 @@ redirect('admin/dashboard');
         // Get accepted users
         $acceptedUsers = $this->userModel->getAcceptedUsers(); // Assuming you have a method to retrieve accepted users
         
+        $rejectedUsers = $this->userModel->getRejectedUsers();
+
         $data = [
             'pendingUsers' => $pendingUsers,
-            'acceptedUsers' => $acceptedUsers
+            'acceptedUsers' => $acceptedUsers,
+            'rejectedUsers' => $rejectedUsers
         ];
 
         $this->view('admin/manageUsers', $data);

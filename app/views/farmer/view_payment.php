@@ -98,7 +98,7 @@
 
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/farmer/logout">
+<a href="<?php echo URLROOT; ?>/farmer/logout">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
@@ -175,7 +175,7 @@
         <section class="header">
             <!-- Header content -->
         </section>
-        <section class="table_body">
+        <section class="table_body" style="text-align:center;">
         </br> <h1 style="text-align:center;">Your Bank Account Details for Payments</h1></br>
             <?php if (!empty($data['paymentDetails']) && is_array($data['paymentDetails'])) : ?>
                 <ul style="font-size:20px;">
@@ -191,7 +191,7 @@
 
                 </ul>
             <?php else : ?>
-                <p>No payment details found.</p>
+                <p style="text-align:center;" >No payment details found.</p> </br></br></br>
                 <!-- Add button for adding payment details -->
                 <a href="<?php echo URLROOT; ?>/farmer/add_payment" class="button">Add Your Payment Details</a>
             <?php endif; ?>

@@ -232,7 +232,7 @@
         <p>No accepted users.</p>
     <?php endif; ?>
 
-    <h2>Rejected Users</h2>
+    </br> <h2>Rejected Users</h2></br>
 
     <?php $rejectedUsers = $data['rejectedUsers']; ?>
     <?php if (!empty($rejectedUsers)): ?>
