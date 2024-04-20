@@ -70,15 +70,13 @@ label{color:white;
                     </a></div>
 
 
-<div class="navbar-icon-container" data-text="Logout">
-
-          <a href="<?php echo URLROOT; ?>/users/user_login">
-
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a></div>
-
-    </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+                    <div class="navbar-icon-container" data-text="Logout">
+                <a href="<?php echo URLROOT; ?>/users/user_login">
+                    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+                </a>
+            </div>
+        </div>
+        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
 <script>
