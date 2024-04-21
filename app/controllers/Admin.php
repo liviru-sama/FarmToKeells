@@ -595,15 +595,14 @@ class Admin extends Controller{
 
         public function manageUsers()
         {
-            // Get pending registration requests
             $pendingUsers = $this->userModel->getPendingUsers();
-
-            // Get accepted users
-            $acceptedUsers = $this->userModel->getAcceptedUsers(); // Assuming you have a method to retrieve accepted users
+            $acceptedUsers = $this->userModel->getAcceptedUsers();
+            $rejectedUsers = $this->userModel->getRejectedUsers();
             
             $data = [
                 'pendingUsers' => $pendingUsers,
-                'acceptedUsers' => $acceptedUsers
+                'acceptedUsers' => $acceptedUsers,
+                'rejectedUsers' => $rejectedUsers
             ];
 
             $this->view('admin/manageUsers', $data);
