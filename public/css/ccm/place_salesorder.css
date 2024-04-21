@@ -157,14 +157,14 @@
 
         h2,
         h5 {
-            font-family: 'inter';
+            font-family: 'Poppins';
             color: #060804;
            
         }
 
         th,
         td {
-            font-family: 'inter';
+            font-family: 'Poppins';
             padding: 5px;
         }
 
@@ -524,14 +524,13 @@ a.button:hover {
     font-size: 200%;
 }
 
-.center form {
-}
+
 
 form .text-field {
     position: relative;
     border-bottom: 2px solid black;
     margin: 30px 0;
-    font-family: 'inter';
+    font-family: 'Poppins';
 
 }
 
@@ -553,7 +552,7 @@ form .text-field {
     transform: translateY(-50%);
     font-size: 16px;
     font-weight: bold;
-    font-family: 'inter';
+    font-family: 'Poppins';
     pointer-events: none;
     transition: .4s;
     padding: 0 5px;
@@ -568,7 +567,7 @@ form .text-field {
     height: 2px;
     background: #65A534;
     transition: .4s;
-    font-family: 'inter';
+    font-family: 'Poppins';
 
 }
 
@@ -749,7 +748,7 @@ input[type="submit"]:hover {
 }
 
 body {
-    font-family: "inter";
+    font-family: 'Poppins';
 }
 
 .all {
@@ -905,9 +904,7 @@ main.stock {
     
 }
 
-.card__content {
-   
-}
+
 
 .card__image {
     width: 90%; /* Adjust image width to fill the container */
