@@ -135,6 +135,20 @@
                 </section></br>
                 <section class="table_body">
 
+
+                <a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; All </h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesorderpending" style="text-decoration: none;">
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesorderapproved" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesorderrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesordercompleted" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+</a>
+
+
             <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
                         <thead>
@@ -157,7 +171,7 @@
                         <?php foreach ($data['salesorders'] as $row) : ?>
     <!-- Inside the foreach loop for salesorders -->
     <tr>        
-        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " style="width: 100px; height: 100px;"></td>
+        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " ></td>
         <td><?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?></td>
         <td><?php echo isset($row->user_id) ? $row->user_id : $row['user_id']; ?></td>
         <?php if (is_object($row)) : ?>

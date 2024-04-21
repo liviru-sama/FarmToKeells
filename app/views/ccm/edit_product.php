@@ -162,7 +162,7 @@
             <section class="form">
         <div class="center">
             <h1 style="font-family: 'inter';">Edit product</h1>
-            <form method="post" action="<?php echo URLROOT; ?>/Ccm/edit_product?id=<?=$data['product_id']?>"> 
+            <form id="addproduct" method="post" action="<?php echo URLROOT; ?>/Ccm/edit_product?id=<?=$data['product_id']?>"> 
 
             <input type="hidden" name="id" value="<?=$data['product_id']?>">
 
@@ -170,30 +170,85 @@
 
                 <div class="text-field">
                     <!-- Use a disabled text field to display the product name -->
-                    <input type="text" name="name" value="<?=$data['name']?>" disabled> 
+                    <input type="text" name="name" value="<?=$data['name']?>" readonly> 
                     <span></span>
                     <label> Product</label>
                 </div>
+
+                
                 <div class="text-field">
-                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Type</label>
-                </div>
+    <label for="type">Type:</label>
+    <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="toggleDropdown()">
+    <div class="typeselect-container" id="typeDropdown">
+        <select class="productstatusInput" name="category" onchange="updateInput(this)">
+            <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
+            <option style="color:white;" value="hillcountry">Hill Country</option>
+            <option style="color:white;" value="organic">Organic</option>
+        </select>
+        <span></span>
+    </div>
+</div>
+
+<script>
+    // Function to toggle dropdown visibility
+    function toggleDropdown() {
+        var dropdown = document.getElementById('typeDropdown');
+        
+        // Toggle dropdown display
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+    
+    // Function to update input field based on dropdown selection
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("typeInput").value = selectedOption;
+        
+        // Hide the dropdown after selection
+        var dropdown = document.getElementById('typeDropdown');
+        dropdown.style.display = 'none';
+        
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
+
+
                 <div class="text-field">
-                    <input type="number" name="price" value="<?=$data['price']?>" required> <!-- Added name attribute -->
+                    <input type="number" name="price" value="<?=$data['price']?>" required min="0" step="0.01" > <!-- Added name attribute -->
                     <span></span>
                     <label> Price per kg</label>
                 </div>
                 <div class="text-field">
-                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Quantity(in Kgs)</label>
-                </div>
-                <input type="submit" value="Reset" onclick="resetForm()">
+    <input type="number" name="quantity" value="<?=$data['quantity']?>" min="0" step="1">
+    <span></span>
+    <label>Quantity in Good Condition (in Kgs)</label>
+</div>
+
+<div class="text-field">
+    <input type="number" name="poor_quantity" value="<?=$data['poor_quantity']?>" min="0" step="1">
+    <span></span>
+    <label>Quantity in Bad Condition (in Kgs)</label>
+</div>
+
+
                 <input type="submit" value="Save">
             </form>
         </div>
     </section></main></main>
+
+    <script>
+
+    function submitFormWithZeroQuantity() {
+    // Get the form element
+    var form = document.getElementById('addproduct');
+
+    // Set the quantity field value to 0
+    document.getElementsByName('quantity')[0].value = 0;
+
+    // Submit the form
+    form.submit();
+}
+</script>
 </body>
 
 </html>

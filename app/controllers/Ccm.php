@@ -70,7 +70,7 @@ class Ccm extends Controller {
     return false; // Invalid username or password
 }
  
-     public function ccm_login()
+public function ccm_login()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Process form
@@ -99,8 +99,17 @@ class Ccm extends Controller {
             // Call the validate_login method in the ccm model with username and password
             $loggedInAdmin = $this->ccmModel->validateLogin($data['admin_username'], $data['admin_password']);
             if ($loggedInAdmin) {
-                // Create session
-                $this->createUserSession($loggedInAdmin);
+                // Start session if not already started
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                // Create session variables
+                $_SESSION['admin_id'] = $loggedInAdmin->id;
+                $_SESSION['admin_username'] = $loggedInAdmin->username;
+
+                // Redirect to ccm dashboard or any desired page
+                redirect('ccm/dashboard');                exit;
             } else {
                 $data['admin_password_err'] = 'Incorrect username or password';
                 $this->view('ccm/ccm_login', $data);
@@ -307,10 +316,12 @@ public function edit_price() {
                
                 $type = trim($_POST['type'] ?? '');
                 $quantity = trim($_POST['quantity'] ?? '');
+                $poor_quantity = trim($_POST['poor_quantity'] ?? '');
+
                 $price = trim($_POST['price'] ?? '');
         
                 // Check for required fields
-                if ( empty($type) || empty($quantity) || empty($price)) {
+                if ( empty($type) || empty($price)) {
                     echo "Please fill in all fields.";
                     return;
                 }
@@ -321,6 +332,8 @@ public function edit_price() {
                     
                     'type' => $type,
                     'quantity' => $quantity,
+                    'poor_quantity' => $poor_quantity,
+
                     'price' => $price
                 ];
         
@@ -723,6 +736,7 @@ public function script() {
 
       
     
+    
 
     public function salesorder() {
         // Instantiate Purchaseorder Model
@@ -734,6 +748,51 @@ public function script() {
         // Load the view with purchase orders data
         $this->view('ccm/salesorder', $data);
     }
+
+    public function salesorderpending() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderspending();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderpending', $data);
+    }
+
+    public function salesorderapproved() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderapproved', $data);
+    }
+    
+    public function salesorderrejected() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersrejected();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesorderrejected', $data);
+    }
+
+    public function salesordercompleted() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+        
+        // Load the view with purchase orders data
+        $this->view('ccm/salesordercompleted', $data);
+    }
+    
 
     public function stock_overview() {
         // Instantiate the Product model

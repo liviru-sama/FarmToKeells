@@ -221,10 +221,18 @@
 
 
                 <div class="text-field">
-                    <input name="quantity" type="number" required min="0" step="1">
-                    <span></span>
-                    <label>Quantity(in Kgs)</label>
-                </div>
+    <input name="quantity" type="number" min="0" step="1">
+    <span></span>
+    <label>Quantity in Good Condition (in Kgs)</label>
+</div>
+
+<div class="text-field">
+    <input name="poor_quantity" type="number" min="0" step="1">
+    <span></span>
+    <label>Quantity in Bad Condition (in Kgs)</label>
+</div>
+
+
 
                 <!-- Error message popup -->
                 <div id="error-popup" class="dialog-box">

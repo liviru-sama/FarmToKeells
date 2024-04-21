@@ -57,7 +57,34 @@ class Salesorder {
     }
 
 
+    public function getAllSalesorderspending() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Pending Approval'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
 
+    public function getAllSalesordersapproved() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Approved'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+    
+    public function getAllSalesordersrejected() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Rejected'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+
+    public function getAllSalesorderscompleted() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Completed'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+    
 
 
     public function add_salesorder($data){

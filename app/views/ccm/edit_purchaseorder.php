@@ -180,19 +180,50 @@
                     <label> Product</label>
                 </div>
                 <div class="text-field">
-                    <input type="text" name="type" value="<?=$data['type']?>" required> <!-- Added name attribute -->
-                    <span></span>
-                    <label> Category</label>
-                </div>
+    <label for="type">Type:</label>
+    <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="toggleDropdown()">
+    <div class="typeselect-container" id="typeDropdown">
+        <select class="productstatusInput" name="category" onchange="updateInput(this)">
+            <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
+            <option style="color:white;" value="hillcountry">Hill Country</option>
+            <option style="color:white;" value="organic">Organic</option>
+        </select>
+        <span></span>
+    </div>
+</div>
+
+<script>
+    // Function to toggle dropdown visibility
+    function toggleDropdown() {
+        var dropdown = document.getElementById('typeDropdown');
+        
+        // Toggle dropdown display
+        dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+    }
+    
+    // Function to update input field based on dropdown selection
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("typeInput").value = selectedOption;
+        
+        // Hide the dropdown after selection
+        var dropdown = document.getElementById('typeDropdown');
+        dropdown.style.display = 'none';
+        
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
+
                 <div class="text-field">
                     <input type="date" name="date" id="purchaseDate" value="<?=$data['date']?>" required> <!-- Added name attribute and id attribute -->
                     <span></span>
-                    <label> Date</label>
+                    <label>Expected supply date</label>
                 </div>
                 <div class="text-field">
                     <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
                     <span></span>
-                    <label> Stock</label>
+                    <label>Needed Quantity in kgs</label>
                 </div>
                 <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">

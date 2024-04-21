@@ -157,116 +157,152 @@
     </div>
 
    
-
+    <!-- Main content -->
     <div class="main-content">
+
+    
         <section class="header">
            
         <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" >&nbsp;VIEW All SALESORDERS</h5></a>
+"tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;VIEW All SALESORDERS</h5></a>
+
 
 <main class="table"></br>
-            <section class="table_header">
-            <h2> &nbsp;&nbsp;&nbsp; All Keells Purchase Orders </h2>
-<div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
+<section class="table_header">
+</br><h2>&nbsp;&nbsp;&nbsp;View All Salesorders</h2>
 
-            <a class="button" href="<?php echo URLROOT; ?>/admin/add_purchaseorder">+ Add New</a>
-            </div>
-            </section>
-            <section class="table_body">
 
-           
-                <form method="post">
+                <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
+</div>   
+                </section>
+                <section class="table_body">
+                <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesorderpending" style="text-decoration: none;">
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesorderapproved" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesorderrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesordercompleted" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+</a>
+            <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
                     <table>
-                    <h2> &nbsp;&nbsp;&nbsp; Pending Purchase Orders </h2>
-
                         <thead>
                             <tr>
-                                <th>Purchase order ID</th>
-                                <th>Product</th>
                                 <th>Product image</th>
-                                <th>Product type</th>
-                                <th>Needed quantity(kgs)</th>
-                                <th>Expected supply date</th>
-                                <th>Status</th>
-                                <th>View sales order</th>
-                                <th>EDIT</th>
-                                <th>Delete</th>
+                                <th>Sales Order ID</th>
+                                <th>User ID</th>
+                                <th>User </th>
+                                <th>Contact No.</th>
+                                <th>Product</th>
+                                <th>Product Type</th>
+                                <th>Deliverable Quantity (kgs)</th>
+                                <th>Price per kg</th>
+                                <th>Expected Supply Date</th>
+                                <th>Address</th> 
+                                <th>Status</th> 
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($data['purchaseorders'] as $row) { ?>
-                                <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
-                                    <td><?php echo $row['purchase_id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                    <td><?php echo $row['quantity'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
-                                </tr>
-                                <?php } ?>
-                            <?php } ?>
+                        <?php foreach ($data['salesorders'] as $row) : ?>
+    <!-- Inside the foreach loop for salesorders -->
+    <tr>        
+        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " ></td>
+        <td><?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?></td>
+        <td><?php echo isset($row->user_id) ? $row->user_id : $row['user_id']; ?></td>
+        <?php if (is_object($row)) : ?>
+            <?php $userInfo = $this->getUserInfo($row->user_id); ?>
+            <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
+            <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
+        <?php elseif (is_array($row)) : ?>
+            <?php $userInfo = $this->getUserInfo($row['user_id']); ?>
+            <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
+            <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
+        <?php endif; ?>
+        <td><?php echo isset($row->name) ? $row->name : $row['name']; ?></td>
+        <td><?php echo isset($row->type) ? $row->type : $row['type']; ?></td>
+        <td><?php echo isset($row->quantity) ? $row->quantity : $row['quantity']; ?></td>
+        <td><?php echo isset($row->price) ? $row->price : $row['price']; ?></td>
+        <td><?php echo isset($row->date) ? $row->date : $row['date']; ?></td>
+        <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
+        <td class="statusColumn">
+    <div class="select-container">
+        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && $row['status'] == 'Completed') ? 'style="pointer-events: none; pointer-events: none; 
+  opacity: 0.5;
+  filter: grayscale(100%);"' : ''; ?>>
+            <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
+            <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
+            <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
+            <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
+        </select>
+        <span class="select-arrow">&#9662;</span>
+    </div>
+</td>
+
+
+        <input type="hidden" name="order_id[]" value="<?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?>">
+    </tr>
+<?php endforeach; ?>
+
                         </tbody>
                     </table>
+                    <!-- Success message -->
+                    <div id="successMessage"></div>
+                    <div id="purchaseOrderSuccessMessage"></div>
                 </form>
             </section>
-
-            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Purchase Orders </h2>
-
-                        <thead>
-                            <tr>
-                                <th>Purchase order ID</th>
-                                <th>Product</th>
-                                <th>Product image</th>
-                                <th>Product type</th>
-                                <th>Needed quantity(kgs)</th>
-                                <th>Expected supply date</th>
-                                <th>Status</th>
-                                <th>View sales order</th>
-                                <th>EDIT</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($data['purchaseorders'] as $row) { ?>
-                                <?php if ($row['purchase_status'] === 'Completed') { ?>                                <tr>
-                                    <td><?php echo $row['purchase_id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                    <td><?php echo $row['quantity'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
-                                </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
         </main>
     </section>
 
-    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
-
     <script>
-        function confirmDelete(purchaseId) {
-    var confirmationDialog = document.getElementById('confirmationDialog');
-    var iframeSrc = "<?php echo URLROOT; ?>/admin/confirmationdialog/" + purchaseId;
-    confirmationDialog.src = iframeSrc;
-    confirmationDialog.style.display = 'block';
-}
+    // Function to handle the submission of status update
+    function submitForm(select) {
+        const form = select.closest('form');
+        const formData = new FormData(form);
+        fetch(form.getAttribute('action'), {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to update status');
+            }
+            return response.text();
+        })
+        .then(data => {
+            // Check if the form belongs to sales orders or purchase orders
+            const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
+            const successMessage = document.getElementById(successMessageId);
+            successMessage.textContent = data;
+            successMessage.style.display = 'block';
+            setTimeout(function() {
+                successMessage.style.display = 'none';
+            }, 3000); // Hide the success message after 3 seconds
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+
+    // Set default value to "Pending Approval" for newly created purchase orders
+   // Set default value to "Pending Approval" for newly created orders if status is empty
+document.addEventListener('DOMContentLoaded', function() {
+    const statusInputs = document.querySelectorAll('.statusInput');
+    statusInputs.forEach(function(input) {
+        if (!input.value) {
+            input.value = 'Pending Approval';
+        }
+    });
+});
 
 function searchProducts() {
     // Declare variables
@@ -278,7 +314,7 @@ function searchProducts() {
 
     // Loop through all table rows, and hide those that don't match the search query
     for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[1]; // Index 1 corresponds to the product name column
+        td = tr[i].getElementsByTagName("td")[5]; // Index 1 corresponds to the product name column
         if (td) {
             txtValue = td.textContent || td.innerText;
             if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -289,11 +325,9 @@ function searchProducts() {
         }
     }
 }
+</script>
 
-        </script>
 
 </body>
 
 </html>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>
