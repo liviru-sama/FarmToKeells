@@ -41,17 +41,7 @@ class AdminModel {
 }
 
 
-public function getPendingRegistrationRequests()
-{
-    $this->db->query('SELECT id as user_id, name, email FROM users WHERE status = "pending"');
-    $result = $this->db->resultSet();
 
-    if ($this->db->rowCount() > 0) {
-        return $result;
-    } else {
-        return [];
-    }
-}
 
 
 
