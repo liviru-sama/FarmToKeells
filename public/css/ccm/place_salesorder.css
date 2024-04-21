@@ -194,7 +194,7 @@
         .container .dashboard-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-            gap: 1.3rem;
+            gap: 1.2rem;
             position: fixed;
         }
 
@@ -203,7 +203,7 @@
            
            
             text-align: center;
-            padding: 3px;
+            padding: 2px;
             background-color: #fff8;
             backdrop-filter: blur(7px);
             box-shadow: 0 .4rem .8rem #0005;
