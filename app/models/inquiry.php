@@ -26,45 +26,42 @@ class Inquiry {
         }
     }
 
-    
-
     // Inquiry model method to fetch all inquiries from the database
-public function getAllInquiries() {
-    $this->db->query('SELECT * FROM inquiry');
-    return $this->db->resultSet();
-}
+    public function getAllInquiries() {
+        $this->db->query('SELECT * FROM inquiry');
+        return $this->db->resultSet();
+    }
 
-// Inquiry model method to fetch inquiries of the current user from the database
-public function getUserInquiries($user_id) {
-    $this->db->query('SELECT * FROM inquiry WHERE user_id = :user_id');
-    $this->db->bind(':user_id', $user_id);
-    return $this->db->resultSet();
-}
+    // Inquiry model method to fetch inquiries of the current user from the database
+    public function getUserInquiries($user_id) {
+        $this->db->query('SELECT * FROM inquiry WHERE user_id = :user_id');
+        $this->db->bind(':user_id', $user_id);
+        return $this->db->resultSet();
+    }
 
-// Inquiry model
+    // Inquiry model method to update admin_reply and admin_reply_time
+    public function updateAdminReply($inquiry_id, $admin_reply) {
+        // Prepare SQL statement to update admin_reply and admin_reply_time
+        $this->db->query('UPDATE inquiry SET admin_reply = :admin_reply, admin_reply_time = NOW() WHERE id = :inquiry_id');
 
-public function updateAdminReply($inquiry_id, $admin_reply) {
-    // Prepare SQL statement to update admin_reply and admin_reply_time
-    $this->db->query('UPDATE inquiry SET admin_reply = :admin_reply, admin_reply_time = NOW() WHERE id = :inquiry_id');
-    
-    // Bind values
-    $this->db->bind(':admin_reply', $admin_reply);
-    $this->db->bind(':inquiry_id', $inquiry_id);
-    
-    // Execute query
-    if ($this->db->execute()) {
-        return true;
-    } else {
-        return false;
+        // Bind values
+        $this->db->bind(':admin_reply', $admin_reply);
+        $this->db->bind(':inquiry_id', $inquiry_id);
+
+        // Execute query
+        if ($this->db->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Inquiry model method to fetch an inquiry by its ID
+    public function getInquiryById($inquiry_id) {
+        $this->db->query('SELECT * FROM inquiry WHERE id = :inquiry_id');
+        $this->db->bind(':inquiry_id', $inquiry_id);
+
+        return $this->db->single(); // Assuming single() method fetches a single row
     }
 }
-
-
-public function getInquiryById($inquiry_id) {
-    $this->db->query('SELECT * FROM inquiry WHERE id = :inquiry_id');
-    $this->db->bind(':inquiry_id', $inquiry_id);
-
-    return $this->db->single(); // Assuming single() method fetches a single row
-}
-
-}
+?>

@@ -1,16 +1,16 @@
 <?php
-class Users extends Controller{
+class Users extends Controller {
     public $userModel;
 
-    public function __construct(){
+    public function __construct() {
         $this->userModel = $this->model('User');
 
         // if(!isset($_SESSION['user_id'])){
         //     redirect('users/user_login');
         // }
-
     }
-    public function index(){
+
+    public function index() {
         $data = [
             'title' => ''
         ];
@@ -19,19 +19,18 @@ class Users extends Controller{
         // if(isset($_SESSION['user_id'])){
         //     redirect('farmer/dashboard');
         // }
-        
+
         $this->view('pages/index', $data);
     }
 
-    public function register(){
-
+    public function register() {
         // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
-    
+
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
+
             // Init data
             $data = [
                 'name' => trim($_POST['name']),
@@ -51,7 +50,7 @@ class Users extends Controller{
                 'password_err' => '',
                 'cpassword_err' => ''
             ];
-    
+
             // Validate Email
             if (empty($data['email'])) {
                 $data['email_err'] = 'Please enter email';
@@ -63,12 +62,12 @@ class Users extends Controller{
                     $data['email_err'] = 'Email already exists';
                 }
             }
-    
+
             // Validate Name
             if (empty($data['name'])) {
                 $data['name_err'] = 'Please enter name';
             }
-    
+
             // Validate Username
             if (empty($data['username'])) {
                 $data['username_err'] = 'Please enter username';
@@ -78,26 +77,26 @@ class Users extends Controller{
                     $data['username_err'] = 'Username already exists';
                 }
             }
-    
+
             // Validate NIC
             if (empty($data['nic'])) {
                 $data['nic_err'] = 'Please enter NIC';
             } elseif (strlen($data['nic']) !== 10 && strlen($data['nic']) !== 12) {
                 $data['nic_err'] = 'NIC must be 10 or 12 characters';
-            }else{
+            } else {
                 // Check if NIC already exists
                 if ($this->userModel->findUserByNic($data['nic'])) {
                     $data['nic_err'] = 'NIC already exists';
                 }
             }
-    
+
             // Validate Mobile
             if (empty($data['mobile'])) {
                 $data['mobile_err'] = 'Please enter mobile';
             } elseif (!preg_match('/^\d{9,10}$/', $data['mobile'])) {
                 $data['mobile_err'] = 'Mobile must have 9 or 10 digits';
             }
-    
+
             // Validate Password
             if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter password';
@@ -106,21 +105,21 @@ class Users extends Controller{
             } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).+$/', $data['password'])) {
                 $data['password_err'] = 'Password must contain at least one letter and one number';
             }
-    
+
             // Validate Confirm Password
             if (empty($data['cpassword'])) {
                 $data['cpassword_err'] = 'Please confirm password';
             } elseif ($data['password'] !== $data['cpassword']) {
                 $data['cpassword_err'] = 'Passwords do not match';
             }
-    
+
             // Make sure errors are empty
             if (empty($data['email_err']) && empty($data['name_err']) && empty($data['username_err']) && empty($data['nic_err']) && empty($data['mobile_err']) && empty($data['password_err']) && empty($data['cpassword_err'])) {
                 // Validated
-    
+
                 // Hash Password
                 $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-    
+
                 // Register User
                 if ($this->userModel->register($data)) {
                     flash('register_success', 'Successfully Registered! You can Login.');
@@ -152,21 +151,20 @@ class Users extends Controller{
                 'password_err' => '',
                 'cpassword_err' => ''
             ];
-    
+
             // Load view
             $this->view('users/register', $data);
         }
     }
 
-    public function user_login(){
-
+    public function user_login() {
         // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
-    
-            // Sanitize POST data    
+
+            // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
+
             // Init data
             $data = [
                 'username' => trim($_POST['username']),
@@ -174,7 +172,7 @@ class Users extends Controller{
                 'username_err' => '',
                 'password_err' => '',
             ];
-    
+
             // Validate Username
             if (empty($data['username'])) {
                 $data['username_err'] = 'Please enter username';
@@ -183,7 +181,7 @@ class Users extends Controller{
             if (empty($data['password'])) {
                 $data['password_err'] = 'Please enter password';
             }
-            
+
             //CHECK FOR USER/EMAIL
             $user = $this->userModel->login($data['username'], $data['password']);
             if ($user) {
@@ -209,17 +207,13 @@ class Users extends Controller{
                 'username_err' => '',
                 'password_err' => '',
             ];
-    
+
             // Load view
             $this->view('users/user_login', $data);
         }
     }
-    
-    
 
-
-
-    public function createUserSession($user){
+    public function createUserSession($user) {
         $_SESSION['user_id'] = $user->id;
         $_SESSION['user_name'] = $user->name;
         $_SESSION['user_username'] = $user->username;
@@ -228,11 +222,11 @@ class Users extends Controller{
         $_SESSION['user_mobile'] = $user->mobile;
         $_SESSION['user_province'] = $user->province;
         $_SESSION['user_collectioncenter'] = $user->collectioncenter;
-        
+
         redirect('farmer/dashboard');
     }
 
-    public function logout(){
+    public function logout() {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
         unset($_SESSION['user_username']);
@@ -245,15 +239,12 @@ class Users extends Controller{
         redirect('users/user_login');
     }
 
-    public function isLoggedIn(){
-        if(isset($_SESSION['user_id'])){
+    public function isLoggedIn() {
+        if(isset($_SESSION['user_id'])) {
             return true;
         } else {
             return false;
         }
     }
-
-    
 }
-    
 ?>
