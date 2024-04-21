@@ -194,7 +194,7 @@
         .container .dashboard-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
-            gap: 1.2rem;
+            gap: 1.3rem;
             position: fixed;
         }
 
