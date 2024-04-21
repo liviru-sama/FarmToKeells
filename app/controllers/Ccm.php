@@ -70,7 +70,7 @@ class Ccm extends Controller {
     return false; // Invalid username or password
 }
  
-     public function ccm_login()
+public function ccm_login()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Process form
@@ -99,8 +99,17 @@ class Ccm extends Controller {
             // Call the validate_login method in the ccm model with username and password
             $loggedInAdmin = $this->ccmModel->validateLogin($data['admin_username'], $data['admin_password']);
             if ($loggedInAdmin) {
-                // Create session
-                $this->createUserSession($loggedInAdmin);
+                // Start session if not already started
+                if (session_status() === PHP_SESSION_NONE) {
+                    session_start();
+                }
+
+                // Create session variables
+                $_SESSION['admin_id'] = $loggedInAdmin->id;
+                $_SESSION['admin_username'] = $loggedInAdmin->username;
+
+                // Redirect to ccm dashboard or any desired page
+                redirect('ccm/dashboard');                exit;
             } else {
                 $data['admin_password_err'] = 'Incorrect username or password';
                 $this->view('ccm/ccm_login', $data);

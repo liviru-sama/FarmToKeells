@@ -90,6 +90,8 @@
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
+
+        
        
     </div>
     <div class="navbar-logo-container">
