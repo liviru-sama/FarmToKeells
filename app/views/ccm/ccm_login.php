@@ -89,24 +89,37 @@
 
 <div class="navbar">
     <div class="navbar-icons">
-        <div class="navbar-icon-container" data-text="Go Back">
+    <div class="navbar-icon-container" data-text="Go Back">
             <a href="#" id="backButton" onclick="goBack()">
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
        
+
+        <div class="navbar-icon-container" data-text="Go To Home Page ">
+            <a href="<?php echo URLROOT; ?>/pages/index"  >
+            <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
+       </a>
+        </div>
     </div>
     <div class="navbar-logo-container">
         <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
     </div>
 </div>
 
-        <script>
-        // JavaScript function to go back to the previous page
-        function goBack() {
+<script>
+    // JavaScript function to go back to the previous page only if it matches a specific URL
+    function goBack() {
+        // Check if the previous page in the history matches the specified URL
+        if (document.referrer === "http://localhost/Farmtokeells/pages/selectadmin") {
+            // If it matches, go back
             window.history.back();
+        } else {
+            // If it doesn't match, display an alert message
+            alert("You must log in first to access .");
         }
-    </script>
+    }
+</script>
   
     <section class="form">
         <div class="center">

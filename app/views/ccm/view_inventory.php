@@ -162,7 +162,7 @@
            <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="text-decoration: none;">
        <h5 class="inline-heading" class
    =
-   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW INVENTORY</h5>
+   "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;UPDATE INVENTORY</h5>
    </a></br>
 
 
@@ -185,12 +185,15 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>PRODUCT ID</th>
-                                <th>PRODUCT NAME </th>
-                                <th>PRODUCT IMAGE</th>
-                                <th>PRODUCT TYPE</th>
-                                <th>PRESENT QUANTITY(IN kgs) </th>
-                                <th>PRICE per kg</th>
+                                <th>Product ID</th>
+                                <th>Product Name </th>
+                                <th>Product Image</th>
+                                <th>Product Type</th>
+                                <th>Present Quantity In Good Condition </br>   (in kgs) </th>
+                                <th>Present Quantity In Bad Condition </br>   (in kgs) </th>
+
+                                <th>Price per kg</th>
+                                <th>Last Updated time </th>
 
                                 <th>EDIT</th>
                                 
@@ -209,7 +212,11 @@
             <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
             <td><?php echo $row['type'] ?></td>
             <td><?php echo $row['quantity'] ?></td>
+            <td><?php echo $row['poor_quantity'] ?></td>
+
             <td><?php echo $row['price'] ?></td>
+            <td><?php echo $row['time'] ?></td>
+
             <td><a href="<?php echo URLROOT; ?>/ccm/edit_product?id=<?php echo $row['product_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
            
         </tr>

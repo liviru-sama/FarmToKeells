@@ -152,7 +152,7 @@
 
 
     <div class="navbar-icon-container" data-text="Logout">
-                <a href="<?php echo URLROOT; ?>/users/user_login">
+    <a href="<?php echo URLROOT; ?>/farmer/logout">
                     <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
                 </a>
             </div>
@@ -200,7 +200,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
@@ -211,6 +211,13 @@
                         <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Help</h6>
+                        </div>
+                    </a>
+
+                    <a href="<?php echo URLROOT; ?>/farmer/requestofficer" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6" >
+                            <img src="<?php echo URLROOT; ?>/public/images/officer.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Field Officer</h6>
                         </div>
                     </a>
                 </div>

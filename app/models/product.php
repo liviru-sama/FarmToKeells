@@ -63,13 +63,15 @@ class Product {
         // Prepare SQL statement
         $image = $this->getProductImageURL($data['name']);
         $data['image'] = $image;
-        $this->db->query('INSERT INTO product (name, image,type, quantity, price) VALUES (:name,:image, :type, :quantity, :price)');
+        $this->db->query('INSERT INTO product (name, image,type, quantity,poor_quantity, price) VALUES (:name,:image, :type, :quantity,:poor_quantity,  :price)');
     
         // Bind parameters
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':image', $data['image']);
         $this->db->bind(':type', $data['type']);
         $this->db->bind(':quantity', $data['quantity']);
+        $this->db->bind(':poor_quantity', $data['poor_quantity']);
+
         $this->db->bind(':price', $data['price']);
         
         // Execute query
@@ -113,12 +115,14 @@ public function findProductByName($name) {
 
 public function edit_product($data){
     // Prepare SQL statement
-    $this->db->query('UPDATE product SET type = :type, quantity = :quantity, price = :price WHERE product_id = :id');
+    $this->db->query('UPDATE product SET type = :type, quantity = :quantity,poor_quantity = :poor_quantity, price = :price WHERE product_id = :id');
 
     // Bind parameters
     $this->db->bind(':id', $data['id']);
     $this->db->bind(':type', $data['type']);
     $this->db->bind(':quantity', $data['quantity']);
+    $this->db->bind(':poor_quantity', $data['poor_quantity']);
+
     $this->db->bind(':price', $data['price']);
 
     // Execute query

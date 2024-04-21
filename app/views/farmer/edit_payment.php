@@ -62,7 +62,7 @@
 
 
 <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/farmer/logout">
+<a href="<?php echo URLROOT; ?>/farmer/logout">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
@@ -110,7 +110,7 @@
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-5" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
@@ -134,6 +134,9 @@
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;View Your Payment Details</h5>
             </a>
+            <a href="<?php echo URLROOT; ?>/farmer/payment" style="text-decoration: none;">
+            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;View Order Payments</h5>
+        </a> 
 
             <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="text-decoration: none;">
                 <h5 class="inline-heading" class
@@ -155,9 +158,27 @@
                 <input type="text" id="account_name" name="account_name" value="<?php echo $data['account_name']; ?>"><br>
             </div>
             <div class="text-field">
-                <label for="bank">Bank Name:</label><br>
-                <input type="text" id="bank" name="bank" value="<?php echo $data['bank']; ?>"><br>
-            </div>
+    <div class="typeselect-container">
+        <select class="productstatusInput" name="bank" onchange="updateInput(this)">
+            <option style="color:white;" value="" <?php echo ($data['bank'] == '') ? 'selected' : ''; ?>></option>
+            <option style="color:white;" value="Commercial Bank (COMB)">Commercial Bank (COMB)</option>
+
+                                <option style="color:white;" value="Bank of Ceylon (BOC)">Bank of Ceylon (BOC)</option>
+                                <option style="color:white;" value="People's Bank">People's Bank</option>
+                                <option style="color:white;" value="Hatton National Bank (HNB)">Hatton National Bank (HNB)</option>
+                                <option style="color:white;" value="National Development Bank (NDB)">National Development Bank (NDB)</option>
+                                <option style="color:white;" value="Nations trust Bank (NTB)">Nations trust Bank (NTB)</option>
+                                <option style="color:white;" value="Sampath Bank (SAMP) ">Sampath Bank (SAMP) </option>
+                                <option style="color:white;" value="Seylan Bank (SEYB)">Seylan Bank (SEYB)</option>
+                                <option style="color:white;" value="DFCC Bank (DFCC)">DFCC Bank (DFCC)</option>
+        </select>
+        <input name="bank" id="bank" type="text" required value="<?php echo $data['bank']; ?>">
+        <span></span>
+        <label for="bank">Bank</label>
+    </div>
+</div>
+
+
             <div class="text-field">
                 <label for="branch">Bank Branch:</label><br>
                 <input type="text" id="branch" name="branch" value="<?php echo $data['branch']; ?>"><br>
@@ -166,6 +187,24 @@
             <input type="submit" value="Submit">
         </form>
     </div>
+
+
+    <script>
+    // JavaScript function to update the input field when an option is selected
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        // Set the value of the bank input field directly
+        document.getElementById("bank").value = selectedOption;
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+
+    // JavaScript function to show the dropdown menu when the bank input field is clicked
+    function showDropdown() {
+        var select = document.getElementById("bankDropdown");
+        select.style.display = 'block';
+    }
+</script>
 
 </body>
 </html>

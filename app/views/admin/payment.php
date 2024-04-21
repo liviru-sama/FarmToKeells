@@ -110,7 +110,7 @@
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/admin/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5">
+                        <div class="menu" data-name="p-5" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
                         </div>
@@ -126,7 +126,7 @@
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash7.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Users</h6>
                         </div>
@@ -144,147 +144,116 @@
 
     <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Manage Users</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Complete Payment For Orders</h5>
             </a>
 
 
     <main class="table" style="text-align:center;"></br>
             <section class="table_header">
-    <h2 >Pending Users</h2></br>
-  
-    <?php $pendingUsers = $data['pendingUsers']; ?>
-    <?php if (!empty($pendingUsers)): ?>
-        <section class="table_body">
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($pendingUsers as $user): ?>
+            <?php if (!empty($data['paymentRequests'])) : ?>
+    <h2>Pending Payment Requests</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+                <th>User ID</th>
+                <th>Bank Account Number</th>
+                <th>Account Name</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status === 'pending') : ?>
+                    <?php $pendingFound = true; ?>
                     <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
+                        <!-- Display pending payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                        <td><?php echo $paymentRequest->user_id; ?></td>
+                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
+                        <td><?php echo $paymentRequest->account_name; ?></td>
+                        <td><?php echo $paymentRequest->bank; ?></td>
+                        <td><?php echo $paymentRequest->branch; ?></td>
+                        <td><?php echo $paymentRequest->status; ?></td>
                         <td>
-    <div class="button-container">
-        <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="accept">Accept</button>
-        </form>
-        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
-        </form>
-        <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
+                            <form action="<?php echo URLROOT; ?>/payment/process_payment" method="post">
+                                <!-- Hidden fields for payment processing -->
+                                <input type="hidden" name="bank_account_number" value="<?php echo $paymentRequest->bank_account_number; ?>">
+                                <input type="hidden" name="account_name" value="<?php echo $paymentRequest->account_name; ?>">
+                                <input type="hidden" name="bank" value="<?php echo $paymentRequest->bank; ?>">
+                                <input type="hidden" name="branch" value="<?php echo $paymentRequest->branch; ?>">
+                                <input type="hidden" name="totalprice" value="<?php echo $paymentRequest->totalprice; ?>">
+                                <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>">
+                                <!-- Submit button for payment -->
+                                <button type="submit">Pay</button>
                             </form>
-    </div>
-</td>
-
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No pending users.</p>
-    <?php endif; ?>
-
-    </br><br> <h2>Accepted Users</h2></br>
-
-    <?php $acceptedUsers = $data['acceptedUsers']; ?>
-    <?php if (!empty($acceptedUsers)): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($acceptedUsers as $user): ?>
-                    <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-                        <div class="button-container">
-
-                        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
-                            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
-                        </form>
-                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
-                            </form>
-                        </div>
                         </td>
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No accepted users.</p>
-    <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
 
-    </br> <h2>Rejected Users</h2></br>
+    <?php if (!$pendingFound) : ?>
+    <p>No pending payment requests found.</p>
+<?php endif; ?>
 
-    <?php $rejectedUsers = $data['rejectedUsers']; ?>
-    <?php if (!empty($rejectedUsers)): ?>
-        <table>
-            <thead>
-                <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php foreach ($rejectedUsers as $user): ?>
+                </br> </br> 
+    <h2>Completed Payments</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+                <th>User ID</th>
+                <th>Bank Account Number</th>
+                <th>Account Name</th>
+                <th>Bank</th>
+                <th>Branch</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status !== 'pending') : ?>
+                     <?php $completedFound = true; ?>
                     <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-                        <div class="button-container">
-                            <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="accept">Accept</button>
-                            </form>
-                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
-                            </form>
-                        </div>
-                        </td>
+                        <!-- Display completed payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                        <td><?php echo $paymentRequest->user_id; ?></td>
+                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
+                        <td><?php echo $paymentRequest->account_name; ?></td>
+                        <td><?php echo $paymentRequest->bank; ?></td>
+                        <td><?php echo $paymentRequest->branch; ?></td>
+                        <td><?php echo $paymentRequest->status; ?></td>
+                       
                     </tr>
-                <?php endforeach; ?>
-            </tbody>
-        </table>
-    <?php else: ?>
-        <p>No rejected users.</p>
-    <?php endif; ?>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+
+<?php else : ?>
+    <p>No payment requests found.</p>
+<?php endif; ?>
+
     
 
 </body>
