@@ -232,6 +232,7 @@
         </div>
     </section>
 </div>
+
 <!-- Main content -->
 <div class="main-content">
     <!-- Header and table body content -->
