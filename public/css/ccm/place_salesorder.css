@@ -157,14 +157,14 @@
 
         h2,
         h5 {
-            font-family: 'Poppins';
+            font-family: 'Poppins', sans-serif;
             color: #060804;
            
         }
 
         th,
         td {
-            font-family: 'Poppins';
+            font-family: 'Poppins', sans-serif;
             padding: 5px;
         }
 
@@ -517,6 +517,8 @@ a.button:hover {
     border-radius: 10px;
     text-align: center;
     padding:20px;
+    font-family: 'Poppins', sans-serif;
+
 }
 
 .center h1 {
@@ -530,7 +532,7 @@ form .text-field {
     position: relative;
     border-bottom: 2px solid black;
     margin: 30px 0;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
 
 }
 
@@ -551,8 +553,7 @@ form .text-field {
     color: black;
     transform: translateY(-50%);
     font-size: 16px;
-    font-weight: bold;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
     pointer-events: none;
     transition: .4s;
     padding: 0 5px;
@@ -567,7 +568,7 @@ form .text-field {
     height: 2px;
     background: #65A534;
     transition: .4s;
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
 
 }
 
@@ -748,7 +749,7 @@ input[type="submit"]:hover {
 }
 
 body {
-    font-family: 'Poppins';
+    font-family: 'Poppins', sans-serif;
 }
 
 .all {
@@ -1051,4 +1052,19 @@ main.stock {
     font-size: 12px; 
     margin-top: 1px; 
     
+}
+
+.login-link{
+    margin: 3px 0 30px auto;
+    text-align: center;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.671);
+}
+.login-link a{
+    color: rgba(0, 0, 0, 0.671);
+    text-decoration: none;
+}
+.login-link a:hover{
+    color: #65A534;
+    text-decoration: underline;
 }
