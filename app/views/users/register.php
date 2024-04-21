@@ -93,7 +93,12 @@
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
-       
+        <div class="navbar-icon-container" data-text="Go To Home Page ">
+            <a href="<?php echo URLROOT; ?>/pages/index"  >
+            <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
+       </a>
+        </div>
+        
     </div>
     <div class="navbar-logo-container">
         <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
@@ -106,9 +111,9 @@
             window.history.back();
         }
     </script>
-    <section class="form">
-        <div class="center">
-            <h1>Farmer Registration</h1>
+    <section class="form"></br></br></br>
+    </br></br><div class="center">
+    </br></br></br></br> <h1>Farmer Registration</h1></br>
             <form action="<?php echo URLROOT; ?>/users/register" method="post" >
                 <div class="text-field">
                     <input type="text" name="name" id="name" value="<?php echo $data['name']; ?>" required>
@@ -163,7 +168,7 @@
                             </select>
                             <input name="province" id="province" type="text" required>
                             <span></span>
-                            <label>Province</label>
+                            <label>Select Your Nearest Collection Center</label>
                         </div>
                     </div>
 
@@ -173,7 +178,12 @@
                     <label>Address</label>
                 </div>
 
-               
+                <div class="text-field">
+    <input type="number" name="distance" id="distance" value="<?php echo $data['distance']; ?>" min="0" step="0.01" required>
+    <span></span>
+    <label>Your Distance to The Nearest Collection Center (in km)</label>
+</div>
+
 
                 
 

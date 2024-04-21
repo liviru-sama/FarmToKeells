@@ -9,7 +9,7 @@
 
         //Register user
         public function register($data){
-            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, province, collectioncenter, password, status) VALUES(:name, :username, :email, :nic, :mobile, :province, :collectioncenter, :password, :status)');
+            $this->db->query('INSERT INTO users (name, username, email, nic, mobile, province, distance, collectioncenter, password, status) VALUES(:name, :username, :email, :nic, :mobile, :province, :distance, :collectioncenter, :password, :status)');
             //Bind values
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':username', $data['username']);
@@ -17,6 +17,7 @@
             $this->db->bind(':nic', $data['nic']);
             $this->db->bind(':mobile', $data['mobile']);
             $this->db->bind(':province', $data['province']);
+            $this->db->bind(':distance', $data['distance']);
             $this->db->bind(':collectioncenter', $data['collectioncenter']);
             $this->db->bind(':password', $data['password']);
             $this->db->bind(':status', 'pending'); // Set initial status to 'pending'

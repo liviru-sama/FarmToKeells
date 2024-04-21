@@ -6,10 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
 
-    <script src="<?php echo JS;?>farmer/view_profile.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
-    <script src="<?php echo JS;?>farmer/update_profile.js"></script>
-
+    <script src="<?= JS ?>place_order.js"></script>
 
     <style>
         body,
@@ -20,66 +18,45 @@
             height: 100%;
         }
 
-        .profile-info {
-    display: flex;
-    align-items: center; /* Align items vertically */
-    margin-bottom: 20px; /* Adjust spacing between profile image/heading and update button */
-}
-
-.profile-image {
-    flex: 0 0 auto; /* Don't allow the image to grow or shrink */
-    margin: 20px; /* Adjust spacing between image and heading */
-    padding:30px;
-}
-
-.profile-image img {
-    width: 300px; /* Adjust the width of the profile image */
-    height: 300px; /* Maintain aspect ratio */
-    padding:30px;
-}
-
-.profile-heading {
-    flex: 1; /* Allow the heading to grow to fill remaining space */
-}
-
-.form-button {
-    color: white;
-    width: 80%;
-    height: 45px;
-    border: 0 solid #65A534;
-    background:#65A534;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    margin: 20px 10px;
-}
-
-
-        
+        #notificationFrame,
+        #productSelectionFrame {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff5;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
+            z-index: 9999;
+            display: none; /* Initially hide the iframe */
+            width: 80%; /* Adjust width as needed */
+            height: 80%; /* Adjust height as needed */
+        }
     </style>
 </head>
 
 <body>
-<div class="navbar">
-    <div class="navbar-icons">
-    <div class="navbar-icon-container" data-text="Go Back">
+    <div class="navbar">
+        <div class="navbar-icons">
+                  <div class="navbar-icon-container" data-text="Go Back">
         <a href="#" id="backButton" onclick="goBack()">
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
 
 
         <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
         </a></div>
 
 
+      
 
 
                     <div class="navbar-icon-container" data-text="View Profile" >
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" style="background: #65A534; transform: scale(1.08);">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
                     </a></div>
 
 
@@ -88,186 +65,130 @@
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
 
+        
     </div>
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
-<script>
-    // JavaScript function to go back to the previous page
-    function goBack() {
-        window.history.back();
-    }
-</script>
+    <script>
+        // JavaScript function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    
-                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" data-text="Your Products">
+                    <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-1">
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Products</h6>
                         </div>
                     </a>
-
                     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2" data-text="View Their Purchaseorders and Your Salesorders" > 
+                        <div class="menu" data-name="p-2" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
-
                     <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" data-text="View Current Market Demands and Prices" >
+                        <div class="menu" data-name="p-4">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
-
                     <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" data-text="View Your Transport requests">
+                        <div class="menu" data-name="p-7">
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>
                     </a>
-
-                    <a href="<?php echo URLROOT; ?>/farmer/payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5" data-text="View Your Payment Requests">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
                             <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
                         </div>
                     </a>
-
-                    
-                    </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" data-text="View Your Inquiries">
+                    <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Help</h6>
                         </div>
                     </a>
-
-                    
                 </div>
             </div>
         </section>
     </div>
-
     <!-- Main content -->
-    <div class="main-content">
+    <div class="main-content" >
+        <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
+            <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
+        </a>
+        <a href="<?php echo URLROOT; ?>/farmer/add_salesorder" style="text-decoration: none;">
+            <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;Add Order</h5>
+        </a>
+        <br>
 
-    <a href="<?php echo URLROOT; ?>/farmer/view_profile" style="text-decoration: none;background: #65A534; transform: scale(1.08);">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; View Profile</h5>
-            </a>
+        <section class="header" ></section>
+        <section class="form">
+            <div class="center">
+            <h1>Request Transport</h1>
+        <form action="<?= URLROOT ?>/farmer/place_order" method="post">
+            <!-- Hidden input fields to store order ID and user ID -->
+            <input type="hidden" name="order_id" value="<?= isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : ''; ?>">
+            <input type="hidden" name="user_id" value="<?= isset($_GET['user_id']) ? htmlspecialchars($_GET['user_id']) : ''; ?>">
 
-   
-           
-
-<section class="header"></section>
-<section class="form">
-<div class="card-white">
-                    <p class="p-regular-grey">User Account</p>
-                    <div class="subgrid-4">
-
-                        <div class="rectangle">
-                            
-                            <table>
-                                <tr>
-                                    <td class="p-regular-grey">Username</td>
-                                    <td class="p-regular-grey">:</td>
-                                    <td class="p-title"><?php echo $_SESSION['user_username'];?></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-regular-grey">Name</td>
-                                    <td class="p-regular-grey">:</td>
-                                    <td class="p-title"><?php echo $_SESSION['user_name'];?></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-regular-grey">E-mail</td>
-                                    <td class="p-regular-grey">:</td>
-                                    <td class="p-title"><?php echo $_SESSION['user_email'];?></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-regular-grey">Mobile</td>
-                                    <td class="p-regular-grey">:</td>
-                                    <td class="p-title"><?php echo $_SESSION['user_mobile'];?></td>
-                                </tr>
-                                <tr>
-                                    <td class="p-regular-grey">NIC</td>
-                                    <td class="p-regular-grey">:</td>
-                                    <td class="p-title"><?php echo $_SESSION['user_nic'];?></td>
-                                </tr>
-                                
-                            </table>
-                        </div>
-
-                        <div class="rectangle">
-                            <p>Change Username</p> <?php echo '<p>' . flash('user_message') . '</p>';?>
-                            <form action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>" method="POST" class="subgrid-1">
-                                <label for="nusername" class="p-regular-grey">New Username :</label>
-                                <input type="text" id="new_username" name="new_username" class="form-default">
-                                <button class="button-main" type="submit">Change</button>
-                                <!-- <div class="error" id="new-username-error"><?php echo $data['new_username_err']; ?></div> -->
-                            </form>
-                        </div>
-                        <div class="rectangle">
-                            <p>Change Name</p>
-                            <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
-                                <label for="nnamec" class="p-regular-grey">New Name :</label>
-                                <input type="text" id="new_name" name="new_name" class="form-default">
-                                <button class="button-main" type="submit">Change</button>
-                                <!-- <div class="error" id="new-name-error"><?php echo $data['new_name_err']; ?></div> -->
-                            </form>
-                        </div>
-                        <div class="rectangle">
-                            <p>Change Email</p>
-                            <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
-                                <label for="nemail" class="p-regular-grey">New E-mail :</label>
-                                <input type="text" id="new_email" name="new_email" class="form-default">
-                                <button class="button-main" type="submit">Change</button>
-                                <!-- <div class="error" id="new-email-error"><?php echo $data['new_email_err']; ?></div> -->
-                            </form>
-                        </div>
-                        <div class="rectangle">
-                            <p>Change Mobile</p>
-                            <form action="<?php echo URLROOT;?>/farmer/updateMobile/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
-                                <label for="nmobile" class="p-regular-grey">New Mobile :</label>
-                                <input type="text" id="new_mobile" name="new_mobile" class="form-default">
-                                <button class="button-main" type="submit">Change</button>
-                                <!-- <div class="error" id="new-mobile-error"><?php echo $data['new_mobile_err']; ?></div> -->
-                            </form>
-                        </div>
-                        
-
-                        
-
-                        <div class="rectangle">
-                            <p>Change Password</p>
-                            <form action="<?php echo URLROOT;?>/farmer/changePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
-                                <label for="fname" class="p-regular-grey">Current Password :</label>
-                                <input type="password" id="current_password" name="current_password" class="form-default">
-                                <label for="fname" class="p-regular-grey">New Password :</label>
-                                <input type="password" id="new_password" name="new_password" class="form-default">
-                                <label for="fname" class="p-regular-grey">Confirm Password :</label>
-                                <input type="password" id="confirm_password" name="confirm_password" placeholder="" class="form-default">
-                                <button class="button-main" type="submit">Change</button>
-                                <!-- <div class="error" id="new-password-error"><?php echo $data['new_password_err']; ?></div> -->
-                            </form>
-                        </div>
-
-                        
-                        
-                    </div>
-                </div>
-
+            <!-- Non-editable but visible fields -->
+            <div class="text-field">
+                <input type="text" name="product_name" id="product_name" value="<?= isset($_GET['product_name']) ? htmlspecialchars($_GET['product_name']) : ''; ?>" readonly>
+                <span></span>
+                <label>Product</label>
             </div>
 
 
+            <div class="error" id="product-error"><?= $data['errors']['product_err']; ?></div>
 
+            <div class="text-field">
+                <input type="text" name="quantity" id="quantity" value="<?= isset($_GET['quantity']) ? htmlspecialchars($_GET['quantity']) : ''; ?>" readonly>
+                <span></span>
+                <label>Quantity( in kg)</label>
+            </div>
+            <div class="error" id="quantity-error"><?= $data['errors']['quantity_err']; ?></div>
+
+            <div class="text-field">
+                <input type="text" name="address" id="address" value="<?= isset($_GET['address']) ? htmlspecialchars($_GET['address']) : ''; ?>" readonly>
+                <span></span>
+                <label>Collection Address</label>
+            </div>
+
+            <!-- Other form fields -->
+            <div class="text-field">
+                <input type="date" name="startdate" id="startdate" required>
+                <span></span>
+                <label>Earliest Pick-Up Date</label>
+            </div>
+            <div class="error" id="startdate-error"><?php echo $data['errors']['startdate_err']; ?></div>
+
+            <div class="text-field">
+                <input type="date" name="enddate" id="enddate" required>
+                <span></span>
+                <label>Latest Pick-Up Date</label>
+            </div>
+            <div class="error" id="enddate-error"><?php echo $data['errors']['enddate_err']; ?></div>
+
+            <div class="text-field unrequired">
+                <input type="text" name="notes" id="notes" placeholder="Special instructions or requirements">
+                <span></span>
+                <label>Additional Notes</label>
+            </div>
+
+            <input type="submit" value="Place Request">
+        </form>
+    </div>
 </section>
-
 </body>
 
 </html>
