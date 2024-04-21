@@ -167,12 +167,11 @@
                         </div>
                     </div>
 
-                <!-- <div class="text-field">
-                    <select name="province" id="province" value="<?php echo $data['province']; ?>" required>
-                        <option value="1">Western</option>
-                        <option value="2">Southern</option>
-                        <option value="3">Central</option>
-                </div> -->
+                <div class="text-field">
+                    <input type="text" name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
+                    <span></span>
+                    <label>Address</label>
+                </div>
 
                
 

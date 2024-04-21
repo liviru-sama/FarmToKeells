@@ -162,7 +162,7 @@
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Province</th>
-                    <th>Collection Center</th>
+                    <th>Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -182,8 +182,12 @@
         </form>
         <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
             <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="reject" style="background-color:red;">Reject</button>
+            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
         </form>
+        <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
+                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
+                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
+                            </form>
     </div>
 </td>
 
@@ -195,7 +199,7 @@
         <p>No pending users.</p>
     <?php endif; ?>
 
-    </br> <h2>Accepted Users</h2></br>
+    </br><br> <h2>Accepted Users</h2></br>
 
     <?php $acceptedUsers = $data['acceptedUsers']; ?>
     <?php if (!empty($acceptedUsers)): ?>
@@ -206,7 +210,7 @@
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Province</th>
-                    <th>Collection Center</th>
+                    <th>Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -219,10 +223,17 @@
                         <td><?= $user->province; ?></td>
                         <td><?= $user->collectioncenter; ?></td>
                         <td>
+                        <div class="button-container">
+
+                        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
+                            <input type="hidden" name="userId" value="<?= $user->id; ?>">
+                            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
+                        </form>
                             <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
                                 <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete">Delete</button>
+                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
                             </form>
+                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -232,7 +243,7 @@
         <p>No accepted users.</p>
     <?php endif; ?>
 
-    <h2>Rejected Users</h2>
+    <br><br><h2>Rejected Users</h2>
 
     <?php $rejectedUsers = $data['rejectedUsers']; ?>
     <?php if (!empty($rejectedUsers)): ?>
@@ -243,7 +254,7 @@
                     <th>Name</th>
                     <th>Mobile</th>
                     <th>Province</th>
-                    <th>Collection Center</th>
+                    <th>Address</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -256,10 +267,16 @@
                         <td><?= $user->province; ?></td>
                         <td><?= $user->collectioncenter; ?></td>
                         <td>
+                        <div class="button-container">
+                            <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
+                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
+                                <button type="submit" name="accept">Accept</button>
+                            </form>
                             <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
                                 <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete">Delete</button>
+                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
                             </form>
+                        </div>
                         </td>
                     </tr>
                 <?php endforeach; ?>
