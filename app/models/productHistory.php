@@ -1,4 +1,3 @@
-
 <?php
 
 class ProductHistory {
@@ -49,9 +48,7 @@ class ProductHistory {
         
         // Execute query and return result set
         return $this->db->resultSet();
-    }
-    
-   
-    
-    
+    }  
 }
+
+?>

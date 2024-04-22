@@ -89,7 +89,7 @@
     <div class="navbar">
     <div class="navbar-icons">
         <div class="navbar-icon-container" data-text="Go Back">
-            <a href="#" id="backButton" onclick="goBack()">
+            <a href="<?php echo URLROOT; ?>/pages/index.php" id="backButton" >
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
@@ -104,8 +104,8 @@
         <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
     </div>
 </div>
-
-        <script>
+      
+      <script>
         // JavaScript function to go back to the previous page
         function goBack() {
             window.history.back();
@@ -210,54 +210,6 @@
         </div>
     </section>
 
-    <!-- <div class="container">
-        <div class="title">Farmer Registration</div>
-        <form action="<?php echo URLROOT; ?>/users/register" method="post">
-            <div class="user-details">
-                <div class="input-box">
-                    <span class="details">Name</span>
-                    <input type="text" name="name" id="name" value="<?php echo $data['name']; ?>" required>
-                    <div class="error" id="name-error"><?php echo $data['name_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">Username</span>
-                    <input type="text" name="username" id="username" value="<?php echo $data['username']; ?>" required>
-                    <div class="error" id="username-error"><?php echo $data['username_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">E-mail Address</span>
-                    <input type="text" name="email" id="email" value="<?php echo $data['email']; ?>" required>
-                    <div class="error" id="email-error"><?php echo $data['email_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">NIC Number</span>
-                    <input type="text" name="nic" id="nic" value="<?php echo $data['nic']; ?>" required>
-                    <div class="error" id="nic-error"><?php echo $data['nic_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">Mobile Number</span>
-                    <input type="text" name="mobile" id="mobile" value="<?php echo $data['mobile']; ?>" required>
-                    <div class="error" id="mobile-error"><?php echo $data['mobile_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">Password</span>
-                    <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>" required>
-                    <div class="error" id="password-error"><?php echo $data['password_err']; ?></div>
-                </div>
-                <div class="input-box">
-                    <span class="details">Confirm Password</span>
-                    <input type="password" name="cpassword" id="cpassword" value="<?php echo $data['cpassword']; ?>" required>
-                    <div class="error" id="cpassword-error"><?php echo $data['cpassword_err']; ?></div> 
-                </div>
-            </div>
-            <div class="button">
-                <input type="submit" value="Register">
-            </div>
-            <div class="login-link">
-                Already a user? <a href="<?php echo URLROOT; ?>/users/user_login">Click Here</a>
-            </div>
-        </form>
-    </div> -->
         <script> function updateInput(select) {
     var selectedOption = select.options[select.selectedIndex].text;
     // Set the value of the province input field directly
