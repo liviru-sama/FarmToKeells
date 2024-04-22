@@ -80,7 +80,7 @@ class Salesorder {
 
     public function getAllSalesorderscompleted() {
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-        $sql = "SELECT * FROM salesorder WHERE status = 'Completed'";
+        $sql = "SELECT * FROM salesorder WHERE LOWER(status) = 'completed'";
         $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
         return $result;
     }

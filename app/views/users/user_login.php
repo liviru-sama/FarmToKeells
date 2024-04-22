@@ -90,7 +90,11 @@
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
-
+        <div class="navbar-icon-container" data-text="Go To Home Page ">
+            <a href="<?php echo URLROOT; ?>/pages/index"  >
+            <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
+       </a>
+        </div>
         
        
     </div>
@@ -99,12 +103,26 @@
     </div>
 </div>
 
-        <script>
-        // JavaScript function to go back to the previous page
-        function goBack() {
+<script>
+    // JavaScript function to go back to the previous page only if it matches specific URLs
+    function goBack() {
+        // Define an array of allowed URLs
+        var allowedUrls = [
+            "http://localhost/Farmtokeells/pages/index.php",
+            "http://localhost/Farmtokeells/users/register"
+        ];
+
+        // Check if the previous page in the history matches any of the allowed URLs
+        if (allowedUrls.includes(document.referrer)) {
+            // If it matches, go back
             window.history.back();
+        } else {
+            // If it doesn't match, display an alert message
+            alert("You must log in first to access.");
         }
-    </script>
+    }
+</script>
+
     <section class = "form">
         <div class="center">
             
