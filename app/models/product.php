@@ -211,12 +211,3 @@ public function getProductImageURL($productName) {
 
     
 }
-
-        
-    
-
-
-
-        
-
-      
