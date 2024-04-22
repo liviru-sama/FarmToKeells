@@ -1266,6 +1266,22 @@ public function payment()
 }
 
 
+
+public function Notifications() {
+    $notificationModel = $this->model('FarmerNotifications');
+
+    $notifications = $notificationModel->getAllNotifications();
+
+   
+    $data = [
+        'notifications' => $notifications,
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('farmer/notifications', $data);
+  }
+  
+
 }
 
 ?>
