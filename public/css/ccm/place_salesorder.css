@@ -344,7 +344,7 @@
             background-color: #4CAF50;
             color: white;
             text-decoration: none;
-            border: 1px solid #4CAF50;
+            /* border: 1px solid #4CAF50; */
             border-radius: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
@@ -488,8 +488,8 @@ button {
     background-color: #65A534; /* Green background color */
     color: rgb(251, 249, 249); /* Text color */
     text-decoration: none; /* Remove underline */
-    border: 2px solid white; /* Green border */
-    border-radius: 30px; 
+    /* border: 2px solid #65A534; */
+    border-radius: 40px; 
     /* Rounded corners */
 }
 
@@ -512,7 +512,7 @@ a.button:hover {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 450px;
+    width: 520px;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     text-align: center;
@@ -551,7 +551,7 @@ form .text-field {
     color: black;
     transform: translateY(-50%);
     font-size: 16px;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-family: 'Poppins';
     pointer-events: none;
     transition: .4s;
