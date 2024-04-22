@@ -34,6 +34,14 @@
     width: 200px; /* Adjust the width of the profile image */
     height: 200px; /* Maintain aspect ratio */
     padding:30px;
+    position: relative;
+    right: 20%;
+    left: 20%;
+    top: 20%;
+    
+
+    
+    border-radius: 50%; /* Make the image circular */
 }
 
 .profile-heading {
@@ -65,7 +73,7 @@ top:58%;}
 <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
-        <a href="#" id="backButton" onclick="goBack()">
+        <a href="<?php echo URLROOT; ?>/farmer/dashboard">
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
 
@@ -96,12 +104,7 @@ top:58%;}
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
-<script>
-    // JavaScript function to go back to the previous page
-    function goBack() {
-        window.history.back();
-    }
-</script>
+
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -176,13 +179,12 @@ top:58%;}
         <!-- Container for profile image and heading -->
        
             <div class="profile-image">
-            <h1>View Your Profile</h1>
-            
-
-
-            <?php if (!empty($userData['image'])) : ?>
+        
+            <?php if (!empty($profileImage)) : ?>
     <!-- If a profile picture exists, display it -->
-    <img src="<?php echo URLROOT . '/images/uploads/' . $userData['image']; ?>" alt="/public/images/farmer_dashboard/dash6.png">
+    <!-- <img src="<?php echo URLROOT . '/images/uploads/' . $userData['image']; ?>" alt="Profile Picture"> -->
+
+    <img src="<?php echo URLROOT . '/images/uploads/' . $profileImage; ?>" alt="Profile Picture">
 <?php else : ?>
     <!-- If no profile picture exists, display the default profile picture -->
     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="Default Profile Picture">
@@ -195,6 +197,7 @@ top:58%;}
 
 
 <button onclick="chooseProfilePicture()">Upload Profile Picture</button>
+<?php flash('profile_pic_error'); ?>
 </br></br>
 
 <script>

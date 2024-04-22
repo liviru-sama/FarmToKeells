@@ -62,7 +62,7 @@
 <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
-        <a href="#" id="backButton" onclick="goBack()">
+        <a href="<?php echo URLROOT; ?>/farmer/dashboard" id="backButton" >
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
 
