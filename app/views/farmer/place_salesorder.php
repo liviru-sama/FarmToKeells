@@ -351,7 +351,27 @@
 
             // Write content to iframe with transparent background and adjusted font sizes
             var iframeContent = `<style>
-                                    /* Add your CSS styles here */
+            body {
+      overflow: hidden; /* Hide scrollbar */
+      background
+    }
+    .button-container {
+        display: flex;
+        justify-content: center;
+    }
+    .button-container button {
+        background-color: black;
+        color: white;
+        padding: 5px 20px;
+        border-radius: 25px;
+        font-size: 20px;
+        cursor: pointer;
+        width: 100px; /* Set a fixed width */
+        height: 40px; /* Set a fixed height */
+    }
+    .button-container button:hover {
+        background-color: #65A534;
+    }
                                 </style>
                                 <div style="text-align: center;">
                                     <p style="font-size: 22px;">Are you sure you want to delete the order with ID ${orderId}?</p>
@@ -366,7 +386,7 @@
             confirmationDialog.contentDocument.body.innerHTML = iframeContent;
 
             // Set transparent background for iframe
-            confirmationDialog.style.backgroundColor = 'transparent';
+            confirmationDialog.style.backgroundColor = 'white';
         }
 
         function submitFormAndClose(event) {

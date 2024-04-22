@@ -49,6 +49,8 @@
 
 
 
+
+
         .disabled-link {
             pointer-events: none;
             opacity: 0.5;
@@ -207,7 +209,7 @@
                         <th>status</th>
 
                         <th>edit </th>
-                        <th>transport</th>
+                        <th>request transport</th>
                         
                         <th>request payment </th>
                         <th>delete </th>
@@ -254,7 +256,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
 }
 ?>
 
-<iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
+<iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
                             <script>
 
 
@@ -295,7 +297,6 @@ function confirmDelete(deleteUrl, orderId) {
 
   body {
       overflow: hidden; /* Hide scrollbar */
-      background
     }
     .button-container {
         display: flex;
@@ -312,7 +313,7 @@ function confirmDelete(deleteUrl, orderId) {
         height: 40px; /* Set a fixed height */
     }
     .button-container button:hover {
-        background-color: green;
+        background-color: #65A534;
     }
 </style>
 
@@ -329,7 +330,7 @@ function confirmDelete(deleteUrl, orderId) {
   confirmationDialog.contentDocument.body.innerHTML = iframeContent;
 
   // Set transparent background for iframe
-  confirmationDialog.style.backgroundColor = 'transparent';
+  confirmationDialog.style.backgroundColor = 'white';
 }
 
 function submitFormAndClose(event) {

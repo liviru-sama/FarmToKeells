@@ -258,7 +258,7 @@
         </main>
     </section>
 
-    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
+    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
     <script>
         function confirmDelete(purchaseId) {
@@ -266,6 +266,8 @@
     var iframeSrc = "<?php echo URLROOT; ?>/admin/confirmationdialog/" + purchaseId;
     confirmationDialog.src = iframeSrc;
     confirmationDialog.style.display = 'block';
+
+    
 }
 
 function searchProducts() {

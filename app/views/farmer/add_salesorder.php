@@ -147,16 +147,18 @@
                         <label> Product</label>
                     </div>
                     <div class="text-field">
-                        <div class="typeselect-container">
-                            <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option style="color:white;" value="hillcountry">Hill Country</option>
-                                <option style="color:white;"value="organic">Organic</option>
-                            </select>
-                            <input name="type" id="categoryInput" type="text" required>
-                            <span></span>
-                            <label> Category</label>
-                        </div>
-                    </div>
+    <div class="typeselect-container">
+        <select class="productstatusInput" name="category" onchange="updateInput(this)">
+            <option style="color:white;" value="" selected disabled></option>
+            <option style="color:white;" value="hillcountry">Hill Country</option>
+            <option style="color:white;" value="organic">Organic</option>
+        </select>
+        <input name="type" id="categoryInput" type="text" required>
+        <span></span>
+        <label> Category</label>
+    </div>
+</div>
+
                     <div class="text-field">
                         <input name="date" id="salesOrderDate" type="date" required>
                         <span></span>

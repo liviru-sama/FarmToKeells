@@ -339,7 +339,7 @@ function confirmDelete(deleteUrl, orderId) {
         height: 40px; /* Set a fixed height */
     }
     .button-container button:hover {
-        background-color: green;
+        background-color: #65A534;
     }
 </style>
 
@@ -356,7 +356,7 @@ function confirmDelete(deleteUrl, orderId) {
   confirmationDialog.contentDocument.body.innerHTML = iframeContent;
 
   // Set transparent background for iframe
-  confirmationDialog.style.backgroundColor = 'transparent';
+  confirmationDialog.style.backgroundColor = 'white';
 }
 
 function submitFormAndClose(event) {

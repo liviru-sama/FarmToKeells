@@ -148,7 +148,9 @@
                     <div class="text-field">
                         <div class="typeselect-container">
                             <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option style="color:white;" value="hillcountry">Hill Country</option>
+                            <option style="color:white;" value="" selected disabled></option>
+
+                            <option style="color:white;" value="hillcountry">Hill Country</option>
                                 <option style="color:white;" value="organic">Organic</option>
                             </select>
                             <input name="type" id="categoryInput" type="text" required>
