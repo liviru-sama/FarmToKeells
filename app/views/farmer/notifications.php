@@ -216,36 +216,36 @@
                 <?php switch ($notification->action):
                     case 'status_update':
                         if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         }
                         break;
                     case 'new purchase order':
-                        echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has added a new purchase order for '{$notification->product_name}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has added a new purchase order for '{$notification->product_name}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         break;
                     case 'price_update':
                         if ($notification->status === 'increased') {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has increased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has increased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         } elseif ($notification->status === 'decreased') {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has decreased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has decreased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         }
                         break;
                     case 'payment_update':
                         if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Order ID {$notification->order_id}'s payment of {$notification->price} has been settled by Keells</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Order ID {$notification->order_id}'s payment of {$notification->price} has been settled by Keells</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         }
                         break;
                     case 'reply':
                         if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has responded to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has responded to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         }
                         break;
                     case 'replyupdate':
                         if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated their reply to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></br>";
+                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated their reply to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         }
                         break;
                 endswitch; ?>
-            </div>
+            </div> 
         </p>
     <?php endforeach; ?>
 </table>

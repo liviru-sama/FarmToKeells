@@ -167,7 +167,7 @@
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/salesorderapproved" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>

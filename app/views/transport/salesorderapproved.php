@@ -120,7 +120,7 @@
 </a>
 
 
-<form id="statusForm" action="<?php echo URLROOT; ?>/transport/updateStatus" method="POST">
+<form id="statusForm" action="<?php echo URLROOT; ?>/ccm/updateStatus" method="POST">
                     <table>
                         <thead>
                             <tr>
