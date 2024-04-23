@@ -11,6 +11,8 @@ class Transport extends Controller
         $this->tmModel = $this->model('TmModel'); // Instantiate the CcmModel
 
         $this->adminModel = $this->model('Admins'); 
+        $this->userModel = $this->model('User');
+
     }
 
     public function tm_login()
@@ -202,5 +204,47 @@ redirect('transport/dashboard');
         // Redirect to the index page
         redirect('transport/tm_login');
       }
+
+
+      public function getUserInfo($user_id) {
+        return $this->userModel->getUserInfoById($user_id);
+    }
+
     
+      public function salesorderapproved() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('transport/salesorderapproved', $data);
+    }
+
+    public function salesordercompleted() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+        
+        // Load the view with purchase orders data
+        $this->view('transport/salesordercompleted', $data);
+    }
+
+
+      public function Notifications() {
+        $notificationModel = $this->model('TmNotifications');
+    
+        $notifications = $notificationModel->getAllNotifications();
+    
+       
+        $data = [
+            'notifications' => $notifications,
+        ];
+    
+        // Load the 'farmer/inquiry' view and pass data to it
+        $this->view('transport/notifications', $data);
+      }
 }

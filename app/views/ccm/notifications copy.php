@@ -85,94 +85,88 @@
 <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
-        <a href="<?php echo URLROOT; ?>/farmer/dashboard">
+
+        <a href="#" id="backButton" onclick="goBack()">
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
 
-
         <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+
+        <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon" style="background: #65A534; transform: scale(1.28);">
         </a></div>
 
+        <div class="navbar-icon-container" data-text="Logout">
 
-      
-
-
-                    <div class="navbar-icon-container" data-text="View Profile" >
-                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
-                    </a></div>
-
-
-<div class="navbar-icon-container" data-text="Logout">
-
-<a href="<?php echo URLROOT; ?>/farmer/logout">
-
+        <a href="<?php echo URLROOT; ?>/ccm/logout">
             <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
         </a></div>
-
     </div>
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
-
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    
-                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" data-text="Your Products">
+                    <a href="<?php echo URLROOT; ?>/ccm/view_inventory" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-1" >
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Products</h6>
+                            <h6>Inventory</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2" data-text="View Their Purchaseorders and Your Salesorders" > 
+                    <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" data-text="View Current Market Demands and Prices" >
+                    <a href="<?php echo URLROOT; ?>/ccm/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" data-text="View Your Transport requests">
-                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Transport</h6>
+                  
+
+    
+
+                    <a href="<?php echo URLROOT; ?>/ccm/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Stock levels</h6>
+                        </div></a>
+
+                        <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
+                            <img src="<?php echo URLROOT; ?>/public/images/report.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Time Report</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5" data-text="View Your Payment Requests">
-                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Payment</h6>
-                        </div>
-                    </a>
-
-                    
-                    </a> <a href="<?php echo URLROOT; ?>/farmer/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" data-text="View Your Inquiries">
+                        <a href="<?php echo URLROOT; ?>/ccm/ccm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Help</h6>
+                            <h6>Inquiry</h6>
                         </div>
                     </a>
 
-                    
+
                 </div>
             </div>
         </section>
     </div>
-
     <!-- Main content -->
     <div class="main-contents" style=" position: fixed;
             left: 9.0%;

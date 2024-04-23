@@ -102,7 +102,7 @@
             </a>
         </div>
         <div class="navbar-icon-container" data-text="Notifications">
-            <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <a href="<?php echo URLROOT; ?>/transport/notifications" id="notificationsButton" onclick="toggleNotifications()">
                 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
             </a>
         </div>
@@ -134,9 +134,9 @@
                 </a>
             </div>
             <div class="menu" data-name="p-2">
-                <a href="<?php echo URLROOT; ?>/transport/orders">
+                <a href="<?php echo URLROOT; ?>/transport/salesorderapproved">
                     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png">
-                    <h3>Manage Orders</h3>
+                    <h3>View Approved Orders</h3>
                 </a>
             </div>
             <div class="menu" data-name="p-3">

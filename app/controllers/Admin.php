@@ -961,7 +961,22 @@ public function ccm_chat() {
         // Load the view
         $this->view('admin/payment', $data);
     }
+
+
+    public function Notifications() {
+        $notificationModel = $this->model('AdminNotifications');
     
+        $notifications = $notificationModel->getAllNotifications();
+    
+       
+        $data = [
+            'notifications' => $notifications,
+        ];
+    
+        // Load the 'farmer/inquiry' view and pass data to it
+        $this->view('admin/notifications', $data);
+      }
+      
 
 }
 

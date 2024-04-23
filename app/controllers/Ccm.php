@@ -144,13 +144,6 @@ public function dashboard(){
     $this->view('ccm/dashboard', $data);
 }
 
-public function notifications(){
-    $data = [];
-
-    $this->view('ccm/notifications.php',$data);
-}
-
-// CcmController.php
 
 
 
@@ -910,6 +903,21 @@ public function ccm_chat() {
     $this->view('ccm/ccm_chat', $data);
 }
 
+
+public function Notifications() {
+    $notificationModel = $this->model('CcmNotifications');
+
+    $notifications = $notificationModel->getAllNotifications();
+
+   
+    $data = [
+        'notifications' => $notifications,
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('ccm/notifications', $data);
+  }
+  
 
 }
 
