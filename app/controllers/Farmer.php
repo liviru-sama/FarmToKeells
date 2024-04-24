@@ -1391,12 +1391,7 @@ public function payment(){
     // Load the view
     $this->view('farmer/payment', $data);
     }
-    
-
-    
 }
-
-
 }
 
 ?>
