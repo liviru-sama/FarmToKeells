@@ -153,7 +153,7 @@
 
         <section class="form">
             <div class="center">
-                <h1>Edit Sales Order</h1>
+                <h1>Edit The Order</h1>
                 <form action="<?php echo URLROOT; ?>/farmer/edit_salesordercommon/<?php echo $data['order_id']; ?>&user_id=<?php echo $_SESSION['user_id']; ?>" method="post">
 
                     <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
@@ -162,17 +162,46 @@
                         <input type="text" name="name" value="<?php echo $data['name']; ?>" readonly>
                     </div>
                     <div class="text-field">
-                        <label for="type">Type:</label>
-                        <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="openDropdown()">
-                        <div class="typeselect-container" id="typeDropdown" style="display: none;">
-                            <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option style="color:white;" value="hillcountry">Hill Country</option>
-                                <option style="color:white;" value="organic">Organic</option>
-                            </select>
-                            <span></span>
+    <label for="type">Type:</label>
+    <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="openDropdown()">
+    <div class="typeselect-container" id="typeDropdown" style="display: none;">
+        <select class="productstatusInput" name="category" onchange="updateInput(this)">
+        <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
 
-                        </div>
-                    </div>
+            <option style="color:white;" value="hillcountry">Hill Country</option>
+            <option style="color:white;" value="organic">Organic</option>
+        </select>
+        <span></span>
+    </div>
+</div>
+
+<script>
+    // Function to populate input field with default value and display dropdown on click
+    function openDropdown() {
+        var inputField = document.getElementById('typeInput');
+        var dropdown = document.getElementById('typeDropdown');
+        
+        // Set input field value to default value retrieved from database
+        var defaultValue = '<?php echo $data['type']; ?>';
+        inputField.value = defaultValue;
+        
+        // Display the dropdown
+        dropdown.style.display = 'block';
+    }
+    
+    // Function to update input field based on dropdown selection
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        document.getElementById("typeInput").value = selectedOption;
+        
+        // Hide the dropdown after selection
+        var dropdown = document.getElementById('typeDropdown');
+        dropdown.style.display = 'none';
+        
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+</script>
 
                     <div class="text-field">
                         <label for="quantity">Deliverable Quantity in kgs:</label>

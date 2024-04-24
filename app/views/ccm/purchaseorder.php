@@ -141,16 +141,16 @@
         <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW NEEDLIST</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" >&nbsp;VIEW THEIR AVAILABLE PRODUCTS</h5></a>
+"tab-heading" >&nbsp;VIEW ALL SALESORDERS</h5></a>
 
 <main class="table"></br>
             <section class="table_header">
-            <h2> &nbsp;&nbsp;&nbsp;All Keells Purchase Orders </h2>
+            <h2> &nbsp;&nbsp;&nbsp;Keells Needlist </h2>
 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
             <a class="button" href="<?php echo URLROOT; ?>/ccm/add_purchaseorder">+ Add New</a>
@@ -161,7 +161,9 @@
            
      
                 <form method="post">
-                    <table>
+                <table>
+                    <h2> &nbsp;&nbsp;&nbsp; Pending Needlist Items </h2>
+
                         <thead>
                             <tr>
                                 <th>Purchase order ID</th>
@@ -171,14 +173,14 @@
                                 <th>Needed quantity(kgs)</th>
                                 <th>Expected supply date</th>
                                 <th>Status</th>
-                                <th>View sales order</th>
+                                <th>View User order</th>
                                 <th>EDIT</th>
                                 <th>Delete</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'])) { ?>
-                                <tr>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>
+                                <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
                                     <td><?php echo $row['purchase_id'] ?></td>
                                     <td><?php echo $row['name'] ?></td>
                                     <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
@@ -186,10 +188,48 @@
                                     <td><?php echo $row['quantity'] ?></td>
                                     <td><?php echo $row['date'] ?></td>
                                     <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/ccm/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/ccm/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
+                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
                                     <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
                                 </tr>
+                                <?php } ?>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </form>
+            </section>
+
+            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Needlist Items</h2>
+
+                        <thead>
+                            <tr>
+                                <th>Purchase order ID</th>
+                                <th>Product</th>
+                                <th>Product image</th>
+                                <th>Product type</th>
+                                <th>Needed quantity(kgs)</th>
+                                <th>Expected supply date</th>
+                                <th>Status</th>
+                                <th>View User order</th>
+                                <th>EDIT</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>
+                                <?php if ($row['purchase_status'] === 'Completed') { ?>                                <tr>
+                                    <td><?php echo $row['purchase_id'] ?></td>
+                                    <td><?php echo $row['name'] ?></td>
+                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                    <td><?php echo $row['quantity'] ?></td>
+                                    <td><?php echo $row['date'] ?></td>
+                                    <td><?php echo $row['purchase_status'] ?></td>                                   
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
+                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
+                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
+                                </tr>
+                                <?php } ?>
                             <?php } ?>
                         </tbody>
                     </table>
@@ -198,14 +238,16 @@
         </main>
     </section>
 
-    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
+    <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
     <script>
         function confirmDelete(purchaseId) {
     var confirmationDialog = document.getElementById('confirmationDialog');
-    var iframeSrc = "<?php echo URLROOT; ?>/ccm/confirmationdialog/" + purchaseId;
+    var iframeSrc = "<?php echo URLROOT; ?>/admin/confirmationdialog/" + purchaseId;
     confirmationDialog.src = iframeSrc;
     confirmationDialog.style.display = 'block';
+
+    
 }
 
 function searchProducts() {

@@ -26,24 +26,56 @@ class Ccm extends Controller {
             // Sanitize input data
             $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
             $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
-
-            // Hash the admin password
-            $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
-
-            // Call the model method to insert admin credentials
-            if ($this->adminModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
-                // Admin credentials inserted successfully
-                // You can redirect to a success page or perform other actions
-                echo "Admin credentials inserted successfully";
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+            $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+    
+            // Initialize error array
+            $errors = [];
+    
+            // Validate email format
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                $errors['email_err'] = "Invalid email format.";
+            }
+    
+            // Validate if passwords match
+            if ($adminPassword !== $admincPassword) {
+                $errors['cpassword_err'] = "Passwords do not match.";
+            }
+    
+            // Validate all fields are filled
+            if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+                $errors['fields_err'] = "All fields are required.";
+            }
+    
+            // If there are no errors, proceed with registration
+            if (empty($errors)) {
+                // Hash the admin password
+                $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+    
+                // Call the model method to insert admin credentials
+                if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+                    // Set success message
+                    $success_message = "CCM credentials inserted successfully.</br> Now You can Login";
+    
+                    // Load the login view with success message
+                    $this->view('ccm/ccm_login', ['success_message' => $success_message]);
+                    exit;
+                } else {
+                    // Failed to insert admin credentials
+                    // You can redirect to an error page or perform other actions
+                    echo "Failed to insert admin credentials";
+                }
             } else {
-                // Failed to insert admin credentials
-                // You can redirect to an error page or perform other actions
-                echo "Failed to insert admin credentials";
+                // Load the registration form view with errors
+                $this->view('ccm/ccm_register', ['errors' => $errors]);
             }
         } else {
-            
+            // If not a POST request, load the registration form
+            $this->view('ccm/ccm_register');
         }
     }
+    
+    
 
     public function ccm_register() {
         // Load the view file
@@ -144,13 +176,6 @@ public function dashboard(){
     $this->view('ccm/dashboard', $data);
 }
 
-public function notifications(){
-    $data = [];
-
-    $this->view('ccm/notifications.php',$data);
-}
-
-// CcmController.php
 
 
 
@@ -910,6 +935,21 @@ public function ccm_chat() {
     $this->view('ccm/ccm_chat', $data);
 }
 
+
+public function Notifications() {
+    $notificationModel = $this->model('CcmNotifications');
+
+    $notifications = $notificationModel->getAllNotifications();
+
+   
+    $data = [
+        'notifications' => $notifications,
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('ccm/notifications', $data);
+  }
+  
 
 }
 

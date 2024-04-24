@@ -157,12 +157,12 @@
         <a href="<?php echo URLROOT; ?>/ccm/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW NEEDLIST</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" >&nbsp;VIEW THEIR AVAILABLE PRODUCTS</h5></a>
+"tab-heading" >&nbsp;VIEW ALL USER ORDERS</h5></a>
 </br></br>
 </br>
 
@@ -182,7 +182,7 @@
             
         <section class="form">
         <div class="center">
-            <h1>Add Purchase order</h1>
+            <h1>Add New Needlist Item</h1>
             <form action='' method="post" id="myForm">
                   
             <input type="hidden" name="image" id="productImage" value="">

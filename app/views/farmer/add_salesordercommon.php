@@ -122,19 +122,19 @@
     <!-- Main content -->
     <div class="main-content">
         <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-            <h5 class="inline-heading " >&nbsp;&nbsp;&nbsp;Orders Card View</h5>
+            <h5 class="inline-heading " >&nbsp;&nbsp;Your Orders Card View</h5>
         </a>
         <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
-            <h5 class="inline-heading tab-heading">Orders Table View </h5>
+            <h5 class="inline-heading">Your Orders Table View</h5>
         </a>
         <a href="<?php echo URLROOT; ?>/farmer/add_salesordercommon" style="text-decoration: none;">
-            <h5 class="inline-heading " style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Add Order</h5>
+            <h5 class="inline-heading " style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 5px;" >&nbsp;Add Order</h5>
         </a>
         <br>
 
         <section class="form">
             <div class="center">
-                <h1>Add Sales order</h1>
+                <h1>Add New Order</h1>
                 <form action='<?php echo URLROOT; ?>/farmer/add_salesordercommon' method="post" id="myForm">
                     <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">
                     <input type="hidden" name="image" id="productImage" value="">
@@ -148,7 +148,9 @@
                     <div class="text-field">
                         <div class="typeselect-container">
                             <select class="productstatusInput" name="category" onchange="updateInput(this)">
-                                <option style="color:white;" value="hillcountry">Hill Country</option>
+                            <option style="color:white;" value="" selected disabled></option>
+
+                            <option style="color:white;" value="hillcountry">Hill Country</option>
                                 <option style="color:white;" value="organic">Organic</option>
                             </select>
                             <input name="type" id="categoryInput" type="text" required>
