@@ -175,32 +175,28 @@ top:58%;}
 <section class="header"></section>
 <section class="form">
     <div class="center">
-       
-        <!-- Container for profile image and heading -->
-       
-            <div class="profile-image">
-        
-            <?php if (!empty($profileImage)) : ?>
-    <!-- If a profile picture exists, display it -->
-    <!-- <img src="<?php echo URLROOT . '/images/uploads/' . $userData['image']; ?>" alt="Profile Picture"> -->
 
-    <img src="<?php echo URLROOT . '/images/uploads/' . $profileImage; ?>" alt="Profile Picture">
-<?php else : ?>
-    <!-- If no profile picture exists, display the default profile picture -->
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="Default Profile Picture">
-<?php endif; ?>
+    <!-- Container for profile image and heading -->
+<div class="profile-image">
+    <?php if (!empty($profileImage)) : ?>
+        <!-- If a profile picture exists, display it -->
+        <img src="<?php echo URLROOT . '/images/uploads/' . $profileImage; ?>" alt="Profile Picture">
+    <?php else : ?>
+        <!-- If no profile picture exists, display the default profile picture -->
+        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="Default Profile Picture">
+    <?php endif; ?>
 
+    <!-- Form for uploading profile picture -->
+    <form action="<?php echo URLROOT; ?>/farmer/updateProfilePic" method="POST" enctype="multipart/form-data">
+        <input type="file" name="profile_image" id="profile-picture-input" accept="image/*" style="display: none;" onchange="this.form.submit()">
+        <button type="button" onclick="chooseProfilePicture()">Upload Profile Picture</button>
+    </form>
 
-<form action="<?php echo URLROOT; ?>/farmer/updateProfilePic" method="POST" enctype="multipart/form-data" style="display: none;">
-    <input type="file" name="profile_image" id="profile-picture-input" accept="image/*" onchange="this.form.submit()">
-</form>
-
-
-<button onclick="chooseProfilePicture()">Upload Profile Picture</button>
-<?php flash('profile_pic_error'); ?>
-</br></br>
+    <?php echo '<p>' . flash('profile_pic_error') . '</p>';?>
+</div>
 
 <script>
+    // Function to trigger file input click event
     function chooseProfilePicture() {
         document.getElementById('profile-picture-input').click();
     }
