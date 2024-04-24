@@ -257,12 +257,18 @@
             case 'Approved' :
                 echo 'background-color: #65A534;'; // Green
                 break;
+                case 'Quality Approved' :
+                    echo 'background-color: #65A534;'; // Green
+                    break;
             case 'Completed' :
                 echo 'background-color: grey;'; // Grey
                 break;
             case 'Rejected':
                 echo 'background-color: red;'; // Red
                 break;
+                case 'Quality Rejected':
+                    echo 'background-color: red;'; // Red
+                    break;
             case 'Pending Approval'|| 'pending approval' :
                 echo 'background-color: white; color:black;'; // No color
                 break;
@@ -282,18 +288,11 @@
                                             <p class="card__text" style="color: black;  font-weight: normal; font-family:'Inter';">From : <span style="color: black;  font-weight: bold;  font-family:'Inter';"><?php echo $row->address; ?></span></p>
                                                 
                                         </div>
-        <div class="card__actions">
-            <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>>
-                <img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" alt="Edit">
-            </a>
-            <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>">
-                <img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action" alt="Request for payment">
-            </a>
-           
-            <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status === 'Approved'|| $row->status === 'Pending Approval') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
-                <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval'&& $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" alt="Delete">
-            </a>
-        </div>
+                                        <div class="card__actions">
+                                    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
+                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>" ></a>
+                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Quality Approved' || $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Quality Approved' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
+                                    </div>
     </div>
 </td>
 

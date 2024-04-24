@@ -2,6 +2,8 @@
 class Ccm extends Controller {
     public $adminModel;
     public $ccmModel; // Fix the property name
+    public $tmModel;
+
 
 
     public function __construct() {
@@ -951,6 +953,27 @@ public function Notifications() {
   }
   
 
+  public function salesorderqualityapproved() {
+    // Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
+    
+    // Load the view with purchase orders data
+    $this->view('ccm/salesorderqualityapproved', $data);
+}
+
+public function salesorderqualityrejected() {
+    // Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesordersqualityrejected();
+    
+    // Load the view with purchase orders data
+    $this->view('ccm/salesorderqualityrejected', $data);
+}
 }
 
 ?>

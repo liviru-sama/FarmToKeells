@@ -55,7 +55,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $success_message = "TM credentials inserted successfully.</br> Now You can Login";
     
                     // Load the login view with success message
-                    $this->view('transport/tm_login', ['success_message' => $success_message]);
+                    $this->view('admin/manageadmin', ['success_message' => $success_message]);
                     exit;
                 } else {
                     // Failed to insert admin credentials
@@ -64,18 +64,18 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 }
             } else {
                 // Load the view with errors
-                $this->view('transport/tm_register', ['errors' => $errors]);
+                $this->view('admin/tm_register', ['errors' => $errors]);
             }
         } else {
             // If not a POST request, load the registration form
-            $this->view('transport/tm_register');
+            $this->view('admin/tm_register');
         }
     }
     
 
     public function tm_register() {
         // Load the view file
-        $this->view('transport/tm_register');
+        $this->view('admin/tm_register');
     }
     
     

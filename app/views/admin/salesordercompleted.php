@@ -176,12 +176,12 @@
 
 <main class="table"></br>
 <section class="table_header">
-</br><h2>&nbsp;&nbsp;&nbsp;View completed user orders</h2>
+<h2>&nbsp;&nbsp;&nbsp;View completed user orders</h2>
 
 
                 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
 </div>   
-                </section>
+                </section></br>
                 <section class="table_body">
                 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
     <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; All </h5>
@@ -191,6 +191,10 @@
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesorderqualityapproved" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/admin/salesorderqualityrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesordercompleted" style="text-decoration: none;">
     <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;"  >&nbsp;&nbsp;&nbsp; Completed</h5>
 </a>
@@ -236,14 +240,14 @@
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">
     <div class="select-container">
-        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && $row['status'] == 'Completed') ? 'style="pointer-events: none; pointer-events: none; 
-  opacity: 0.5;
-  filter: grayscale(100%);"' : ''; ?>>
+    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' || $row['status'] == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
+
             <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
             <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
             <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
             <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
-        </select>
+            <option value="Quality Approved" <?php echo (is_array($row) ? ($row['status'] == 'Quality Approved' ? 'selected' : '') : ($row->status == 'Quality Approved' ? 'selected' : '')); ?> hidden>Quality Approved</option>
+</select>
         <span class="select-arrow">&#9662;</span>
     </div>
 </td>

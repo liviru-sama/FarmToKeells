@@ -71,6 +71,22 @@ class Salesorder {
         return $result;
     }
     
+
+    public function getAllSalesordersqualityapproved() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Quality Approved'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+
+    public function getAllSalesordersqualityrejected() {
+        $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+        $sql = "SELECT * FROM salesorder WHERE status = 'Quality Rejected'";
+        $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+        return $result;
+    }
+    
+
     public function getAllSalesordersrejected() {
         $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
         $sql = "SELECT * FROM salesorder WHERE status = 'Rejected'";

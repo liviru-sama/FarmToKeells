@@ -161,7 +161,7 @@
                     <div class="text-field">
                         <input name="date" id="salesOrderDate" type="date" required>
                         <span></span>
-                        <label> Date</label>
+                        <label>Deliverable Before</label>
                     </div>
                     <div class="text-field">
                         <input name="quantity" type="number" min="0" step="1" required>
