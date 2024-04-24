@@ -195,12 +195,15 @@ label{color:white;
             </table>
         </div> 
     </div>
+    <?php echo '<p>' . flash('user_message') . '</p>';?>
 </div>
+
+
 
                         </br>
                         <div class="rectangle" >
                             <form  action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>" method="POST" class="subgrid-1">
-                            </br><h2>Change Username</br></br></h2> <?php echo '<p>' . flash('user_message') . '</p>';?>
+                            </br><h2>Change Username</br></br></h2> 
 
                                <div>                                
                                 <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
@@ -242,7 +245,7 @@ label{color:white;
                         
 
                         <div class="rectangle">
-                            <form action="<?php echo URLROOT;?>/farmer/changePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
+                            <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 
                             </br><h2>Change Password</br></br></h2>
                           <label for="fname" class="p-regular-grey">Current Password :</label>
@@ -252,7 +255,8 @@ label{color:white;
                                 <label for="fname" class="p-regular-grey">Confirm Password :</label>
                                 <input type="password" id="confirm_new_password" name="confirm_password" placeholder="" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
-                                <!-- </br> </br> <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div> -->
+                                <br>
+                                <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div>
                             </form>
                         </div>
 

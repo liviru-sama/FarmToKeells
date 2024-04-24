@@ -12,12 +12,105 @@ class Admin extends Controller{
                 $this->adminsModel = $this->model('Admins'); 
                 $this->userModel = $this->model('User');
 
+                
 
-            //     // Check if admin is logged in
-            // if(!isset($_SESSION['admin_id'])) {
-            //     redirect('admin/admin_login');
-            // }
 
+            }
+
+            public function isLoggedInAdmin() {
+                if(isset($_SESSION['admin_id'])) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+
+            public function index(){
+                $data = [
+                    'title' => ''
+                ];
+        
+                $this->view('admin/dashboard', $data);
+            }    
+        
+            public function admin_login() {
+                if ($this->isLoggedInAdmin()) {
+                    redirect('admin/dashboard');
+                } else {
+                    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                        // Process form
+                        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                
+                        $data = [
+                            'admin_username' => trim($_POST['admin_username']),
+                            'admin_password' => trim($_POST['admin_password']),
+                            'admin_username_err' => '',
+                            'admin_password_err' => ''
+                        ];
+                
+                        // Validate Username
+                        if (empty($data['admin_username'])) {
+                            $data['admin_username_err'] = 'Please enter username';
+                        }
+                
+                        // Validate Password
+                        if (empty($data['admin_password'])) {
+                            $data['admin_password_err'] = 'Please enter password';
+                        }
+                
+                        // Check for errors
+                        if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
+                            // Validated
+                            // Call the validate_login method in the ccm model with username and password
+                            $loggedInAdmin = $this->adminModel->validateLogin($data['admin_username'], $data['admin_password']);
+                            if ($loggedInAdmin) {
+                                // Start session if not already started
+                                if (session_status() === PHP_SESSION_NONE) {
+                                    session_start();
+                                }
+                
+                                // Create session variables
+                                $_SESSION['admin_id'] = $loggedInAdmin->id;
+                                $_SESSION['admin_username'] = $loggedInAdmin->username;
+                
+                                // Redirect to admin dashboard or any desired page
+                                redirect('admin/dashboard');  
+                                exit;
+                            } else {
+                                $data['admin_password_err'] = 'Incorrect username or password';
+                                $this->view('admin/admin_login', $data);
+                            }
+                        } else {
+                            // Load view with errors
+                            $this->view('admin/admin_login', $data);
+                        }
+                    } else {
+                        // Load view
+                        $this->view('admin/admin_login');
+                    }
+                }
+                
+            }
+            
+        
+            
+            
+          public function createUserSession($admin_user) {
+                $_SESSION['admin_id'] = $admin_user->admin_id;
+                $_SESSION['admin_username'] = $admin_user->admin_username;
+                // Check if the 'admin_id' session variable exists
+                
+                
+                redirect('admin/dashboard');
+            }
+        
+            
+        
+            public function dashboard(){
+                $data = [];
+        
+                $this->view('admin/dashboard', $data);
             }
 
         
@@ -585,87 +678,7 @@ class Admin extends Controller{
         
     
 
-    public function index(){
-        $data = [
-            'title' => ''
-        ];
 
-        $this->view('admin/dashboard', $data);
-    }    
-
-    public function admin_login() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Process form
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-            $data = [
-                'admin_username' => trim($_POST['admin_username']),
-                'admin_password' => trim($_POST['admin_password']),
-                'admin_username_err' => '',
-                'admin_password_err' => ''
-            ];
-    
-            // Validate Username
-            if (empty($data['admin_username'])) {
-                $data['admin_username_err'] = 'Please enter username';
-            }
-    
-            // Validate Password
-            if (empty($data['admin_password'])) {
-                $data['admin_password_err'] = 'Please enter password';
-            }
-    
-            // Check for errors
-            if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
-                // Validated
-                // Call the validate_login method in the ccm model with username and password
-                $loggedInAdmin = $this->adminModel->validateLogin($data['admin_username'], $data['admin_password']);
-                if ($loggedInAdmin) {
-                    // Start session if not already started
-                    if (session_status() === PHP_SESSION_NONE) {
-                        session_start();
-                    }
-    
-                    // Create session variables
-                    $_SESSION['admin_id'] = $loggedInAdmin->id;
-                    $_SESSION['admin_username'] = $loggedInAdmin->username;
-    
-                    // Redirect to admin dashboard or any desired page
-                    redirect('admin/dashboard');  
-                    exit;
-                } else {
-                    $data['admin_password_err'] = 'Incorrect username or password';
-                    $this->view('admin/admin_login', $data);
-                }
-            } else {
-                // Load view with errors
-                $this->view('admin/admin_login', $data);
-            }
-        } else {
-            // Load view
-            $this->view('admin/admin_login');
-        }
-    }
-    
-
-    
-    
-  public function createUserSession($admin_user) {
-$_SESSION['admin_id'] = $admin_user->admin_id;
-$_SESSION['admin_username'] = $admin_user->admin_username;
-// Check if the 'admin_id' session variable exists
-
-
-redirect('admin/dashboard');
-}
-
-    
-
-    public function dashboard(){
-        $data = [];
-
-        $this->view('admin/dashboard', $data);
-    }
 
     public function manageUsers()
     {
@@ -758,19 +771,7 @@ redirect('admin/dashboard');
     }
 
 
-    public function logout() {
-        // Unset all of the session variables
-        $_SESSION = array();
-      
-        // Destroy the session.
-        session_destroy();
-      
-        // Set a short session expiration time (e.g., 5 minutes) for future sessions
-        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
-      
-        // Redirect to the index page
-        redirect('admin/admin_login');
-      }
+    
 
 
 
@@ -961,6 +962,20 @@ public function ccm_chat() {
         // Load the view
         $this->view('admin/payment', $data);
     }
+
+    public function logout() {
+        // Unset all of the session variables
+        $_SESSION = array();
+      
+        // Destroy the session.
+        session_destroy();
+      
+        // Set a short session expiration time (e.g., 5 minutes) for future sessions
+        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+      
+        // Redirect to the index page
+        redirect('admin/admin_login');
+      }
     
 
 }
