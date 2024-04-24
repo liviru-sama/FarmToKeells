@@ -32,6 +32,22 @@
             }
         }
 
+        // //Find user by email
+        // public function findUserByEmail($email){
+        //     $this->db->query('SELECT * FROM users WHERE email = :email');
+        //     //Bind value
+        //     $this->db->bind(':email', $email);
+
+        //     $row = $this->db->single();
+
+        //     //Check row
+        //     if($this->db->rowCount() > 0){
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
         //Find user by email
         public function findUserByEmail($email){
             $this->db->query('SELECT * FROM users WHERE email = :email');
@@ -42,11 +58,12 @@
 
             //Check row
             if($this->db->rowCount() > 0){
-                return true;
+                return $row; // Return user object
             } else {
-                return false;
+                return false; // Return false if user not found
             }
         }
+
 
         //find user by username
         public function findUserByUsername($username){
@@ -152,8 +169,6 @@
                 return false;
             }
         }
-
-        // app/models/User.php
 
         public function updateUsername($user_id, $new_username) {
             $this->db->query('UPDATE users SET username = :new_username WHERE id = :id');

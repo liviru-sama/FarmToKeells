@@ -4,12 +4,15 @@
             $this->postModel = $this->model('User');
         }
 
-        public function index(){
-            $data = [
-                'title' => ''
-            ];
-            
-            $this->view('pages/index', $data);
+        public function index() {
+            if ($this->isLoggedIn()) {
+                redirect('farmer/dashboard');
+            } else {
+                $data = [
+                    'title' => ''
+                ];
+                $this->view('pages/index', $data);
+            }
         }
 
 
@@ -19,6 +22,14 @@
             ];
             
             $this->view('pages/selectadmin', $data);
+        }
+
+        public function isLoggedIn() {
+            if(isset($_SESSION['user_id'])) {
+                return true;
+            } else {
+                return false;
+            }
         }
 
         

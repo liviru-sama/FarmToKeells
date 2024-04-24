@@ -5,26 +5,25 @@ class Users extends Controller {
     public function __construct() {
         $this->userModel = $this->model('User');
 
-        // if(!isset($_SESSION['user_id'])){
-        //     redirect('users/user_login');
-        // }
+        
     }
 
     public function index() {
-        $data = [
-            'title' => ''
-        ];
-
-        //     // Check if user is already logged in
-        // if(isset($_SESSION['user_id'])){
-        //     redirect('farmer/dashboard');
-        // }
-
-        $this->view('pages/index', $data);
+        if ($this->isLoggedIn()) {
+            redirect('farmer/dashboard');
+        } else {
+            $data = [
+                'title' => ''
+            ];
+            $this->view('pages/index', $data);
+        }
     }
 
     public function register() {
-        // Check for POST
+        if ($this->isLoggedIn()) {
+            redirect('farmer/dashboard');
+        } else {
+            // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
 
@@ -157,10 +156,17 @@ class Users extends Controller {
             // Load view
             $this->view('users/register', $data);
         }
+        }
+
+
+        
     }
 
     public function user_login() {
-        // Check for POST
+        if ($this->isLoggedIn()) {
+            redirect('farmer/dashboard');
+        } else {
+            // Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Process form
 
@@ -213,6 +219,8 @@ class Users extends Controller {
             // Load view
             $this->view('users/user_login', $data);
         }
+        }
+        
     }
 
     public function createUserSession($user) {
