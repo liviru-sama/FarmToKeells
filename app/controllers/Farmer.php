@@ -13,6 +13,18 @@ use PHPMailer\PHPMailer\Exception;
         public function __construct(){
                                         
             $this->userModel = $this->model('User');
+
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            }
+        }
+
+        public function isLoggedIn() {
+            if(isset($_SESSION['user_id'])) {
+                return true;
+            } else {
+                return false;
+            }
         }
         
         public function index(){
