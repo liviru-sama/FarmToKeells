@@ -228,34 +228,7 @@
         </main>
         <script>
 
-document.addEventListener('DOMContentLoaded', function() {
-    // Get the notification icon
-    var notificationsButton = document.getElementById('notificationsButton');
-    // Get the notification frame
-    var notificationFrame = document.getElementById('notificationFrame');
 
-    // Function to toggle the display of the notification frame
-    function toggleNotificationFrame() {
-        notificationFrame.style.display = notificationFrame.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // Show the notification frame when the notifications icon is clicked
-    notificationsButton.addEventListener('click', function(event) {
-        // Prevent the default action of the notifications icon
-        event.preventDefault();
-        // Toggle the display of the notification frame
-        toggleNotificationFrame();
-    });
-
-    // Hide the notification frame when clicking outside of it
-    window.addEventListener('click', function(event) {
-        // Check if the click event occurred outside of the notification frame and its trigger element
-        if (!notificationFrame.contains(event.target) && event.target !== notificationsButton) {
-            // Hide the notification frame
-            notificationFrame.style.display = 'none';
-        }
-    });
-});
 
 function searchcardProducts() {
     // Declare variables

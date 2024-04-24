@@ -280,7 +280,7 @@ redirect('transport/dashboard');
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
-        $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+        $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
         
         // Load the view with purchase orders data
         $this->view('transport/salesorderapproved', $data);
