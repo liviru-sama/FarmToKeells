@@ -111,10 +111,9 @@
             window.history.back();
         }
     </script>
-    <section class="form"></br></br></br>
-    </br></br><div class="center">
-    </br></br></br></br> <h1>Farmer Registration</h1></br>
-
+    <section class="form" >
+    <div class="center" style="top:85%;">
+   </br> <h1>Farmer Registration</h1></br>
             <form action="<?php echo URLROOT; ?>/users/register" method="post" >
                 <div class="text-field">
                     <input type="text" name="name" id="name" value="<?php echo $data['name']; ?>" required>
@@ -154,16 +153,17 @@
                 <div class="text-field">
                         <div class="typeselect-container">
                             <select class="productstatusInput" name="province"  onchange="updateInput(this)">
-                                
-                                <option style="color:white;" value="Central">Central</option>
-                                <option style="color:white;" value="Southern">Southern</option>
-                                <option style="color:white;" value="Northern">Northern</option>
-                                <option style="color:white;" value="Western">Western</option>
-                                <option style="color:white;" value="North Western">North Western</option>
-                                <option style="color:white;" value="North Central">North Central</option>
-                                <option style="color:white;" value="Sabaragamuwa">Sabaragamuwa</option>
-                                <option style="color:white;" value="Eastern">Eastern</option>
-                                <option style="color:white;" value="Uva">Uva</option>
+                            <option value="" selected disabled></option>
+
+                            <option style="color:white;" value="Kadawatha">Kadawatha Keells collection center</option>
+
+                                <option style="color:white;" value="Thambuththegama">Thambuththegama Keells collection center</option>
+                                <option style="color:white;" value="Sooriyawewa">Sooriyawewa Keells collection center</option>
+                                <option style="color:white;" value="Nuwara-eliya">Nuwara-eliya Keells collection center</option>
+                                <option style="color:white;" value="Jaffna">Jaffna Keells collection center</option>
+                                <option style="color:white;" value=" Sigiriya "> Sigiriya Keells collection center</option>
+                                <option style="color:white;" value="Bandarawela">Bandarawela Keells collection center</option>
+                                <option style="color:white;" value="Puttlam ">Puttlam  Keells collection center</option>
 
 
                             </select>
@@ -176,7 +176,7 @@
                 <div class="text-field">
                     <input type="text" name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
                     <span></span>
-                    <label>Address</label>
+                    <label>Your Collection Address</label>
                 </div>
 
                 <div class="text-field">

@@ -161,8 +161,8 @@
     <div class="typeselect-container">
         <select class="productstatusInput" name="bank" onchange="updateInput(this)">
             <option style="color:white;" value="" <?php echo ($data['bank'] == '') ? 'selected' : ''; ?>></option>
+            <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
             <option style="color:white;" value="Commercial Bank (COMB)">Commercial Bank (COMB)</option>
-
                                 <option style="color:white;" value="Bank of Ceylon (BOC)">Bank of Ceylon (BOC)</option>
                                 <option style="color:white;" value="People's Bank">People's Bank</option>
                                 <option style="color:white;" value="Hatton National Bank (HNB)">Hatton National Bank (HNB)</option>

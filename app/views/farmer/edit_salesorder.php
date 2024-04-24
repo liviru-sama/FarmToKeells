@@ -153,7 +153,7 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells Needlist</h5>
             </a>
 
                 <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder" style="text-decoration: none;">
@@ -172,7 +172,7 @@
     
 <section class="form">
         <div class="center">
-            <h1>Edit Sales Order</h1>
+            <h1>Edit The Order</h1>
             <form action="<?php echo URLROOT; ?>/farmer/edit_salesorder/<?php echo $data['order_id']; ?>" method="post">
 
                 <input type="hidden" name="order_id" value="<?php echo $data['order_id']; ?>">
@@ -185,6 +185,8 @@
     <input type="text" name="type" id="typeInput" value="<?php echo $data['type']; ?>" onclick="openDropdown()">
     <div class="typeselect-container" id="typeDropdown" style="display: none;">
         <select class="productstatusInput" name="category" onchange="updateInput(this)">
+        <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
+
             <option style="color:white;" value="hillcountry">Hill Country</option>
             <option style="color:white;" value="organic">Organic</option>
         </select>

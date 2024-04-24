@@ -102,12 +102,12 @@
             </a>
         </div>
         <div class="navbar-icon-container" data-text="Notifications">
-            <a href="<?php echo URLROOT; ?>/transport/notifications" id="notificationsButton" onclick="toggleNotifications()">
+            <a href="<?php echo URLROOT; ?>/qi/notifications" id="notificationsButton" onclick="toggleNotifications()">
                 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
             </a>
         </div>
         <div class="navbar-icon-container" data-text="Logout">
-            <a href="<?php echo URLROOT; ?>/transport/logout">
+            <a href="<?php echo URLROOT; ?>/qi/logout">
                 <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
             </a>
         </div>

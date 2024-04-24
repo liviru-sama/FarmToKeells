@@ -133,7 +133,9 @@ header("Expires: 0"); // Proxies
     <section class="form">
         <div class="center">
             <h1>ADMIN LOGIN</h1>
-            
+            <?php if(isset($data['success_message'])): ?>
+    <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>
+<?php endif; ?>
             <?php if (!empty($data['admin_password_err'])): ?>
                 <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
             <?php endif; ?>

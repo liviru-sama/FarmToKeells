@@ -166,17 +166,17 @@
         <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;VIEW NEEDLIST</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;VIEW All SALESORDERS</h5></a>
+"tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;VIEW All USER ORDERS</h5></a>
 
 
 <main class="table"></br>
 <section class="table_header">
-</br><h2>&nbsp;&nbsp;&nbsp;View All Salesorders</h2>
+</br><h2>&nbsp;&nbsp;&nbsp;View pending approval user orders</h2>
 
 
                 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;

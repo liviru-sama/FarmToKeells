@@ -1,5 +1,5 @@
 <?php
-class AdminModel {
+class QiModel {
     private $db;
 
     public function __construct() {
@@ -8,7 +8,7 @@ class AdminModel {
 
     public function insertAdminCredentials($adminUsername, $hashedPassword, $email) {
         // Prepare the SQL query
-        $this->db->query('INSERT INTO admin (admin_username, admin_password, email) VALUES (:adminUsername, :hashedPassword, :email)');
+        $this->db->query('INSERT INTO inspector (admin_username, admin_password, email) VALUES (:adminUsername, :hashedPassword, :email)');
     
         // Bind the parameters
         $this->db->bind(':adminUsername', $adminUsername);
@@ -24,12 +24,11 @@ class AdminModel {
             return false; // Insert failed
         }
     }
-    
 
 
     public function validateLogin($adminUsername, $adminPassword)
 {
-    $this->db->query('SELECT * FROM admin WHERE admin_username = :adminUsername');
+    $this->db->query('SELECT * FROM inspector WHERE admin_username = :adminUsername');
     $this->db->bind(':adminUsername', $adminUsername);
     $row = $this->db->single();
 
@@ -42,10 +41,5 @@ class AdminModel {
     }
     return false; // Invalid username or password
 }
-
-
-
-
-
 
 }

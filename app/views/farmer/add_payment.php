@@ -155,6 +155,8 @@
         <input type="text" id="account_name" name="account_name"><br></div>
         <div class="text-field" > <div class="typeselect-container">
                             <select class="productstatusInput" name="bank"  onchange="updateInput(this)">
+                            <option style="color:white;" value="" disabled selected></option> <!-- Empty option for placeholder -->
+
                             <option style="color:white;" value="Commercial Bank (COMB)">Commercial Bank (COMB)</option>
 
                                 <option style="color:white;" value="Bank of Ceylon (BOC)">Bank of Ceylon (BOC)</option>

@@ -23,7 +23,7 @@ header("Expires: Sat, 26 Jul 1997 05:00:00 GMT"); // Date in the past
             <div class="text-box">
                                  
                     <h1>FarmToKeells</h1>
-                    <p>Inventory Management System</p>
+                    <p>A Supply Chain Management System</p>
                     <a href="<?php echo URLROOT; ?>/users/register" class="hero-btn">Register</a>
                     <a href="<?php echo URLROOT; ?>/users/user_login" class="hero-btn">Login</a>
 </br></br>

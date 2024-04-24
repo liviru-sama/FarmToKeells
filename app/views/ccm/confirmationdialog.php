@@ -68,5 +68,29 @@ function cancelDelete() {
         // Hide the iframe
        
     }
+    var iframeContent = `<style>
+
+body {
+    overflow: hidden; /* Hide scrollbar */
+    background
+  }
+  .button-container {
+      display: flex;
+      justify-content: center;
+  }
+  .button-container button {
+      background-color: black;
+      color: white;
+      padding: 5px 20px;
+      border-radius: 25px;
+      font-size: 20px;
+      cursor: pointer;
+      width: 100px; /* Set a fixed width */
+      height: 40px; /* Set a fixed height */
+  }
+  .button-container button:hover {
+      background-color: #65A534;
+  }
+</style>
 
 </script>
