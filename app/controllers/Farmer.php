@@ -13,165 +13,195 @@ use PHPMailer\PHPMailer\Exception;
         public function __construct(){
                                         
             $this->userModel = $this->model('User');
+
+            
+        }
+
+        public function isLoggedIn() {
+            if(isset($_SESSION['user_id'])) {
+                return true;
+            } else {
+                return false;
+            }
         }
         
         public function index(){
-            $data = [
-                'title' => ''
-            ];
-            
-            $this->view('farmer/dashboard', $data);
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $data = [
+                    'title' => ''
+                ];
+                $this->view('farmer/dashboard', $data);
+            }
         }
+
         public function dashboard(){
-            $data = [];
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $data = [];
 
             $this->view('farmer/dashboard', $data);
+            }
+            
         }
 
         public function view_profile(){
-            $data = [
-                'name' => $_SESSION['user_name'],
-
-            ];
-
-            $this->view('farmer/view_profile', $data);
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $data = [
+                    'name' => $_SESSION['user_name'],
+    
+                ];
+    
+                $this->view('farmer/view_profile', $data);
+            }
+            
         }
 
         public function forgotPassword() {
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                $email = $_POST['email'];
-        
-                // Check if the email exists in the database
-                $user = $this->userModel->findUserByEmail($email);
-                if ($user) {
-                    // Generate a unique token for password reset
-                    $token = bin2hex(random_bytes(32));
-        
-                    // Update the user's token and token expiration time in the database
-                    $userId = $user->id;
-                    if ($this->userModel->updateResetToken($userId, $token)) {
-                        // Send the password reset email
-                        $resetPasswordLink = URLROOT . '/farmer/resetPassword/' . $token;
-
-                        $subject = 'Password Reset Link';
-                        $body = 'Click on the following link to reset your password: ' . $resetPasswordLink; 
-
-        
-                        // Create a PHPMailer instance
-                        $mail = new PHPMailer(true);
-        
-                        try {
-                            // Server settings
-                            $mail->isSMTP();
-                            $mail->Host       = 'smtp.mailgun.org'; // SMTP server
-                            $mail->SMTPAuth   = true;
-                            $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
-                            $mail->Password   = 'd7240906d5e43a41c6bcac90911ec945-4b670513-ecf1418a';   // SMTP password
-                            $mail->SMTPSecure = 'tls';
-                            $mail->Port       = 587;
-        
-                            // Recipients
-                            $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
-                            $mail->addAddress($email); // Add a recipient
-        
-                            // Content
-                            $mail->isHTML(true);
-                            $mail->Subject = $subject;
-                            $mail->Body    = $body;
-        
-                            $mail->send();
-        
-                            // Redirect to a success page or display a message
-                            flash('forgot_password_success', 'Password reset link has been sent to your email.');
-                            redirect('farmer/forgotPassword');
-
-                        } catch (Exception $e) {
-                            die('Email sending failed: ' . $mail->ErrorInfo);
+            if ($this->isLoggedIn()) {
+                redirect('farmer/dashboard');
+            } else {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $email = $_POST['email'];
+            
+                    // Check if the email exists in the database
+                    $user = $this->userModel->findUserByEmail($email);
+                    if ($user) {
+                        // Generate a unique token for password reset
+                        $token = bin2hex(random_bytes(32));
+            
+                        // Update the user's token and token expiration time in the database
+                        $userId = $user->id;
+                        if ($this->userModel->updateResetToken($userId, $token)) {
+                            // Send the password reset email
+                            $resetPasswordLink = URLROOT . '/farmer/resetPassword/' . $token;
+    
+                            $subject = 'Password Reset Link';
+                            $body = 'Click on the following link to reset your password: ' . $resetPasswordLink; 
+    
+            
+                            // Create a PHPMailer instance
+                            $mail = new PHPMailer(true);
+            
+                            try {
+                                // Server settings
+                                $mail->isSMTP();
+                                $mail->Host       = 'smtp.mailgun.org'; // SMTP server
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org	'; // SMTP username
+                                $mail->Password   = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';   // SMTP password
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Port       = 587;
+            
+                                // Recipients
+                                $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
+                                $mail->addAddress($email); // Add a recipient
+            
+                                // Content
+                                $mail->isHTML(true);
+                                $mail->Subject = $subject;
+                                $mail->Body    = $body;
+            
+                                $mail->send();
+            
+                                // Redirect to a success page or display a message
+                                flash('forgot_password_success', 'Password reset link has been sent to your email.');
+                                redirect('farmer/forgotPassword');
+    
+                            } catch (Exception $e) {
+                                die('Email sending failed: ' . $mail->ErrorInfo);
+                            }
+                        } else {
+                            die('Token update failed.');
                         }
                     } else {
-                        die('Token update failed.');
+                        // Email not found
+                        flash('forgot_password_error', 'Email not found.');
+                        redirect('farmer/forgotPassword');
                     }
                 } else {
-                    // Email not found
-                    flash('forgot_password_error', 'Email not found.');
-                    redirect('farmer/forgotPassword');
+                    $this->view('farmer/forgotPassword');
                 }
-            } else {
-                $this->view('farmer/forgotPassword');
             }
+            
         }
         
 
         public function resetPassword($token){
-
-
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Retrieve the token from the URL query parameters
-            $token = $_GET['token'];
-            // Validate password reset form data
-            $data = [
-                'password' => trim($_POST['password']),
-                'confirm_password' => trim($_POST['confirm_password']),
-                'token' => $token,
-                'password_err' => '',
-                'confirm_password_err' => ''
-            ];
-
-            // Password validation
-            if (empty($data['password'])) {
-                $data['password_err'] = 'Please enter a password.';
-            } elseif (strlen($data['password']) < 6) {
-                $data['password_err'] = 'Password must be at least 6 characters.';
-            }
-
-            // Confirm password validation
-            if (empty($data['confirm_password'])) {
-                $data['confirm_password_err'] = 'Please confirm password.';
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
             } else {
-                if ($data['password'] != $data['confirm_password']) {
-                    $data['confirm_password_err'] = 'Passwords do not match.';
-                }
-            }
-
-            // Check for no errors
-            if (empty($data['password_err']) && empty($data['confirm_password_err'])) {
-                // Hash password
-                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
-                // Update password in database
-                if ($this->userModel->updatePasswordByResetToken($data['token'], $data['password'])) {
-                    // Password updated successfully, redirect to login page or any other page
-                    flash('reset_password_success', 'Password has been reset successfully.');
-                    redirect('farmer/user_login');
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Retrieve the token from the URL query parameters
+                    $token = $_GET['token'];
+                    // Validate password reset form data
+                    $data = [
+                        'password' => trim($_POST['password']),
+                        'confirm_password' => trim($_POST['confirm_password']),
+                        'token' => $token,
+                        'password_err' => '',
+                        'confirm_password_err' => ''
+                    ];
+        
+                    // Password validation
+                    if (empty($data['password'])) {
+                        $data['password_err'] = 'Please enter a password.';
+                    } elseif (strlen($data['password']) < 6) {
+                        $data['password_err'] = 'Password must be at least 6 characters.';
+                    }
+        
+                    // Confirm password validation
+                    if (empty($data['confirm_password'])) {
+                        $data['confirm_password_err'] = 'Please confirm password.';
+                    } else {
+                        if ($data['password'] != $data['confirm_password']) {
+                            $data['confirm_password_err'] = 'Passwords do not match.';
+                        }
+                    }
+        
+                    // Check for no errors
+                    if (empty($data['password_err']) && empty($data['confirm_password_err'])) {
+                        // Hash password
+                        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        
+                        // Update password in database
+                        if ($this->userModel->updatePasswordByResetToken($data['token'], $data['password'])) {
+                            // Password updated successfully, redirect to login page or any other page
+                            flash('reset_password_success', 'Password has been reset successfully.');
+                            redirect('farmer/user_login');
+                        } else {
+                            // Error updating password
+                            die('Error updating password.');
+                        }
+                    } else {
+                        // Load view with errors
+                        $this->view('farmer/resetPassword', $data);
+                    }
                 } else {
-                    // Error updating password
-                    die('Error updating password.');
+                    // Check if the token is valid
+                    $user = $this->userModel->getUserByResetToken($token);
+                    if ($user) {
+                        // If token is valid, load the reset password form
+                        $data = [
+                            'token' => $token
+                        ];
+                        $this->view('farmer/resetPassword', $data);
+                    } else {
+                        // If token is invalid or expired, show an error message or redirect to another page
+                        flash('reset_password_error', 'Invalid or expired token.');
+                        redirect('farmer/forgotPassword');
+                    }
                 }
-            } else {
-                // Load view with errors
-                $this->view('farmer/resetPassword', $data);
             }
-        } else {
-            // Check if the token is valid
-            $user = $this->userModel->getUserByResetToken($token);
-            if ($user) {
-                // If token is valid, load the reset password form
-                $data = [
-                    'token' => $token
-                ];
-                $this->view('farmer/resetPassword', $data);
-            } else {
-                // If token is invalid or expired, show an error message or redirect to another page
-                flash('reset_password_error', 'Invalid or expired token.');
-                redirect('farmer/forgotPassword');
-            }
-        }
     }
 
 
 
 
-        
         public function update_profile(){
             $data = [
                 'username' => $_SESSION['user_username'],
@@ -195,28 +225,26 @@ use PHPMailer\PHPMailer\Exception;
 
     
         public function deleteUser($user_id){
-            if($this->userModel->deleteUser($user_id)){
-                // Clear the session and redirect to the login page
-                unset($_SESSION['user_id']);
-                unset($_SESSION['user_username']);
-                unset($_SESSION['user_name']);
-                unset($_SESSION['user_email']);
-                unset($_SESSION['user_mobile']);
-                unset($_SESSION['user_nic']);
+            if (!$this->isLoggedIn()) {
                 redirect('users/user_login');
             } else {
-                die('Something went wrong');
+                if($this->userModel->deleteUser($user_id)){
+                    // Clear the session and redirect to the login page
+                    unset($_SESSION['user_id']);
+                    unset($_SESSION['user_username']);
+                    unset($_SESSION['user_name']);
+                    unset($_SESSION['user_email']);
+                    unset($_SESSION['user_mobile']);
+                    unset($_SESSION['user_nic']);
+                    redirect('users/user_login');
+                } else {
+                    die('Something went wrong');
+                }
             }
         }
 
-
-
-
-
-
-
-
         public function updateUsername($user_id) {
+            
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Sanitize POST array
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -381,7 +409,7 @@ use PHPMailer\PHPMailer\Exception;
         }
 
         // Update password action
-        public function changePassword($id)
+        public function updatePassword($id)
         {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Sanitize POST data
@@ -392,7 +420,7 @@ use PHPMailer\PHPMailer\Exception;
                     'id' => $id,
                     'current_password' => trim($_POST['current_password']),
                     'new_password' => trim($_POST['new_password']),
-                    'confirm_new_password' => trim($_POST['confirm_new_password']),
+                    'confirm_new_password' => '',
                     'current_password_err' => '',
                     'new_password_err' => '',
                     'confirm_new_password_err' => ''
@@ -401,7 +429,7 @@ use PHPMailer\PHPMailer\Exception;
                 // Validate current password
                 $user = $this->userModel->getUserById($id);
                 if (!$user || !password_verify($data['current_password'], $user->password)) {
-                    $data['current_password_err'] = 'Current password is incorrect';
+                    $data['new_password_err'] = 'Current password is incorrect';
                 }
 
                 // Validate new password
@@ -415,13 +443,13 @@ use PHPMailer\PHPMailer\Exception;
 
                 // Validate confirm new password
                 if (empty($data['confirm_new_password'])) {
-                    $data['confirm_new_password_err'] = 'Please confirm the new password';
+                    $data['new_password_err'] = 'Please confirm the new password';
                 } elseif ($data['new_password'] != $data['confirm_new_password']) {
-                    $data['confirm_new_password_err'] = 'Passwords do not match';
+                    $data['new_password_err'] = 'Passwords do not match';
                 }
 
                 // Check if all errors are empty
-                if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_new_password_err'])) {
+                if (empty($data['new_password_err'])) {
                     // Hash new password
                     $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
 
@@ -458,7 +486,10 @@ use PHPMailer\PHPMailer\Exception;
 
 
         public function place_order() {
-            $request = $this->model('Request');
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $request = $this->model('Request');
             $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
                     
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -537,12 +568,17 @@ use PHPMailer\PHPMailer\Exception;
                 // Load the view
                 $this->view('farmer/place_order', $data);
             }
+            }
+            
         }
         
         
         
         public function salesorder() {
-            // Retrieve the user ID from the session
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Retrieve the user ID from the session
             $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
             
             // Instantiate Salesorder Model
@@ -553,11 +589,16 @@ use PHPMailer\PHPMailer\Exception;
             
             // Load the view with sales orders data
             $this->view('farmer/salesorder', $data);
+            }
+            
         }
         
           
         public function table_salesorder() {
-            // Retrieve the user ID from the session
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Retrieve the user ID from the session
             $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
             
             // Instantiate Salesorder Model
@@ -568,12 +609,17 @@ use PHPMailer\PHPMailer\Exception;
             
             // Load the view with sales orders data
             $this->view('farmer/table_salesorder', $data);
+            }
+            
         }
 
        
         
         public function displaySalesorders() {
-            // Create an instance of the PurchaseModel
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Create an instance of the PurchaseModel
             $salesorderModel = new SalesorderModel();
     
             // Call the method to fetch all products
@@ -581,10 +627,15 @@ use PHPMailer\PHPMailer\Exception;
     
             // Pass the fetched products to the view
             require_once('views/farmer/salesorder');
+            }
+            
         }
 
         public function purchaseorder() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
             
             // Get all purchase orders
@@ -592,11 +643,16 @@ use PHPMailer\PHPMailer\Exception;
             
             // Load the view with purchase orders data
             $this->view('farmer/purchaseorder', $data);
+            }
+            
         }
 
 
         public function place_salesorder($purchase_id) {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Instantiate Purchaseorder Model
             $purchaseorderModel = $this->model('Purchaseorder');
             
             // Get the selected purchase order
@@ -613,10 +669,15 @@ use PHPMailer\PHPMailer\Exception;
             
             // Load the view with purchase order and sales orders data
             $this->view('farmer/place_salesorder', $data);
+            }
+            
         }
         
         public function add_salesorder(){
-            // Load the Salesorder model
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Load the Salesorder model
 
             $userModel = $this->Model('User');
             $address = $userModel->getCollectionCenterAddress($_SESSION['user_id']);
@@ -691,13 +752,18 @@ use PHPMailer\PHPMailer\Exception;
                 ];
                 $this->view("farmer/add_salesorder", $data);
             }
+            }
+            
         }
         
         
         
         
         public function edit_salesorder(){
-            // Check for POST
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $salesorderModel = new Salesorder();
@@ -758,10 +824,15 @@ use PHPMailer\PHPMailer\Exception;
                 
                 $this->view("farmer/edit_salesorder",(array)$salesorderData);
             }
+            }
+            
         }
 
         public function delete_salesorder(){
-            // Check for POST
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Check for POST
             if ($_POST['order_id'] != NULL) {
                 // Get the order ID from POST data
                 $order_id = $_POST['order_id'];
@@ -784,12 +855,18 @@ use PHPMailer\PHPMailer\Exception;
                 // If not a POST request or no ID provided, show error message
                 echo 'Invalid request';
             }
+            }
+            
         }
         
     
         public function productSelection() {
-   
-            $this->view("ccm/product_selection");
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $this->view("ccm/product_selection");
+            }
+            
         }
     
         public function getPurchaseIdByOrderId($order_id) {
@@ -801,7 +878,10 @@ use PHPMailer\PHPMailer\Exception;
         
 
         public function add_salesordercommon(){
-            // Check if it's a POST request
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Check if it's a POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Load the Salesorder model
                 $this->model("Salesorder");
@@ -861,11 +941,16 @@ use PHPMailer\PHPMailer\Exception;
         
                 $this->view("farmer/add_salesordercommon", $data);
             }
+            }
+            
         }
         
 
         public function edit_salesordercommon(){
-            // Check for POST
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $salesorderModel = new Salesorder();
@@ -922,11 +1007,16 @@ use PHPMailer\PHPMailer\Exception;
                     redirect('farmer/dashboard');
                 }
             }
+            }
+            
         }
         
 
         public function marketdemand() {
-            // Instantiate the Product model
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Instantiate the Product model
             $priceModel = $this->model('Price');
             
             // Get product data from the model
@@ -944,11 +1034,16 @@ use PHPMailer\PHPMailer\Exception;
                 header('Content-Type: application/json');
                 echo (['error' => 'No products found']);
             }
+            }
+            
     }
     
 
         public function view_price(){
-            // Instantiate Product Model
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                // Instantiate Product Model
             $priceModel = new Price();
             
             // Get all products
@@ -956,11 +1051,16 @@ use PHPMailer\PHPMailer\Exception;
             
             // Load the view with products data
             $this->view('farmer/view_price', $data);
+            }
+            
         }
         
 
         public function add_inquiry() {
-            $userModel = $this->model('User');
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $userModel = $this->model('User');
         
             // Get user ID from session or wherever it's stored
             $user_id = $_SESSION['user_id'];
@@ -974,48 +1074,58 @@ use PHPMailer\PHPMailer\Exception;
             ];
         
             $this->view('farmer/inquiry', $data);
+            }
+            
         }
         
         
 
         public function sendInquiry() {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                // Sanitize POST data
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-                // Instantiate Inquiry model
-                $inquiryModel = $this->model('Inquiry');
-    
-                // Get form data
-                $data = [
-                    'user_id' => $_POST['user_id'],
-                    'username' => $_POST['username'],
-                    'contact_no' => $_POST['contact_no'],
-                    'email' => $_POST['email'],
-                    'inquiry' => $_POST['inquiry']
-                ];
-    
-                // Store the inquiry in the database
-                if ($inquiryModel->storeInquiry($data)) {
-                    // Inquiry stored successfully
-                    // Redirect to a success page or display a success message
-                    redirect('farmer/inquiry');
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    // Sanitize POST data
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+                    // Instantiate Inquiry model
+                    $inquiryModel = $this->model('Inquiry');
+        
+                    // Get form data
+                    $data = [
+                        'user_id' => $_POST['user_id'],
+                        'username' => $_POST['username'],
+                        'contact_no' => $_POST['contact_no'],
+                        'email' => $_POST['email'],
+                        'inquiry' => $_POST['inquiry']
+                    ];
+        
+                    // Store the inquiry in the database
+                    if ($inquiryModel->storeInquiry($data)) {
+                        // Inquiry stored successfully
+                        // Redirect to a success page or display a success message
+                        redirect('farmer/inquiry');
+                    } else {
+                        // Error occurred while storing the inquiry
+                        // Redirect to an error page or display an error message
+                        redirect('farmer/inquiry');
+                    }
                 } else {
-                    // Error occurred while storing the inquiry
-                    // Redirect to an error page or display an error message
+                    // If the request method is not POST, redirect to the inquiry form
                     redirect('farmer/inquiry');
                 }
-            } else {
-                // If the request method is not POST, redirect to the inquiry form
-                redirect('farmer/inquiry');
             }
+            
         }
 
 
         // Farmer controller method to retrieve inquiries
 // Farmer controller method to retrieve inquiries of the current user
 public function inquiry() {
-    // Load the Inquiry model
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Load the Inquiry model
     $inquiryModel = $this->model('Inquiry');
 
     // Get user ID from session
@@ -1036,69 +1146,76 @@ public function inquiry() {
 
     // Load the 'farmer/inquiry' view and pass data to it
     $this->view('farmer/inquiry', $data);
+    }
+    
 }
 
 public function updateProfilePic() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Check if file is uploaded successfully
-        if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
-            $userId = $_SESSION['user_id'];
-            $fileName = $_FILES['profile_image']['name'];
-            $fileTmpName = $_FILES['profile_image']['tmp_name'];
-            $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
-            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
-
-            // Check if the file extension is allowed
-            if (in_array($fileExtension, $allowedExtensions)) {
-                // Generate a unique file name
-                $newFileName = uniqid('', true) . '.' . $fileExtension;
-
-                // Define the uploads directory
-                $uploadsDirectory = 'images/uploads/';
-
-                // Check if uploads directory exists, create it if not
-                if (!is_dir($uploadsDirectory)) {
-                    if (!mkdir($uploadsDirectory, 0775, true)) {
-                        // Handle directory creation error
-                        flash('profile_pic_error', 'Failed to create uploads directory', 'alert alert-danger');
-                        redirect('farmer/view_profile');
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Check if file is uploaded successfully
+            if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
+                $userId = $_SESSION['user_id'];
+                $fileName = $_FILES['profile_image']['name'];
+                $fileTmpName = $_FILES['profile_image']['tmp_name'];
+                $fileExtension = pathinfo($fileName, PATHINFO_EXTENSION);
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+    
+                // Check if the file extension is allowed
+                if (in_array($fileExtension, $allowedExtensions)) {
+                    // Generate a unique file name
+                    $newFileName = uniqid('', true) . '.' . $fileExtension;
+    
+                    // Define the uploads directory
+                    $uploadsDirectory = 'images/uploads/';
+    
+                    // Check if uploads directory exists, create it if not
+                    if (!is_dir($uploadsDirectory)) {
+                        if (!mkdir($uploadsDirectory, 0775, true)) {
+                            // Handle directory creation error
+                            flash('profile_pic_error', 'Failed to create uploads directory', 'alert alert-danger');
+                            redirect('farmer/view_profile');
+                        }
                     }
-                }
-
-                // Move the uploaded file to the directory
-                if (move_uploaded_file($fileTmpName, $uploadsDirectory . $newFileName)) {
-                    // Update the profile picture in the database
-                    if ($this->userModel->updateProfilePicture($userId, $newFileName)) {
-                        // Profile picture updated successfully
-                        redirect('farmer/view_profile');
+    
+                    // Move the uploaded file to the directory
+                    if (move_uploaded_file($fileTmpName, $uploadsDirectory . $newFileName)) {
+                        // Update the profile picture in the database
+                        if ($this->userModel->updateProfilePicture($userId, $newFileName)) {
+                            // Profile picture updated successfully
+                            // Redirect with a success message if needed
+                            redirect('farmer/view_profile');
+                        } else {
+                            // Error updating profile picture in the database
+                            flash('profile_pic_error', 'Failed to update profile picture in the database', 'alert alert-danger');
+                        }
                     } else {
-                        // Error updating profile picture in the database
-                        flash('profile_pic_error', 'Failed to update profile picture', 'alert alert-danger');
-                        redirect('farmer/view_profile');
+                        // Failed to move uploaded file
+                        flash('profile_pic_error', 'Failed to move uploaded file', 'alert alert-danger');
                     }
                 } else {
-                    // Failed to move uploaded file
-                    flash('profile_pic_error', 'Failed to move uploaded file', 'alert alert-danger');
-                    redirect('farmer/view_profile');
+                    // File extension not allowed
+                    flash('profile_pic_error', 'File extension not allowed', 'alert alert-danger');
                 }
             } else {
-                // File extension not allowed
-                flash('profile_pic_error', 'File extension not allowed', 'alert alert-danger');
-                redirect('farmer/view_profile');
+                // File upload failed
+                flash('profile_pic_error', 'File upload failed', 'alert alert-danger');
             }
         } else {
-            // File upload failed
-            flash('profile_pic_error', 'File upload failed', 'alert alert-danger');
+            // Access method directly without POST request
             redirect('farmer/view_profile');
         }
-    } else {
-        // Access method directly without POST request
-        redirect('farmer/view_profile');
     }
+    
 }
 
 public function viewProfileImage() {
-    // Get the logged-in user's ID from the session
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Get the logged-in user's ID from the session
     $userId = $_SESSION['user_id'];
 
     // Call the model method to retrieve the user's image
@@ -1110,7 +1227,7 @@ public function viewProfileImage() {
         $profileImage = $userImage->image;
     } else {
         // If no user image exists, set a default value or handle it as needed
-        $profileImage = null; // or set a default image value
+        $profileImage = null; // default image 
     }
 
     // Pass the image value to the view
@@ -1120,20 +1237,21 @@ public function viewProfileImage() {
 
     // Load the view with the image value
     $this->view('farmer/view_profile', $data);
+    }
+    
 }
 
 
 
 
 
+
+
 public function view_payment() {
-    // Check if the user is logged in (assuming you have an isLoggedIn() function)
-    if (!isLoggedIn()) {
-      // Redirect or handle unauthorized access
-      redirect('users/login');
-    }
-  
-    // Get the user ID from the session
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Get the user ID from the session
     $user_id = $_SESSION['user_id'];
   
     // Load the PaymentDetailsModel
@@ -1144,11 +1262,16 @@ public function view_payment() {
   
     // Pass payment details to the view
     $this->view('farmer/view_payment', ['paymentDetails' => $paymentDetails]);
+    }
+    
 }
 
 
 public function add_payment() {
-    // Check if the form is submitted
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize POST data
         $_POST  = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1176,10 +1299,15 @@ public function add_payment() {
         $this->view('farmer/add_payment');
     }
 }
+    }
+    
 
 
 public function handle_edit_payment() {
-    // Check if the form is submitted
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1206,15 +1334,15 @@ public function handle_edit_payment() {
         // Redirect or handle GET request
         redirect('farmer/view_payment');
     }
+    }
+    
 }
 
 public function edit_payment() {
-    $paymentDetailsModel = $this->model('PaymentDetailsModel');
-
-    // Check if the user is logged in
-    if (!isLoggedIn()) {
+    if (!$this->isLoggedIn()) {
         redirect('users/user_login');
-    }
+    } else {
+        $paymentDetailsModel = $this->model('PaymentDetailsModel');
 
     // Get current user's payment details
     $paymentDetails = $paymentDetailsModel->view_payment($_SESSION['user_id']);
@@ -1237,17 +1365,16 @@ public function edit_payment() {
 
     // Load the edit_payment view with payment details
     $this->view('farmer/edit_payment', $data);
+    }
+    
 }
 
 
-public function payment()
-{
-    // Check if the user is logged in
-    if (!isLoggedIn()) {
-        redirect('users/login');
-    }
-
-    // Get the user ID from the session
+public function payment(){
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Get the user ID from the session
     $userId = $_SESSION['user_id'];
 
     // Load the Paymentrequests model
@@ -1263,10 +1390,8 @@ public function payment()
 
     // Load the view
     $this->view('farmer/payment', $data);
+    }
 }
-
-
-
 public function Notifications() {
     $notificationModel = $this->model('FarmerNotifications');
 
@@ -1280,8 +1405,6 @@ public function Notifications() {
     // Load the 'farmer/inquiry' view and pass data to it
     $this->view('farmer/notifications', $data);
   }
-  
-
 }
 
 ?>

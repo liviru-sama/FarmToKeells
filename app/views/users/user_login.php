@@ -148,8 +148,8 @@
                 <div class="error" id="password-error"><?php echo $data['password_err']; ?></div>
 
                 <div class="link">
-                        <a href="<?php echo URLROOT; ?>/farmer/forgotPassword">Forgot Password</a>
-                    </div>
+                    <a href="<?php echo URLROOT; ?>/farmer/forgotPassword">Forgot Password</a>
+                </div>
                 <input type="submit" name="Login" value="Login">
                 <div class="signup-link">
                     Not Registered? <a href="<?php echo URLROOT; ?>/users/register">Signup</a>

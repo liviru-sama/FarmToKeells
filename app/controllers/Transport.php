@@ -8,7 +8,7 @@ class Transport extends Controller
 
 
     public function __construct() {
-        $this->tmModel = $this->model('TmModel'); // Instantiate the CcmModel
+        $this->tmModel = $this->model('TmModel'); 
 
         $this->adminModel = $this->model('Admins'); 
         $this->userModel = $this->model('User');
