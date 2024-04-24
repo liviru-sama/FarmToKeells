@@ -169,7 +169,7 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Keells' Needlist</h5>
             </a>
 
             
@@ -185,7 +185,7 @@
 </br> 
             <section class="table_header" style="text-align:center;display: flex;
     justify-content: center;">
-            <h2 class="inline-heading" >Selected Purchaseorder</h2>    
+            <h2 class="inline-heading" >Selected Needlist Item </h2>    
                   
 
    
@@ -199,7 +199,7 @@
             <thead>
                                 <tr>
                                    <th>Product image</th>
-                                    <th>Purchase Order ID</th>
+                                    <th>Needlist Item ID</th>
                                     <th>Product</th>
                                     <th>Product Type</th>
                                     <th>Needed Quantity (kgs)</th>
@@ -228,7 +228,7 @@
                 </th>
                                 </br>
                                 <section class="table_header" style="text-align: center; display: flex; justify-content: space-between; align-items: center;">
-    <h2 class="inline-heading" style="margin: 0 auto;">Manage Your Sales Orders</h2>
+    <h2 class="inline-heading" style="margin: 0 auto;">Manage Your Orders</h2>
     <?php if ($data['purchaseorder']->purchase_status !== 'Completed') : ?>
         <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchaseorder']->purchase_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>">Add New Order</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <?php else: ?>
@@ -289,9 +289,7 @@
             <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>">
                 <img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action" alt="Request for payment">
             </a>
-            <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>">
-                <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>" alt="Pay">
-            </a>
+           
             <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status === 'Approved'|| $row->status === 'Pending Approval') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
                 <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval'&& $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" alt="Delete">
             </a>

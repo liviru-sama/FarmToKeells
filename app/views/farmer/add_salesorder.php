@@ -124,7 +124,7 @@
     <!-- Main content -->
     <div class="main-content" >
         <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="text-decoration: none;">
-            <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;Keells' purchaseorders</h5>
+            <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;Keells Needlist</h5>
         </a>
         <a href="<?php echo URLROOT; ?>/farmer/add_salesorder" style="text-decoration: none;">
             <h5 class="inline-heading tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;Add Order</h5>
@@ -134,7 +134,7 @@
         <section class="header" ></section>
         <section class="form">
             <div class="center">
-                <h1>Add Sales order</h1>
+                <h1>Add New Order</h1>
                 <form style="padding:30px;"action='<?php echo URLROOT; ?>/farmer/add_salesorder?purchase_id=<?php echo $data['purchase_id']; ?>' method="post" id="myForm">
                     <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">
                     <!-- Hidden input field to store the purchase ID -->

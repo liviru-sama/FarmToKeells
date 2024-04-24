@@ -172,12 +172,12 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Orders Card View</h5>
+                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
             </a>
 
     <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading">Orders Table View </h5></a>
+                = "tab-heading">Your Orders Table View </h5></a>
 
     
            
@@ -189,7 +189,7 @@
     
         <main class="table"></br>
         <section class="table_header">
-    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Post Your available products here</h2>
+    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
     <div>
         <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search your products...">
         <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
@@ -257,7 +257,6 @@
                                     <div class="card__actions">
                                     <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
                                         <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>" data-text="Request for payment"></a>
-                                        <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>"><img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>"></a>
                                         <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
                                     </div></br></br>
                                 </td>
@@ -265,7 +264,7 @@
                                 }
                             } else {
                                 // Handle the case where no sales orders are found
-                                echo "<tr><td colspan='12'>You havent posted your products yet</td></tr>";
+                                echo "<tr><td colspan='12'>You haven't placed any Orders yet</td></tr>";
                             }
                             ?>
 

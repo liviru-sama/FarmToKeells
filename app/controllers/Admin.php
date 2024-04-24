@@ -28,31 +28,65 @@ class Admin extends Controller{
                     // Sanitize input data
                     $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
                     $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+                    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                    $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+            
+                    // Initialize error array
+                    $errors = [];
+            
         
-                    // Hash the admin password
-                    $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+                    // Validate email format
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors['email_err'] = "Invalid email format.";
+        }
         
-                    // Call the model method to insert admin credentials
-                    if ($this->adminModel->insertAdminCredentials($adminUsername, $hashedPassword)) {
-                        // Admin credentials inserted successfully
-                        // You can redirect to a success page or perform other actions
-                        echo "Admin credentials inserted successfully";
+                    // Validate if passwords match
+                    if ($adminPassword !== $admincPassword) {
+                        $errors['cpassword_err'] = "Passwords do not match.";
+                    }
+            
+                    // Validate all fields are filled
+                    if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+                        $errors['fields_err'] = "All fields are required.";
+                    }
+            
+                    // If there are no errors, proceed with registration
+                    if (empty($errors)) {
+                        // Hash the admin password
+                        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+            
+                        // Call the model method to insert admin credentials
+                        if ($this->adminModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+                            // Admin credentials inserted successfully
+                            // You can redirect to a success page or perform other actions
+                            $success_message = "Admin credentials inserted successfully.</br> Now You can Login";
+    
+                    // Load the login view with success message
+                    $this->view('admin/admin_login', ['success_message' => $success_message]);
+                    exit;
+                    
+                        } else {
+                            // Failed to insert admin credentials
+                            // You can redirect to an error page or perform other actions
+                            echo "Failed to insert admin credentials";
+                        }
                     } else {
-                        // Failed to insert admin credentials
-                        // You can redirect to an error page or perform other actions
-                        echo "Failed to insert admin credentials";
+                        // Load the view with errors
+                        $this->view('admin/admin_register', ['errors' => $errors]);
                     }
                 } else {
-                    
+                    // If not a POST request, load the registration form
+                    $this->view('admin/admin_register');
                 }
             }
+            
         
             public function admin_register() {
                 // Load the view file
                 $this->view('admin/admin_register');
             }
-
-       
+            
+            
        
             
         

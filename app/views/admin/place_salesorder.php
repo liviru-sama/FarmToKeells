@@ -163,12 +163,12 @@
         <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW NEEDLIST</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" >&nbsp;VIEW All SALESORDERS</h5></a>
+"tab-heading" >&nbsp;VIEW All USER ORDERS</h5></a>
 
             <main class="table">
                 <section class="table_header">
@@ -176,7 +176,7 @@
                 </section>
                 <section class="table_body">
 
-                    <h2>Selected Purchase Order</h2>
+                    <h2>Selected Needlist Item</h2>
 
                     <form id="statusForm" name="purchaseOrderUpdateForm" action="<?php echo URLROOT; ?>/Ccm/updatePurchaseStatus" method="POST">
 
@@ -220,7 +220,7 @@
                             <div id="purchaseOrderSuccessMessage" style="bakcground-color:#65A534"></div>
                     </form>    
                     </table>
-                    <h2>Sales Orders</h2>
+                    <h2>User Orders</h2>
 
                     <!-- Form for updating status -->
                     <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">

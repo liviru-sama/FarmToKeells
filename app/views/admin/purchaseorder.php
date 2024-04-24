@@ -164,16 +164,16 @@
         <a href="<?php echo URLROOT; ?>/admin/purchaseorder" style="text-decoration: none;">
     <h5 class="inline-heading" class
 =
-"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW ALL PURCHASE ORDERS</h5>
+"tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp;VIEW NEEDLIST</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" >&nbsp;VIEW All SALESORDERS</h5></a>
+"tab-heading" >&nbsp;VIEW All USER ORDERS</h5></a>
 
 <main class="table"></br>
             <section class="table_header">
-            <h2> &nbsp;&nbsp;&nbsp; All Keells Purchase Orders </h2>
+            <h2> &nbsp;&nbsp;&nbsp;  Keells Needlist </h2>
 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">
 
             <a class="button" href="<?php echo URLROOT; ?>/admin/add_purchaseorder">+ Add New</a>
@@ -184,7 +184,7 @@
            
                 <form method="post">
                     <table>
-                    <h2> &nbsp;&nbsp;&nbsp; Pending Purchase Orders </h2>
+                    <h2> &nbsp;&nbsp;&nbsp; Pending Needlist Items </h2>
 
                         <thead>
                             <tr>
@@ -195,7 +195,7 @@
                                 <th>Needed quantity(kgs)</th>
                                 <th>Expected supply date</th>
                                 <th>Status</th>
-                                <th>View sales order</th>
+                                <th>View User order</th>
                                 <th>EDIT</th>
                                 <th>Delete</th>
                             </tr>
@@ -210,7 +210,7 @@
                                     <td><?php echo $row['quantity'] ?></td>
                                     <td><?php echo $row['date'] ?></td>
                                     <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
                                     <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
                                     <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
                                 </tr>
@@ -221,7 +221,7 @@
                 </form>
             </section>
 
-            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Purchase Orders </h2>
+            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Needlist Items</h2>
 
                         <thead>
                             <tr>
@@ -232,7 +232,7 @@
                                 <th>Needed quantity(kgs)</th>
                                 <th>Expected supply date</th>
                                 <th>Status</th>
-                                <th>View sales order</th>
+                                <th>View User order</th>
                                 <th>EDIT</th>
                                 <th>Delete</th>
                             </tr>
@@ -247,7 +247,7 @@
                                     <td><?php echo $row['quantity'] ?></td>
                                     <td><?php echo $row['date'] ?></td>
                                     <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View Sales Order</a></td>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
                                     <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
                                     <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
                                 </tr>

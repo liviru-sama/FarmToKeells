@@ -123,15 +123,14 @@
 </script>
     <section class="form">
         <div class="center">
-            <h1>TM LOGIN</h1>
-
+            <h1>Qi LOGIN</h1>
             <?php if(isset($data['success_message'])): ?>
     <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>
 <?php endif; ?>
             <?php if (!empty($data['admin_password_err'])): ?>
                 <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
             <?php endif; ?>
-            <form action='<?php echo URLROOT; ?>/transport/tm_login' method="post" id="myForm">
+            <form action='<?php echo URLROOT; ?>/qi/qi_login' method="post" id="myForm">
 
             <div class="text-field">
                     <input type="text" name="admin_username" required>

@@ -237,7 +237,7 @@
                         break;
                     case 'low':
                       
-                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining.</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please prioritize placing a new order for {$notification->product}. </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining.</br>Please prioritize placing a new order for {$notification->product}. </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
                         
                         break;
                 endswitch; ?>

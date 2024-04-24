@@ -163,12 +163,12 @@
 
     <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;Orders Card View</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
             </a>
 
     <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Orders Table View </h5></a>
+                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Your Orders Table View </h5></a>
 
     
            
@@ -180,7 +180,7 @@
     
 <main class="table"></br>
 <section class="table_header">
-    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Post Your available products here</h2>
+    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
     <div>
         <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search your products...">
         <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
@@ -199,7 +199,7 @@
 
                             <tr>
                             <th>Product image </th>
-                            <th>sales order ID</th>
+                            <th>Your Order ID</th>
                         <th>Product </th>
                         <th>product type</th>
                         <th>needed quantity(kgs) </th>

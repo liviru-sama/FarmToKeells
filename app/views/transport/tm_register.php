@@ -1,6 +1,4 @@
 
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -88,6 +86,7 @@
 </head>
 
 <body>
+
 <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
@@ -109,56 +108,44 @@
 </div>
 
 <script>
-    // JavaScript function to go back to the previous page only if it matches a specific URL
+    // JavaScript function to go back to the previous page
     function goBack() {
-        // Check if the previous page in the history matches the specified URL
-        if (document.referrer === "http://localhost/Farmtokeells/pages/selectadmin") {
-            // If it matches, go back
-            window.history.back();
-        } else {
-            // If it doesn't match, display an alert message
-            alert("You must log in first to access .");
-        }
+        window.history.back();
     }
 </script>
     <section class="form">
         <div class="center">
-            <h1>TM LOGIN</h1>
+    <h2></br>TM Registration Form</h2>
+    <form action="<?php echo URLROOT; ?>/transport/addAdminCredentials" method="POST">
+    <div class="text-field">
+        <label for="admin_username">Username:</label>
+        <input type="text" id="admin_username" name="admin_username" required>
+    </div>
 
-            <?php if(isset($data['success_message'])): ?>
-    <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>
-<?php endif; ?>
-            <?php if (!empty($data['admin_password_err'])): ?>
-                <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
-            <?php endif; ?>
-            <form action='<?php echo URLROOT; ?>/transport/tm_login' method="post" id="myForm">
+    <div class="text-field">
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+</div>
+<div class="error-message" id="email-error"><?php echo isset($data['errors']['email_err']) ? $data['errors']['email_err'] : ''; ?></div>
 
-            <div class="text-field">
-                    <input type="text" name="admin_username" required>
-                    <span></span>
-                    <label>Username</label>
-                </div>
+   
+    <div class="text-field">
+        <label for="admin_password">Password:</label>
+        <input type="password" id="admin_password" name="admin_password" required>
+    </div>
 
-                <div class="text-field">
-                    <input type="password" name="admin_password"  required>
-                    <span></span>
-                    <label>Password</label>
-                </div>
+    <div class="text-field">
+    <label>Confirm Password</label>
+        <input type="password" name="admin_cpassword" id="admin_cpassword" required>
+        <span></span>
+      
+    </div>
+    <div class="error-message" id="cpassword-error"><?php echo isset($data['errors']['cpassword_err']) ? $data['errors']['cpassword_err'] : ''; ?></div>
+    
+    <input type="submit" value="Register">
 
-                
-                <input type="submit" value="Login">
-
-
-
-
-
-               
-            </form>
-        </div>
-    </section>
+    <div class="error-message" id="fields-error"><?php echo isset($data['errors']['fields_err']) ? $data['errors']['fields_err'] : ''; ?></div>
+</form>
 
 </body>
-
 </html>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -15,6 +15,70 @@ class Transport extends Controller
 
     }
 
+    public function addAdminCredentials() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize input data
+            $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+            $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+            $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+    
+            // Initialize error array
+            $errors = [];
+    
+
+            // Validate email format
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    $errors['email_err'] = "Invalid email format.";
+}
+
+            // Validate if passwords match
+            if ($adminPassword !== $admincPassword) {
+                $errors['cpassword_err'] = "Passwords do not match.";
+            }
+    
+            // Validate all fields are filled
+            if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+                $errors['fields_err'] = "All fields are required.";
+            }
+    
+            // If there are no errors, proceed with registration
+            if (empty($errors)) {
+                // Hash the admin password
+                $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+    
+                // Call the model method to insert admin credentials
+                if ($this->tmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+                    // Admin credentials inserted successfully
+                    // You can redirect to a success page or perform other actions
+                    $success_message = "TM credentials inserted successfully.</br> Now You can Login";
+    
+                    // Load the login view with success message
+                    $this->view('transport/tm_login', ['success_message' => $success_message]);
+                    exit;
+                } else {
+                    // Failed to insert admin credentials
+                    // You can redirect to an error page or perform other actions
+                    echo "Failed to insert admin credentials";
+                }
+            } else {
+                // Load the view with errors
+                $this->view('transport/tm_register', ['errors' => $errors]);
+            }
+        } else {
+            // If not a POST request, load the registration form
+            $this->view('transport/tm_register');
+        }
+    }
+    
+
+    public function tm_register() {
+        // Load the view file
+        $this->view('transport/tm_register');
+    }
+    
+    
     public function tm_login()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
