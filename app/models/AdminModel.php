@@ -102,4 +102,7 @@ public function rejectUser($userId) {
     $this->db->bind(':userId', $userId);
     return $this->db->execute();
 }
+
+
+
 }
