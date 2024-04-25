@@ -6,15 +6,14 @@ class CcmModel {
         $this->db = new Database;
     }
 
-   public function insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter) {
+   public function insertAdminCredentials($adminUsername, $hashedPassword, $email) {
     // Prepare the SQL query
-    $this->db->query('INSERT INTO ccm (admin_username, admin_password, email,collectioncenter) VALUES (:adminUsername, :hashedPassword, :email,:collectioncenter)');
+    $this->db->query('INSERT INTO ccm (admin_username, admin_password, email) VALUES (:adminUsername, :hashedPassword, :email)');
 
     // Bind the parameters
     $this->db->bind(':adminUsername', $adminUsername);
     $this->db->bind(':hashedPassword', $hashedPassword);
     $this->db->bind(':email', $email);
-    $this->db->bind(':collectioncenter', $collectioncenter);
 
 
     // Execute the query

@@ -166,6 +166,7 @@ class Salesorder {
         }
     }
 
+
     
     // Delete product from the database
     public function delete_salesorder($order_id){

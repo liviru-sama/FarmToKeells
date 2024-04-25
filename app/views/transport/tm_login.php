@@ -123,7 +123,7 @@
 </script>
     <section class="form">
         <div class="center">
-            <h1>TM LOGIN</h1>
+            <h1>Transport Manager Login</h1>
 
             <?php if(isset($data['success_message'])): ?>
     <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>

@@ -7,6 +7,7 @@ class Qi extends Controller
     public $tmModel;
     public $qiModel;
 
+  
 
 
     public function __construct() {
@@ -16,6 +17,15 @@ class Qi extends Controller
         $this->adminModel = $this->model('Admins'); 
         $this->userModel = $this->model('User');
 
+    }
+
+
+    public function isLoggedInAdmin() {
+        if(isset($_SESSION['admin_id'])) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public function addAdminCredentials() {
@@ -117,8 +127,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     }
     
                     // Create session variables
-                    $_SESSION['admin_id'] = $loggedInAdmin->id;
-                    $_SESSION['admin_username'] = $loggedInAdmin->username;
+                    $_SESSION['admin_id'] = $loggedInAdmin->admin_id;
+                    $_SESSION['admin_username'] = $loggedInAdmin->admin_username;
     
                     // Redirect to tm dashboard or any desired page
                     redirect('qi/dashboard');                    exit;
@@ -138,27 +148,28 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     
     
 
-    
-    
-  public function createUserSession($admin_user) {
-$_SESSION['admin_id'] = $admin_user->admin_id;
-$_SESSION['admin_username'] = $admin_user->admin_username;
-// Check if the 'admin_id' session variable exists
-
-
-redirect('qi/dashboard');
-}
-    
-
-
-
     public function index(){
-        $data = [
-            'title' => 'qi Dashboard'
-        ];
-        
-        $this->view('qi/dashboard', $data);
+        if (!$this->isLoggedInccm()) {
+            redirect('qi/qi_login');
+        } else {
+            $data = [
+                'title' => ''
+            ];
+            $this->view('qi/dashboard', $data);
+        }
     }
+    
+    public function dashboard(){
+        if (!$this->isLoggedInadmin()) {
+            redirect('qi/qi_login');
+        } else {
+            $data = [];
+    
+        $this->view('qi/dashboard', $data);
+        }
+        
+    }
+
 
     public function logout() {
         // Unset all of the session variables
@@ -181,7 +192,9 @@ redirect('qi/dashboard');
 
     
       public function salesorderapproved() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInadmin()) {
+            redirect('qi/qi_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -189,11 +202,13 @@ redirect('qi/dashboard');
         
         // Load the view with purchase orders data
         $this->view('qi/salesorderapproved', $data);
-    }
+    }}
 
 
     public function salesorderqualityapproved() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInadmin()) {
+            redirect('qi/qi_login');
+        } else { // Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -201,10 +216,12 @@ redirect('qi/dashboard');
         
         // Load the view with purchase orders data
         $this->view('qi/salesorderqualityapproved', $data);
-    }
+    }}
 
     public function salesorderqualityrejected() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInadmin()) {
+            redirect('qi/qi_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -212,7 +229,7 @@ redirect('qi/dashboard');
         
         // Load the view with purchase orders data
         $this->view('qi/salesorderqualityrejected', $data);
-    }
+    }}
 
 
 

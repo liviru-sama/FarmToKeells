@@ -18,9 +18,11 @@ class Ccm extends Controller {
     
 
     public function viewProductPrices() {
-        // Load the view
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Load the view
         require APPROOT . '/views/ccm/productprices.php';
-    }
+    }}
     
     public function addAdminCredentials() {
         // Check if the form is submitted
@@ -90,9 +92,9 @@ class Ccm extends Controller {
 
         public function validate_login($admin_username, $admin_password)
 {
-    $loggedInAdmin = $this->ccmModel->validateLogin($admin_username, $admin_password);
-    if ($loggedInAdmin) {
-        return $loggedInAdmin;
+    $loggedInccm = $this->ccmModel->validateLogin($admin_username, $admin_password);
+    if ($loggedInccm) {
+        return $loggedInccm;
     }
     return false; // Invalid username or password
 }
@@ -124,16 +126,16 @@ public function ccm_login()
         if (empty($data['admin_username_err']) && empty($data['admin_password_err'])) {
             // Validated
             // Call the validate_login method in the ccm model with username and password
-            $loggedInAdmin = $this->ccmModel->validateLogin($data['admin_username'], $data['admin_password']);
-            if ($loggedInAdmin) {
+            $loggedInccm = $this->ccmModel->validateLogin($data['admin_username'], $data['admin_password']);
+            if ($loggedInccm) {
                 // Start session if not already started
                 if (session_status() === PHP_SESSION_NONE) {
                     session_start();
                 }
 
                 // Create session variables
-                $_SESSION['admin_id'] = $loggedInAdmin->admin_id; // Assuming the admin_id field name
-                $_SESSION['admin_username'] = $loggedInAdmin->admin_username; // Assuming the admin_username field name
+                $_SESSION['admin_id'] = $loggedInccm->admin_id; // Assuming the admin_id field name
+                $_SESSION['admin_username'] = $loggedInccm->admin_username; // Assuming the admin_username field name
 
                 // Redirect to ccm dashboard or any desired page
                 redirect('ccm/dashboard');
@@ -217,7 +219,9 @@ public function logout() {
      
 
         public function view_inventory(){
-            // Instantiate Product Model
+            if (!$this->isLoggedInccm()) {
+                redirect('ccm/ccm_login');
+            } else {// Instantiate Product Model
             $productModel = new Product();
             
             // Get all products
@@ -225,10 +229,12 @@ public function logout() {
             
             // Load the view with products data
             $this->view('ccm/view_inventory', $data);
-        }
+        }}
         
         public function view_price(){
-            // Instantiate Product Model
+            if (!$this->isLoggedInccm()) {
+                redirect('ccm/ccm_login');
+            } else {// Instantiate Product Model
             $priceModel = new Price();
             
             // Get all products
@@ -236,10 +242,12 @@ public function logout() {
             
             // Load the view with products data
             $this->view('ccm/view_price', $data);
-        }
+        }}
         
 public function edit_price() {
-    // Check for POST request
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {// Check for POST request
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Instantiate Product Model with Database dependency injection
         $priceModel = new Price();
@@ -277,11 +285,13 @@ public function edit_price() {
 
         $this->view("ccm/edit_price", (array)$priceData);
     }
-}
+}}
 
         
         public function Purchaseorder() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInccm()) {
+                redirect('ccm/ccm_login');
+            } else {// Instantiate Purchaseorder Model
             $purchaseorderModel = new Purchaseorder();
             
             // Get all purchase orders
@@ -289,11 +299,13 @@ public function edit_price() {
             
             // Load the view with purchase orders data
             $this->view('ccm/purchaseorder', $data);
-        }
+        }}
         
         
         public function add_product(){
-            // Check for POST
+            if (!$this->isLoggedInccm()) {
+                redirect('ccm/ccm_login');
+            } else {// Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->model("product");
         
@@ -344,9 +356,12 @@ public function edit_price() {
                 $this->view("ccm/add_product");
             }
         }
-        
+    }
+
         public function edit_product() {
-            // Check for POST
+            if (!$this->isLoggedInccm()) {
+                redirect('ccm/ccm_login');
+            } else {// Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $productModel = new Product();
@@ -395,7 +410,7 @@ public function edit_price() {
                 $this->view("ccm/edit_product", (array)$productData);
             }
         }
-        
+    }
         
 
        
@@ -405,7 +420,9 @@ public function edit_price() {
 
 
     public function displayProducts() {
-        // Create an instance of the ProductModel
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Create an instance of the ProductModel
         $productModel = new ProductModel();
 
         // Call the method to fetch all products
@@ -413,10 +430,12 @@ public function edit_price() {
 
         // Pass the fetched products to the view
         require_once('views/ccm/view_inventory');
-    }
+    }}
 
     public function displayPurchaseorders() {
-        // Create an instance of the PurchaseModel
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Create an instance of the PurchaseModel
         $purchaseorderModel = new PurchaseorderModel();
 
         // Call the method to fetch all products
@@ -424,11 +443,13 @@ public function edit_price() {
 
         // Pass the fetched products to the view
         require_once('views/ccm/purchaseorder');
-    }
+    }}
 
 
     public function add_purchaseorder(){
-        // Check for POST
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $this->model("Purchaseorder");
 
@@ -472,10 +493,12 @@ public function edit_price() {
             $this->view("ccm/add_purchaseorder");
         }
     }
-
+}
     
     public function edit_purchaseorder(){
-        // Check for POST
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Check for POST
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Instantiate Product Model with Database dependency injection
             $purchaseorderModel = new Purchaseorder();
@@ -524,10 +547,12 @@ public function edit_price() {
             
             $this->view("ccm/edit_purchaseorder",(array)$purchaseorderData);
         }
-    }
+    }}
     
     public function delete_purchaseorder(){
-        // Check for POST
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Check for POST
         if ($_GET['id'] != NULL) {
             
             // Instantiate Purchaseorder Model with Database dependency injection
@@ -558,11 +583,13 @@ public function edit_price() {
     
         // Return JSON response
         echo json_encode($response);
-    }
+    }}
     
 
     public function place_salesorder($purchase_id) {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $purchaseorderModel = $this->model('Purchaseorder');
         
         // Get the selected purchase order
@@ -576,12 +603,14 @@ public function edit_price() {
         
         // Load the view with purchase order and sales orders data
         $this->view('ccm/place_salesorder', $data);
-    }
+    }}
     
     
 
 public function updateStatus() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Retrieve the order IDs and statuses from the form for sales order
         $orderIds = $_POST['order_id'] ?? [];
         $statuses = $_POST['status'] ?? [];
@@ -605,10 +634,12 @@ public function updateStatus() {
     } else {
         echo json_encode('Invalid request method');
     }
-}
+}}
 
 public function updatePurchaseStatus() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else { if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       // Retrieve the purchase order IDs and statuses from the form
       $purchaseOrderIds = $_POST['purchase_order_id'] ?? [];
       $purchaseStatuses = $_POST['purchase_status'] ?? [];
@@ -627,7 +658,7 @@ public function updatePurchaseStatus() {
     } else {
       echo json_encode('Invalid request method');
     }
-  }
+  }}
   
   
 
@@ -636,14 +667,18 @@ public function updatePurchaseStatus() {
 
 
 public function displayReportGenerator() {
-    // Load the report generator view
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {// Load the report generator view
     $this->view("ccm/report_generator");
-}
+}}
 
 public function displayReportGeneratorprice() {
-    // Load the report generator view
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {// Load the report generator view
     $this->view("ccm/report_generatorprice");
-}
+}}
 
 
     // controllers/Ccm.php
@@ -651,7 +686,9 @@ public function displayReportGeneratorprice() {
     // controllers/Ccm.php
 
     public function displayInventoryHistoryReport() {
-        // Check for POST request
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else { // Check for POST request
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get the start date, end date, and product name from the form submission
             $startDate = $_POST['start_date'];
@@ -683,11 +720,13 @@ public function displayReportGeneratorprice() {
             // If not a POST request, redirect to the report generator page or show an error message
             redirect('ccm/report_generator');
         }
-    }
+    }}
     
 
     public function displayInventoryHistoryReportprice() {
-        // Check for POST request
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Check for POST request
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get the start date, end date, and product name from the form submission
             $startDate = $_POST['start_date'];
@@ -719,7 +758,7 @@ public function displayReportGeneratorprice() {
             // If not a POST request, redirect to the report generator page or show an error message
             redirect('ccm/report_generatorprice');
         }
-    }
+    }}
 
     public function existingproduct(){
         // Instantiate Product Model
@@ -759,11 +798,6 @@ public function existingproductSelection() {
     $this->view("ccm/existingproductselection");
 }
 
-public function script() {
-   
-    $this->view("ccm/script");
-}
-
 
 
 
@@ -779,7 +813,9 @@ public function script() {
     
 
     public function salesorder() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -787,10 +823,12 @@ public function script() {
         
         // Load the view with purchase orders data
         $this->view('ccm/salesorder', $data);
-    }
+    }}
 
     public function salesorderpending() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -798,10 +836,12 @@ public function script() {
         
         // Load the view with purchase orders data
         $this->view('ccm/salesorderpending', $data);
-    }
+    }}
 
     public function salesorderapproved() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -809,10 +849,12 @@ public function script() {
         
         // Load the view with purchase orders data
         $this->view('ccm/salesorderapproved', $data);
-    }
+    }}
     
     public function salesorderrejected() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -820,10 +862,12 @@ public function script() {
         
         // Load the view with purchase orders data
         $this->view('ccm/salesorderrejected', $data);
-    }
+    }}
 
     public function salesordercompleted() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -831,11 +875,13 @@ public function script() {
         
         // Load the view with purchase orders data
         $this->view('ccm/salesordercompleted', $data);
-    }
+    }}
     
 
     public function stock_overview() {
-        // Instantiate the Product model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate the Product model
         $productModel = $this->model('Product');
         
         // Get product data from the model
@@ -853,10 +899,12 @@ public function script() {
             header('Content-Type: application/json');
             echo (['error' => 'No products found']);
         }
-    }
+    }}
 
     public function stock_overviewbar() {
-        // Instantiate the Product model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate the Product model
         $productModel = $this->model('Product');
         
         // Get product data from the model
@@ -876,10 +924,12 @@ public function script() {
         }
 
         
-    }
+    }}
 
     public function marketdemand() {
-        // Instantiate the Product model
+        if (!$this->isLoggedInccm()) {
+            redirect('ccm/ccm_login');
+        } else {// Instantiate the Product model
         $priceModel = $this->model('Price');
         
         // Get product data from the model
@@ -897,7 +947,7 @@ public function script() {
             header('Content-Type: application/json');
             echo (['error' => 'No products found']);
         }
-}
+}}
 
 
 
@@ -908,7 +958,9 @@ public function script() {
 
 // CCM controller method to add a new chat message
 public function addChat() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get input data
         $inquiry = $_POST['inquiry'];
 
@@ -927,7 +979,7 @@ public function addChat() {
         // If not a POST request, redirect to home
         redirect('pages/index');
     }
-}
+}}
 
 
 
@@ -935,7 +987,9 @@ public function addChat() {
 // Farmer controller method to retrieve inquiries of the current user
 // Farmer controller method to retrieve inquiries
 public function ccm_chat() {
-    // Load the Inquiry model
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {// Load the Inquiry model
     $ccm_chatModel = $this->model('ccm_chat');
 
     // Get all chats from the database
@@ -948,11 +1002,13 @@ public function ccm_chat() {
 
     // Load the 'ccm/ccm_chat' view and pass data to it
     $this->view('ccm/ccm_chat', $data);
-}
+}}
 
 
 public function Notifications() {
-    $notificationModel = $this->model('CcmNotifications');
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {$notificationModel = $this->model('CcmNotifications');
 
     $notifications = $notificationModel->getAllNotifications();
 
@@ -963,11 +1019,13 @@ public function Notifications() {
 
     // Load the 'farmer/inquiry' view and pass data to it
     $this->view('ccm/notifications', $data);
-  }
+  }}
   
 
   public function salesorderqualityapproved() {
-    // Instantiate Purchaseorder Model
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else { // Instantiate Purchaseorder Model
     $salesorderModel = new Salesorder();
     
     // Get all purchase orders
@@ -975,10 +1033,12 @@ public function Notifications() {
     
     // Load the view with purchase orders data
     $this->view('ccm/salesorderqualityapproved', $data);
-}
+}}
 
 public function salesorderqualityrejected() {
-    // Instantiate Purchaseorder Model
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {// Instantiate Purchaseorder Model
     $salesorderModel = new Salesorder();
     
     // Get all purchase orders
@@ -987,7 +1047,7 @@ public function salesorderqualityrejected() {
     // Load the view with purchase orders data
     $this->view('ccm/salesorderqualityrejected', $data);
 }
-}
+}}
 
 ?>
 

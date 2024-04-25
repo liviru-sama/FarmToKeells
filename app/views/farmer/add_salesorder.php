@@ -165,10 +165,12 @@
                         <label>Deliverable Before</label>
                     </div>
                     <div class="text-field">
-                        <input name="quantity" type="number" min="0" step="1" required>
-                        <span></span>
-                        <label>Deliverable Quantity in kgs</label>
-                    </div>
+        <!-- Set the maximum attribute of the quantity input field using PHP -->
+        <input name="quantity" id="quantity" type="number" min="0" step="1" required <?php echo isset($data['quantity']) ? 'max="'.$data['quantity'].'"' : ''; ?>>
+        <span id="quantityError" style="color: red; font-weight: bold;"></span>
+        <span></span>
+        <label>Deliverable Quantity in kgs</label>
+    </div>
                     <div class="text-field">
                         <input name="price" type="number" min="0" step="0.01" required>
                         <span></span>
@@ -212,6 +214,23 @@
                 // Reset the dropdown to show the placeholder option
                 select.value = ''; // Reset to blank option
             }
+
+
+
+            function validateQuantity() {
+        var quantity = document.getElementById('quantity').value;
+        var maxQuantity = <?php echo isset($data['quantity']) ? $data['quantity'] : '0'; ?>;
+        var quantityError = document.getElementById('quantityError');
+
+        if (parseInt(quantity) > maxQuantity) {
+            quantityError.innerText = "Quantity cannot exceed the available quantity.";
+            return false; // Prevent form submission
+        }
+
+        // Clear any previous error message
+        quantityError.innerText = "";
+        return true; // Allow form submission
+    }
         </script>
     </div>
 </body>

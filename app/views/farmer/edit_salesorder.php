@@ -260,6 +260,22 @@
             // Set the min attribute to the current date
             salesOrderDateInput.setAttribute('min', currentDate);
         });
+
+
+        function validateQuantity() {
+        var quantity = document.getElementById('quantity').value;
+        var maxQuantity = <?php echo isset($data['quantity']) ? $data['quantity'] : '0'; ?>;
+        var quantityError = document.getElementById('quantityError');
+
+        if (parseInt(quantity) > maxQuantity) {
+            quantityError.innerText = "Quantity cannot exceed the available quantity.";
+            return false; // Prevent form submission
+        }
+
+        // Clear any previous error message
+        quantityError.innerText = "";
+        return true; // Allow form submission
+    }
     </script>
 </body>
 

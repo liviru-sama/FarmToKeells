@@ -106,7 +106,7 @@ class Purchaseorder {
       
     public function getProductDetails($purchase_id) {
         // Query to fetch product name and image based on purchase ID
-        $this->db->query('SELECT name, image FROM purchaseorder WHERE purchase_id = :purchase_id');
+        $this->db->query('SELECT name, image,quantity FROM purchaseorder WHERE purchase_id = :purchase_id');
         // Bind the purchase ID parameter
         $this->db->bind(':purchase_id', $purchase_id);
         // Execute the query
@@ -116,7 +116,8 @@ class Purchaseorder {
         // Return the product details as an associative array
         return [
             'name' => $row->name,
-            'image' => $row->image
+            'image' => $row->image,
+            'quantity' => $row->quantity
         ];
     }
     

@@ -168,7 +168,6 @@
                     <th>CCM ID</th>
                     <th>UserName</th>
                     <th>Email</th>
-                    <th>Registered Collectioncenter</th>
 
                 </tr>
             </thead>
@@ -178,7 +177,6 @@
                     <td><?= $user['admin_id']; ?></td>
                     <td><?= $user['admin_username']; ?></td>
                     <td><?= $user['email']; ?></td>
-                    <td><?= $user['collectioncenter']; ?></td>
 
                         
 

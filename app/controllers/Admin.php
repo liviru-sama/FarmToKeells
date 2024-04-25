@@ -33,13 +33,6 @@ class Admin extends Controller{
             }
 
 
-            public function index(){
-                $data = [
-                    'title' => ''
-                ];
-        
-                $this->view('admin/dashboard', $data);
-            }    
         
             public function admin_login() {
                 if ($this->isLoggedInAdmin()) {
@@ -78,8 +71,8 @@ class Admin extends Controller{
                                 }
                 
                                 // Create session variables
-                                $_SESSION['admin_id'] = $loggedInAdmin->id;
-                                $_SESSION['admin_username'] = $loggedInAdmin->username;
+                                $_SESSION['admin_id'] = $loggedInAdmin->admin_id;
+                                $_SESSION['admin_username'] = $loggedInAdmin->admin_username;
                 
                                 // Redirect to admin dashboard or any desired page
                                 redirect('admin/dashboard');  
@@ -103,23 +96,27 @@ class Admin extends Controller{
         
             
             
-          public function createUserSession($admin_user) {
-                $_SESSION['admin_id'] = $admin_user->admin_id;
-                $_SESSION['admin_username'] = $admin_user->admin_username;
-                // Check if the 'admin_id' session variable exists
-                
-                
-                redirect('admin/dashboard');
+            public function index(){
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {
+                    $data = [
+                        'title' => ''
+                    ];
+                    $this->view('admin/dashboard', $data);
+                }
             }
-        
             
-        
             public function dashboard(){
-                $data = [];
-        
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {
+                    $data = [];
+            
                 $this->view('admin/dashboard', $data);
+                }
+                
             }
-
         
     
             public function addAdminCredentials() {
@@ -206,6 +203,9 @@ class Admin extends Controller{
             
         
             public function stock_overview() {
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {
                 // Instantiate the Product model
                 $productModel = $this->model('Product');
                 
@@ -225,10 +225,13 @@ class Admin extends Controller{
                     echo (['error' => 'No products found']);
                 }
             }
-
+        }
 
             public function stock_overviewbar() {
-                // Instantiate the Product model
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {
+                    // Instantiate the Product model
                 $productModel = $this->model('Product');
                 
                 // Get product data from the model
@@ -248,10 +251,13 @@ class Admin extends Controller{
                 }
         
                 
-            }
+            }}
         
             public function view_price(){
-                // Instantiate Product Model
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {
+                    // Instantiate Product Model
                 $priceModel = new Price();
                 
                 // Get all products
@@ -259,11 +265,13 @@ class Admin extends Controller{
                 
                 // Load the view with products data
                 $this->view('admin/view_price', $data);
-            }
+            } }
 
 
             public function marketdemand() {
-                // Instantiate the Product model
+                if (!$this->isLoggedInAdmin()) {
+                    redirect('admin/admin_login');
+                } else {// Instantiate the Product model
                 $priceModel = $this->model('Price');
                 
                 // Get product data from the model
@@ -281,10 +289,13 @@ class Admin extends Controller{
                     header('Content-Type: application/json');
                     echo (['error' => 'No products found']);
                 }
-        }
+        } }
         
         public function edit_price() {
-            // Check for POST request
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                // Check for POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $priceModel = new Price();
@@ -322,22 +333,30 @@ class Admin extends Controller{
         
                 $this->view("admin/edit_price", (array)$priceData);
             }
-        }
+        } }
 
         
 
         public function displayReportGenerator() {
-            // Load the report generator view
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Load the report generator view
             $this->view("admin/report_generator");
-        }
+        }}
         
         public function displayReportGeneratorprice() {
-            // Load the report generator view
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                // Load the report generator view
             $this->view("admin/report_generatorprice");
-        }
+        }}
         
         public function displayInventoryHistoryReport() {
-            // Check for POST request
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                // Check for POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Get the start date, end date, and product name from the form submission
                 $startDate = $_POST['start_date'];
@@ -369,11 +388,14 @@ class Admin extends Controller{
                 // If not a POST request, redirect to the report generator page or show an error message
                 redirect('admin/report_generator');
             }
-        }
+        }}
         
     
         public function displayInventoryHistoryReportprice() {
-            // Check for POST request
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                 // Check for POST request
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Get the start date, end date, and product name from the form submission
                 $startDate = $_POST['start_date'];
@@ -405,10 +427,13 @@ class Admin extends Controller{
                 // If not a POST request, redirect to the report generator page or show an error message
                 redirect('admin/report_generatorprice');
             }
-        }
+        }}
     
         public function existingproduct(){
-            // Instantiate Product Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                 // Instantiate Product Model
             $productModel = new Product();
             
             // Get all products
@@ -416,10 +441,12 @@ class Admin extends Controller{
             
             // Load the view with products data
             $this->view('admin/existingproduct', $data);
-        }
+        }}
         
         public function purchaseorder() {
-            // Instantiate Purchaseorder Model
+             if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
             $purchaseorderModel = new Purchaseorder();
             
             // Get all purchase orders
@@ -427,10 +454,13 @@ class Admin extends Controller{
             
             // Load the view with purchase orders data
             $this->view('admin/purchaseorder', $data);
-        }
+        }}
         
         public function displayPurchaseorders() {
-            // Create an instance of the PurchaseModel
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                // Create an instance of the PurchaseModel
             $purchaseorderModel = new PurchaseorderModel();
     
             // Call the method to fetch all products
@@ -438,11 +468,13 @@ class Admin extends Controller{
     
             // Pass the fetched products to the view
             require_once('views/admin/purchaseorder');
-        }
+        }}
     
 
         public function salesorder() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Instantiate Purchaseorder Model
             $salesorderModel = new Salesorder();
             
             // Get all purchase orders
@@ -450,10 +482,12 @@ class Admin extends Controller{
             
             // Load the view with purchase orders data
             $this->view('admin/salesorder', $data);
-        }
+        }}
         
         public function salesorderpending() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Instantiate Purchaseorder Model
             $salesorderModel = new Salesorder();
             
             // Get all purchase orders
@@ -461,10 +495,12 @@ class Admin extends Controller{
             
             // Load the view with purchase orders data
             $this->view('admin/salesorderpending', $data);
-        }
+        } }
         
         public function salesorderapproved() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Instantiate Purchaseorder Model
             $salesorderModel = new Salesorder();
             
             // Get all purchase orders
@@ -472,11 +508,13 @@ class Admin extends Controller{
             
             // Load the view with purchase orders data
             $this->view('admin/salesorderapproved', $data);
-        }
+        }}
         
         
         public function salesordercompleted() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Instantiate Purchaseorder Model
             $salesorderModel = new Salesorder();
             
             // Get all purchase orders
@@ -485,10 +523,12 @@ class Admin extends Controller{
             // Load the view with purchase orders data
             $this->view('admin/salesordercompleted', $data);
 
-        }
+        }}
 
         public function salesorderrejected() {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else { // Instantiate Purchaseorder Model
             $salesorderModel = new Salesorder();
             
             // Get all purchase orders
@@ -496,7 +536,7 @@ class Admin extends Controller{
             
             // Load the view with purchase orders data
             $this->view('admin/salesorderrejected', $data);
-        }
+        }}
         
         
         
@@ -510,7 +550,9 @@ class Admin extends Controller{
 
 
         public function add_purchaseorder(){
-            // Check for POST
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $this->model("Purchaseorder");
     
@@ -553,7 +595,7 @@ class Admin extends Controller{
                  //echo "Invalid request method.";
                 $this->view("admin/add_purchaseorder");
             }
-        }
+        }}
 
         public function confirmationDialog($purchaseId){
             // Load the confirmation dialog view passing the purchase ID
@@ -576,7 +618,9 @@ class Admin extends Controller{
         }
         
         public function edit_purchaseorder(){
-            // Check for POST
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Check for POST
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Instantiate Product Model with Database dependency injection
                 $purchaseorderModel = new Purchaseorder();
@@ -625,10 +669,12 @@ class Admin extends Controller{
                 
                 $this->view("admin/edit_purchaseorder",(array)$purchaseorderData);
             }
-        }
+        }}
         
         public function delete_purchaseorder(){
-            // Check for POST
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Check for POST
             if ($_GET['id'] != NULL) {
                 
                 // Instantiate Purchaseorder Model with Database dependency injection
@@ -659,11 +705,13 @@ class Admin extends Controller{
         
             // Return JSON response
             echo json_encode($response);
-        }
+        }}
         
        
         public function place_salesorder($purchase_id) {
-            // Instantiate Purchaseorder Model
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {// Instantiate Purchaseorder Model
             $purchaseorderModel = $this->model('Purchaseorder');
             
             // Get the selected purchase order
@@ -677,11 +725,13 @@ class Admin extends Controller{
             
             // Load the view with purchase order and sales orders data
             $this->view('admin/place_salesorder', $data);
-        }
+        }}
         
         
         public function updateStatus() {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Retrieve the order IDs and statuses from the form for sales order
                 $orderIds = $_POST['order_id'];
                 $statuses = $_POST['status'];
@@ -705,10 +755,12 @@ class Admin extends Controller{
             } else {
                 echo json_encode('Invalid request method');
             }
-        }
+        }}
         
         public function updatePurchaseStatus() {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else { if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               // Retrieve the purchase order IDs and statuses from the form
               $purchaseOrderIds = $_POST['purchase_order_id'] ?? [];
               $purchaseStatuses = $_POST['purchase_status'] ?? [];
@@ -727,7 +779,7 @@ class Admin extends Controller{
             } else {
               echo json_encode('Invalid request method');
             }
-          }
+          }}
           
           
        
@@ -738,7 +790,9 @@ class Admin extends Controller{
 
 
     public function manageUsers()
-    {
+    {if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
         // Get pending registration requests
         $pendingUsers = $this->userModel->getPendingUsers();
         $rejectedUsers = $this->userModel->getRejectedUsers();
@@ -753,13 +807,15 @@ class Admin extends Controller{
         ];
 
         $this->view('admin/manageUsers', $data);
-    }
+    }}
 
 
 
 
     public function acceptUser()
-    {
+    {if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
@@ -779,10 +835,12 @@ class Admin extends Controller{
             // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
-    }
+    }}
 
     public function rejectUser()
-    {
+    {if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
@@ -802,10 +860,12 @@ class Admin extends Controller{
             // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
-    }
+    }}
 
     public function deleteUser()
-    {
+    {if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
 
@@ -825,7 +885,7 @@ class Admin extends Controller{
             // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
-    }
+    }}
 
 
     
@@ -833,7 +893,9 @@ class Admin extends Controller{
 
 
     public function inquiry() {
-        // Load the Inquiry model
+        if (!$this->isLoggedInAdmin()) {
+            redirect('admin/admin_login');
+        } else { // Load the Inquiry model
         $inquiryModel = $this->model('Inquiry');
     
         // Get all inquiries from the database
@@ -846,11 +908,13 @@ class Admin extends Controller{
     
         // Load the 'farmer/inquiry' view and pass data to it
         $this->view('admin/inquiry', $data);
-    }
+    }}
     
 
     public function reply() {
-        // Get the inquiry ID from the URL
+        if (!$this->isLoggedInAdmin()) {
+            redirect('admin/admin_login');
+        } else {// Get the inquiry ID from the URL
         $inquiry_id = $_GET['inquiry_id'] ?? null;
     
         // Check if the inquiry ID is provided
@@ -873,11 +937,13 @@ class Admin extends Controller{
             // Inquiry ID not provided, display an error message or redirect as needed
             echo "Inquiry ID not provided!";
         }
-    }
+    }}
     
 
 public function sendReply() {
-    // Check if the form is submitted
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize POST data
         $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -903,7 +969,7 @@ public function sendReply() {
         // If the form is not submitted via POST method, redirect to home page or any other desired page
         redirect('pages/index');
     }
-}
+}}
 
 
 
@@ -914,7 +980,10 @@ public function sendReply() {
 
 
 public function addChatadmin() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get input data
         $admin_reply = $_POST['admin_reply'];
 
@@ -933,7 +1002,7 @@ public function addChatadmin() {
         // If not a POST request, redirect to home
         redirect('pages/index');
     }
-}
+}}
 
 
 
@@ -942,7 +1011,9 @@ public function addChatadmin() {
 // Farmer controller method to retrieve inquiries of the current user
 // Farmer controller method to retrieve inquiries
 public function tm_chat() {
-    // Load the Inquiry model
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Load the Inquiry model
     $tm_chatModel = $this->model('Tm_Chat');
 
     // Get all chats from the database
@@ -955,10 +1026,13 @@ public function tm_chat() {
 
     // Load the 'ccm/ccm_chat' view and pass data to it
     $this->view('admin/tm_chat', $data);
-}
+}}
 
 public function addChatadmintm() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Get input data
         $admin_reply = $_POST['admin_reply'];
 
@@ -977,7 +1051,7 @@ public function addChatadmintm() {
         // If not a POST request, redirect to home
         redirect('pages/index');
     }
-}
+}}
 
 
 
@@ -986,7 +1060,10 @@ public function addChatadmintm() {
 // Farmer controller method to retrieve inquiries of the current user
 // Farmer controller method to retrieve inquiries
 public function ccm_chat() {
-    // Load the Inquiry model
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {
+        // Load the Inquiry model
     $ccm_chatModel = $this->model('Ccm_Chat');
 
     // Get all chats from the database
@@ -999,13 +1076,16 @@ public function ccm_chat() {
 
     // Load the 'ccm/ccm_chat' view and pass data to it
     $this->view('admin/ccm_chat',$data);
-}
+}}
 
 
 
     
     public function payment() {
-        // Load the Paymentrequests model
+        if (!$this->isLoggedInAdmin()) {
+            redirect('admin/admin_login');
+        } else {
+            // Load the Paymentrequests model
         $paymentRequestsModel = $this->model('Paymentrequests');
     
         // Get all payment requests
@@ -1018,26 +1098,29 @@ public function ccm_chat() {
     
         // Load the view
         $this->view('admin/payment', $data);
-    }
+    }}
   
-  public function logout() {
-        // Unset all of the session variables
-        $_SESSION = array();
-      
-        // Destroy the session.
-        session_destroy();
-      
-        // Set a short session expiration time (e.g., 5 minutes) for future sessions
-        ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
-      
-        // Redirect to the index page
-        redirect('admin/admin_login');
-      }
+public function logout() {
+    // Unset all of the session variables
+    $_SESSION = array();
+  
+    // Destroy the session.
+    session_destroy();
+  
+    // Set a short session expiration time (e.g., 5 minutes) for future sessions
+    ini_set('session.cookie_lifetime', 5 ); // Adjust as needed
+  
+    // Redirect to the index page
+    redirect('admin/admin_login');
+  }
 
 
     
         public function Notifications() {
-        $notificationModel = $this->model('AdminNotifications');
+            if (!$this->isLoggedInAdmin()) {
+                redirect('admin/admin_login');
+            } else {
+                $notificationModel = $this->model('AdminNotifications');
     
         $notifications = $notificationModel->getAllNotifications();
        
@@ -1047,12 +1130,14 @@ public function ccm_chat() {
     
         // Load the 'farmer/inquiry' view and pass data to it
         $this->view('admin/notifications', $data);
-      }
+      }}
       
 
 
       public function manageadmin() {
-    // Get data for each table
+        if (!$this->isLoggedInAdmin()) {
+            redirect('admin/admin_login');
+        } else {// Get data for each table
     $ccm = $this->ccmModel->getUsers('ccm');
     $tm = $this->tmModel->getUsers('tm');
     $qi = $this->qiModel->getUsers('inspector');
@@ -1065,15 +1150,20 @@ public function ccm_chat() {
     ];
 
     $this->view('admin/manageadmin', $data);
-}
+}}
 
 
 public function tm_register() {
-    // Load the view file
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else { // Load the view file
     $this->view('admin/tm_register');
-}
+}}
+
 public function addAdminCredentialstm() {
-    // Check if the form is submitted
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize input data
         $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
@@ -1155,15 +1245,20 @@ public function addAdminCredentialstm() {
         // If not a POST request, load the registration form
         $this->view('admin/tm_register');
     }
-}
+}}
 
 
 public function qi_register() {
-    // Load the view file
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Load the view file
     $this->view('admin/qi_register');
-}
+}}
+
 public function addAdminCredentialsqi() {
-    // Check if the form is submitted
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else { // Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize input data
         $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
@@ -1242,22 +1337,26 @@ public function addAdminCredentialsqi() {
         // If not a POST request, load the registration form
         $this->view('admin/qi_register');
     }
-}
+}}
 
 
 public function ccm_register() {
-    // Load the view file
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Load the view file
     $this->view('admin/ccm_register');
-}
+}}
+
 public function addAdminCredentialsccm() {
-    // Check if the form is submitted
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Check if the form is submitted
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Sanitize input data
         $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
         $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
         $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
-        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
 
 
         // Initialize error array
@@ -1278,7 +1377,7 @@ public function addAdminCredentialsccm() {
             $errors['password_length_err'] = "Password should be at least 8 characters long.";
         }
         // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email)|| empty($collectioncenter) || empty($admincPassword)) {
+        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
             $errors['fields_err'] = "All fields are required.";
         }
 
@@ -1297,7 +1396,7 @@ public function addAdminCredentialsccm() {
             $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
             // Call the model method to insert admin credentials
-            if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
+            if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
                 // Admin credentials inserted successfully
                 // You can redirect to a success page or perform other actions
                 $success_messageccm = "CCM credentials inserted successfully.</br>";
@@ -1331,11 +1430,13 @@ public function addAdminCredentialsccm() {
         // If not a POST request, load the registration form
         $this->view('admin/ccm_register');
     }
-}
+}}
 
 
 public function salesorderqualityapproved() {
-    // Instantiate Purchaseorder Model
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Instantiate Purchaseorder Model
     $salesorderModel = new Salesorder();
     
     // Get all purchase orders
@@ -1343,10 +1444,12 @@ public function salesorderqualityapproved() {
     
     // Load the view with purchase orders data
     $this->view('admin/salesorderqualityapproved', $data);
-}
+}}
 
 public function salesorderqualityrejected() {
-    // Instantiate Purchaseorder Model
+    if (!$this->isLoggedInAdmin()) {
+        redirect('admin/admin_login');
+    } else {// Instantiate Purchaseorder Model
     $salesorderModel = new Salesorder();
     
     // Get all purchase orders
@@ -1354,7 +1457,7 @@ public function salesorderqualityrejected() {
     
     // Load the view with purchase orders data
     $this->view('admin/salesorderqualityrejected', $data);
-}
+}}
 
 
 }
