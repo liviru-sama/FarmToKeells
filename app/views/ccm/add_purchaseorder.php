@@ -173,7 +173,7 @@
 <a href="<?php echo URLROOT; ?>/ccm/add_purchaseorder" style="text-decoration: none;">
 <h5 class="inline-heading" class
 =
-"tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;ADD PURCHASEORDER</h5></a>
+"tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;ADD NEW NEEDLIST ITEM</h5></a>
 
 
         

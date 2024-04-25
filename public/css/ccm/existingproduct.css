@@ -49,7 +49,7 @@ h1 {
 
 /* Apply the same styles to the first iframe */
 #existingproductFrame {
-    background: transparent; /* Set background of iframe content to transparent */
+    background:  rgb(255, 255, 255); /* Set background of iframe content to transparent */
     border: none; /* Remove border */
     width: 100%; /* Adjust width */
     height: 100%; /* Adjust height */

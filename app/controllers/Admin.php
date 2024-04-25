@@ -612,9 +612,9 @@ class Admin extends Controller{
             
             $this->view('ccm/product_selection', $data);
         } 
-        public function productSelection() {
+        public function product_selection() {
    
-            $this->view("admin/product_selection");
+            $this->view("ccm/product_selection");
         }
         
         public function edit_purchaseorder(){

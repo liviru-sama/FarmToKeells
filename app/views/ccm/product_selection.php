@@ -7,7 +7,7 @@
    
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/product_selection.css">
 </head>
-<body>
+<body style="background-color: rgba(255, 255, 255, 0.1);">
     <h1> Select Product</h1>
     <!-- Provide manual options for product selection -->
     <div class="product" onclick="fillProductField('Carrot')">

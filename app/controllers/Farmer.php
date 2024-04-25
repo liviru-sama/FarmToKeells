@@ -889,13 +889,11 @@ use PHPMailer\PHPMailer\Exception;
         
     
         public function productSelection() {
-            if (!$this->isLoggedIn()) {
-                redirect('users/user_login');
-            } else {
+            
                 $this->view("ccm/product_selection");
             }
             
-        }
+        
     
         public function getPurchaseIdByOrderId($order_id) {
             $this->db->query('SELECT purchase_id FROM salesorder WHERE order_id = :order_id');

@@ -223,13 +223,13 @@
                 <div class="text-field">
     <input name="quantity" type="number" min="0" step="1">
     <span></span>
-    <label>Quantity in Good Condition (in Kgs)</label>
+    <label style="color:black;">Quantity in Good Condition (in Kgs)</label>
 </div>
 
 <div class="text-field">
     <input name="poor_quantity" type="number" min="0" step="1">
     <span></span>
-    <label>Quantity in Bad Condition (in Kgs)</label>
+    <label style="color:black;">Quantity in Bad Condition (in Kgs)</label>
 </div>
 
 

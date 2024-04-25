@@ -133,7 +133,7 @@
         <br>
 
         <section class="form">
-            <div class="center">
+            <div class="center"><br><br>
                 <h1>Add New Order</h1>
                 <form action='<?php echo URLROOT; ?>/farmer/add_salesordercommon' method="post" id="myForm">
                     <input type="hidden" name="user_id" value="<?php echo isset($_GET['user_id']) ? $_GET['user_id'] : ''; ?>">

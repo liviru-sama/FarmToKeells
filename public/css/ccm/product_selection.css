@@ -51,7 +51,7 @@ h1 {
 
 /* Style for the transparent table container */
 iframe {
-    background-color: rgba(15, 14, 14, 0.486); /* Set background of iframe content to transparent */
+    background-color: rgba(255, 255, 255, 0.728); /* Set background of iframe content to transparent */
     border: none; /* Remove border */
     width: 100%; /* Adjust width */
     height: 100%; /* Adjust height */

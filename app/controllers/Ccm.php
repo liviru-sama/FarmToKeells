@@ -782,7 +782,7 @@ public function displayReportGeneratorprice() {
     
     
 
-public function productSelection() {
+public function product_selection() {
    
     $this->view("ccm/product_selection");
 }
