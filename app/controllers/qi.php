@@ -174,4 +174,46 @@ redirect('qi/dashboard');
         redirect('qi/qi_login');
       }
 
+
+      public function getUserInfo($user_id) {
+        return $this->userModel->getUserInfoById($user_id);
+    }
+
+    
+      public function salesorderapproved() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('qi/salesorderapproved', $data);
+    }
+
+
+    public function salesorderqualityapproved() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('qi/salesorderqualityapproved', $data);
+    }
+
+    public function salesorderqualityrejected() {
+        // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersqualityrejected();
+        
+        // Load the view with purchase orders data
+        $this->view('qi/salesorderqualityrejected', $data);
+    }
+
+
+
 }

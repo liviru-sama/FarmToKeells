@@ -185,55 +185,67 @@
 <section class="header">
         </section>
         <section class="table_body">
-
         <div class="chat-container" id="chatContainer">
-        <?php if (empty($data['notifications'])): ?>
-    <p>You don't have any notifications yet.</p>
-<?php else: ?>
-    <table>
-    <?php 
-    // Sort notifications array by time in descending order
-    usort($data['notifications'], function($a, $b) {
-        return strtotime($b->time) - strtotime($a->time);
-    });
-    
-    foreach ($data['notifications'] as $notification): ?>
-        <p >
-            <div style="background-color:#65A534;
-                color: white; border-radius: 90px;
-                overflow: hidden;
-                word-wrap: break-word;
-                z-index: 9999;
-                font-size: 22px;
-                box-shadow: 0 .4rem .8rem #0005;
-                text-align:left;">
-                <?php switch ($notification->action):
-                    case 'new_order':
-                        if ($notification->purchase_product !== NULL) {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}' for your Needlist item '{$notification->purchase_product}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        } else {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}'  </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                    case 'reply':
-                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Keells Admin has replied   '{$notification->admin_reply}'  for your Message </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        break;
-                    case 'low':
-                      
-                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining. Please prioritize placing a new order for {$notification->product}. </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                            
-                            break;
-                endswitch; ?>
-            </div>
-        </p>
-    <?php endforeach; ?>
-</table>
+    <?php if (empty($data['notifications'])): ?>
+        <p>You don't have any notifications yet.</p>
+    <?php else: ?>
+        <table>
+            <?php 
+            // Sort notifications array by time in descending order
+            usort($data['notifications'], function($a, $b) {
+                return strtotime($b->time) - strtotime($a->time);
+            });
+            
+            // Convert stored time to timestamp
+            $lastViewedTime = isset($_SESSION['last_viewed_timestamp']) ? strtotime($_SESSION['last_viewed_timestamp']) : 0;
 
+            foreach ($data['notifications'] as $notification): 
+                // Convert notification time to timestamp
+                $notificationTime = strtotime($notification->time);
 
-<?php endif; ?>
+                // Compare notification time with stored time
+                if ($notificationTime > $lastViewedTime): ?>
+                    <tr>
+                        <td>
+                            <div style="background-color:#65A534;
+                                color: white; border-radius: 90px;
+                                overflow: hidden;
+                                word-wrap: break-word;
+                                z-index: 9999;
+                                font-size: 22px;
+                                box-shadow: 0 .4rem .8rem #0005;
+                                text-align:left;">
+                                <?php switch ($notification->action):
+                                    case 'new_order':
+                                        if ($notification->purchase_product !== NULL) {
+                                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}' for your Needlist item '{$notification->purchase_product}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                                        } else {
+                                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}'  </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                                        }
+                                        break;
+                                    case 'reply':
+                                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Keells Admin has replied   '{$notification->admin_reply}'  for your Message </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                                        break;
+                                    case 'low':
+                                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining. Please prioritize placing a new order for {$notification->product}. </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                                        break;
+                                endswitch; ?>
+                            </div>
+                        </td>
+                    </tr>
+                <?php endif; ?>
+            <?php endforeach; ?>
+        </table>
+    <?php endif; ?>
+</div>
+
 
 </div>
 
+<script>
+    // Store the current time when the page is viewed
+    localStorage.setItem('lastViewedTime', new Date().getTime());
+</script>
 
 
 </body>

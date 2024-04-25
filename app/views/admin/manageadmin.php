@@ -144,150 +144,111 @@
 
     <a href="<?php echo URLROOT; ?>/admin/manageUsers" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Manage Users</h5>
+                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp; Manage Users</h5>
             </a>
 
             <a href="<?php echo URLROOT; ?>/admin/manageadmin" style="text-decoration: none;">
-                <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Manage Admins</h5>
+                <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;"  >&nbsp;&nbsp;&nbsp; Manage Admins</h5>
             </a>
 
 
     <main class="table" style="text-align:center;"></br>
             <section class="table_header">
-    <h2 >Pending Users</h2></br>
-  
-    <?php $pendingUsers = $data['pendingUsers']; ?>
-    <?php if (!empty($pendingUsers)): ?>
+    <h2 >CCM Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/ccm_register">Register New CCM</a></h2></br>
+    <?php if(isset($data['success_messageccm'])): ?>
+    <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messageccm']; ?></p>
+<?php endif; ?>
+    <?php $ccm = $data['ccm']; ?>
+    <?php if (!empty($ccm)): ?>
+
         <section class="table_body">
         <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
+                    <th>CCM ID</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                    
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($pendingUsers as $user): ?>
+            <?php foreach ($ccm as $user): ?>
                     <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-    <div class="button-container">
-        <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="accept">Accept</button>
-        </form>
-        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
-            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
-        </form>
-        <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
-                            </form>
-    </div>
-</td>
+                    <td><?= $user['admin_id']; ?></td>
+                    <td><?= $user['admin_username']; ?></td>
+                    <td><?= $user['email']; ?></td>
+                       
+                        
 
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>No pending users.</p>
+        <p>No CCM accounts.</p>
     <?php endif; ?>
 
-    </br><br> <h2>Accepted Users</h2></br>
+    </br>  <h2>   TM Accounts&nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/tm_register">Register New TM</a>
+</h2></br>
 
-    <?php $acceptedUsers = $data['acceptedUsers']; ?>
-    <?php if (!empty($acceptedUsers)): ?>
+<?php if(isset($data['success_messagetm'])): ?>
+    <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messagetm']; ?></p>
+<?php endif; ?>
+
+    <?php $tm = $data['tm']; ?>
+    <?php if (!empty($tm)): ?>
         <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
+                <th>TM ID</th>
+                    <th>UserName</th>
+                    <th>Email</th>
+                  
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($acceptedUsers as $user): ?>
+                <?php foreach ($tm as $user): ?>
                     <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-                        <div class="button-container">
-
-                        <form action="<?= URLROOT; ?>/admin/rejectUser" method="post" class="button-form">
-                            <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                            <button type="submit" name="reject" style="background-color:orange;">Reject</button>
-                        </form>
-                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
-                            </form>
-                        </div>
-                        </td>
+                    <td><?= $user['admin_id']; ?></td>
+                    <td><?= $user['admin_username']; ?></td>
+                    <td><?= $user['email']; ?></td>
+                    
+                       
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>No accepted users.</p>
+        <p>No TM accounts.</p>
     <?php endif; ?>
 
-    </br> <h2>Rejected Users</h2></br>
-
-    <?php $rejectedUsers = $data['rejectedUsers']; ?>
-    <?php if (!empty($rejectedUsers)): ?>
+    </br> <h2>QI Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/qi_register">Register New QI</a></h2></br>
+    <?php if(isset($data['success_messageqi'])): ?>
+    <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messageqi']; ?></p>
+<?php endif; ?>
+    <?php $qi = $data['qi']; ?>
+    <?php if (!empty($qi)): ?>
         <table>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Mobile</th>
-                    <th>Province</th>
-                    <th>Address</th>
-                    <th>Action</th>
+                <th>QI ID</th>
+                    <th>UserName</th>
+                    <th>Email</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($rejectedUsers as $user): ?>
+                <?php foreach ($qi as $user): ?>
                     <tr>
-                        <td><?= $user->id; ?></td>
-                        <td><?= $user->name; ?></td>
-                        <td><?= $user->mobile; ?></td> 
-                        <td><?= $user->province; ?></td>
-                        <td><?= $user->collectioncenter; ?></td>
-                        <td>
-                        <div class="button-container">
-                            <form action="<?= URLROOT; ?>/admin/acceptUser" method="post" class="button-form">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="accept">Accept</button>
-                            </form>
-                            <form action="<?= URLROOT; ?>/admin/deleteUser" method="post">
-                                <input type="hidden" name="userId" value="<?= $user->id; ?>">
-                                <button type="submit" name="delete" style="background-color:red;">Delete</button>
-                            </form>
-                        </div>
-                        </td>
+                    <td><?= $user['admin_id']; ?></td>
+                    <td><?= $user['admin_username']; ?></td>
+                    <td><?= $user['email']; ?></td>
+                        
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
     <?php else: ?>
-        <p>No rejected users.</p>
+        <p>No QI accounts.</p>
     <?php endif; ?>
     
 

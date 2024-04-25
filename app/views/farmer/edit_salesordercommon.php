@@ -216,7 +216,7 @@
     <?php endif; ?>
 </div>
                     <div class="text-field">
-                        <label for="date">Date:</label>
+                        <label for="date">Deliverable Before:</label>
                         <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>" min="<?php echo date('Y-m-d'); ?>">
                     </div>
                     <div class="text-field">

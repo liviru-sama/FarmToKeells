@@ -183,7 +183,7 @@
     });
     
     foreach ($data['notifications'] as $notification): ?>
-        <p >
+           <tr> <td> 
             <div style="background-color:#65A534;
                 color: white; border-radius: 90px;
                 overflow: hidden;
@@ -221,7 +221,7 @@
 
                 endswitch; ?>
             </div>
-        </p>
+            </td> </tr>
     <?php endforeach; ?>
 </table>
 

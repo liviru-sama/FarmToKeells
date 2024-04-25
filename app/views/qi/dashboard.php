@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo CSS;?>ccm/dashboard.css">
+    <link rel="stylesheet" href="<?php echo CSS;?>admin/selectadmin.css">
     <title><?= $data['title'] ?></title>
 
     <style>
@@ -89,6 +89,9 @@
     margin-right: 20px; /* Adjust the margin as needed */
 }
 
+
+   
+
     </style>
 </head>
 <body>
@@ -127,42 +130,38 @@
 
     <div class="container" style="top:50%">
         <div class="dashboard-container">
-            <div class="menu" data-name="p-1">
-                <a href="<?php echo URLROOT; ?>/transport/pending_requests">
-                    <img src="<?php echo URLROOT; ?>/public/images/transport.png">
-                    <h3>Transport Requests</h3>
-                </a>
-            </div>
+           
             <div class="menu" data-name="p-2">
-                <a href="<?php echo URLROOT; ?>/transport/salesorderapproved">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png">
+                <a href="<?php echo URLROOT; ?>/qi/salesorderapproved">
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png">
                     <h3>View Approved Orders</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-3">
-                <a href="<?php echo URLROOT; ?>/monitor/index">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png">
-                    <h3>Transport Monitoring</h3>
+
+            <div class="menu" data-name="p-2">
+                <a href="<?php echo URLROOT; ?>/qi/salesorderqualityapproved">
+                    <img src="<?php echo URLROOT; ?>/public/images/quality.png">
+                    <h3>View Quality Approved Orders</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-3">
-                <a href="<?php echo URLROOT; ?>/transport/driver">
-                    <img src="<?php echo URLROOT; ?>/public/images/driver.png">
-                    <h3>Manage Drivers</h3>
+
+            <div class="menu" data-name="p-2">
+                <a href="<?php echo URLROOT; ?>/qi/salesorderqualityrejected">
+                    <img src="<?php echo URLROOT; ?>/public/images/fail.png">
+                    <h3>View Quality Rejected Orders</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-3">
-                <a href="<?php echo URLROOT; ?>/transport/vehicles">
-                    <img src="<?php echo URLROOT; ?>/public/images/vehicle.png">
-                    <h3>Manage Vehicles</h3>
+            <div class="menu" data-name="p-2">
+                <a href="<?php echo URLROOT; ?>/qi/dashbaord">
+                    <img src="<?php echo URLROOT; ?>/public/images/calendar.png">
+                    <h3>View Schedule</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-3">
-                <a href="<?php echo URLROOT; ?>/transport/tm_chat">
-                    <img src="<?php echo URLROOT; ?>/public/images/inquiry.png">
-                    <h3>Send Inquiry</h3>
-                </a>
-            </div>
+
+            
+           
+            
+           
         </div>
     </div>
 </body>

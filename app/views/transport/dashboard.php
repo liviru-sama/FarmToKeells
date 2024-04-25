@@ -136,7 +136,7 @@
             <div class="menu" data-name="p-2">
                 <a href="<?php echo URLROOT; ?>/transport/salesorderapproved">
                     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png">
-                    <h3>View Approved Orders</h3>
+                    <h3>View Quality Approved Orders</h3>
                 </a>
             </div>
             <div class="menu" data-name="p-3">
