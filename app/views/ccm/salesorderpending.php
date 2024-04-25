@@ -144,6 +144,10 @@
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesorderrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesorderqualityapproved" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/ccm/salesorderqualityrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesordercompleted" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
 </a>
@@ -190,15 +194,15 @@
         <td><?php echo isset($row->date) ? $row->date : $row['date']; ?></td>
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">
-    <div class="select-container">
-        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && $row['status'] == 'Completed') ? 'style="pointer-events: none; pointer-events: none; 
-  opacity: 0.5;
-  filter: grayscale(100%);"' : ''; ?>>
-            <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
-            <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
-            <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
-            <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
-        </select>
+        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' || $row['status'] == 'Quality Rejected' || $row['status'] == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
+
+<option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
+<option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
+<option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>>Rejected</option>
+<option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
+<option value="Quality Approved" <?php echo (is_array($row) ? ($row['status'] == 'Quality Approved' ? 'selected' : '') : ($row->status == 'Quality Approved' ? 'selected' : '')); ?> hidden>Quality Approved</option>
+<option value="Quality Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Quality Rejected' ? 'selected' : '') : ($row->status == 'Quality Rejected' ? 'selected' : '')); ?> hidden>Quality Rejected</option>
+</select>
         <span class="select-arrow">&#9662;</span>
     </div>
 </td>

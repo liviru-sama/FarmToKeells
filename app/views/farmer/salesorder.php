@@ -89,14 +89,13 @@
         </a></div>
 
 
-      
 
 
-                    <div class="navbar-icon-container" data-text="View Profile" >
+
+                    <div class="navbar-icon-container" data-text="View Profile"  >
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
-                    </a></div>
-
+                    </a> </div>
 
 <div class="navbar-icon-container" data-text="Logout">
 
@@ -189,7 +188,7 @@
     
         <main class="table"></br>
         <section class="table_header">
-    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
+    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Any of Your Available products</h2>
     <div>
         <input type="text" id="searchInput" onkeyup="searchcardProducts()" placeholder="Search your products...">
         <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
@@ -227,12 +226,18 @@
             case 'Approved' :
                 echo 'background-color: #65A534;'; // Green
                 break;
+            case 'Quality Approved' :
+                echo 'background-color: #65A534;'; // Green
+                break;
             case 'Completed' :
                 echo 'background-color: grey;'; // Grey
                 break;
             case 'Rejected':
                 echo 'background-color: red;'; // Red
                 break;
+                case 'Quality Rejected':
+                    echo 'background-color: red;'; // Red
+                    break;
             case 'Pending Approval'|| 'pending approval' :
                 echo 'background-color: white; color:black;'; // No color
                 break;
@@ -256,8 +261,8 @@
                                     </div></br>
                                     <div class="card__actions">
                                     <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
-                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>" data-text="Request for payment"></a>
-                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
+                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>" ></a>
+                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Quality Approved' || $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Quality Approved' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
                                     </div></br></br>
                                 </td>
                             <?php 

@@ -42,4 +42,35 @@ class TmModel {
     return false; // Invalid username or password
 }
 
+
+public function getUsers($tableName) {
+    $conn = mysqli_connect(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    $sql = "SELECT * FROM $tableName";
+    $result = mysqli_query($conn, $sql) or die(mysqli_error($conn));
+    $data = [];
+    while ($row = mysqli_fetch_assoc($result)) {
+        $data[] = $row;
+    }
+    return $data;
+}
+
+
+public function isEmailExists($email) {
+    $this->db->query('SELECT  admin_id FROM tm WHERE email = :email');
+    $this->db->bind(':email', $email);
+    $this->db->execute();
+
+    return $this->db->rowCount() > 0;
+}
+
+// Check if the username already exists in the database
+public function isUsernameExists($admin_username) {
+    $this->db->query('SELECT  admin_id FROM tm WHERE  admin_username = :admin_username');
+    $this->db->bind(':admin_username', $admin_username);
+    $this->db->execute();
+
+    return $this->db->rowCount() > 0;
+}
+
+
 }

@@ -116,17 +116,20 @@
     <section class="form">
         <div class="center">
     <h2></br>QI Registration Form</h2>
-    <form action="<?php echo URLROOT; ?>/qi/addAdminCredentials" method="POST">
+    <form action="<?php echo URLROOT; ?>/admin/addAdminCredentialsqi" method="POST">
     <div class="text-field">
         <label for="admin_username">Username:</label>
         <input type="text" id="admin_username" name="admin_username" required>
     </div>
+    <div class="error-message" id="username_exists_err"><?php echo isset($data['errors']['username_exists_err']) ? $data['errors']['username_exists_err'] : ''; ?></div>
+
 
     <div class="text-field">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
 </div>
 <div class="error-message" id="email-error"><?php echo isset($data['errors']['email_err']) ? $data['errors']['email_err'] : ''; ?></div>
+<div class="error-message" id="email_exists_err"><?php echo isset($data['errors']['email_exists_err']) ? $data['errors']['email_exists_err'] : ''; ?></div>
 
    
     <div class="text-field">
@@ -141,7 +144,8 @@
       
     </div>
     <div class="error-message" id="cpassword-error"><?php echo isset($data['errors']['cpassword_err']) ? $data['errors']['cpassword_err'] : ''; ?></div>
-    
+    <div class="error-message" id="password_length_err"><?php echo isset($data['errors']['password_length_err']) ? $data['errors']['password_length_err'] : ''; ?></div>
+
     <input type="submit" value="Register">
 
     <div class="error-message" id="fields-error"><?php echo isset($data['errors']['fields_err']) ? $data['errors']['fields_err'] : ''; ?></div>

@@ -166,7 +166,9 @@
   opacity: 0.5;
   filter: grayscale(100%);"' : ''; ?>>
             <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
-            <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
+            <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>hidden>Approved</option>
+            <option value="Quality Approved" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Quality Approved')) ? 'selected' : ''; ?> hidden>Quality Approved</option>
+
             <option value="Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Rejected' ? 'selected' : '') : ($row->status == 'Rejected' ? 'selected' : '')); ?>hidden>Rejected</option>
             <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> >Completed</option>
         </select>

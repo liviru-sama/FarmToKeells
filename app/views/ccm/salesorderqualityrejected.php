@@ -113,7 +113,6 @@
         </section>
     </div>
 
-    <!-- Main content -->
     <div class="main-content">
         <section class="header">
            
@@ -127,15 +126,16 @@
 =
 "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">VIEW ALL USER ORDERS</h5></a>
 
-            <main class="table"></br>
+
+           <main class="table"></br>
                 <section class="table_header">
-                <h2>&nbsp;&nbsp;&nbsp;View rejected user orders </h2>
+                <h2>&nbsp;&nbsp;&nbsp;View Quality Rejected user orders </h2>
                 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
 </div>   
                 </section></br>
-                <section class="table_body">
-
-
+                           <section class="table_body">
+                           
+                           
                 <a href="<?php echo URLROOT; ?>/ccm/salesorder" style="text-decoration: none;">
     <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; All </h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesorderpending" style="text-decoration: none;">
@@ -143,60 +143,58 @@
 </a><a href="<?php echo URLROOT; ?>/ccm/salesorderapproved" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesorderrejected" style="text-decoration: none;">
-    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesorderqualityapproved" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
 </a>
 <a href="<?php echo URLROOT; ?>/ccm/salesorderqualityrejected" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;"   >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/ccm/salesordercompleted" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
 </a>
-
-
-            <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Product image</th>
-                                <th>Sales Order ID</th>
-                                <th>User ID</th>
-                                <th>User </th>
-                                <th>Contact No.</th>
-                                <th>Product</th>
-                                <th>Product Type</th>
-                                <th>Deliverable Quantity (kgs)</th>
-                                <th>Price per kg</th>
-                                <th>Expected Supply Date</th>
-                                <th>Address</th> 
-                                <th>Status</th> 
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($data['salesorders'] as $row) : ?>
-    <!-- Inside the foreach loop for salesorders -->
-    <tr>        
-        <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " ></td>
-        <td><?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?></td>
-        <td><?php echo isset($row->user_id) ? $row->user_id : $row['user_id']; ?></td>
-        <?php if (is_object($row)) : ?>
-            <?php $userInfo = $this->getUserInfo($row->user_id); ?>
-            <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
-            <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
-        <?php elseif (is_array($row)) : ?>
-            <?php $userInfo = $this->getUserInfo($row['user_id']); ?>
-            <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
-            <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
-        <?php endif; ?>
-        <td><?php echo isset($row->name) ? $row->name : $row['name']; ?></td>
-        <td><?php echo isset($row->type) ? $row->type : $row['type']; ?></td>
-        <td><?php echo isset($row->quantity) ? $row->quantity : $row['quantity']; ?></td>
-        <td><?php echo isset($row->price) ? $row->price : $row['price']; ?></td>
-        <td><?php echo isset($row->date) ? $row->date : $row['date']; ?></td>
-        <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
-        <td class="statusColumn">
-    <div class="select-container">
-    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' || $row['status'] == 'Quality Rejected' || $row['status'] == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
+                       <form id="statusForm" action="<?php echo URLROOT; ?>/Ccm/updateStatus" method="POST">
+                               <table>
+                                   <thead>
+                                       <tr>
+                                           <th>Product image</th>
+                                           <th>Sales Order ID</th>
+                                           <th>User ID</th>
+                                           <th>User </th>
+                                           <th>Contact No.</th>
+                                           <th>Product</th>
+                                           <th>Product Type</th>
+                                           <th>Deliverable Quantity (kgs)</th>
+                                           <th>Price per kg</th>
+                                           <th>Expected Supply Date</th>
+                                           <th>Address</th> 
+                                           <th>Status</th> 
+                                       </tr>
+                                   </thead>
+                                   <tbody>
+                                   <?php foreach ($data['salesorders'] as $row) : ?>
+               <!-- Inside the foreach loop for salesorders -->
+               <tr>        
+                   <td><img src="<?php echo isset($row->image) ? $row->image : $row['image']; ?>" alt="<?php echo isset($row->name) ? $row->name : $row['name']; ?> " ></td>
+                   <td><?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?></td>
+                   <td><?php echo isset($row->user_id) ? $row->user_id : $row['user_id']; ?></td>
+                   <?php if (is_object($row)) : ?>
+                       <?php $userInfo = $this->getUserInfo($row->user_id); ?>
+                       <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
+                       <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
+                   <?php elseif (is_array($row)) : ?>
+                       <?php $userInfo = $this->getUserInfo($row['user_id']); ?>
+                       <td><?php echo isset($userInfo->name) ? $userInfo->name : $userInfo['name']; ?></td>
+                       <td><?php echo isset($userInfo->mobile) ? $userInfo->mobile : $userInfo['mobile']; ?></td>
+                   <?php endif; ?>
+                   <td><?php echo isset($row->name) ? $row->name : $row['name']; ?></td>
+                   <td><?php echo isset($row->type) ? $row->type : $row['type']; ?></td>
+                   <td><?php echo isset($row->quantity) ? $row->quantity : $row['quantity']; ?></td>
+                   <td><?php echo isset($row->price) ? $row->price : $row['price']; ?></td>
+                   <td><?php echo isset($row->date) ? $row->date : $row['date']; ?></td>
+                   <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
+                   <td class="statusColumn">
+               <div class="select-container">
+               <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' || $row['status'] == 'Quality Rejected' || $row['status'] == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
 
 <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
 <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
@@ -205,89 +203,89 @@
 <option value="Quality Approved" <?php echo (is_array($row) ? ($row['status'] == 'Quality Approved' ? 'selected' : '') : ($row->status == 'Quality Approved' ? 'selected' : '')); ?> hidden>Quality Approved</option>
 <option value="Quality Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Quality Rejected' ? 'selected' : '') : ($row->status == 'Quality Rejected' ? 'selected' : '')); ?> hidden>Quality Rejected</option>
 </select>
-        <span class="select-arrow">&#9662;</span>
-    </div>
-</td>
-
-
-        <input type="hidden" name="order_id[]" value="<?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?>">
-    </tr>
-<?php endforeach; ?>
-
-                        </tbody>
-                    </table>
-                    <!-- Success message -->
-                    <div id="successMessage"></div>
-                    <div id="purchaseOrderSuccessMessage"></div>
-                </form>
-            </section>
-        </main>
-    </section>
-
-    <script>
-    // Function to handle the submission of status update
-    function submitForm(select) {
-        const form = select.closest('form');
-        const formData = new FormData(form);
-        fetch(form.getAttribute('action'), {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to update status');
-            }
-            return response.text();
-        })
-        .then(data => {
-            // Check if the form belongs to sales orders or purchase orders
-            const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
-            const successMessage = document.getElementById(successMessageId);
-            successMessage.textContent = data;
-            successMessage.style.display = 'block';
-            setTimeout(function() {
-                successMessage.style.display = 'none';
-            }, 3000); // Hide the success message after 3 seconds
-        })
-        .catch(error => {
-            console.error(error);
-        });
-    }
-
-    // Set default value to "Pending Approval" for newly created purchase orders
-   // Set default value to "Pending Approval" for newly created orders if status is empty
-document.addEventListener('DOMContentLoaded', function() {
-    const statusInputs = document.querySelectorAll('.statusInput');
-    statusInputs.forEach(function(input) {
-        if (!input.value) {
-            input.value = 'Pending Approval';
-        }
-    });
-});
-
-function searchProducts() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
-
-    // Loop through all table rows, and hide those that don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[5]; // Index 1 corresponds to the product name column
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = ""; // Show the row if the product name matches the search query
-            } else {
-                tr[i].style.display = "none"; // Hide the row if it doesn't match
-            }
-        }
-    }
-}
-</script>
-
+                   <span class="select-arrow">&#9662;</span>
+               </div>
+           </td>
+           
+           
+                   <input type="hidden" name="order_id[]" value="<?php echo isset($row->order_id) ? $row->order_id : $row['order_id']; ?>">
+               </tr>
+           <?php endforeach; ?>
+           
+                                   </tbody>
+                               </table>
+                               <!-- Success message -->
+                               <div id="successMessage"></div>
+                               <div id="purchaseOrderSuccessMessage"></div>
+                           </form>
+                       </section>
+                   </main>
+               </section>
+           
+               <script>
+               // Function to handle the submission of status update
+               function submitForm(select) {
+                   const form = select.closest('form');
+                   const formData = new FormData(form);
+                   fetch(form.getAttribute('action'), {
+                       method: 'POST',
+                       body: formData
+                   })
+                   .then(response => {
+                       if (!response.ok) {
+                           throw new Error('Failed to update status');
+                       }
+                       return response.text();
+                   })
+                   .then(data => {
+                       // Check if the form belongs to sales orders or purchase orders
+                       const successMessageId = form.id === 'statusForm' ? 'successMessage' : 'purchaseOrderSuccessMessage';
+                       const successMessage = document.getElementById(successMessageId);
+                       successMessage.textContent = data;
+                       successMessage.style.display = 'block';
+                       setTimeout(function() {
+                           successMessage.style.display = 'none';
+                       }, 3000); // Hide the success message after 3 seconds
+                   })
+                   .catch(error => {
+                       console.error(error);
+                   });
+               }
+           
+               // Set default value to "Pending Approval" for newly created purchase orders
+              // Set default value to "Pending Approval" for newly created orders if status is empty
+           document.addEventListener('DOMContentLoaded', function() {
+               const statusInputs = document.querySelectorAll('.statusInput');
+               statusInputs.forEach(function(input) {
+                   if (!input.value) {
+                       input.value = 'Pending Approval';
+                   }
+               });
+           });
+           
+           function searchProducts() {
+               // Declare variables
+               var input, filter, table, tr, td, i, txtValue;
+               input = document.getElementById("searchInput");
+               filter = input.value.toUpperCase();
+               table = document.querySelector("table");
+               tr = table.getElementsByTagName("tr");
+           
+               // Loop through all table rows, and hide those that don't match the search query
+               for (i = 0; i < tr.length; i++) {
+                   td = tr[i].getElementsByTagName("td")[5]; // Index 1 corresponds to the product name column
+                   if (td) {
+                       txtValue = td.textContent || td.innerText;
+                       if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                           tr[i].style.display = ""; // Show the row if the product name matches the search query
+                       } else {
+                           tr[i].style.display = "none"; // Hide the row if it doesn't match
+                       }
+                   }
+               }
+           }
+           </script>
+           
 
 </body>
 

@@ -175,24 +175,22 @@
 
 
 <main class="table"></br>
-<section class="table_header">
-<h2>&nbsp;&nbsp;&nbsp;View pending approval user orders</h2>
-
-
+                <section class="table_header">
+                <h2>&nbsp;&nbsp;&nbsp;View Quality Approved user orders </h2>
                 <div>        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search their products..." style="width: 300px; height:40px; padding: 10px 20px; background-color: #65A534; color: white; border: 2px solid #4CAF50; border-radius: 5px;">&nbsp;&nbsp;&nbsp;
 </div>   
                 </section></br>
                 <section class="table_body">
                 <a href="<?php echo URLROOT; ?>/admin/salesorder" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; All </h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderpending" style="text-decoration: none;">
-    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderapproved" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderqualityapproved" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+    <h5 class="inline-heading"   style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; Quality Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesorderqualityrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/admin/salesordercompleted" style="text-decoration: none;">

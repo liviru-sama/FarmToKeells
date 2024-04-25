@@ -111,7 +111,7 @@
     </script>
         <section class="dashboard">
             <div class="container">
-                <div class="dashboard-container">
+                <div class="dashboard-container" >
         
                     
                     <a href="<?php echo URLROOT; ?>/admin/admin_login">
@@ -134,6 +134,13 @@
 
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash8.png" alt="">
                         <h3>Transporatation manager</h3>
+                    </div></a>
+        
+                    <a href="<?php echo URLROOT; ?>/qi/qi_login">
+                        <div class="menu" data-name="p-4">
+
+                        <img src="<?php echo URLROOT; ?>/public/images/quality.png" alt="">
+                        <h3>Quality Inspector</h3>
                     </div></a>
         
                     
