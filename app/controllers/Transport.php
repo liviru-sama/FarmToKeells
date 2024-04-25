@@ -337,7 +337,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     
         // Load the 'farmer/inquiry' view and pass data to it
         $this->view('transport/notifications', $data);
-      }
+    } }
 
       public function forgotPassword() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -466,3 +466,6 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     }
     }
 }
+
+
+?>
