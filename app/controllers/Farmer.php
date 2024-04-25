@@ -80,7 +80,7 @@ use PHPMailer\PHPMailer\Exception;
                             // Send the password reset email
                             $resetPasswordLink = URLROOT . '/farmer/resetPassword/' . $token;
     
-                            $subject = 'Password Reset Link';
+                            $subject = 'Farmer - Password Reset Link';
                             $body = 'Click on the following link to reset your password: ' . $resetPasswordLink; 
     
             

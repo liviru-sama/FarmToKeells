@@ -1,19 +1,12 @@
-
-
-
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITENAME;?></title>
-    <script src="<?php echo JS;?>add_product.js"></script>
-
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
-    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin_login.css">
-
-    <style>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
+        <script src="<?php echo JS;?>login.js"></script>
+        <title><?php echo SITENAME;?></title>
+        <style>
         body,
         html {
             /* Add your background image URL and properties here */
@@ -87,23 +80,23 @@
             white-space: nowrap; /* Prevent text from wrapping */
         }
     </style>
-</head>
+    </head>
+    <body>
 
-<body>
-<div class="navbar">
+    <div class="navbar">
     <div class="navbar-icons">
-    <div class="navbar-icon-container" data-text="Go Back">
+        <div class="navbar-icon-container" data-text="Go Back">
             <a href="#" id="backButton" onclick="goBack()">
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
-       
-
         <div class="navbar-icon-container" data-text="Go To Home Page ">
             <a href="<?php echo URLROOT; ?>/pages/index"  >
             <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
        </a>
         </div>
+        
+       
     </div>
     <div class="navbar-logo-container">
         <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
@@ -111,59 +104,31 @@
 </div>
 
 <script>
-    // JavaScript function to go back to the previous page only if it matches a specific URL
+    // JavaScript function to go back to the previous page
     function goBack() {
-        // Check if the previous page in the history matches the specified URL
-        if (document.referrer === "http://localhost/Farmtokeells/pages/selectadmin") {
-            // If it matches, go back
-            window.history.back();
-        } else {
-            // If it doesn't match, display an alert message
-            alert("You must log in first to access .");
-        }
+        window.history.back();
     }
 </script>
-    <section class="form">
+
+    <section class = "form">
         <div class="center">
-            <h1>Transportation Manager <br> LOGIN</h1>
-
-            <?php if(isset($data['success_message'])): ?>
-    <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>
-<?php endif; ?>
-            <?php if (!empty($data['admin_password_err'])): ?>
-                <div class="error-message"><?php echo $data['admin_password_err']; ?></div>
-            <?php endif; ?>
-            <form action='<?php echo URLROOT; ?>/transport/tm_login' method="post" id="myForm">
-
-            <div class="text-field">
-                    <input type="text" name="admin_username" required>
-                    <span></span>
-                    <label>Username</label>
-                </div>
-
-                <div class="text-field">
-                    <input type="password" name="admin_password"  required>
-                    <span></span>
-                    <label>Password</label>
-                </div>
-                <div class="link">
-                    <a href="<?php echo URLROOT; ?>/transport/forgotPassword">Forgot Password</a>
-                </div>
-
-                
-                <input type="submit" value="Login">
-
-
-
-
-
-               
-            </form>
-        </div>
-    </section>
-
-</body>
-
+            
+        <h1>Quality Inspector <br>Forgot Password</h1><br>
+    <?php flash('forgot_password_success'); ?>
+    <?php flash('forgot_password_error', '', 'error-class'); ?>
+    <form method="post" action="<?= URLROOT; ?>/qi/forgotPassword">
+       
+    <div class="text-field">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required></div>
+        <button type="submit">Send</button>
+    </form>
+        
+    </body>
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+
+
+
