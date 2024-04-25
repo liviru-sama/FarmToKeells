@@ -21,6 +21,16 @@ class Transport extends Controller
 
     }
 
+
+    public function isLoggedInAdmin() {
+        if(isset($_SESSION['admin_id'])) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public function addAdminCredentials() {
         // Check if the form is submitted
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -120,8 +130,8 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     }
     
                     // Create session variables
-                    $_SESSION['admin_id'] = $loggedInAdmin->id;
-                    $_SESSION['admin_username'] = $loggedInAdmin->username;
+                    $_SESSION['admin_id'] = $loggedInAdmin->admin_id;
+                    $_SESSION['admin_username'] = $loggedInAdmin->admin_username;
     
                     // Redirect to tm dashboard or any desired page
                     redirect('transport/dashboard');                    exit;
@@ -142,25 +152,26 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     
 
     
-    
-  public function createUserSession($admin_user) {
-$_SESSION['admin_id'] = $admin_user->admin_id;
-$_SESSION['admin_username'] = $admin_user->admin_username;
-// Check if the 'admin_id' session variable exists
-
-
-redirect('transport/dashboard');
-}
-    
-
-
-
     public function index(){
-        $data = [
-            'title' => 'Transport Dashboard'
-        ];
-        
+        if (!$this->isLoggedInccm()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
+                'title' => ''
+            ];
+            $this->view('transport/dashboard', $data);
+        }
+    }
+    
+    public function dashboard(){
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [];
+    
         $this->view('transport/dashboard', $data);
+        }
+        
     }
 
     public function pending_requests(){
@@ -218,7 +229,9 @@ redirect('transport/dashboard');
 
 
     public function addChat() {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Get input data
             $inquiry = $_POST['inquiry'];
     
@@ -237,7 +250,7 @@ redirect('transport/dashboard');
             // If not a POST request, redirect to home
             redirect('transport/tm_chat');
         }
-    }
+    }}
     
     
     
@@ -245,7 +258,9 @@ redirect('transport/dashboard');
     // Farmer controller method to retrieve inquiries of the current user
     // Farmer controller method to retrieve inquiries
     public function tm_chat() {
-        // Load the Inquiry model
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {// Load the Inquiry model
         $tm_chatModel = $this->model('Tm_chat');
     
         date_default_timezone_set('Asia/Kolkata'); // Replace 'Asia/Kolkata' with your timezone
@@ -258,7 +273,7 @@ redirect('transport/dashboard');
     
         // Load the 'ccm/ccm_chat' view and pass data to it
         $this->view('transport/tm_chat', $data);
-    }
+    }}
     
     
     public function logout() {
@@ -282,7 +297,9 @@ redirect('transport/dashboard');
 
     
       public function salesorderapproved() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { // Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -290,10 +307,12 @@ redirect('transport/dashboard');
         
         // Load the view with purchase orders data
         $this->view('transport/salesorderapproved', $data);
-    }
+    }}
 
     public function salesordercompleted() {
-        // Instantiate Purchaseorder Model
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { // Instantiate Purchaseorder Model
         $salesorderModel = new Salesorder();
         
         // Get all purchase orders
@@ -301,11 +320,13 @@ redirect('transport/dashboard');
         
         // Load the view with purchase orders data
         $this->view('transport/salesordercompleted', $data);
-    }
+    }}
 
 
       public function Notifications() {
-        $notificationModel = $this->model('TmNotifications');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { $notificationModel = $this->model('TmNotifications');
     
         $notifications = $notificationModel->getAllNotifications();
     

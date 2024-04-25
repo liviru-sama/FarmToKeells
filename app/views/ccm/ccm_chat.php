@@ -102,7 +102,7 @@
 }
 
 .chat-container {
-   padding: 20px;
+   padding: 200px;
    position: relative;
    margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
 }

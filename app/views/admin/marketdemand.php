@@ -250,44 +250,44 @@
 </br>
 </br>
 <div class="bar-container">
-    <?php
+<?php
     // New code: Accessing product data passed from the controller through $data array
     $prices = $data['prices'];
 
-    // Find the product with the maximum quantity
-    $maxQuantity = 0;
+    // Find the product with the maximum price
+    $maxPrice = 0;
     foreach ($prices as $price) {
-        if ($price['price'] > $maxQuantity) {
-            $maxQuantity = $price['price'];
+        if ($price['price'] > $maxPrice) {
+            $maxPrice = $price['price'];
         }
     }
 
-    // Check if $maxQuantity is greater than zero
-    if ($maxQuantity > 0) {
+    // Check if $maxPrice is greater than zero
+    if ($maxPrice > 0) {
         // Iterate through each product to generate bars
         foreach ($prices as $price) {
-            // Calculate the height of the bar based on the percentage of (100 - quantity)
-            $barHeight = (( $price['price']) / 500) * 100; // Percentage that 100 - quantity
+            // Calculate the height of the bar based on the percentage of (price / maxPrice)
+            $demandPercentage = ($price['price'] / $maxPrice) * 100;
 
             // Check if the calculated percentage is negative and set it to 0 if true
-            if ($barHeight < 0) {
-                $barHeight = 0;
+            if ($demandPercentage < 0) {
+                $demandPercentage = 0;
             }
             ?>
-            <div class="bar" style="height: <?php echo $barHeight; ?>%;">
+            <div class="bar" style="height: <?php echo $demandPercentage; ?>%;">
                 <div class="bar-name" style="bottom: -35px;"><?php echo $price['name']; ?></div>
                 <div class="bar-graph">
-                <span class="bar-percentage" style="font-weight:bold; font-size: 25px;"><?php echo round($barHeight); ?>%</span>
-
+                    <span class="bar-percentage" style="font-weight:bold; font-size: 25px;"><?php echo round($demandPercentage); ?>%</span>
                 </div>
             </div>
     <?php
         }
     } else {
-        // Handle the case where $maxQuantity is zero
-        echo "Error: Maximum quantity is zero.";
+        // Handle the case where $maxPrice is zero
+        echo "Error: Maximum price is zero.";
     }
-    ?>
+?>
+
     <div class="axis-line x-axis-line"></div>
     <div class="axis-line y-axis-line"></div>
     <div class="axis-label y-axis-label">Market Demand</div>

@@ -104,7 +104,7 @@
 }
 
 .chat-container {
-   padding: 20px;
+   padding: 200px;
    position: relative;
    margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
 }
@@ -278,58 +278,31 @@ usort($data['ccm_chats'], function ($a, $b) {
     return $a->id - $b->id;
 });
 
-// Initialize variables to keep track of previous message sender and count the number of messages
-$prevSender = null;
-$messageCount = count($data['ccm_chats']);
-$currentMessageIndex = 0;
-
+// Display sorted messages
 foreach ($data['ccm_chats'] as $chat):
+    // Skip the message if both admin_reply and ccm_reply are empty
+    if (empty($chat->admin_reply) && empty($chat->ccm_reply)) {
+        continue;
+    }
+
     // Determine the sender based on whether admin_reply is empty or not
     $sender = !empty($chat->admin_reply) ? 'admin' : 'user';
 
     // Determine the CSS class based on the sender
-    $messageClass = $sender === 'admin' ? 'user-message' : 'admin-message';
+    $messageClass = $sender === 'admin' ? 'user-message' : 'admin-message'; // Change admin-message to user-message and vice versa
 
     // Determine the message content and time based on the sender
     $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->ccm_reply;
     $messageTime = $sender === 'admin' ? $chat->admin_reply_time : $chat->created_at;
-
-    // Skip the message if the content is null
-    if (empty($messageContent)) {
-        continue;
-    }
-
-    // Check if the sender has changed from the previous message
-    $isNewSender = $sender !== $prevSender;
-
-    // Determine if this is the first message
-    $isFirstMessage = $currentMessageIndex === 0;
-
-    // Increase the current message index
-    $currentMessageIndex++;
 ?>
-    <!-- Check if it's a new sender and add a container if so -->
-    <?php if ($isNewSender || $isFirstMessage): ?>
-        <div class="chat-container" <?php if ($isFirstMessage) echo 'style="margin-top: 20px;"'; ?>>
-    <?php endif; ?>
-
     <!-- Display the message -->
     <div class="chat-message <?php echo $messageClass; ?>">
-        <div class="message-content"><?php echo $messageContent; ?></br></br></div>
+        <div class="message-content" style="text-align:<?php echo $sender === 'admin' ? 'right' : 'left'; ?>;"> <!-- Change 'left' to 'right' and 'right' to 'left' -->
+            <?php echo $messageContent; ?></br></br>
+        </div>
         <div class="message-time"><?php echo $messageTime; ?></div>
     </div>
-
-    <!-- Close the container if it's a new sender or it's the last message -->
-    <?php if ($isNewSender || $chat === end($data['ccm_chats'])): ?>
-        </div>
-    <?php endif; ?>
-
-    <?php
-    // Update the previous sender for the next iteration
-    $prevSender = $sender;
-    ?>
 <?php endforeach; ?>
-
 
             </div>
 
