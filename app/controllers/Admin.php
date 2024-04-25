@@ -767,51 +767,115 @@ class Admin extends Controller{
 
 
 
-    public function acceptUser()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function acceptUser() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get the user ID from the form data
             $userId = $_POST['userId'];
-
-            // Perform acceptance logic using User model
-            $userModel = $this->model('User');
-
-            if ($userModel->acceptRegistrationRequest($userId)) {
-                // Notify the user or perform any necessary action
-                flash('admin_message', 'User registration request accepted.');
+    
+            // Update the user's status to 'accepted' in the database
+            if ($this->adminModel->acceptUser($userId)) {
+                // Send an email to the user
+                $user = $this->userModel->getUserById($userId);
+                if ($user) {
+                    $email = $user->email;
+                    $subject = 'Your FarmToKeells account has been accepted';
+                    $body = 'Dear ' . $user->name . ', your account has been accepted by the admin. You can now <a href="http://localhost/Farmtokeells/users/user_login">login here</a>.';
+                    
+                    // Create a PHPMailer instance
+                    $mail = new PHPMailer(true);
+                    try {
+                        // Server settings
+                        $mail->isSMTP();
+                        $mail->Host       = 'smtp.mailgun.org'; // SMTP server
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+                        $mail->Password   = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';   // SMTP password
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Port       = 587;
+                        // Recipients
+                        $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
+                        $mail->addAddress($email); // Add a recipient
+                        // Content
+                        $mail->isHTML(true);
+                        $mail->Subject = $subject;
+                        $mail->Body    = $body;
+                        $mail->send();
+                        // Flash a success message to the admin
+                        flash('accept_user_success', 'User account accepted successfully.');
+                        redirect('admin/manageUsers');
+                    } catch (Exception $e) {
+                        // Flash an error message if email sending fails
+                        flash('accept_user_error', 'Error sending acceptance email.');
+                        redirect('admin/manageUsers');
+                    }
+                } else {
+                    flash('accept_user_error', 'User not found.');
+                    redirect('admin/manageUsers');
+                }
             } else {
-                die('Something went wrong');
+                flash('accept_user_error', 'Error accepting user.');
+                redirect('admin/manageUsers');
             }
-
-            // Redirect back to the admin interface for managing requests
-            redirect('admin/manageUsers');
         } else {
-            // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
     }
 
-    public function rejectUser()
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    public function rejectUser() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get the user ID from the form data
             $userId = $_POST['userId'];
-
-            // Perform rejection logic using User model
-            $userModel = $this->model('User');
-
-            if ($userModel->rejectRegistrationRequest($userId)) {
-                // Notify the user or perform any necessary action
-                flash('admin_message', 'User registration request rejected.');
+    
+            // Update the user's status to 'rejected' in the database
+            if ($this->adminModel->rejectUser($userId)) {
+                // Send an email to the user informing about rejection
+                $user = $this->userModel->getUserById($userId);
+                if ($user) {
+                    $email = $user->email;
+                    $subject = 'Your account has been rejected';
+                    $body = 'Dear ' . $user->name . ', your account has been rejected by the admin. If you have any questions, please contact us.';
+                    
+                    // Create a PHPMailer instance
+                    $mail = new PHPMailer(true);
+                    try {
+                        // Server settings
+                        $mail->isSMTP();
+                        $mail->Host       = 'smtp.mailgun.org'; // SMTP server
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+                        $mail->Password   = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';   // SMTP password
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Port       = 587;
+                        // Recipients
+                        $mail->setFrom('FarmToKeells.com', 'FarmToKeells');
+                        $mail->addAddress($email); // Add a recipient
+                        // Content
+                        $mail->isHTML(true);
+                        $mail->Subject = $subject;
+                        $mail->Body    = $body;
+                        $mail->send();
+                        // Flash a success message to the admin
+                        flash('reject_user_success', 'User account rejected successfully.');
+                        redirect('admin/manageUsers');
+                    } catch (Exception $e) {
+                        // Flash an error message if email sending fails
+                        flash('reject_user_error', 'Error sending rejection email.');
+                        redirect('admin/manageUsers');
+                    }
+                } else {
+                    flash('reject_user_error', 'User not found.');
+                    redirect('admin/manageUsers');
+                }
             } else {
-                die('Something went wrong');
+                flash('reject_user_error', 'Error rejecting user.');
+                redirect('admin/manageUsers');
             }
-
-            // Redirect back to the admin interface for managing requests
-            redirect('admin/manageUsers');
         } else {
-            // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
     }
+
+   
 
     public function deleteUser()
     {

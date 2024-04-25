@@ -88,4 +88,18 @@ public function getAdminByResetToken($token) {
     $this->db->bind(':token', $token);
     return $this->db->single();
 }
+
+public function acceptUser($userId) {
+    $this->db->query('UPDATE users SET status = :status WHERE id = :userId');
+    $this->db->bind(':status', 'accepted');
+    $this->db->bind(':userId', $userId);
+    return $this->db->execute();
+}
+
+public function rejectUser($userId) {
+    $this->db->query('UPDATE users SET status = :status WHERE id = :userId');
+    $this->db->bind(':status', 'rejected');
+    $this->db->bind(':userId', $userId);
+    return $this->db->execute();
+}
 }
