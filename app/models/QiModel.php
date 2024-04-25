@@ -6,14 +6,16 @@ class QiModel {
         $this->db = new Database;
     }
 
-    public function insertAdminCredentials($adminUsername, $hashedPassword, $email) {
+    public function insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter) {
         // Prepare the SQL query
-        $this->db->query('INSERT INTO inspector (admin_username, admin_password, email) VALUES (:adminUsername, :hashedPassword, :email)');
+        $this->db->query('INSERT INTO inspector (admin_username, admin_password, email,collectioncenter) VALUES (:adminUsername, :hashedPassword, :email, :collectioncenter)');
     
         // Bind the parameters
         $this->db->bind(':adminUsername', $adminUsername);
         $this->db->bind(':hashedPassword', $hashedPassword);
         $this->db->bind(':email', $email);
+        $this->db->bind(':collectioncenter', $collectioncenter);
+
     
         // Execute the query
         if ($this->db->execute()) {

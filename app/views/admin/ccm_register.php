@@ -130,6 +130,28 @@
 <div class="error-message" id="email-error"><?php echo isset($data['errors']['email_err']) ? $data['errors']['email_err'] : ''; ?></div>
 <div class="error-message" id="email_exists_err"><?php echo isset($data['errors']['email_exists_err']) ? $data['errors']['email_exists_err'] : ''; ?></div>
 
+<div class="text-field">
+                        <div class="typeselect-container">
+                            <select class="productstatusInput" name="collectioncenter"  onchange="updateInput(this)">
+                            <option value="" selected disabled></option>
+
+                            <option style="color:white;" value="Kadawatha">Kadawatha Keells collection center</option>
+
+                                <option style="color:white;" value="Thambuththegama">Thambuththegama Keells collection center</option>
+                                <option style="color:white;" value="Sooriyawewa">Sooriyawewa Keells collection center</option>
+                                <option style="color:white;" value="Nuwara-eliya">Nuwara-eliya Keells collection center</option>
+                                <option style="color:white;" value="Jaffna">Jaffna Keells collection center</option>
+                                <option style="color:white;" value=" Sigiriya "> Sigiriya Keells collection center</option>
+                                <option style="color:white;" value="Bandarawela">Bandarawela Keells collection center</option>
+                                <option style="color:white;" value="Puttlam ">Puttlam  Keells collection center</option>
+
+
+                            </select>
+                            <input name="collectioncenter" id="collectioncenter" type="text" required>
+                            <span></span>
+                            <label>Select Your Collection Center</label>
+                        </div>
+                    </div>
    
     <div class="text-field">
         <label for="admin_password">Password:</label>
@@ -150,6 +172,15 @@
 
     <div class="error-message" id="fields-error"><?php echo isset($data['errors']['fields_err']) ? $data['errors']['fields_err'] : ''; ?></div>
 </form>
+
+<script> function updateInput(select) {
+    var selectedOption = select.options[select.selectedIndex].text;
+    // Set the value of the province input field directly
+    document.getElementById("collectioncenter").value = selectedOption;
+    // Reset the dropdown to show the placeholder option
+    select.value = ''; // Reset to blank option
+}
+</script>
 
 </body>
 </html>
