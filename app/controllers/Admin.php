@@ -1,4 +1,13 @@
 <?php
+
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+
 class Admin extends Controller{
 
     public $adminModel;
@@ -876,34 +885,34 @@ class Admin extends Controller{
     }
     
 
-public function sendReply() {
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-    
-        // Instantiate the Inquiry model
-        $inquiryModel = $this->model('Inquiry');
-    
-        // Get the inquiry ID from the form
-        $inquiry_id = $_POST['inquiry_id'];
-    
-        // Get the admin reply from the form
-        $admin_reply = $_POST['admin_reply'];
-    
-        // Update the inquiry with the admin reply
-        if ($inquiryModel->updateAdminReply($inquiry_id, $admin_reply)) {
-            // If successful, redirect to the inquiry page or any other desired page
-            redirect('admin/inquiry');
+    public function sendReply() {
+        // Check if the form is submitted
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Sanitize POST data
+            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+        
+            // Instantiate the Inquiry model
+            $inquiryModel = $this->model('Inquiry');
+        
+            // Get the inquiry ID from the form
+            $inquiry_id = $_POST['inquiry_id'];
+        
+            // Get the admin reply from the form
+            $admin_reply = $_POST['admin_reply'];
+        
+            // Update the inquiry with the admin reply
+            if ($inquiryModel->updateAdminReply($inquiry_id, $admin_reply)) {
+                // If successful, redirect to the inquiry page or any other desired page
+                redirect('admin/inquiry');
+            } else {
+                // If failed, display an error message or handle it accordingly
+                die('Something went wrong');
+            }
         } else {
-            // If failed, display an error message or handle it accordingly
-            die('Something went wrong');
+            // If the form is not submitted via POST method, redirect to home page or any other desired page
+            redirect('pages/index');
         }
-    } else {
-        // If the form is not submitted via POST method, redirect to home page or any other desired page
-        redirect('pages/index');
     }
-}
 
 
 
@@ -913,93 +922,93 @@ public function sendReply() {
 
 
 
-public function addChatadmin() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get input data
-        $admin_reply = $_POST['admin_reply'];
+    public function addChatadmin() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get input data
+            $admin_reply = $_POST['admin_reply'];
 
-        // Load the CCM Chat model
-        $ccm_chatModel = $this->model('Ccm_Chat');
+            // Load the CCM Chat model
+            $ccm_chatModel = $this->model('Ccm_Chat');
 
-        // Add the chat message to the database
-        if ($ccm_chatModel->addChatadmin($admin_reply)) {
-            // Redirect to the chat page
-            redirect('admin/ccm_chat');
+            // Add the chat message to the database
+            if ($ccm_chatModel->addChatadmin($admin_reply)) {
+                // Redirect to the chat page
+                redirect('admin/ccm_chat');
+            } else {
+                // If failed to add, show an error message
+                die('Failed to add chat message.');
+            }
         } else {
-            // If failed to add, show an error message
-            die('Failed to add chat message.');
+            // If not a POST request, redirect to home
+            redirect('pages/index');
         }
-    } else {
-        // If not a POST request, redirect to home
-        redirect('pages/index');
     }
-}
 
 
 
 
-// Farmer controller method to retrieve inquiries
-// Farmer controller method to retrieve inquiries of the current user
-// Farmer controller method to retrieve inquiries
-public function tm_chat() {
-    // Load the Inquiry model
-    $tm_chatModel = $this->model('Tm_Chat');
-
-    // Get all chats from the database
-    $tm_chats = $tm_chatModel->getAllChats();
-
-    // Pass the chat data to the view
-    $data = [
-        'tm_chats' => $tm_chats,
-    ];
-
-    // Load the 'ccm/ccm_chat' view and pass data to it
-    $this->view('admin/tm_chat', $data);
-}
-
-public function addChatadmintm() {
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Get input data
-        $admin_reply = $_POST['admin_reply'];
-
-        // Load the CCM Chat model
+    // Farmer controller method to retrieve inquiries
+    // Farmer controller method to retrieve inquiries of the current user
+    // Farmer controller method to retrieve inquiries
+    public function tm_chat() {
+        // Load the Inquiry model
         $tm_chatModel = $this->model('Tm_Chat');
 
-        // Add the chat message to the database
-        if ($tm_chatModel->addChatadmintm($admin_reply)) {
-            // Redirect to the chat page
-            redirect('admin/tm_chat');
-        } else {
-            // If failed to add, show an error message
-            die('Failed to add chat message.');
-        }
-    } else {
-        // If not a POST request, redirect to home
-        redirect('pages/index');
+        // Get all chats from the database
+        $tm_chats = $tm_chatModel->getAllChats();
+
+        // Pass the chat data to the view
+        $data = [
+            'tm_chats' => $tm_chats,
+        ];
+
+        // Load the 'ccm/ccm_chat' view and pass data to it
+        $this->view('admin/tm_chat', $data);
     }
-}
+
+    public function addChatadmintm() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Get input data
+            $admin_reply = $_POST['admin_reply'];
+
+            // Load the CCM Chat model
+            $tm_chatModel = $this->model('Tm_Chat');
+
+            // Add the chat message to the database
+            if ($tm_chatModel->addChatadmintm($admin_reply)) {
+                // Redirect to the chat page
+                redirect('admin/tm_chat');
+            } else {
+                // If failed to add, show an error message
+                die('Failed to add chat message.');
+            }
+        } else {
+            // If not a POST request, redirect to home
+            redirect('pages/index');
+        }
+    }
 
 
 
 
-// Farmer controller method to retrieve inquiries
-// Farmer controller method to retrieve inquiries of the current user
-// Farmer controller method to retrieve inquiries
-public function ccm_chat() {
-    // Load the Inquiry model
-    $ccm_chatModel = $this->model('Ccm_Chat');
+    // Farmer controller method to retrieve inquiries
+    // Farmer controller method to retrieve inquiries of the current user
+    // Farmer controller method to retrieve inquiries
+    public function ccm_chat() {
+        // Load the Inquiry model
+        $ccm_chatModel = $this->model('Ccm_Chat');
 
-    // Get all chats from the database
-    $ccm_chats = $ccm_chatModel->getAllChats();
+        // Get all chats from the database
+        $ccm_chats = $ccm_chatModel->getAllChats();
 
-    // Pass the chat data to the view
-    $data = [
-        'ccm_chats' => $ccm_chats,
-    ];
+        // Pass the chat data to the view
+        $data = [
+            'ccm_chats' => $ccm_chats,
+        ];
 
-    // Load the 'ccm/ccm_chat' view and pass data to it
-    $this->view('admin/ccm_chat',$data);
-}
+        // Load the 'ccm/ccm_chat' view and pass data to it
+        $this->view('admin/ccm_chat',$data);
+    }
 
 
 
@@ -1052,311 +1061,437 @@ public function ccm_chat() {
 
 
       public function manageadmin() {
-    // Get data for each table
-    $ccm = $this->ccmModel->getUsers('ccm');
-    $tm = $this->tmModel->getUsers('tm');
-    $qi = $this->qiModel->getUsers('inspector');
+            // Get data for each table
+            $ccm = $this->ccmModel->getUsers('ccm');
+            $tm = $this->tmModel->getUsers('tm');
+            $qi = $this->qiModel->getUsers('inspector');
 
-    // Pass the data to the view
-    $data = [
-        'ccm' => $ccm,
-        'tm' => $tm,
-        'qi' => $qi
-    ];
+            // Pass the data to the view
+            $data = [
+                'ccm' => $ccm,
+                'tm' => $tm,
+                'qi' => $qi
+            ];
 
-    $this->view('admin/manageadmin', $data);
-}
-
-
-public function tm_register() {
-    // Load the view file
-    $this->view('admin/tm_register');
-}
-public function addAdminCredentialstm() {
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize input data
-        $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
-        $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-        $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
-        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
-
-        // Initialize error array
-        $errors = [];
-
-        // Validate email format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email_err'] = "Invalid email format.";
+            $this->view('admin/manageadmin', $data);
         }
 
-        // Validate if passwords match
-        if ($adminPassword !== $admincPassword) {
-            $errors['cpassword_err'] = "Passwords do not match.";
-        }
 
-        // Validate password length
-        if (strlen($adminPassword) < 8) {
-            $errors['password_length_err'] = "Password should be at least 8 characters long.";
-        }
-
-        // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
-            $errors['fields_err'] = "All fields are required.";
-        }
-
-        // Check if email already exists
-        if ($this->tmModel->isEmailExists($email)) {
-            $errors['email_exists_err'] = "Email already exists.";
-        }
-
-        // Check if username already exists
-        if ($this->tmModel->isUsernameExists($adminUsername)) {
-            $errors['username_exists_err'] = "Username already exists.";
-        }
-
-        // If there are no errors, proceed with registration
-        if (empty($errors)) {
-            // Hash the admin password
-            $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
-
-            // Call the model method to insert admin credentials
-            if ($this->tmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter )) {
-                // Admin credentials inserted successfully
-                // You can redirect to a success page or perform other actions
-                $success_messagetm = "TM credentials inserted successfully.</br>";
-
-                // Get data for each table again
-                $ccm = $this->ccmModel->getUsers('ccm');
-                $tm = $this->tmModel->getUsers('tm');
-                $qi = $this->qiModel->getUsers('inspector');
-
-                // Pass the data to the view
-                $data = [
-                    'ccm' => $ccm,
-                    'tm' => $tm,
-                    'qi' => $qi,
-                    'success_messagetm' => $success_messagetm
-                ];
-
-                // Load the manageadmin view with success message and data
-                $this->view('admin/manageadmin', $data);
-                exit;
-            } else {
-                // Failed to insert admin credentials
-                // You can redirect to an error page or perform other actions
-                echo "Failed to insert admin credentials";
+            public function tm_register() {
+                // Load the view file
+                $this->view('admin/tm_register');
             }
-        } else {
-            // Load the view with errors
-            $this->view('admin/tm_register', ['errors' => $errors]);
-        }
-    } else {
-        // If not a POST request, load the registration form
-        $this->view('admin/tm_register');
-    }
-}
+            public function addAdminCredentialstm() {
+                // Check if the form is submitted
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+                    $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+                    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                    $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+                    $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
 
+                    // Initialize error array
+                    $errors = [];
 
-public function qi_register() {
-    // Load the view file
-    $this->view('admin/qi_register');
-}
-public function addAdminCredentialsqi() {
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize input data
-        $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
-        $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-        $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
-        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
+                    // Validate email format
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $errors['email_err'] = "Invalid email format.";
+                    }
 
-        // Initialize error array
-        $errors = [];
+                    // Validate if passwords match
+                    if ($adminPassword !== $admincPassword) {
+                        $errors['cpassword_err'] = "Passwords do not match.";
+                    }
 
-        // Validate email format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email_err'] = "Invalid email format.";
-        }
+                    // Validate password length
+                    if (strlen($adminPassword) < 8) {
+                        $errors['password_length_err'] = "Password should be at least 8 characters long.";
+                    }
 
-        // Validate if passwords match
-        if ($adminPassword !== $admincPassword) {
-            $errors['cpassword_err'] = "Passwords do not match.";
-        }
+                    // Validate all fields are filled
+                    if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
+                        $errors['fields_err'] = "All fields are required.";
+                    }
 
-        if (strlen($adminPassword) < 8) {
-            $errors['password_length_err'] = "Password should be at least 8 characters long.";
-        }
-        // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
-            $errors['fields_err'] = "All fields are required.";
-        }
+                    // Check if email already exists
+                    if ($this->tmModel->isEmailExists($email)) {
+                        $errors['email_exists_err'] = "Email already exists.";
+                    }
 
+                    // Check if username already exists
+                    if ($this->tmModel->isUsernameExists($adminUsername)) {
+                        $errors['username_exists_err'] = "Username already exists.";
+                    }
 
-        if ($this->qiModel->isEmailExists($email)) {
-            $errors['email_exists_err'] = "Email already exists.";
-        }
+                    // If there are no errors, proceed with registration
+                    if (empty($errors)) {
+                        // Hash the admin password
+                        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
-        // Check if username already exists
-        if ($this->qiModel->isUsernameExists($adminUsername)) {
-            $errors['username_exists_err'] = "Username already exists.";
-        }
-        // If there are no errors, proceed with registration
-        if (empty($errors)) {
-            // Hash the admin password
-            $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+                        // Call the model method to insert admin credentials
+                        if ($this->tmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter )) {
+                            // Admin credentials inserted successfully
+                            // You can redirect to a success page or perform other actions
+                            $success_messagetm = "TM credentials inserted successfully.</br>";
 
-            // Call the model method to insert admin credentials
-            if ($this->qiModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
-                // Admin credentials inserted successfully
-                // You can redirect to a success page or perform other actions
-                $success_messageqi = "QI credentials inserted successfully.</br>";
+                            // Get data for each table again
+                            $ccm = $this->ccmModel->getUsers('ccm');
+                            $tm = $this->tmModel->getUsers('tm');
+                            $qi = $this->qiModel->getUsers('inspector');
 
-                // Get data for each table again
-                $ccm = $this->ccmModel->getUsers('ccm');
-                $tm = $this->tmModel->getUsers('tm');
-                $qi = $this->qiModel->getUsers('inspector');
+                            // Pass the data to the view
+                            $data = [
+                                'ccm' => $ccm,
+                                'tm' => $tm,
+                                'qi' => $qi,
+                                'success_messagetm' => $success_messagetm
+                            ];
 
-                // Pass the data to the view
-                $data = [
-                    'ccm' => $ccm,
-                    'tm' => $tm,
-                    'qi' => $qi,
-                    'success_messageqi' => $success_messageqi
-                ];
-
-                // Load the manageadmin view with success message and data
-                $this->view('admin/manageadmin', $data);
-                exit;
-            } else {
-                // Failed to insert admin credentials
-                // You can redirect to an error page or perform other actions
-                echo "Failed to insert admin credentials";
+                            // Load the manageadmin view with success message and data
+                            $this->view('admin/manageadmin', $data);
+                            exit;
+                        } else {
+                            // Failed to insert admin credentials
+                            // You can redirect to an error page or perform other actions
+                            echo "Failed to insert admin credentials";
+                        }
+                    } else {
+                        // Load the view with errors
+                        $this->view('admin/tm_register', ['errors' => $errors]);
+                    }
+                } else {
+                    // If not a POST request, load the registration form
+                    $this->view('admin/tm_register');
+                }
             }
-        } else {
-            // Load the view with errors
-            $this->view('admin/qi_register', ['errors' => $errors]);
-        }
-    } else {
-        // If not a POST request, load the registration form
-        $this->view('admin/qi_register');
-    }
-}
 
 
-public function ccm_register() {
-    // Load the view file
-    $this->view('admin/ccm_register');
-}
-public function addAdminCredentialsccm() {
-    // Check if the form is submitted
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize input data
-        $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
-        $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-        $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
-        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
-
-
-        // Initialize error array
-        $errors = [];
-
-        // Validate email format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email_err'] = "Invalid email format.";
-        }
-
-        // Validate if passwords match
-        if ($adminPassword !== $admincPassword) {
-            $errors['cpassword_err'] = "Passwords do not match.";
-        }
-
-
-        if (strlen($adminPassword) < 8) {
-            $errors['password_length_err'] = "Password should be at least 8 characters long.";
-        }
-        // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email)|| empty($collectioncenter) || empty($admincPassword)) {
-            $errors['fields_err'] = "All fields are required.";
-        }
-
-
-        if ($this->ccmModel->isEmailExists($email)) {
-            $errors['email_exists_err'] = "Email already exists.";
-        }
-
-        // Check if username already exists
-        if ($this->ccmModel->isUsernameExists($adminUsername)) {
-            $errors['username_exists_err'] = "Username already exists.";
-        }
-        // If there are no errors, proceed with registration
-        if (empty($errors)) {
-            // Hash the admin password
-            $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
-
-            // Call the model method to insert admin credentials
-            if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
-                // Admin credentials inserted successfully
-                // You can redirect to a success page or perform other actions
-                $success_messageccm = "CCM credentials inserted successfully.</br>";
-
-                // Get data for each table again
-                $ccm = $this->ccmModel->getUsers('ccm');
-                $tm = $this->tmModel->getUsers('tm');
-                $qi = $this->qiModel->getUsers('inspector');
-
-                // Pass the data to the view
-                $data = [
-                    'ccm' => $ccm,
-                    'tm' => $tm,
-                    'qi' => $qi,
-                    'success_messageccm' => $success_messageccm
-                ];
-
-                // Load the manageadmin view with success message and data
-                $this->view('admin/manageadmin', $data);
-                exit;
-            } else {
-                // Failed to insert admin credentials
-                // You can redirect to an error page or perform other actions
-                echo "Failed to insert admin credentials";
+            public function qi_register() {
+                // Load the view file
+                $this->view('admin/qi_register');
             }
-        } else {
-            // Load the view with errors
-            $this->view('admin/ccm_register', ['errors' => $errors]);
+            public function addAdminCredentialsqi() {
+                // Check if the form is submitted
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+                    $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+                    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                    $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+                    $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
+
+                    // Initialize error array
+                    $errors = [];
+
+                    // Validate email format
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $errors['email_err'] = "Invalid email format.";
+                    }
+
+                    // Validate if passwords match
+                    if ($adminPassword !== $admincPassword) {
+                        $errors['cpassword_err'] = "Passwords do not match.";
+                    }
+
+                    if (strlen($adminPassword) < 8) {
+                        $errors['password_length_err'] = "Password should be at least 8 characters long.";
+                    }
+                    // Validate all fields are filled
+                    if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
+                        $errors['fields_err'] = "All fields are required.";
+                    }
+
+
+                    if ($this->qiModel->isEmailExists($email)) {
+                        $errors['email_exists_err'] = "Email already exists.";
+                    }
+
+                    // Check if username already exists
+                    if ($this->qiModel->isUsernameExists($adminUsername)) {
+                        $errors['username_exists_err'] = "Username already exists.";
+                    }
+                    // If there are no errors, proceed with registration
+                    if (empty($errors)) {
+                        // Hash the admin password
+                        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+
+                        // Call the model method to insert admin credentials
+                        if ($this->qiModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
+                            // Admin credentials inserted successfully
+                            // You can redirect to a success page or perform other actions
+                            $success_messageqi = "QI credentials inserted successfully.</br>";
+
+                            // Get data for each table again
+                            $ccm = $this->ccmModel->getUsers('ccm');
+                            $tm = $this->tmModel->getUsers('tm');
+                            $qi = $this->qiModel->getUsers('inspector');
+
+                            // Pass the data to the view
+                            $data = [
+                                'ccm' => $ccm,
+                                'tm' => $tm,
+                                'qi' => $qi,
+                                'success_messageqi' => $success_messageqi
+                            ];
+
+                            // Load the manageadmin view with success message and data
+                            $this->view('admin/manageadmin', $data);
+                            exit;
+                        } else {
+                            // Failed to insert admin credentials
+                            // You can redirect to an error page or perform other actions
+                            echo "Failed to insert admin credentials";
+                        }
+                    } else {
+                        // Load the view with errors
+                        $this->view('admin/qi_register', ['errors' => $errors]);
+                    }
+                } else {
+                    // If not a POST request, load the registration form
+                    $this->view('admin/qi_register');
+                }
+            }
+
+
+            public function ccm_register() {
+                // Load the view file
+                $this->view('admin/ccm_register');
+            }
+            public function addAdminCredentialsccm() {
+                // Check if the form is submitted
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $adminUsername = filter_input(INPUT_POST, 'admin_username', FILTER_SANITIZE_STRING);
+                    $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
+                    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                    $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+                    $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
+
+
+                    // Initialize error array
+                    $errors = [];
+
+                    // Validate email format
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $errors['email_err'] = "Invalid email format.";
+                    }
+
+                    // Validate if passwords match
+                    if ($adminPassword !== $admincPassword) {
+                        $errors['cpassword_err'] = "Passwords do not match.";
+                    }
+
+
+                    if (strlen($adminPassword) < 8) {
+                        $errors['password_length_err'] = "Password should be at least 8 characters long.";
+                    }
+                    // Validate all fields are filled
+                    if (empty($adminUsername) || empty($adminPassword) || empty($email)|| empty($collectioncenter) || empty($admincPassword)) {
+                        $errors['fields_err'] = "All fields are required.";
+                    }
+
+
+                    if ($this->ccmModel->isEmailExists($email)) {
+                        $errors['email_exists_err'] = "Email already exists.";
+                    }
+
+                    // Check if username already exists
+                    if ($this->ccmModel->isUsernameExists($adminUsername)) {
+                        $errors['username_exists_err'] = "Username already exists.";
+                    }
+                    // If there are no errors, proceed with registration
+                    if (empty($errors)) {
+                        // Hash the admin password
+                        $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
+
+                        // Call the model method to insert admin credentials
+                        if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
+                            // Admin credentials inserted successfully
+                            // You can redirect to a success page or perform other actions
+                            $success_messageccm = "CCM credentials inserted successfully.</br>";
+
+                            // Get data for each table again
+                            $ccm = $this->ccmModel->getUsers('ccm');
+                            $tm = $this->tmModel->getUsers('tm');
+                            $qi = $this->qiModel->getUsers('inspector');
+
+                            // Pass the data to the view
+                            $data = [
+                                'ccm' => $ccm,
+                                'tm' => $tm,
+                                'qi' => $qi,
+                                'success_messageccm' => $success_messageccm
+                            ];
+
+                            // Load the manageadmin view with success message and data
+                            $this->view('admin/manageadmin', $data);
+                            exit;
+                        } else {
+                            // Failed to insert admin credentials
+                            // You can redirect to an error page or perform other actions
+                            echo "Failed to insert admin credentials";
+                        }
+                    } else {
+                        // Load the view with errors
+                        $this->view('admin/ccm_register', ['errors' => $errors]);
+                    }
+                } else {
+                    // If not a POST request, load the registration form
+                    $this->view('admin/ccm_register');
+                }
+            }
+
+
+            public function salesorderqualityapproved() {
+                // Instantiate Purchaseorder Model
+                $salesorderModel = new Salesorder();
+                
+                // Get all purchase orders
+                $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
+                
+                // Load the view with purchase orders data
+                $this->view('admin/salesorderqualityapproved', $data);
+            }
+
+            public function salesorderqualityrejected() {
+                // Instantiate Purchaseorder Model
+                $salesorderModel = new Salesorder();
+                
+                // Get all purchase orders
+                $data['salesorders'] = $salesorderModel->getAllSalesordersqualityrejected();
+                
+                // Load the view with purchase orders data
+                $this->view('admin/salesorderqualityrejected', $data);
+            }
+
+            public function forgotPassword() {
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Handle form submission
+                    $email = $_POST['email'];
+            
+                    $admin = $this->adminModel->getAdminByEmail($email);
+                    if ($admin) {
+                        $token = bin2hex(random_bytes(32));
+            
+                        $adminId = $admin->admin_id;
+                        if ($this->adminModel->updateResetToken($adminId, $token)) {
+                            // Send the password reset email
+                            $resetPasswordLink = URLROOT . '/admin/resetPassword/' . $token;
+            
+                            $subject = 'Keells Admin - Password Reset Link';
+                            $body = 'Click on the following link to reset your password: ' . $resetPasswordLink;
+            
+                            // Create a PHPMailer instance
+                            $mail = new PHPMailer(true);
+            
+                            try {
+                                // Server settings
+                                $mail->isSMTP();
+                                $mail->Host       = 'smtp.mailgun.org'; // SMTP server
+                                $mail->SMTPAuth   = true;
+                                $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+                                $mail->Password   = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';   // SMTP password
+                                $mail->SMTPSecure = 'tls';
+                                $mail->Port       = 587;
+            
+                                // Recipients
+                                $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
+                                $mail->addAddress($email); // Add a recipient
+            
+                                // Content
+                                $mail->isHTML(true);
+                                $mail->Subject = $subject;
+                                $mail->Body    = $body;
+            
+                                $mail->send();
+            
+                                // Redirect to a success page or display a message
+                                flash('forgot_password_success', 'Keells Admin password reset link has been sent to your email.');
+                                redirect('admin/forgotPassword');
+            
+                            } catch (Exception $e) {
+                                die('Email sending failed: ' . $mail->ErrorInfo);
+                            }
+                        } else {
+                            //Email not found
+                            flash('forgot_password_error', 'Email not found.');
+                            redirect('admin/forgotPassword');
+                        }
+                    } else {
+                        // Email not found
+                        flash('forgot_password_error', 'Email not found.');
+                        redirect('admin/forgotPassword');
+                    }
+                } else {
+                    // Render the view for the forgot password page
+                    $this->view('admin/forgotPassword');
+                }
+            }
+            
+
+        public function resetPassword($token = null) {
+            
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    $token = $_GET['token'];
+    
+                    // Validate password reset form data
+                    // Validate password reset form data
+                    $data = [
+                        'password' => trim($_POST['password']),
+                        'confirm_password' => trim($_POST['confirm_password']),
+                        'token' => $token,
+                        'password_err' => '',
+                        'confirm_password_err' => ''
+                    ];
+        
+                    // Validate Password
+                    if (empty($data['password'])) {
+                        $data['password_err'] = 'Please enter password';
+                    } elseif (strlen($data['password']) < 6) {
+                        $data['password_err'] = 'Password must be at least 6 characters';
+                    } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).+$/', $data['password'])) {
+                        $data['password_err'] = 'Password must contain at least one letter and one number';
+                    }
+        
+                    // Confirm password validation
+                    if (empty($data['confirm_password'])) {
+                        $data['confirm_password_err'] = 'Please confirm password.';
+                    } else {
+                        if ($data['password'] != $data['confirm_password']) {
+                            $data['confirm_password_err'] = 'Passwords do not match.';
+                        }
+                    }
+    
+                    if (empty($data['password_err']) && empty($data['confirm_password_err'])) {
+                        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+    
+                        if ($this->adminModel->updatePasswordByResetToken($data['token'], $data['password'])) {
+                            flash('reset_password_success', 'Password has been reset successfully.');
+                            redirect('admin/admin_login');
+                        } else {
+                            die('Error updating password.');
+                        }
+                    } else {
+                        $this->view('admin/resetPassword', $data);
+                    }
+                } else {
+                    $admin = $this->adminModel->getAdminByResetToken($token);
+                    if ($admin) {
+                        $data = [
+                            'token' => $token,
+                            'password_err' => '',
+                            'confirm_password_err' => ''
+                        ];
+                        $this->view('admin/resetPassword', $data);
+                    } else {
+                        flash('reset_password_error', 'Invalid or expired token.');
+                        redirect('admin/forgotPassword');
+                    }
+                
+            }
         }
-    } else {
-        // If not a POST request, load the registration form
-        $this->view('admin/ccm_register');
-    }
-}
 
-
-public function salesorderqualityapproved() {
-    // Instantiate Purchaseorder Model
-    $salesorderModel = new Salesorder();
-    
-    // Get all purchase orders
-    $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
-    
-    // Load the view with purchase orders data
-    $this->view('admin/salesorderqualityapproved', $data);
 }
-
-public function salesorderqualityrejected() {
-    // Instantiate Purchaseorder Model
-    $salesorderModel = new Salesorder();
-    
-    // Get all purchase orders
-    $data['salesorders'] = $salesorderModel->getAllSalesordersqualityrejected();
-    
-    // Load the view with purchase orders data
-    $this->view('admin/salesorderqualityrejected', $data);
-}
-  
-}
-
 
 ?>

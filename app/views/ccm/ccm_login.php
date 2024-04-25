@@ -9,6 +9,8 @@
     <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin_login.css">
+
     <style>
         body,
         html {
@@ -145,8 +147,9 @@
                     <label>Password</label>
                 </div>
 
-                
-
+                <div class="link">
+                    <a href="<?php echo URLROOT; ?>/ccm/forgotPassword">Forgot Password</a>
+                </div>
                 <input type="submit" value="Login">
 
             </form>

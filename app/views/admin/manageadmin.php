@@ -154,14 +154,14 @@
 
     <main class="table" style="text-align:center;"></br>
             <section class="table_header">
-    <h2 >CCM Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/ccm_register">Register New CCM</a></h2></br>
+    <h2 >Collection Center Manager Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/ccm_register">Register New CCM</a></h2></br>
     <?php if(isset($data['success_messageccm'])): ?>
     <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messageccm']; ?></p>
 <?php endif; ?>
     <?php $ccm = $data['ccm']; ?>
     <?php if (!empty($ccm)): ?>
 
-        <section class="table_body">
+        <class="table_body">
         <table>
             <thead>
                 <tr>
@@ -190,7 +190,7 @@
         <p>No CCM accounts.</p>
     <?php endif; ?>
 
-    </br>  <h2>   TM Accounts&nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/tm_register">Register New TM</a>
+    </br>  <h2> Transportation Manager Accounts&nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/tm_register">Register New TM</a>
 </h2></br>
 
 <?php if(isset($data['success_messagetm'])): ?>
@@ -226,7 +226,7 @@
         <p>No TM accounts.</p>
     <?php endif; ?>
 
-    </br> <h2>QI Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/qi_register">Register New QI</a></h2></br>
+    </br> <h2>Quality Inspector Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/qi_register">Register New QI</a></h2></br>
     <?php if(isset($data['success_messageqi'])): ?>
     <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messageqi']; ?></p>
 <?php endif; ?>
@@ -257,9 +257,12 @@
     <?php else: ?>
         <p>No QI accounts.</p>
     <?php endif; ?>
-    
+
+
+    <br>
 
 </body>
+<br>
 </html>
-
+<br>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

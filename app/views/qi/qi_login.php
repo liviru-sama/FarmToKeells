@@ -11,6 +11,7 @@
     <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin_login.css">
     <style>
         body,
         html {
@@ -123,7 +124,7 @@
 </script>
     <section class="form">
         <div class="center">
-            <h1>Qi LOGIN</h1>
+            <h1>Quality Inspector <br>LOGIN</h1>
             <?php if(isset($data['success_message'])): ?>
     <p style="font-weight: bold; color: green;"><?php echo $data['success_message']; ?></p>
 <?php endif; ?>
@@ -142,6 +143,9 @@
                     <input type="password" name="admin_password"  required>
                     <span></span>
                     <label>Password</label>
+                </div>
+                <div class="link">
+                    <a href="<?php echo URLROOT; ?>/qi/forgotPassword">Forgot Password</a>
                 </div>
 
                 

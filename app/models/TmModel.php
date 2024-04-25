@@ -74,5 +74,33 @@ public function isUsernameExists($admin_username) {
     return $this->db->rowCount() > 0;
 }
 
+public function updateResetToken($adminId, $token) {
+    $this->db->query('UPDATE tm SET reset_token = :token, reset_token_expire = DATE_ADD(NOW(), INTERVAL 1 HOUR) WHERE admin_id = :adminId');
+    $this->db->bind(':token', $token);
+    $this->db->bind(':adminId', $adminId);
+
+    return $this->db->execute();
+}
+
+public function updatePasswordByResetToken($token, $password) {
+    $this->db->query('UPDATE tm SET admin_password = :password, reset_token = NULL, reset_token_expire = NULL WHERE reset_token = :token');
+    $this->db->bind(':password', $password);
+    $this->db->bind(':token', $token);
+
+    return $this->db->execute();
+}
+
+public function getTMByEmail($email) {
+    $this->db->query('SELECT * FROM tm WHERE email = :email');
+    $this->db->bind(':email', $email);
+    return $this->db->single();
+}
+
+public function getTMByResetToken($token) {
+    $this->db->query('SELECT * FROM tm WHERE reset_token = :token AND reset_token_expire > NOW()');
+    $this->db->bind(':token', $token);
+    return $this->db->single();
+}
+
 
 }
