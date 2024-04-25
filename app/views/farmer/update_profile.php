@@ -39,9 +39,18 @@ label{color:white;
     
 }
 
-.rectangle{
-    padding:20px;
+.rectangle {
+    padding: 10px;
+    width: 50%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center-align the rectangle */
 }
+
+.prectangle {
+    padding: 5px;
+    width: 90%; /* Adjust the width as needed */
+    margin: 0 auto; /* Center-align the rectangle */
+}
+
         
     </style>
 </head>
@@ -162,7 +171,7 @@ label{color:white;
 <section class="header"> <h2 class="p-regular-grey" style="text-align:center;"></br>Manage Your Account Details</h2></section></br>
 <section class="form">
 <div class="card-white" style="text-align: center;">
-    <div class="subgrid-4" style="display: inline-block;">
+<div class="subgrid-4" style="display: flex; flex-wrap: wrap; justify-content: center;">
 
         <div class="rectangle" style="margin: auto;">
             
@@ -204,60 +213,71 @@ label{color:white;
                         <div class="rectangle" >
                             <form  action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>" method="POST" class="subgrid-1">
                             </br><h2>Change Username</br></br></h2> 
-
+                            <!-- <div class="error" id="new_username_err"><?php echo $data['new_username_err']; ?></div> -->
                                <div>                                
                                 <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
                                 <input type="text" id="new_username" name="new_username" >
                                 <button class="button-main" type="submit">Change</br></button></div>
+
                                 </br> </br><!-- <div class="error" id="new-username-error"><?php echo $data['new_username_err']; ?></div> 
                                  </form></br>
+
+
+
                         </div>
                         <div class="rectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                             </br><h2>Change Name</br></br></h2>
-
+                            <!-- <div class="error" id="new_name_err"><?php echo $data['new_name_err']; ?></div> -->
                             <label for="nnamec" class="p-regular-grey">New Name :</label>
                                 <input type="text" id="new_name" name="new_name" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
-                                <!-- <div class="error" id="new-name-error"><?php echo $data['new_name_err']; ?></div> -->
                                 </br></br></form></br>
                         </div>
                         <div class="rectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                             </br><h2>Change Email</br></br></h2>
+                            <!-- <div class="error" id="new_email_err"><?php echo $data['new_email_err']; ?></div> -->
                                <label for="nemail" class="p-regular-grey">New E-mail :</label>
                                 <input type="text" id="new_email" name="new_email" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
-                                <!-- <div class="error" id="new-email-error"><?php echo $data['new_email_err']; ?></div> -->
                                 </br></br></form></br>
                         </div>
                         <div class="rectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updateMobile/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                             </br><h2>Change Mobile</br></br></h2>   
+                            <!-- <div class="error" id="new_mobile_err"><?php echo $data['new_mobile_err']; ?></div> -->
                                 <label for="nmobile" class="p-regular-grey">New Mobile :</label>
                                 <input type="text" id="new_mobile" name="new_mobile" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
-                                <!-- <div class="error" id="new-mobile-error"><?php echo $data['new_mobile_err']; ?></div> -->
                                 </br> </br></form></br>
                         </div>
                         
 
                         
 
-                        <div class="rectangle">
+                        <div class="prectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                                 
                             </br><h2>Change Password</br></br></h2>
+                            <div class="error" id="current_password_err"><?php echo $data['current_password_err']; ?></div>
+                            <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div>
+                            <div class="error" id="confirm_new_password_err"><?php echo $data['confirm_new_password_err']; ?></div>
+
                           <label for="fname" class="p-regular-grey">Current Password :</label>
                                 <input type="password" id="current_password" name="current_password" class="form-default">
+                                <br>
                                 <label for="fname" class="p-regular-grey">New Password :</label>
                                 <input type="password" id="new_password" name="new_password" class="form-default">
+                                <br>
                                 <label for="fname" class="p-regular-grey">Confirm Password :</label>
                                 <input type="password" id="confirm_new_password" name="confirm_password" placeholder="" class="form-default">
+                                <br>
+                                <br>
                                 <button class="button-main" type="submit">Change</br></button>
                                 <br>
-                                <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div>
-                            </form>
+                                <br></form>
+                            
                         </div>
 
                         

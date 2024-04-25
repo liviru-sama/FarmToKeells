@@ -1355,8 +1355,7 @@ public function salesorderqualityrejected() {
     // Load the view with purchase orders data
     $this->view('admin/salesorderqualityrejected', $data);
 }
-
-
+  
 }
 
 

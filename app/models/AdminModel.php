@@ -60,8 +60,4 @@ public function isUsernameExists($admin_username) {
 
     return $this->db->rowCount() > 0;
 }
-
-
-
-
 }

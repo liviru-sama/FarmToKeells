@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+
 //password error
 document.addEventListener('DOMContentLoaded', function () {
     var passwordInput = document.getElementById('password');
