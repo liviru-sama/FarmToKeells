@@ -44,4 +44,20 @@ class AdminModel {
 }
 
 
+public function isEmailExists($email) {
+    $this->db->query('SELECT  admin_id FROM admin WHERE email = :email');
+    $this->db->bind(':email', $email);
+    $this->db->execute();
+
+    return $this->db->rowCount() > 0;
+}
+
+// Check if the username already exists in the database
+public function isUsernameExists($admin_username) {
+    $this->db->query('SELECT  admin_id FROM admin WHERE admin_username = :admin_username');
+    $this->db->bind(':admin_username', $admin_username);
+    $this->db->execute();
+
+    return $this->db->rowCount() > 0;
+}
 }

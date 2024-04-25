@@ -218,7 +218,12 @@ label{color:white;
                                 <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
                                 <input type="text" id="new_username" name="new_username" >
                                 <button class="button-main" type="submit">Change</br></button></div>
-                            </form>
+
+                                </br> </br><!-- <div class="error" id="new-username-error"><?php echo $data['new_username_err']; ?></div> 
+                                 </form></br>
+
+
+
                         </div>
                         <div class="rectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
