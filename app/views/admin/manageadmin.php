@@ -168,7 +168,8 @@
                     <th>CCM ID</th>
                     <th>UserName</th>
                     <th>Email</th>
-                    
+                    <th>Registered Collectioncenter</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -177,7 +178,8 @@
                     <td><?= $user['admin_id']; ?></td>
                     <td><?= $user['admin_username']; ?></td>
                     <td><?= $user['email']; ?></td>
-                       
+                    <td><?= $user['collectioncenter']; ?></td>
+
                         
 
                     </tr>
@@ -203,7 +205,8 @@
                 <th>TM ID</th>
                     <th>UserName</th>
                     <th>Email</th>
-                  
+                    <th>Registered Collectioncenter</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -212,7 +215,8 @@
                     <td><?= $user['admin_id']; ?></td>
                     <td><?= $user['admin_username']; ?></td>
                     <td><?= $user['email']; ?></td>
-                    
+                    <td><?= $user['collectioncenter']; ?></td>
+
                        
                     </tr>
                 <?php endforeach; ?>
@@ -234,6 +238,8 @@
                 <th>QI ID</th>
                     <th>UserName</th>
                     <th>Email</th>
+                    <th>Registered Collectioncenter</th>
+
                 </tr>
             </thead>
             <tbody>
@@ -242,7 +248,8 @@
                     <td><?= $user['admin_id']; ?></td>
                     <td><?= $user['admin_username']; ?></td>
                     <td><?= $user['email']; ?></td>
-                        
+                    <td><?= $user['collectioncenter']; ?></td>
+
                     </tr>
                 <?php endforeach; ?>
             </tbody>

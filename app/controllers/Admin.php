@@ -135,20 +135,35 @@ class Admin extends Controller{
                     $errors = [];
             
         
-                    // Validate email format
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email_err'] = "Invalid email format.";
-        }
-        
+                    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                        $errors['email_err'] = "Invalid email format.";
+                    }
+            
                     // Validate if passwords match
                     if ($adminPassword !== $admincPassword) {
                         $errors['cpassword_err'] = "Passwords do not match.";
                     }
             
+                    // Validate password length
+                    if (strlen($adminPassword) < 8) {
+                        $errors['password_length_err'] = "Password should be at least 8 characters long.";
+                    }
+            
                     // Validate all fields are filled
-                    if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+                    if (empty($adminUsername) || empty($adminPassword) || empty($email) ||empty($admincPassword)) {
                         $errors['fields_err'] = "All fields are required.";
                     }
+            
+                    // Check if email already exists
+                    if ($this->adminModel->isEmailExists($email)) {
+                        $errors['email_exists_err'] = "Email already exists.";
+                    }
+            
+                    // Check if username already exists
+                    if ($this->adminModel->isUsernameExists($adminUsername)) {
+                        $errors['username_exists_err'] = "Username already exists.";
+                    }
+            
             
                     // If there are no errors, proceed with registration
                     if (empty($errors)) {
@@ -1065,6 +1080,7 @@ public function addAdminCredentialstm() {
         $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
         $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
 
         // Initialize error array
         $errors = [];
@@ -1085,7 +1101,7 @@ public function addAdminCredentialstm() {
         }
 
         // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
             $errors['fields_err'] = "All fields are required.";
         }
 
@@ -1105,7 +1121,7 @@ public function addAdminCredentialstm() {
             $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
             // Call the model method to insert admin credentials
-            if ($this->tmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+            if ($this->tmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter )) {
                 // Admin credentials inserted successfully
                 // You can redirect to a success page or perform other actions
                 $success_messagetm = "TM credentials inserted successfully.</br>";
@@ -1154,6 +1170,7 @@ public function addAdminCredentialsqi() {
         $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
         $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
 
         // Initialize error array
         $errors = [];
@@ -1172,7 +1189,7 @@ public function addAdminCredentialsqi() {
             $errors['password_length_err'] = "Password should be at least 8 characters long.";
         }
         // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter)|| empty($admincPassword)) {
             $errors['fields_err'] = "All fields are required.";
         }
 
@@ -1191,7 +1208,7 @@ public function addAdminCredentialsqi() {
             $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
             // Call the model method to insert admin credentials
-            if ($this->qiModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+            if ($this->qiModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
                 // Admin credentials inserted successfully
                 // You can redirect to a success page or perform other actions
                 $success_messageqi = "QI credentials inserted successfully.</br>";
@@ -1240,6 +1257,8 @@ public function addAdminCredentialsccm() {
         $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
         $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+        $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
+
 
         // Initialize error array
         $errors = [];
@@ -1259,7 +1278,7 @@ public function addAdminCredentialsccm() {
             $errors['password_length_err'] = "Password should be at least 8 characters long.";
         }
         // Validate all fields are filled
-        if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+        if (empty($adminUsername) || empty($adminPassword) || empty($email)|| empty($collectioncenter) || empty($admincPassword)) {
             $errors['fields_err'] = "All fields are required.";
         }
 
@@ -1278,7 +1297,7 @@ public function addAdminCredentialsccm() {
             $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
             // Call the model method to insert admin credentials
-            if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+            if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email,$collectioncenter)) {
                 // Admin credentials inserted successfully
                 // You can redirect to a success page or perform other actions
                 $success_messageccm = "CCM credentials inserted successfully.</br>";
