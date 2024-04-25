@@ -85,14 +85,7 @@ class Ccm extends Controller {
     }
     
     
-        public function index(){
-            $data = [
-                'title' => ''
-            ];
-            
-            $this->view('ccm/product_selection', $data);
-        }
-
+        
 
 
         public function validate_login($admin_username, $admin_password)
@@ -103,7 +96,7 @@ class Ccm extends Controller {
     }
     return false; // Invalid username or password
 }
- 
+
 public function ccm_login()
 {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -139,11 +132,12 @@ public function ccm_login()
                 }
 
                 // Create session variables
-                $_SESSION['admin_id'] = $loggedInAdmin->id;
-                $_SESSION['admin_username'] = $loggedInAdmin->username;
+                $_SESSION['admin_id'] = $loggedInAdmin->admin_id; // Assuming the admin_id field name
+                $_SESSION['admin_username'] = $loggedInAdmin->admin_username; // Assuming the admin_username field name
 
                 // Redirect to ccm dashboard or any desired page
-                redirect('ccm/dashboard');                exit;
+                redirect('ccm/dashboard');
+                exit;
             } else {
                 $data['admin_password_err'] = 'Incorrect username or password';
                 $this->view('ccm/ccm_login', $data);
@@ -158,25 +152,43 @@ public function ccm_login()
     }
 }
 
+
         
 
         
+     
+
         
-      public function createUserSession($admin_user) {
-    $_SESSION['admin_id'] = $admin_user->admin_id;
-    $_SESSION['admin_username'] = $admin_user->admin_username;
-  // Check if the 'admin_id' session variable exists
-
-
-    redirect('ccm/dashboard');
+public function isLoggedInccm() {
+    if(isset($_SESSION['admin_id'])) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
-        
+public function index(){
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {
+        $data = [
+            'title' => ''
+        ];
+        $this->view('ccm/dashboard', $data);
+    }
+}
+
 public function dashboard(){
-    $data = [];
+    if (!$this->isLoggedInccm()) {
+        redirect('ccm/ccm_login');
+    } else {
+        $data = [];
 
     $this->view('ccm/dashboard', $data);
+    }
+    
 }
+
 
 
 
@@ -196,6 +208,7 @@ public function logout() {
     // Redirect to the index page
     redirect('ccm/ccm_login');
   }
+
   
 
 
