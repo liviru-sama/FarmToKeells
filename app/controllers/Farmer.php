@@ -131,9 +131,9 @@ use PHPMailer\PHPMailer\Exception;
         }
         
 
-        public function resetPassword($token){
-            if (!$this->isLoggedIn()) {
-                redirect('users/user_login');
+        public function resetPassword($token = null){
+            if ($this->isLoggedIn()) {
+                redirect('farmer/dashboard');
             } else {
                 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     // Retrieve the token from the URL query parameters
@@ -147,11 +147,13 @@ use PHPMailer\PHPMailer\Exception;
                         'confirm_password_err' => ''
                     ];
         
-                    // Password validation
+                    // Validate Password
                     if (empty($data['password'])) {
-                        $data['password_err'] = 'Please enter a password.';
+                        $data['password_err'] = 'Please enter password';
                     } elseif (strlen($data['password']) < 6) {
-                        $data['password_err'] = 'Password must be at least 6 characters.';
+                        $data['password_err'] = 'Password must be at least 6 characters';
+                    } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).+$/', $data['password'])) {
+                        $data['password_err'] = 'Password must contain at least one letter and one number';
                     }
         
                     // Confirm password validation
@@ -187,7 +189,10 @@ use PHPMailer\PHPMailer\Exception;
                     if ($user) {
                         // If token is valid, load the reset password form
                         $data = [
-                            'token' => $token
+                            'token' => $token,
+                            'password_err' => '',
+                            'confirm_password_err' => ''
+                            
                         ];
                         $this->view('farmer/resetPassword', $data);
                     } else {

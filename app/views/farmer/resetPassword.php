@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
-        <script src="<?php echo JS;?>login.js"></script>
+        <script src="<?php echo JS;?>resetPassword.js"></script>
         <title><?php echo SITENAME;?></title>
         <style>
         body,
@@ -105,30 +105,35 @@
 
 <script>
     // JavaScript function to go back to the previous page
-    function goBack() {
-        window.history.back();
-    }
+
 </script>
 
     <section class = "form">
         <div class="center">
             
-        <h1>Forgot Password</h1>
+ 
+    <h1>Reset Password</h1>
+    <br>
     <?php flash('forgot_password_success'); ?>
     <?php flash('forgot_password_error', '', 'error-class'); ?>
-    <h1>Reset Password</h1>
 
-<form method="post" action="<?= URLROOT; ?>/farmer/resetPassword">
-<div class="text-field">
-     <input type="hidden" name="token" value="<?= htmlspecialchars($data['token']) ?>">
-    <label for="password">New password</label></div>
-    <div class="text-field">
-         <input type="password" id="password" name="password" required>
-    <label for="password_confirmation">Repeat password</label></div>
-    <div class="text-field">
-         <input type="password" id="password_confirmation" name="password_confirmation" required></div>
-    <button type="submit">Reset Password</button>
-</form>
+    <form method="post" action="<?= URLROOT; ?>/farmer/resetPassword?token=<?= htmlspecialchars($data['token']) ?>">
+        <input type="hidden" name="token" value="<?= htmlspecialchars($data['token']) ?>">
+
+        <div class="text-field">
+            <label for="password">New password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <div class="error" id="password_err"><?php echo $data['password_err']; ?></div>
+
+        <div class="text-field">
+            <label for="confirm_password">Repeat password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+        </div>
+        <div class="error" id="confirm_password_err"><?php echo $data['confirm_password_err']; ?></div>
+<br><br>
+        <button type="submit">Reset Password</button>
+    </form>
         
     </body>
 </html>
