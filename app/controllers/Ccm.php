@@ -1056,7 +1056,7 @@ public function salesorderqualityrejected() {
     // Load the view with purchase orders data
     $this->view('ccm/salesorderqualityrejected', $data);
 }
-
+}
 public function forgotPassword() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Handle form submission
