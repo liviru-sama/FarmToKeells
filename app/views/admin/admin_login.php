@@ -16,6 +16,7 @@ header("Expires: 0"); // Proxies
     <script src="<?php echo JS;?>add_product.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/add_product.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>admin_login.css">
     <style>
         .error-message {
             color: red;
@@ -153,7 +154,11 @@ header("Expires: 0"); // Proxies
                     <label>Password</label>
                 </div>
 
-                
+                <div class="link">
+                    <a href="<?php echo URLROOT; ?>/admin/forgotPassword">Forgot Password</a>
+                </div>
+
+               
                 <input type="submit" value="Login">
 
 

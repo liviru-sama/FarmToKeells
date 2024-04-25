@@ -208,25 +208,30 @@ use PHPMailer\PHPMailer\Exception;
 
 
         public function update_profile(){
-            $data = [
-                'username' => $_SESSION['user_username'],
-                'name' => $_SESSION['user_name'],
-                'email' => $_SESSION['user_email'],
-                'mobile' => $_SESSION['user_mobile'],
-                'password' => isset($_SESSION['user_password']) ? $_SESSION['user_password'] : '',
-                'confirm_password' => isset($_SESSION['user_password']) ? $_SESSION['user_password'] : '',
-            
-                'new_username_err' => '',
-                'new_name_err' => '',
-                'new_email_err' => '',
-                'new_mobile_err' => '',
-                'new_password_err' => ''
-            ];
-            
-            
-
-            $this->view('farmer/update_profile', $data);
+            if (!$this->isLoggedIn()) {
+                redirect('users/user_login');
+            } else {
+                $data = [
+                    'username' => $_SESSION['user_username'],
+                    'name' => $_SESSION['user_name'],
+                    'email' => $_SESSION['user_email'],
+                    'mobile' => $_SESSION['user_mobile'],
+                    'password' => isset($_SESSION['user_password']) ? $_SESSION['user_password'] : '',
+                    'confirm_password' => isset($_SESSION['user_password']) ? $_SESSION['user_password'] : '',
+                
+                    'new_username_err' => '',
+                    'new_name_err' => '',
+                    'new_email_err' => '',
+                    'new_mobile_err' => '',
+                    'new_password_err' => ''
+                ];
+                
+                
+    
+                $this->view('farmer/update_profile', $data);
+            }
         }
+            
 
     
         public function deleteUser($user_id){
@@ -249,6 +254,11 @@ use PHPMailer\PHPMailer\Exception;
         }
 
         public function updateUsername($user_id) {
+
+            $data = [
+                'new_username' => '',
+                'new_username_err' => ''
+            ];
             
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Sanitize POST array
@@ -414,8 +424,18 @@ use PHPMailer\PHPMailer\Exception;
         }
 
         // Update password action
-        public function updatePassword($id)
-        {
+        public function updatePassword($id){
+
+            // Initialize $data array
+            $data = [
+                'id' => $id,
+                'current_password' => '',
+                'new_password' => '',
+                'confirm_new_password' => '',
+                'current_password_err' => '',
+                'new_password_err' => '',
+                'confirm_new_password_err' => ''
+            ];
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Sanitize POST data
                 $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -1411,6 +1431,8 @@ public function Notifications() {
     $this->view('farmer/notifications', $data);
   }
 }
+
+
 
 ?>
 

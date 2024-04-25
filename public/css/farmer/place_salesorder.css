@@ -124,7 +124,7 @@ td img {
     overflow: overlay;
 }
 
-.table__body::-webkit-scrollbar {}
+
 
 .table__body::-webkit-scrollbar-thumb {
     border-radius: .5rem;
