@@ -19,7 +19,7 @@ include "inc/topsides.php";
                 <th>Product</th>
                 <th>Vehicle</th>
                 <th>Driver</th>
-                <th style="width: 30%;">Status</th>
+                <th style="width: 25%;">Status</th>
             </tr>
             <?php foreach($data['torders'] as $torder) {
                 echo "<tr>

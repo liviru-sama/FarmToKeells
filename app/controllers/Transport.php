@@ -995,6 +995,7 @@ class Transport extends Controller
 
         switch ($status) {
             case 1:
+                $newstatus = 1;
                 redirect('Transport/salesorder');
                 break;
             case 2:
@@ -1033,6 +1034,7 @@ class Transport extends Controller
                 $newstatus = 4;
                 break;
             case 4:
+                $newstatus = 4;
                 redirect('Transport/salesorder');
                 break;
         }
