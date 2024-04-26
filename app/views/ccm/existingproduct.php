@@ -9,7 +9,7 @@
    
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/existingproduct.css">
 </head>
-<body>
+<body style="background-color: rgba(255, 255, 255, 0.728);">
     <h1> Existing Products</h1>
     <!-- Display products dynamically -->
     <?php while ($row = mysqli_fetch_assoc($data['products'])) { ?>

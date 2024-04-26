@@ -764,6 +764,8 @@ use PHPMailer\PHPMailer\Exception;
                     // Extract product name and image from the result
                     $product_name = $product_details['name'];
                     $product_image = $product_details['image'];
+                    $quantity = $product_details['quantity'];
+
                 }
         
                 // Load the add sales order view with the purchase_id, user_id, product_name, and product_image
@@ -772,7 +774,8 @@ use PHPMailer\PHPMailer\Exception;
                     'user_id' => $user_id,
                     'name' => $product_name, // Pass the retrieved product name
                     'image' => $product_image, // Pass the retrieved product image
-                    'address' => $address
+                    'address' => $address,
+                    'quantity' => $quantity
 
                 ];
                 $this->view("farmer/add_salesorder", $data);
@@ -886,13 +889,11 @@ use PHPMailer\PHPMailer\Exception;
         
     
         public function productSelection() {
-            if (!$this->isLoggedIn()) {
-                redirect('users/user_login');
-            } else {
+            
                 $this->view("ccm/product_selection");
             }
             
-        }
+        
     
         public function getPurchaseIdByOrderId($order_id) {
             $this->db->query('SELECT purchase_id FROM salesorder WHERE order_id = :order_id');
