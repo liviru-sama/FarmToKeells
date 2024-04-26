@@ -1,18 +1,17 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?= CSS ?>forms.css">
-        <!-- <script src="<?= JS ?>addVehicle.js"></script> -->
-        <title><?= $data['title'] ?></title>
-    </head>
-    <body>
-        <section class="form">
-            <div class="center">
-                <h1>Add New Vehicle</h1>
-                <form action="<?= URLROOT ?>/Monitor/addVehicle" method="post">
+<?php
+// No of the box that needs to be selected
+$side = 5;
+
+include "inc/topsides.php";
+?>
+
+<!-- link css here -->
+<link rel="stylesheet" href="<?= CSS ?>forms.css">
+
+<!-- Page content starts here with midbox-->
+        <div class="midbox">
+        <h2>Add New Vehicle</h2>
+                <form action="<?= URLROOT ?>/Transport/addVehicle" method="post">
                         
                     <div class="text-field">
                         <input type="text" name="License_no" id="License_no" required>
@@ -59,14 +58,13 @@
                             ?>
                         </select>
                         <span></span>
-                        <label style="top: -5px;">Driver</label>
+                        <label>Driver</label>
                     </div>
                     <div class="error" id="D_id-error"><?php echo $data['errors']['D_id_err']; ?></div>
-                </form>
-                <button class="edit" id="edit">Edit</button>
-            </div>
-        </section>
-    </body>
-</html>
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+                    <input type="submit" value="Add Vehicle">
+                </form>
+        </div>
+
+<!-- Footer -->
+<?php include "inc/bottom.php" ?>

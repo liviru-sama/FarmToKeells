@@ -1,20 +1,5 @@
 @import url(main.css);
 
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 0 auto;
-    width: 85%;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 10px;
-    padding: 2rem;
-}
-
-.container h2 {
-    margin-bottom: 1.2rem;
-}
-
 .tabs {
     align-self: flex-start;
     margin-bottom: 1rem;
@@ -38,7 +23,7 @@ table {
 th {
     padding: 20px 15px;
     text-align: left;
-    font-weight: 500;
+    font-weight: 700;
     font-size: 12px;
     color: #000000;
     text-transform: uppercase;
@@ -61,4 +46,20 @@ td {
 
 .clinck:hover {
     background-color: rgb(172, 172, 172);
+}
+
+.status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.status button {
+    padding: 0.2rem 1rem;
+    border-radius: 5px;
+    background-color: #60ba49;
+    border: 1px solid #60ba49;
+    cursor: pointer;
+    font-weight: 700;
+    color: white;
 }

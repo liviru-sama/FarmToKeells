@@ -134,19 +134,19 @@
                 </a>
             </div>
             <div class="menu" data-name="p-2">
-                <a href="<?php echo URLROOT; ?>/transport/salesorderapproved">
+                <a href="<?php echo URLROOT; ?>/transport/salesorder">
                     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash2.png">
                     <h3>View Quality Approved Orders</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-3">
+            <!-- <div class="menu" data-name="p-3">
                 <a href="<?php echo URLROOT; ?>/monitor/index">
                     <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png">
                     <h3>Transport Monitoring</h3>
                 </a>
-            </div>
+            </div> -->
             <div class="menu" data-name="p-3">
-                <a href="<?php echo URLROOT; ?>/transport/driver">
+                <a href="<?php echo URLROOT; ?>/transport/drivers">
                     <img src="<?php echo URLROOT; ?>/public/images/driver.png">
                     <h3>Manage Drivers</h3>
                 </a>
