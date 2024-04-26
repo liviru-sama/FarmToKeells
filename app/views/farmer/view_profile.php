@@ -138,24 +138,20 @@
             <div class="center">
                 <div class="profile-info">
                     <div class="profile-image">
-                        <?php if (!empty($profileImage)) : ?>
-                        <!-- If a profile picture exists, display it -->
-                        <img src="<?php echo URLROOT . '/images/uploads/' . $profileImage; ?>" alt="Profile Picture">
+                        <?php if (!empty($data['profileImage'])) : ?>
+                        <img id="profile-image"
+                            src="<?php echo URLROOT . '/images/uploads/' . $data['profileImage']; ?>"
+                            alt="Profile Picture">
                         <?php else : ?>
-                        <!-- If no profile picture exists, display the default profile picture -->
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png"
+                        <img id="profile-image" src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png"
                             alt="Default Profile Picture">
                         <?php endif; ?>
-
-                        <!-- Form for uploading profile picture -->
                         <form action="<?php echo URLROOT; ?>/farmer/updateProfilePic" method="POST"
                             enctype="multipart/form-data" onchange="loadFile(event)">
                             <input type="file" name="profile_image" id="profile-picture-input" accept="image/*"
                                 style="display: none;" onchange="this.form.submit()">
                             <button type="button" onclick="chooseProfilePicture()">Upload Profile Picture</button>
                         </form>
-
-                        <?php echo '<p>' . flash('profile_pic_error') . '</p>';?>
                     </div>
                 </div>
 
