@@ -510,91 +510,96 @@ use PHPMailer\PHPMailer\Exception;
           }
 
 
-        public function place_order() {
+          public function place_order() {
             if (!$this->isLoggedIn()) {
                 redirect('users/user_login');
             } else {
                 $request = $this->model('Request');
-            $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
-                    
-            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-                // Sanitize input data
-                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        
-                // Fetch order ID and user ID from POST data
-                $orderId = $_POST['order_id']; // Assuming order_id is passed as a hidden input in the form
-                $userId = $_POST['user_id']; // Assuming user_id is passed as a hidden input in the form
-        
-                // Fetch product data from SalesOrder model
-                $salesData = $salesOrder->getSalesOrderData($orderId);
-                $product_name = $salesData->name; // Access the property 'name' of the $salesData object
-        
-                // Load other necessary data
-        
-                // Initialize data array
-                $data = [
-                    'order_id' => $orderId,
-                    'user_id' => $userId,
-                    'product_name' => $product_name, // Pass product_name retrieved from SalesOrder model
-                    'quantity' => trim($_POST['quantity']),
-                    'address' => trim($_POST['address']),
-                    'startdate' => trim($_POST['startdate']),
-                    'enddate' => trim($_POST['enddate']),
-                    'notes' => trim($_POST['notes']),
-                    'errors' => [
-                        'product_err' => '',
-                        'quantity_err' => '',
-                        'startdate_err' => '',
-                        'enddate_err' => ''
-                    ]
-                ];
-        
-                // Validate input data
-                if (empty($data['quantity'])){
-                    $data['errors']['quantity_err'] = 'Please provide a quantity';
-                }
-        
-                // Other validation checks...
-        
-                // Check for validation errors
-                $errorCount = count(array_filter($data['errors']));
-                if ($errorCount > 0){
-                    // Load necessary models and data for the view
+                $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
+                        
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize input data
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+            
+                    // Fetch order ID and user ID from POST data
+                    $orderId = $_POST['order_id']; // Assuming order_id is passed as a hidden input in the form
+                    $userId = $_POST['user_id']; // Assuming user_id is passed as a hidden input in the form
+            
+                    // Fetch product data from SalesOrder model
+                    $salesData = $salesOrder->getSalesOrderData($orderId);
+                    $product_name = $salesData->name; // Access the property 'name' of the $salesData object
+            
+                    // Load other necessary data
+            
+                    // Initialize data array
+                    $data = [
+                        'order_id' => $orderId,
+                        'user_id' => $userId,
+                        'product_name' => $product_name, // Pass product_name retrieved from SalesOrder model
+                        'quantity' => trim($_POST['quantity']),
+                        'address' => trim($_POST['address']),
+                        'startdate' => trim($_POST['startdate']),
+                        'enddate' => trim($_POST['enddate']),
+                        'notes' => trim($_POST['notes']),
+                        'errors' => [
+                            'product_err' => '',
+                            'quantity_err' => '',
+                            'startdate_err' => '',
+                            'enddate_err' => '',
+                            'request_exist_err' => '' // Error message for existing request
+                        ]
+                    ];
+            
+                    // Validate input data
+                    if (empty($data['quantity'])){
+                        $data['errors']['quantity_err'] = 'Please provide a quantity';
+                    }
+            
+                    // Check for existing request
+                    $requestExists = $request->requestExists($orderId);
+                    if ($requestExists) {
+                        $data['errors']['request_exist_err'] = 'A request for this order already exists!';
+                    }
+            
+                    // Check for validation errors or existing request
+                    $errorCount = count(array_filter($data['errors']));
+                    if ($errorCount > 0){
+                        // Load necessary models and data for the view
+                        $product = $this->model('Product');
+                        $products = $product->getAllProducts();
+                        $data['products'] = $products;
+            
+                        // Load the view with errors
+                        $this->view('farmer/place_order', $data);
+                    } else {
+                        // Insert data into database
+                        if ($request->insert($data)) {
+                            redirect('farmer/place_order');
+                        } else {
+                            die('Something went wrong');
+                        }
+                    }
+                } else {
+                    // Load initial data for the view
+                    $data = [
+                        'title' => 'Place Order',
+                        'errors' => [
+                            'product_err' => '',
+                            'quantity_err' => '',
+                            'startdate_err' => '',
+                            'enddate_err' => '',
+                            'request_exist_err' => '' // Initialize the error message field
+                        ]
+                    ];
+            
                     $product = $this->model('Product');
                     $products = $product->getAllProducts();
                     $data['products'] = $products;
-        
-                    // Load the view with errors
-                    $this->view('farmer/place_order', $data);
-                } else {
-                    // Insert data into database
-                    if ($request->insert($data)) {
-                        redirect('farmer/place_order');
-                    } else {
-                        die('Something went wrong');
-                    }
-                }
-            } else {
-                // Load initial data for the view
-                $data = [
-                    'title' => 'Place Order',
-                    'errors' => [
-                        'product_err' => '',
-                        'quantity_err' => '',
-                        'startdate_err' => '',
-                        'enddate_err' => ''
-                    ]
-                ];
-        
-                $product = $this->model('Product');
-                $products = $product->getAllProducts();
-                $data['products'] = $products;
-        
-                // Load the view
-                $this->view('farmer/place_order', $data);
-            }
-            }
             
+                    // Load the view
+                    $this->view('farmer/place_order', $data);
+                }
+            }
         }
         
         

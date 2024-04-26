@@ -200,7 +200,6 @@
 </div>
 
                
-                <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Save">
             </form>
         </div>

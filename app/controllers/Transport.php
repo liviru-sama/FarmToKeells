@@ -153,7 +153,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
     
     public function index(){
-        if (!$this->isLoggedInccm()) {
+        if (!$this->isLoggedInadmin()) {
             redirect('transport/tm_login');
         } else {
             $data = [
