@@ -1071,9 +1071,7 @@ use PHPMailer\PHPMailer\Exception;
     
 
         public function view_price(){
-            if (!$this->isLoggedIn()) {
-                redirect('users/user_login');
-            } else {
+          
                 // Instantiate Product Model
             $priceModel = new Price();
             
@@ -1084,7 +1082,7 @@ use PHPMailer\PHPMailer\Exception;
             $this->view('farmer/view_price', $data);
             }
             
-        }
+        
         
 
         public function add_inquiry() {
