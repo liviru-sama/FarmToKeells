@@ -464,7 +464,10 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
     public function drivers(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+             $data = [
             'title' => 'Drivers'
         ];
 
@@ -473,10 +476,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $data['drivers'] = $drivers->getAllDrivers();
         
         $this->view('transport/driverList', $data);
-    }
+    }}
 
     public function vehicles(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Vehicles'
         ];
 
@@ -492,10 +498,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         }
 
         $this->view('transport/vehicleList', $data);
-    }
+    }}
 
     public function addVehicle(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Add New Vehicle'
         ];
 
@@ -593,10 +602,12 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $this->view('transport/addVehicle', $data);
         }
-    }
+    }}
 
     public function addDriver(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { $data = [
             'title' => 'Add Driver'
         ];
 
@@ -676,9 +687,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->view('transport/addDriver', $data);
         }
     }
+}
 
     public function vehicleInfo($id){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Vehicle Information'
         ];
 
@@ -782,10 +797,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $this->view('transport/vehicleInfo', $data);
         }
-    }
+    }}
 
     public function editVehicle(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Vehicle'
         ];
 
@@ -884,10 +902,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $this->view('transport/vehicleInfo', $data);
         }
-    }
+    }}
 
     public function deleteVehicle($id){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+             $data = [
             'title' => 'Vehicle'
         ];
 
@@ -900,10 +921,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         } else {
             die('Something went wrong');
         }
-    }
+    }}
 
     public function driverInfo($id){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+             $data = [
             'title' => 'Vehicle Information'
         ];
 
@@ -984,10 +1008,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $this->view('transport/driverInfo', $data);
         }
-    }
+    }}
     
     public function editDriver(){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Driver'
         ];
 
@@ -1067,10 +1094,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             
             $this->view('transport/driverInfo', $data);
         }
-    }
+    }}
 
     public function deleteDriver($id){
-        $data = [
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $data = [
             'title' => 'Driver'
         ];
 
@@ -1083,10 +1113,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         } else {
             die('Something went wrong');
         }
-    }
+    }}
 
     public function getUnits($date,$oid){
-        $vehicles = $this->model('Vehicle');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+             $vehicles = $this->model('Vehicle');
         $schedule = $this->model('Schedule');
         $salesOrder = $this->model('SalesOrder');
         $users = $this->model('User');
@@ -1117,10 +1150,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         }
         
         echo "$jsonData";
-    }
+    }}
 
     public function requestInfo($id){
-        $request = $this->model('Request');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+            $request = $this->model('Request');
         $salesOrder = $this->model('SalesOrder');
         $users = $this->model('User');
         
@@ -1159,10 +1195,13 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $this->view('transport/requestInfo', $data);
         
         
-    }
+    }}
 
     public function accept_request(){
-        $request = $this->model('Request');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {
+             $request = $this->model('Request');
         $salesOrder = $this->model('SalesOrder');
         $schedule = $this->model('Schedule');
         $Torder = $this->model('Torders');
@@ -1203,19 +1242,24 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->view('transport/requestInfo', $data);
         }
     }
+}
 
     public function reject_request($id){
-        $request = $this->model('Request');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else {  $request = $this->model('Request');
 
         if ($request->reject($id)) {
             redirect('Transport/pending_requests');
         } else {
             die('Something went wrong');
         }
-    }
+    }}
 
     public function salesorder(){
-        $Torder = $this->model('Torders');
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { $Torder = $this->model('Torders');
         $salesOrder = $this->model('SalesOrder');
         $users = $this->model('User');
         $vehicles = $this->model('Vehicle');
@@ -1250,7 +1294,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         }
 
         $this->view('transport/salesorder', $data);
-    }
+    }}
 
     public function statusminus($id){
         $torders = $this->model('Torders');
