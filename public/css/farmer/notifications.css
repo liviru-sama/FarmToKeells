@@ -1,0 +1,108 @@
+.form-button {
+    color: white;
+    width: 80%;
+    height: 45px;
+    border: 0 solid #65A534;
+    background:#65A534;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    margin: 20px 10px;
+}
+
+.chat-message {
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 30px;
+            clear: both;
+            overflow: hidden;
+            word-wrap: break-word;
+            z-index: 9999;
+            font-size: 22px;
+            box-shadow: 0 .4rem .8rem #0005;
+        }
+
+        .admin-message {
+            background-color:#65A534;
+            color: white;
+        }
+
+        .message-time {
+            float: right;
+            color: black;
+            font-size: 10px;
+        }
+
+        .user-message {
+            float: right;
+            background-color: #65A534; /* Green color */
+            color: white;
+            text-align: right;
+        }
+
+       
+
+        .chat-container {
+    padding-left: 80px; /* Horizontal padding */
+    padding-right: 80px; /* Horizontal padding */
+    padding-top: 0px; /* Minimal vertical padding */
+    padding-bottom: 20px; /* Minimal vertical padding */
+    position: relative;
+}
+
+main {
+    padding: 3.4rem;
+}
+
+.notifications {
+    background-color: #ffffff9d;
+    padding: 1.5rem;
+    border-radius: 10px;
+}
+
+.notification {
+    border-bottom: 1px solid #ddd;
+    padding: 1rem;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    list-style-type: none; /* Remove default list style */
+}
+
+.notification:hover {
+    background-color: #65A534;
+    color: #fff;
+}
+
+.notification:last-child {
+    border-bottom: none;
+}
+
+.notification-checkbox {
+    float: right;
+    margin-top: 10px;
+}
+
+.notification-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-topic {
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.notification-message {
+    margin-bottom: 10px;
+    color: #272727;
+}
+
+.notification-time {
+    color: #888;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 768px) {
+    /* Adjust styles for smaller screens */
+}

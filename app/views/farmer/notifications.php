@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
 
-    <script src="<?php echo JS;?>farmer/view_profile.js"></script>
+    <script src="<?php echo JS;?>notifications.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/notifications.css">
 
     <style>
         body,
@@ -17,66 +18,6 @@
             background-size: cover;
             height: 100%;
         }
-
-        
-
-.form-button {
-    color: white;
-    width: 80%;
-    height: 45px;
-    border: 0 solid #65A534;
-    background:#65A534;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    margin: 20px 10px;
-}
-
-.chat-message {
-            margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 30px;
-            clear: both;
-            overflow: hidden;
-            word-wrap: break-word;
-            z-index: 9999;
-            font-size: 22px;
-            box-shadow: 0 .4rem .8rem #0005;
-        }
-
-        .admin-message {
-            background-color:#65A534;
-            color: white;
-        }
-
-        .message-time {
-            float: right;
-            color: black;
-            font-size: 10px;
-        }
-
-        .user-message {
-            float: right;
-            background-color: #65A534; /* Green color */
-            color: white;
-            text-align: right;
-        }
-
-       
-
-        .chat-container {
-    padding-left: 80px; /* Horizontal padding */
-    padding-right: 80px; /* Horizontal padding */
-    padding-top: 0px; /* Minimal vertical padding */
-    padding-bottom: 20px; /* Minimal vertical padding */
-    position: relative;
-}
-
-        
-
-
-
         
     </style>
 </head>
@@ -85,7 +26,8 @@
 <div class="navbar">
     <div class="navbar-icons">
     <div class="navbar-icon-container" data-text="Go Back">
-        <a href="<?php echo URLROOT; ?>/farmer/dashboard">
+    <a href="#" id="backButton" onclick="goBack()">
+
             <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
         </a></div>
 
@@ -116,6 +58,12 @@
     <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
    
 </div>
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+</script>
 
 
     <!-- Sidebar -->
@@ -174,88 +122,56 @@
     </div>
 
     <!-- Main content -->
-    <div class="main-contents" style=" position: fixed;
-            left: 9.0%;
-            width: 91%;
-            height: 91%;
-            bottom: 0;
-            z-index: 2;
-            overflow: auto;
-            border-radius: 20px;" >
-
-   
-   
-           
-
-<section class="header"></section>
-<section class="header">
+    <main class="main-content">
+    <h1>Farmer Notifications</h1><br>
+        <section class="notifications">
+            
+            <div class="notification-container">
+                <?php if (empty($data['notifications'])): ?>
+                    <p>You don't have any notifications yet.</p>
+                <?php else: ?>
+                    <?php foreach ($data['notifications'] as $notification): ?>
+                        <?php 
+                            switch ($notification->action):
+                                case 'status_update':
+                                    $mainTopic = "Order Status Update";
+                                    $notificationContent = "Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}'";
+                                    break;
+                                case 'new purchase order':
+                                    $mainTopic = "New Purchase Order";
+                                    $notificationContent = "Keells has added a new purchase order for '{$notification->product_name}'";
+                                    break;
+                                case 'price_update':
+                                    $mainTopic = "Price Update";
+                                    $notificationContent = "The price of '{$notification->product_name}' has {$notification->status} to {$notification->price}";
+                                    break;
+                                case 'payment_update':
+                                    $mainTopic = "Payment Update";
+                                    $notificationContent = "Your Order ID {$notification->order_id}'s payment of {$notification->price} has been settled by Keells";
+                                    break;
+                                case 'reply':
+                                    $mainTopic = "Inquiry Response";
+                                    $notificationContent = "Keells has responded to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'";
+                                    break;
+                                case 'replyupdate':
+                                    $mainTopic = "Inquiry Response Update";
+                                    $notificationContent = "Keells has updated their reply to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'";
+                                    break;
+                            endswitch;
+                        ?>
+                        <div class="notification" data-id="<?php echo $notification->id; ?>">
+                            <div class="notification-info">
+                                <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
+                                <p class="notification-message"><?php echo $notificationContent; ?></p>
+                                <p class="notification-time"><?php echo $notification->time; ?></p>
+                            </div>
+                            <!-- <button class="mark-as-read" data-id="<?php echo $notification->id; ?>">Mark as Read</button> -->
+                        </div>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </div>
         </section>
-        <section class="table_body">
-
-        <div class="chat-container" id="chatContainer">
-        <?php if (empty($data['notifications'])): ?>
-    <p>You don't have any notifications yet.</p>
-<?php else: ?>
-    <table>
-    <?php 
-    // Sort notifications array by time in descending order
-    usort($data['notifications'], function($a, $b) {
-        return strtotime($b->time) - strtotime($a->time);
-    });
-    
-    foreach ($data['notifications'] as $notification): ?>
-        <p>
-                       
-            <div style="background-color:#65A534;
-                color: white; border-radius: 90px;
-                overflow: hidden;
-                word-wrap: break-word;
-                z-index: 9999;
-                font-size: 22px;
-                box-shadow: 0 .4rem .8rem #0005;
-                text-align:left;">
-                <?php switch ($notification->action):
-                    case 'status_update':
-                        if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                    case 'new purchase order':
-                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has added a new purchase order for '{$notification->product_name}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        break;
-                    case 'price_update':
-                        if ($notification->status === 'increased') {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has increased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        } elseif ($notification->status === 'decreased') {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The price of '{$notification->product_name}' has decreased to {$notification->price} </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                    case 'payment_update':
-                        if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your Order ID {$notification->order_id}'s payment of {$notification->price} has been settled by Keells</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                    case 'reply':
-                        if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has responded to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                    case 'replyupdate':
-                        if ($notification->user_id === $_SESSION['user_id']) {
-                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Keells has updated their reply to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}' </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                        }
-                        break;
-                endswitch; ?>
-            </div> 
-           
-            </p>
-    <?php endforeach; ?>
-</table>
-
-
-<?php endif; ?>
-
-</div>
+    </main>
 
 
 
@@ -263,4 +179,7 @@
 
 </html>
 
+
 <?php require APPROOT . '/views/inc/footer.php'; ?>
+
+

@@ -174,7 +174,7 @@ class Admin extends Controller{
                             $success_message = "Admin credentials inserted successfully.</br> Now You can Login";
     
                     // Load the login view with success message
-                    $this->view('admin/admin_login', ['success_message' => $success_message]);
+                    $this->view('admin/admin_login');
                     exit;
                     
                         } else {

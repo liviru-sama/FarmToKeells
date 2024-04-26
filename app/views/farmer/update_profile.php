@@ -50,6 +50,9 @@ label{color:white;
     width: 90%; /* Adjust the width as needed */
     margin: 0 auto; /* Center-align the rectangle */
 }
+.link {
+    font-color: black;
+}
 
         
     </style>
@@ -213,19 +216,18 @@ label{color:white;
                         <div class="rectangle" >
                             <form  action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>" method="POST" class="subgrid-1">
                             </br><h2>Change Username</br></br></h2> 
-                            <!-- <div class="error" id="new_username_err"><?php echo $data['new_username_err']; ?></div> -->
                                <div>                                
                                 <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
                                 <input type="text" id="new_username" name="new_username" >
                                 <button class="button-main" type="submit">Change</br></button></div>
 
-                                </br> </br><!-- <div class="error" id="new-username-error"><?php echo $data['new_username_err']; ?></div> 
+                                </br> </br>
                                  </form></br>
 
 
 
                         </div>
-                        <div class="rectangle">
+                        <div class="rectangle"> 
                             <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                             </br><h2>Change Name</br></br></h2>
                             <!-- <div class="error" id="new_name_err"><?php echo $data['new_name_err']; ?></div> -->
@@ -237,7 +239,6 @@ label{color:white;
                         <div class="rectangle">
                             <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
                             </br><h2>Change Email</br></br></h2>
-                            <!-- <div class="error" id="new_email_err"><?php echo $data['new_email_err']; ?></div> -->
                                <label for="nemail" class="p-regular-grey">New E-mail :</label>
                                 <input type="text" id="new_email" name="new_email" class="form-default">
                                 <button class="button-main" type="submit">Change</br></button>
@@ -256,27 +257,21 @@ label{color:white;
 
                         
 
-                        <div class="prectangle">
-                            <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>" method="POST" class="subgrid-1">
+                        <div class="rectangle">
+                            <form action="">
                                 
-                            </br><h2>Change Password</br></br></h2>
-                            <div class="error" id="current_password_err"><?php echo $data['current_password_err']; ?></div>
-                            <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div>
-                            <div class="error" id="confirm_new_password_err"><?php echo $data['confirm_new_password_err']; ?></div>
+                            <br><br>
+                            <div class="link">
+                                <h2><a href="<?php echo URLROOT; ?>/users/forgotPassword">Change Password</a></h2>
+                            </div>
+                                <br>
+                                <br>
+                            </form> 
 
-                          <label for="fname" class="p-regular-grey">Current Password :</label>
-                                <input type="password" id="current_password" name="current_password" class="form-default">
-                                <br>
-                                <label for="fname" class="p-regular-grey">New Password :</label>
-                                <input type="password" id="new_password" name="new_password" class="form-default">
-                                <br>
-                                <label for="fname" class="p-regular-grey">Confirm Password :</label>
-                                <input type="password" id="confirm_new_password" name="confirm_password" placeholder="" class="form-default">
-                                <br>
-                                <br>
-                                <button class="button-main" type="submit">Change</br></button>
-                                <br>
-                                <br></form>
+                            
+                                
+
+                                
                             
                         </div>
 
