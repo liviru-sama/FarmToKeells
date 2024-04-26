@@ -1,0 +1,319 @@
+
+        /* Scrollbar Styling */
+        
+        /* Padding Adjustment for Sidebar Containers */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body,
+        html {
+            /* Add your background image URL and properties here */
+            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+            background-size: cover;
+            height: 100%;
+        }
+
+        main.table {
+            background-color: rgba(148, 144, 144, 0.333);
+            backdrop-filter: blur(17px);
+            box-shadow: 0 .4rem .8rem #0005;
+            border-radius: .8rem;
+            overflow: auto;
+        }
+
+        .table__header {
+            width: 100%;
+            height: 10%;
+            background-color: #fff4;
+            padding: .8rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .table__header .input-group {
+            width: 35%;
+            height: 100%;
+            background-color: #fff5;
+            padding: 0 .8rem;
+            border-radius: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: .2s;
+        }
+
+        .table__header .input-group:hover {
+            width: 45%;
+            background-color: #fff8;
+            box-shadow: 0 .1rem .4rem #0002;
+        }
+
+        .table__header .input-group img {
+            width: 1.2rem;
+            height: 1.2rem;
+        }
+
+        .table__header .input-group input {
+            width: 100%;
+            padding: 0 .5rem 0 .3rem;
+            background-color: transparent;
+            border: none;
+            outline: none;
+        }
+
+        
+
+        .tab-heading {
+            cursor: pointer;
+        }
+        
+        .tab-selected {
+            background-color: #65A534;
+            transform: scale(1.08);
+            border-radius: 10px 10px 0 0;
+            padding: 10px;
+        }
+        
+  
+        table {
+            width: 100%;
+            border: white;
+        }
+
+        td img {
+            width: 36px;
+            height: 36px;
+            margin-right: .5rem;
+            border-radius: 10%;
+            vertical-align: middle;
+        }
+
+        td img:hover {
+            transform: scale(1.009);
+        }
+
+        table,
+        th {
+            border-collapse: collapse;
+            padding: 1rem;
+            text-align: center;
+            position: sticky;
+        }
+
+        thead th {
+            color: white; /* Set the font color to white */
+            position: sticky;
+            top: 0;
+            left: 0;
+            background-color: #2e342f;
+            cursor: pointer;
+            text-transform: capitalize;
+        }
+
+        td {
+            padding: 0.5rem;
+            font-weight:bold;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #2826260b;
+        }
+
+        tbody tr {
+            --delay: .1s;
+            transition: .5s ease-in-out var(--delay), background-color 0s;
+        }
+
+        tbody tr.hide {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+
+        
+
+        tbody tr td,
+        tbody tr td p,
+        tbody tr td img {
+            transition: .2s ease-in-out;
+        }
+
+        tbody tr.hide td,
+        tbody tr.hide td p {
+            padding: 0;
+            font: 0 / 0 sans-serif;
+            transition: .2s ease-in-out .5s;
+        }
+
+        tbody tr.hide td img {
+            width: 7;
+            height: 7;
+            transition: .2s ease-in-out .5s;
+        }
+
+        h2,
+        h5 {
+            font-family: 'Poppins', sans-serif;
+            color: #060804;
+           
+        }
+
+        th,
+        td {
+            font-family: 'Poppins', sans-serif;
+            padding: 5px;
+        }
+
+        .dashboard {
+            width: 100%;
+            height: 75vh;
+            position: sticky;
+        }
+
+        .container {
+            top: 0;
+            width: 280px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            margin-right: 1rem;
+            position: fixed;
+        }
+
+        .container .title {
+            font-size: 3.5rem;
+            color: #444;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .container .dashboard-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(28rem, 1fr));
+            gap: 1.3rem;
+            position: fixed;
+        }
+
+        .container .dashboard-container .menu {
+            
+           
+           
+            text-align: center;
+            padding: 2px;
+            background-color: #fff8;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 .4rem .8rem #0005;
+            cursor: pointer;
+            height: 80px;
+            width: 80px;
+            border-radius: 10px;
+        }
+
+        .container .dashboard-container .menu:hover {
+            background: #65A534;
+            transform: scale(1.08);
+        }
+
+        .container .dashboard-container .menu img {
+            align-items: center;
+            border-radius: .8rem;
+        }
+
+        .container .dashboard-container .menu:hover img {
+            transform: scale(.9);
+        }
+
+        .container .dashboard-container .menu h6 {
+            color: rgba(0, 0, 0, 0.845);
+        }
+
+        .container .dashboard-container .menu:hover h6 {
+            color: black;
+        }
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            width: 9.0%;
+            height: 100%;
+            bottom: 0;
+            background-color: #3c3c3c;
+            backdrop-filter: blur(7px);
+            box-shadow: 0 0.8rem 0.8rem rgba(0, 0, 0, 0.1); /* Adjust the values */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .navbar {
+            position: fixed; /* Fixed position */
+            left: 9%; /* Adjust as needed */
+            width: 91%; /* Take up the remaining width */
+            display: flex;
+            justify-content: space-between; /* Distribute items along the main axis */
+            align-items: center;
+            padding: 20px;
+            top: 0px; /* Stick to the top of the viewport */
+            z-index: 1;
+            height: 60px; /* Fixed height for navbar */
+            /* Example background color */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
+        }
+        
+        .navbar-logo {
+            width: 220px; /* Fixed width for the logo */
+            height: auto; /* Maintain aspect ratio */
+            margin-left: auto;
+        }
+        
+        .navbar-icons {
+            display: flex;
+            align-items: center;
+
+        }
+        
+        .navbar-icon {
+            width: 50px; /* Increased width for icons */
+            height: auto; /* Maintain aspect ratio */
+            margin-left: 15px; /* Adjust spacing between icons */
+            box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
+            border-radius: 50px; /* Border radius */
+            padding: 5px; /* Increase the padding to create gap */
+        }
+
+        .navbar-icon:hover {
+            background: #65A534;
+            transform: scale(1.08);
+        }
+        
+        .navbar-icon-container {
+            position: relative;
+        }
+        
+        .navbar-icon-container:hover::after {
+            content: attr(data-text); /* Display the value of the data-text attribute */
+            position: absolute;
+           top:80%;
+            left: 50%; /* Center the text horizontally */
+            transform: translateX(-50%); /* Center the text horizontally */
+            background-color: #65A534; /* Background color for the text */
+            color: white; /* Text color */
+            padding: 5px; /* Padding around the text */
+            border-radius: 5px; /* Border radius for the text */
+            z-index: 2; /* Ensure the text appears above other elements */
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+        
+        .main-content {
+            position: fixed;
+            left: 9.0%;
+            width: 91%;
+            height: 90%;
+            bottom: 0;
+            z-index: 2;
+            overflow: auto;
+            border-radius: 20px;
+        }

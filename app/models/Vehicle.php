@@ -24,6 +24,38 @@
             }
         }
 
+        public function update($data){
+            $this->db->query('UPDATE vehicleinfo SET License_no=:License_no, chassis=:chassis, vtype=:vtype, model=:model, capacity=:capacity, D_id=:D_id WHERE V_id = :V_id');
+
+            $this->db->bind(':License_no', $data['License_no']);
+            $this->db->bind(':chassis', $data['chassis']);
+            $this->db->bind(':vtype', $data['vtype']);
+            $this->db->bind(':model', $data['model']);
+            $this->db->bind(':capacity', $data['capacity']);
+            $this->db->bind(':D_id', $data['D_id']);
+            $this->db->bind(':V_id', $data['V_id']);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function delete($data){
+            $this->db->query('DELETE FROM vehicleinfo WHERE V_id = :id');
+
+            $this->db->bind(':id', $data['id']);
+
+            //Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
         public function getAllVehicles(){
             $this->db->query('SELECT * FROM vehicleinfo');
 
@@ -42,5 +74,13 @@
             return $result;
         }
 
+        public function quantityVehicles($quantity){
+            $this->db->query('SELECT * FROM vehicleinfo WHERE capacity >= :quantity');
 
+            $this->db->bind(':quantity', $quantity);
+
+            $result = $this->db->resultSet();
+
+            return $result;
+        }
     }

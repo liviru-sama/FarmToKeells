@@ -26,7 +26,41 @@
             }
         }
         
+        public function delete($id){
+  
+            $this->db->query('DELETE FROM requests WHERE req_id = :id');
         
+            $this->db->bind(':id', $id);
+        
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function reject($id){
+  
+            $this->db->query('UPDATE requests SET active = 0 WHERE req_id = :id');
+        
+            $this->db->bind(':id', $id);
+        
+            if ($this->db->execute()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public function getRequestByID($data){
+            $this->db->query('SELECT * FROM requests WHERE req_id = :id');
+
+            $this->db->bind(':id', $data['req_id']);
+
+            $results = $this->db->single();
+
+            return $results;
+        }
 
         public function getActiveRequests(){
             $this->db->query('SELECT * FROM requests WHERE active = 1');

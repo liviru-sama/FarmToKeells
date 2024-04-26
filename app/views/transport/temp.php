@@ -6,6 +6,7 @@
     <title><?php echo SITENAME; ?></title>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link rel="stylesheet" href="<?php echo CSS;?>tables.css">
 
     <style>
         body,
@@ -160,38 +161,38 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    <a href="<?php echo URLROOT; ?>/transport/pending_requests" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"> 
+                    <a href="<?php echo URLROOT; ?>/tranport/requests" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2" <?php echo ($side==1) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>> 
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Requests</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/salesorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
+                        <div class="menu" data-name="p-4" <?php echo ($side==2) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/monitor" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
+                        <div class="menu" data-name="p-4" <?php echo ($side==3) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/monitor.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Monitor</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
+                        <div class="menu" data-name="p-7" <?php echo ($side==4) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/driver.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Drivers</h6>
+                            <h6>drivers</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/vehicles" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
+                    <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7" <?php echo ($side==5) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/vehicle.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Vehicles</h6>
+                            <h6>vehicles</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/tm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-6" <?php echo ($side==6) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Inquiry</h6>
                         </div>
@@ -204,48 +205,41 @@
         <section class="header">  
         </section>
         <section class="table_body">
-            <div class="chat-container" id="chatContainer">
-                <?php
-                // Sort messages based on ID in ascending order
-                usort($data['tm_chats'], function ($a, $b) {
-                    return $a->id - $b->id;
-                });
-
-                // Display sorted messages
-                foreach ($data['tm_chats'] as $chat):
-                    // Skip the message if both admin_reply and ccm_reply are empty
-                    if (empty($chat->admin_reply) && empty($chat->tm_reply)) {
-                        continue;
-                    }
-
-                    // Determine the sender based on whether admin_reply is empty or not
-                    $sender = !empty($chat->admin_reply) ? 'admin' : 'user';
-
-                    // Determine the CSS class based on the sender
-                    $messageClass = $sender === 'admin' ? 'admin-message' : 'user-message';
-
-                    // Determine the message content and time based on the sender
-                    $messageContent = $sender === 'admin' ? $chat->admin_reply : $chat->tm_reply;
-                    $messageTime = $sender === 'admin' ? $chat->admin_reply_time : $chat->created_at;
-                ?>
-                    <!-- Display the message -->
-                    <div class="chat-message <?php echo $messageClass; ?>">
-                        <div class="message-content" style="text-align:<?php echo $sender === 'admin' ? 'left' : 'right'; ?>;">
-                            <?php echo $messageContent; ?></br></br>
-                        </div>
-                        <div class="message-time"><?php echo $messageTime; ?></div>
-                    </div>
-                <?php endforeach; ?>
+        <div class="midbox">
+            <h2>Collection Requests</h2>
+            <div class="tabs">
+                <a href="<?php echo URLROOT; ?>/transport/pending_requests">
+                    <button class="tab activeTab" id="pendingTab">Pending</button>
+                </a>
+                <a href="<?php echo URLROOT; ?>/transport/cancelled_requests">
+                    <button class="tab" id="cancelledTab">Cancelled</button>
+                </a>
             </div>
-            <div class="chat-form-container">
-                <div class="add-inquiry-form">
-                    <form action="<?php echo URLROOT; ?>/transport/addChat" method="post">
-                        <label for="inquiry"></label>
-                        <textarea name="inquiry" rows="1" cols="50" required placeholder="Send message to ADMIN..." style="font-size:25px; color:black;"></textarea>
-                        <input type="submit" value="Send" class="send-button">
-                    </form>
-                </div>
-            </div>
+            <table>
+                <tr>
+                    <th>#</th>
+                    <th>User</th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Window Start</th>
+                    <th>Window End</th>
+                    <th>Action</th>
+                </tr>
+                <?php foreach($data['activeRequests'] as $request) {
+                    echo "<tr>
+                        <td>".$request->req_id."</td>
+                        <td>".$request->user."</td>
+                        <td>".$request->product_name."</td>
+                        <td>".$request->quantity."</td>
+                        <td>".$request->startdate."</td>
+                        <td>".$request->enddate."</td>
+                        <td></td>
+                    </tr>";
+                } ?>
+                
+            </table>
+        </div>
+        </div>
         </section>
     </div>
     <?php require APPROOT . '/views/inc/footer.php'; ?>

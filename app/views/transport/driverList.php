@@ -1,18 +1,18 @@
-<?php require APPROOT . '/views/inc/header.php';?>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>tables.css">
-        <script src="<?php echo JS;?>monitor/vehicleList.js"></script>
-        <title><?= $data['title'] ?></title>
-    </head>
-    <body>
-        <div class="container">
-            <h2>Drivers</h2>
+<?php
+// No of the box that needs to be selected
+$side = 4;
+
+include "inc/topsides.php";
+?>
+
+<!-- link css here -->
+<link rel="stylesheet" href="<?php echo CSS;?>tables.css">
+
+<!-- Page content starts here with midbox-->
+        <div class="midbox">
+        <h2>Drivers</h2>
             <div class="tabs">
-                <a href="<?php echo URLROOT; ?>/Monitor/addDriver">
+                <a href="<?php echo URLROOT; ?>/Transport/addDriver">
                     <button class="tab activeTab" id="addDriver">Add Driver</button>
                 </a>
             </div>
@@ -26,7 +26,7 @@
                     <th>Date Joined</th>
                 </tr>
                 <?php foreach($data['drivers'] as $driver) {
-                    echo "<tr class = 'clinck' onclick= \"window.location.href = '".URLROOT."/Monitor/driverInfo/".$driver->D_id."'\";>
+                    echo "<tr class = 'clinck' onclick= \"window.location.href = '".URLROOT."/Transport/driverInfo/".$driver->D_id."'\";>
                         <td>".$driver->D_id."</td>
                         <td>".$driver->D_name."</td>
                         <td>".$driver->D_email."</td>
@@ -37,7 +37,6 @@
                 } ?>
             </table>
         </div>
-    </body>
-</html>
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<!-- Footer -->
+<?php include "inc/bottom.php" ?>
