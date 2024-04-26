@@ -278,6 +278,7 @@
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':username', $data['username']);
+
     
             // Execute
             return $this->db->execute();
@@ -414,7 +415,6 @@ public function getCollectionCenterAddress($userId) {
         return null;
     }
 }
-
 
 
 

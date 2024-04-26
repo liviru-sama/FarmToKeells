@@ -1419,6 +1419,9 @@ public function payment(){
     }
 }
 public function Notifications() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
     $notificationModel = $this->model('FarmerNotifications');
 
     $notifications = $notificationModel->getAllNotifications();
@@ -1433,11 +1436,8 @@ public function Notifications() {
   }
 }
 
+}
+
 
 
 ?>
-
-
-    
-    
-
