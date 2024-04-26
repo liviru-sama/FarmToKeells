@@ -8,6 +8,7 @@
 
     <script src="<?php echo JS;?>farmer/view_profile.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/notifications.css">
 
     <style>
         body,
@@ -18,66 +19,6 @@
             height: 100%;
         }
 
-        
-
-.form-button {
-    color: white;
-    width: 80%;
-    height: 45px;
-    border: 0 solid #65A534;
-    background:#65A534;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    margin: 20px 10px;
-}
-
-.chat-message {
-            margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 30px;
-            clear: both;
-            overflow: hidden;
-            word-wrap: break-word;
-            z-index: 9999;
-            font-size: 22px;
-            box-shadow: 0 .4rem .8rem #0005;
-        }
-
-        .admin-message {
-            background-color:#65A534;
-            color: white;
-        }
-
-        .message-time {
-            float: right;
-            color: black;
-            font-size: 10px;
-        }
-
-        .user-message {
-            float: right;
-            background-color: #65A534; /* Green color */
-            color: white;
-            text-align: right;
-        }
-
-       
-
-        .chat-container {
-    padding-left: 80px; /* Horizontal padding */
-    padding-right: 80px; /* Horizontal padding */
-    padding-top: 0px; /* Minimal vertical padding */
-    padding-bottom: 20px; /* Minimal vertical padding */
-    position: relative;
-}
-
-        
-
-
-
-        
     </style>
 </head>
 
@@ -167,85 +108,63 @@
             </div>
         </section>
     </div>
+
+
     <!-- Main content -->
-    <div class="main-contents" style=" position: fixed;
-            left: 9.0%;
-            width: 91%;
-            height: 91%;
-            bottom: 0;
-            z-index: 2;
-            overflow: auto;
-            border-radius: 20px;" >
+
+    <main class="main-content">
+    <h1>Collection Center Manager Notifications</h1><br>
+        <section class="notifications">
+    <div class="notification-container">
+        <?php if (empty($data['notifications'])): ?>
+            <p>You don't have any notifications yet.</p>
+        <?php else: ?>
+            <?php foreach ($data['notifications'] as $notification): ?>
+                <?php switch ($notification->action):
+                    case 'new_order':
+                        if ($notification->purchase_product !== NULL) {
+                            $mainTopic = "New Order";
+                            $notificationContent = "A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}' for your Needlist item '{$notification->purchase_product}'";
+                        } else {
+                            $mainTopic = "New Order";
+                            $notificationContent = "A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}'";
+                        }
+                        break;
+                    case 'reply':
+                        $mainTopic = "Reply from Keells Admin";
+                        $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
+                        break;
+                    case 'low':
+                        $mainTopic = "Low Stock Alert";
+                        $notificationContent = "The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining. Please prioritize placing a new order for '{$notification->product}'.";
+                        break;
+                endswitch; ?>
+
+                <div class="notification">
+                    <div class="notification-info">
+                        <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
+                        <p class="notification-message"><?php echo $notificationContent; ?></p>
+                        <p class="notification-time"><?php echo $notification->time; ?></p>
+                    </div>
+                </div>
+
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</section>
+</main>
+
 
    
    
            
 
-<section class="header"></section>
-<section class="header">
-        </section>
-        <section class="table_body">
-        <div class="chat-container" id="chatContainer">
-    <?php if (empty($data['notifications'])): ?>
-        <p>You don't have any notifications yet.</p>
-    <?php else: ?>
-        <table>
-            <?php 
-            // Sort notifications array by time in descending order
-            usort($data['notifications'], function($a, $b) {
-                return strtotime($b->time) - strtotime($a->time);
-            });
-            
-            // Convert stored time to timestamp
-            $lastViewedTime = isset($_SESSION['last_viewed_timestamp']) ? strtotime($_SESSION['last_viewed_timestamp']) : 0;
-
-            foreach ($data['notifications'] as $notification): 
-                // Convert notification time to timestamp
-                $notificationTime = strtotime($notification->time);
-
-                // Compare notification time with stored time
-                if ($notificationTime > $lastViewedTime): ?>
-                    <tr>
-                        <td>
-                            <div style="background-color:#65A534;
-                                color: white; border-radius: 90px;
-                                overflow: hidden;
-                                word-wrap: break-word;
-                                z-index: 9999;
-                                font-size: 22px;
-                                box-shadow: 0 .4rem .8rem #0005;
-                                text-align:left;">
-                                <?php switch ($notification->action):
-                                    case 'new_order':
-                                        if ($notification->purchase_product !== NULL) {
-                                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}' for your Needlist item '{$notification->purchase_product}'</br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                                        } else {
-                                            echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A user has placed a new order - {$notification->quantity} kgs of '{$notification->product}'  </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                                        }
-                                        break;
-                                    case 'reply':
-                                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Keells Admin has replied   '{$notification->admin_reply}'  for your Message </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                                        break;
-                                    case 'low':
-                                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The stock of '{$notification->product}' at the warehouse is running critically low, with only {$notification->quantity} kgs remaining. Please prioritize placing a new order for {$notification->product}. </br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
-                                        break;
-                                endswitch; ?>
-                            </div>
-                        </td>
-                    </tr>
-                <?php endif; ?>
-            <?php endforeach; ?>
-        </table>
-    <?php endif; ?>
-</div>
 
 
-</div>
 
-<script>
-    // Store the current time when the page is viewed
-    localStorage.setItem('lastViewedTime', new Date().getTime());
-</script>
+
+
+
 
 
 </body>

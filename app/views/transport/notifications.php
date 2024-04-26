@@ -8,6 +8,7 @@
 
     <script src="<?php echo JS;?>farmer/view_profile.js"></script>
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/farmer/notifications.css">
 
     <style>
         body,
@@ -17,65 +18,6 @@
             background-size: cover;
             height: 100%;
         }
-
-        
-
-.form-button {
-    color: white;
-    width: 80%;
-    height: 45px;
-    border: 0 solid #65A534;
-    background:#65A534;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    outline: none;
-    margin: 20px 10px;
-}
-
-.chat-message {
-            margin-bottom: 10px;
-            padding: 20px;
-            border-radius: 30px;
-            clear: both;
-            overflow: hidden;
-            word-wrap: break-word;
-            z-index: 9999;
-            font-size: 22px;
-            box-shadow: 0 .4rem .8rem #0005;
-        }
-
-        .admin-message {
-            background-color:#65A534;
-            color: white;
-        }
-
-        .message-time {
-            float: right;
-            color: black;
-            font-size: 10px;
-        }
-
-        .user-message {
-            float: right;
-            background-color: #65A534; /* Green color */
-            color: white;
-            text-align: right;
-        }
-
-       
-
-        .chat-container {
-    padding-left: 80px; /* Horizontal padding */
-    padding-right: 80px; /* Horizontal padding */
-    padding-top: 0px; /* Minimal vertical padding */
-    padding-bottom: 20px; /* Minimal vertical padding */
-    position: relative;
-}
-
-        
-
-
 
         
     </style>
@@ -153,82 +95,56 @@
         </section>
     </div>
     <!-- Main content -->
-    <div class="main-contents" style=" position: fixed;
-            left: 9.0%;
-            width: 91%;
-            height: 91%;
-            bottom: 0;
-            z-index: 2;
-            overflow: auto;
-            border-radius: 20px;" >
-
-   
-   
-           
-
-<section class="header"></section>
-<section class="header">
-        </section>
-        <section class="table_body">
-
-        <div class="chat-container" id="chatContainer">
-        <?php if (empty($data['notifications'])): ?>
-    <p>You don't have any notifications yet.</p>
-<?php else: ?>
-    <table>
-    <?php 
-    // Sort notifications array by time in descending order
-    usort($data['notifications'], function($a, $b) {
-        return strtotime($b->time) - strtotime($a->time);
-    });
     
-    foreach ($data['notifications'] as $notification): ?>
-           <tr> <td> 
-            <div style="background-color:#65A534;
-                color: white; border-radius: 90px;
-                overflow: hidden;
-                word-wrap: break-word;
-                z-index: 9999;
-                font-size: 22px;
-                box-shadow: 0 .4rem .8rem #0005;
-                text-align:left;">
+
+    <main class="main-content">
+    <h1>Transportation Manager Notifications</h1><br>
+        <section class="notifications">
+
+    <div class="notification-container">
+        <?php if (empty($data['notifications'])): ?>
+            <p>You don't have any notifications yet.</p>
+        <?php else: ?>
+            <?php foreach ($data['notifications'] as $notification): ?>
                 <?php switch ($notification->action):
                     case 'reply':
-                        echo "<div style='padding: 25px;'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp Keells Admin has replied   '{$notification->admin_reply}'  for your Message </br> <div class='message-time'>{$notification->time}.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div></div>";
+                        $mainTopic = "Reply from Keells Admin";
+                        $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
                         break;
 
                     case 'new purchase order':
-
+                        // 
                         break;
 
                     case 'price_update':
-
-                       
+                        // 
                         break;
 
                     case 'payment_update':
-
-                        
+                        // 
                         break;
 
                     case 'reply':
-                       
+                        // 
                         break;
 
                     case 'replyupdate':
-                        
+                        // 
                         break;
-
                 endswitch; ?>
-            </div>
-            </td> </tr>
-    <?php endforeach; ?>
-</table>
+                <div class="notification">
+                    <div class="notification-info">
+                        <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
+                        <p class="notification-message"><?php echo $notificationContent; ?></p>
+                        <p class="notification-time"><?php echo $notification->time; ?></p>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+    </div>
+</section>
+</main>
 
-
-<?php endif; ?>
-
-</div>
 
 
 

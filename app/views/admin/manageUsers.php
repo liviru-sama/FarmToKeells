@@ -289,6 +289,8 @@
     <?php else: ?>
         <p>No rejected users.</p>
     <?php endif; ?>
+
+    <br><br>
     
 
 </body>
