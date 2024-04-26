@@ -169,7 +169,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     }
 
     public function index(){
-        if (!$this->isLoggedInAdmin()) {
+        if (!$this->isLoggedInadmin()) {
             redirect('transport/tm_login');
         } else {
             $data = [
@@ -227,6 +227,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $this->view('transport/cancelled_requests', $data);
     }
+
 
     public function resources() {
 

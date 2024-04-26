@@ -77,4 +77,18 @@
 
             return $results;
         }
+
+
+        // Request.php (Model)
+public function requestExists($order_id) {
+    // Perform a database query to check if a request for the given order ID exists
+    // Assuming your table name is 'requests' and the order_id column name is 'order_id'
+    $this->db->query('SELECT * FROM requests WHERE order_id = :order_id');
+    $this->db->bind(':order_id', $order_id);
+    $this->db->execute();
+
+    // Return true if a row exists, indicating a request exists for this order ID
+    return $this->db->rowCount() > 0;
+}
+
     }

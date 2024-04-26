@@ -215,7 +215,6 @@
                     <label>Needed Quantity in kgs</label>
                 </div>
 
-                <input type="submit" value="Reset" onclick="resetForm()">
                 <input type="submit" value="Add">
 
             </form>
