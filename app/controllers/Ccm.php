@@ -1196,7 +1196,7 @@ public function markAllAsRead() {
     $notificationModel = new CcmNotifications();
     $notificationModel->isRead();
 
-    // You can return a response if needed
+    // Return a response
     echo json_encode(['success' => true]);
 }
 

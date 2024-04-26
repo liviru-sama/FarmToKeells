@@ -192,10 +192,24 @@
 
 
             </section>
-            <section class="table_body">
+            <section class="table_body"></br>
+            <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; All </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderpendingtable" style="text-decoration: none;">
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderapprovedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejectedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapprovedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejectedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesordercompletedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+</a>  
                 <form method="post">
                     <table>
-</br>        
                         <thead>
 
                             <tr>

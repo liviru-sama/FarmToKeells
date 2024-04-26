@@ -112,8 +112,8 @@
 
     <!-- Main content -->
 
-    <main class="main-content">
-    <h1>Collection Center Manager Notifications</h1><br>
+    <main class="main-content" style=" height: 98%;position:fixed;">
+    <h1>Notifications</h1>
         <section class="notifications">
     <div class="notification-container">
         <?php if (empty($data['notifications'])): ?>

@@ -13,7 +13,23 @@
             /* Add your background image URL and properties here */
             background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
             background-size: cover;
-            height: 100%;
+            height: 100%; .redcircle {
+            /* display: none; */
+            background: red;
+            border: 0.5px solid black;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        .redcircle:hover {
+            transform: scale(1.08);
+            z-index: 1000;
+        }
+
         }
     </style>
 </head>
@@ -26,7 +42,7 @@
                 </a>
             </div>
             <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()">
+                <a href="<?php echo URLROOT; ?>/transport/notifications" id="notificationsButton" onclick="toggleNotifications()">
                 <div class="redcircle"></div>
 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
                 </a>

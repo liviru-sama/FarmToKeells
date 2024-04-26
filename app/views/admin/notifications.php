@@ -110,8 +110,8 @@
 
     <!-- Main content -->
 
-<main class="main-content">
-<h1>Keells Admin Notifications</h1><br>
+    <main class="main-content" style=" height: 98%;">
+    <h1>Notifications</h1>
 <section class="notifications">
 
 <div class="notification-container">
@@ -173,7 +173,27 @@
 
 </main>
 
+<script> function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/admin/markAllAsRead', true);
 
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };</script>
+   
+   
+           
 
 </body>
 

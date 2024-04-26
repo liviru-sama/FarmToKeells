@@ -202,7 +202,7 @@
 
              
 <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; All </h5>
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderpending" style="text-decoration: none;">
     <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderapproved" style="text-decoration: none;">
@@ -214,7 +214,7 @@
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesordercompleted" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Completed</h5>
 </a> </br> 
                 <form method="post">
                  
@@ -287,7 +287,7 @@
                                 }
                             } else {
                                 // Handle the case where no sales orders are found
-                                echo "<tr><td colspan='12'>You haven't placed any Orders yet</td></tr>";
+                                echo "<tr><td colspan='12'></td></tr>";
                             }
                             ?>
 

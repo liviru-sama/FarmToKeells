@@ -122,8 +122,8 @@
     </div>
 
     <!-- Main content -->
-    <main class="main-content">
-    <h1>Notifications</h1><br>
+    <main class="main-content" style=" height: 98%;">
+    <h1>Notifications</h1>
         <section class="notifications">
             
             <div class="notification-container">

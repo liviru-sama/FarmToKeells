@@ -202,11 +202,11 @@
 
              
 <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; All </h5>
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderpending" style="text-decoration: none;">
     <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderapproved" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Approved</h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejected" style="text-decoration: none;">
     <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
 </a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapproved" style="text-decoration: none;">
@@ -287,7 +287,6 @@
                                 }
                             } else {
                                 // Handle the case where no sales orders are found
-                                echo "<tr><td colspan='12'>You haven't placed any Orders yet</td></tr>";
                             }
                             ?>
 

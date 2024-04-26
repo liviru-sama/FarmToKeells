@@ -275,33 +275,29 @@ function searchProducts() {
 
 
 function updateNotifications() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '<?php echo URLROOT; ?>/ccm/notify', true);
+    var redCircle = document.querySelector('.redcircle');
+    redCircle.style.display = 'block'; // Always show red circle initially
 
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                // Parse response as JSON
-                var response = JSON.parse(xhr.responseText);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', '<?php echo URLROOT; ?>/ccm/notify', true);
 
-                // Get the red circle element
-                var redCircle = document.querySelector('.redcircle');
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            // Parse response as JSON
+            var response = JSON.parse(xhr.responseText);
 
-                // Update red circle based on unread notifications
-                if (response.unread) {
-                    redCircle.style.display = 'block'; // Show red circle
-                } else {
-                    redCircle.style.display = 'none'; // Hide red circle
-                }
+            // Update red circle based on unread notifications
+            if (!response.unread) {
+                redCircle.style.display = 'none'; // Hide red circle if no unread notifications
             }
-        };
+        }
+    };
 
-        xhr.send();
-    }
+    xhr.send();
+}
 
     // Call the function initially
-    updateNotifications();
-    setInterval(updateNotifications, 5000);
-
+  
         </script>
 
 </body>

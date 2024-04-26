@@ -186,10 +186,7 @@
                 <th>Your Order ID</th>
                 <th>Product</th>
                 <th>Total Price</th>
-                <th>Your Bank Account Number</th>
-                <th>Your Bank Account Name</th>
-                <th>Bank</th>
-                <th>Branch</th>
+              
                 <th>Status</th>
                
             </tr>
@@ -205,10 +202,7 @@
                         <td><?php echo $paymentRequest->order_id; ?></td>
                         <td><?php echo $paymentRequest->product; ?></td>
                         <td><?php echo $paymentRequest->totalprice; ?></td>
-                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                        <td><?php echo $paymentRequest->account_name; ?></td>
-                        <td><?php echo $paymentRequest->bank; ?></td>
-                        <td><?php echo $paymentRequest->branch; ?></td>
+                       
                         <td><?php echo $paymentRequest->status; ?></td>
                        
                     </tr>
@@ -230,10 +224,7 @@
                 <th>Your Order ID</th>
                 <th>Product</th>
                 <th>Total Price</th>
-                <th>Your Bank Account Number</th>
-                <th>Your Bank Account Name</th>
-                <th>Bank</th>
-                <th>Branch</th>
+                
                 <th>Status</th>
                 
             </tr>
@@ -249,10 +240,7 @@
                         <td><?php echo $paymentRequest->order_id; ?></td>
                         <td><?php echo $paymentRequest->product; ?></td>
                         <td><?php echo $paymentRequest->totalprice; ?></td>
-                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                        <td><?php echo $paymentRequest->account_name; ?></td>
-                        <td><?php echo $paymentRequest->bank; ?></td>
-                        <td><?php echo $paymentRequest->branch; ?></td>
+                       
                         <td><?php echo $paymentRequest->status; ?></td>
                        
                     </tr>
