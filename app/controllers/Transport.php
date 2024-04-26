@@ -149,14 +149,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         }
     }
     
-    public function createUserSession($admin_user) {
-        $_SESSION['admin_id'] = $admin_user->admin_id;
-        $_SESSION['admin_username'] = $admin_user->admin_username;
-        // Check if the 'admin_id' session variable exists
-
-
-        redirect('transport/dashboard');
-    }
+   
     
     function getDates($startDate, $endDate) {
         $dates = array();
@@ -261,7 +254,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             // If not a POST request, redirect to home
             redirect('transport/tm_chat');
         }
-    }
+    }}
 
     // Farmer controller method to retrieve inquiries of the current user
     public function tm_chat() {
@@ -296,6 +289,178 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         redirect('transport/tm_login');
       }
 
+      public function getUserInfo($user_id) {
+        return $this->userModel->getUserInfoById($user_id);
+    }
+
+    public function salesorderapproved() {
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesordersqualityapproved();
+        
+        // Load the view with purchase orders data
+        $this->view('transport/salesorderapproved', $data);
+    }}
+
+    public function salesordercompleted() {
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { // Instantiate Purchaseorder Model
+        $salesorderModel = new Salesorder();
+        
+        // Get all purchase orders
+        $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+        
+        // Load the view with purchase orders data
+        $this->view('transport/salesordercompleted', $data);
+    }}
+
+    public function Notifications() {
+        if (!$this->isLoggedInadmin()) {
+            redirect('transport/tm_login');
+        } else { $notificationModel = $this->model('TmNotifications');
+    
+        $notifications = $notificationModel->getAllNotifications();
+    
+       
+        $data = [
+            'notifications' => $notifications,
+        ];
+    
+        // Load the 'farmer/inquiry' view and pass data to it
+        $this->view('transport/notifications', $data);
+    } }
+
+      public function forgotPassword() {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Handle form submission
+            $email = $_POST['email'];
+    
+            $admin = $this->tmModel->getTMByEmail($email);
+            if ($admin) {
+                $token = bin2hex(random_bytes(32));
+    
+                $adminId = $admin->admin_id;
+                if ($this->tmModel->updateResetToken($adminId, $token)) {
+                    // Send the password reset email
+                    $resetPasswordLink = URLROOT . '/transport/resetPassword/' . $token;
+    
+                    $subject = 'Transportation Manager - Password Reset Link';
+                    $body = 'Click on the following link to reset your password: ' . $resetPasswordLink;
+    
+                    // Create a PHPMailer instance
+                    $mail = new PHPMailer(true);
+    
+                    try {
+                        // Server settings
+                        $mail->isSMTP();
+                        $mail->Host       = 'smtp.mailgun.org'; // SMTP server
+                        $mail->SMTPAuth   = true;
+                        $mail->Username   = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+                        $mail->Password   = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';   // SMTP password
+                        $mail->SMTPSecure = 'tls';
+                        $mail->Port       = 587;
+    
+                        // Recipients
+                        $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
+                        $mail->addAddress($email); // Add a recipient
+    
+                        // Content
+                        $mail->isHTML(true);
+                        $mail->Subject = $subject;
+                        $mail->Body    = $body;
+    
+                        $mail->send();
+    
+                        // Redirect to a success page or display a message
+                        flash('forgot_password_success', 'Password reset link has been sent to your email.');
+                        redirect('transport/forgotPassword');
+    
+                    } catch (Exception $e) {
+                        die('Email sending failed: ' . $mail->ErrorInfo);
+                    }
+                } else {
+                    //Email not found
+                    flash('forgot_password_error', 'Email not found.');
+                    redirect('transport/forgotPassword');
+                }
+            } else {
+                // Email not found
+                flash('forgot_password_error', 'Email not found.');
+                redirect('transport/forgotPassword');
+            }
+        } else {
+            // Render the view for the forgot password page
+            $this->view('transport/forgotPassword');
+        }
+    }
+    
+    
+    public function resetPassword($token = null) {
+    
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $token = $_GET['token'];
+    
+            // Validate password reset form data
+            // Validate password reset form data
+            $data = [
+                'password' => trim($_POST['password']),
+                'confirm_password' => trim($_POST['confirm_password']),
+                'token' => $token,
+                'password_err' => '',
+                'confirm_password_err' => ''
+            ];
+    
+            // Validate Password
+            if (empty($data['password'])) {
+                $data['password_err'] = 'Please enter password';
+            } elseif (strlen($data['password']) < 6) {
+                $data['password_err'] = 'Password must be at least 6 characters';
+            } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d).+$/', $data['password'])) {
+                $data['password_err'] = 'Password must contain at least one letter and one number';
+            }
+    
+            // Confirm password validation
+            if (empty($data['confirm_password'])) {
+                $data['confirm_password_err'] = 'Please confirm password.';
+            } else {
+                if ($data['password'] != $data['confirm_password']) {
+                    $data['confirm_password_err'] = 'Passwords do not match.';
+                }
+            }
+    
+            if (empty($data['password_err']) && empty($data['confirm_password_err'])) {
+                $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+    
+                if ($this->tmModel->updatePasswordByResetToken($data['token'], $data['password'])) {
+                    flash('reset_password_success', 'Password has been reset successfully.');
+                    redirect('transport/tm_login');
+                } else {
+                    die('Error updating password.');
+                }
+            } else {
+                $this->view('transport/resetPassword', $data);
+            }
+        } else {
+            $admin = $this->tmModel->getTMByResetToken($token);
+            if ($admin) {
+                $data = [
+                    'token' => $token,
+                    'password_err' => '',
+                    'confirm_password_err' => ''
+                ];
+                $this->view('transport/resetPassword', $data);
+            } else {
+                flash('reset_password_error', 'Invalid or expired token.');
+                redirect('transport/forgotPassword');
+            }
+        
+    }
+    }
 
 
     public function drivers(){
