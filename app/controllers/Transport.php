@@ -183,17 +183,11 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $users = $this->model('User');
 
-        $products = $this->model('Product');
-
         $data['activeRequests'] = $requests->getActiveRequests();
-
-        // show($data['activeRequests']);
 
         foreach ($data['activeRequests'] as $request) {
             $user = $users->findUserByID($request->user_id);
             $request->user = $user->name;
-            $product = $products->getProductByID($request->product_id);
-            $request->product = $product->name;
         }
 
         $this->view('transport/pending_requests', $data);
@@ -208,20 +202,16 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
         $users = $this->model('User');
 
-        $products = $this->model('Product');
-
         $data['cancelledRequests'] = $requests->getCancelledRequests();
 
-        // show($data['activeRequests']);
         foreach ($data['cancelledRequests'] as $request) {
             $user = $users->findUserByID($request->user_id);
             $request->user = $user->name;
-            $product = $products->getProductByID($request->product_id);
-            $request->product = $product->name;
         }
 
         $this->view('transport/cancelled_requests', $data);
     }
+
 
     public function resources() {
 
