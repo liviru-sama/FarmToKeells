@@ -102,7 +102,7 @@
 }
 
 .chat-container {
-   padding: 200px;
+   padding: 100px;
    position: relative;
    margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
 }
@@ -167,7 +167,8 @@
 <div class="navbar-icon-container" data-text="Notifications">
 
 <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+<div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
@@ -309,8 +310,34 @@ foreach ($data['ccm_chats'] as $chat):
 </body>
 </html>
 
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<script>
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/ccm/notify', true);
 
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);</script>
 
 </body>
 

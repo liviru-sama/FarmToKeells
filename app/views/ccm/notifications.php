@@ -155,6 +155,24 @@
 </main>
 
 
+<script> function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/ccm/markAllAsRead', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };</script>
    
    
            

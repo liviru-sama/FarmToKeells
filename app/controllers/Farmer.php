@@ -1434,9 +1434,80 @@ public function Notifications() {
     // Load the 'farmer/inquiry' view and pass data to it
     $this->view('farmer/notifications', $data);
   }
+
+
+  public function salesorderpending() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {// Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesorderspending();
+    
+    // Load the view with purchase orders data
+    $this->view('farmer/salesorderpending', $data);
+}}
+
+public function salesorderapproved() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {// Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesordersapproved();
+    
+    // Load the view with purchase orders data
+    $this->view('farmer/salesorderapproved', $data);
+}}
+
+public function salesorderrejected() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {// Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesordersrejected();
+    
+    // Load the view with purchase orders data
+    $this->view('farmer/salesorderrejected', $data);
+}}
+
+public function salesordercompleted() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {// Instantiate Purchaseorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get all purchase orders
+    $data['salesorders'] = $salesorderModel->getAllSalesorderscompleted();
+    
+    // Load the view with purchase orders data
+    $this->view('farmer/salesordercompleted', $data);
+}}
+
+
+
+public function notify(){
+    $notificationModel = new FarmerNotifications();
+    $unread = $notificationModel->unreadNotifs();
+
+    // Return JSON response
+    echo json_encode(array('unread' => $unread));
+}
+
+public function markAllAsRead() {
+    $notificationModel = new FarmerNotifications();
+    $notificationModel->isRead();
+
+    // You can return a response if needed
+    echo json_encode(['success' => true]);
 }
 
 
+}
 
 ?>
 

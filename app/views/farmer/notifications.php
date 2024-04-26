@@ -123,7 +123,7 @@
 
     <!-- Main content -->
     <main class="main-content">
-    <h1>Farmer Notifications</h1><br>
+    <h1>Notifications</h1><br>
         <section class="notifications">
             
             <div class="notification-container">
@@ -174,6 +174,27 @@
     </main>
 
 
+    <script>
+    // Function to mark all notifications as read using AJAX
+    function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/markAllAsRead', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };
+</script>
 
 </body>
 

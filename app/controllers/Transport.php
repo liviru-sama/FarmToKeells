@@ -1356,6 +1356,23 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             die('Something went wrong');
         }
     }
+
+    public function notify(){
+        $notificationModel = new TmNotifications();
+        $unread = $notificationModel->unreadNotifs();
+    
+        // Return JSON response
+        echo json_encode(array('unread' => $unread));
+    }
+    
+    public function markAllAsRead() {
+        $notificationModel = new TmNotifications();
+        $notificationModel->isRead();
+    
+        // You can return a response if needed
+        echo json_encode(['success' => true]);
+    }
+    
 }
 
 

@@ -1184,6 +1184,24 @@ public function resetPassword($token = null) {
 }
 }
 
+public function notify(){
+    $notificationModel = new CcmNotifications();
+    $unread = $notificationModel->unreadNotifs();
+
+    // Return JSON response
+    echo json_encode(array('unread' => $unread));
+}
+
+public function markAllAsRead() {
+    $notificationModel = new CcmNotifications();
+    $notificationModel->isRead();
+
+    // You can return a response if needed
+    echo json_encode(['success' => true]);
+}
+
+
+
 }
 
 ?>

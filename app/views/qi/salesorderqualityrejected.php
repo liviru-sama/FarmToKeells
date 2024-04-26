@@ -39,7 +39,8 @@
             </div>
             <div class="navbar-icon-container" data-text="Notifications">
                 <a href="<?php echo URLROOT; ?>/qi/notifications" id="notificationsButton" onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+                <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
                 </a>
             </div>
             <div class="navbar-icon-container" data-text="Logout">

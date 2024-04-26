@@ -213,7 +213,7 @@
                     <th>User ID</th>
                     <th>Name</th>
                     <th>Mobile</th>
-                    <th>Province</th>
+                    <th>Collection Center</th>
                     <th>Address</th>
                     <th>Action</th>
                 </tr>
@@ -257,7 +257,7 @@
                     <th>User ID</th>
                     <th>Name</th>
                     <th>Mobile</th>
-                    <th>Province</th>
+                    <th>Collection Center</th>
                     <th>Address</th>
                     <th>Action</th>
                 </tr>
