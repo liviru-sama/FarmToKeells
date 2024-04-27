@@ -145,15 +145,21 @@
             return $this->db->single();
         }
 
-        // Add this method to your User class
-        public function getPasswordById($id) {
-            $this->db->query('SELECT password FROM users WHERE id = :id');
-            $this->db->bind(':id', $id);
-
-            $row = $this->db->single();
-
-            return ($this->db->rowCount() > 0) ? $row->password : null;
+        public function getUserByIdPass($user_id) {
+            $this->db->query('SELECT * FROM users WHERE id = :id');
+            $this->db->bind(':id', $user_id);
+        
+            return $this->db->single();
         }
+    
+        public function updatePassword($user_id, $hashed_password) {
+            $this->db->query('UPDATE users SET password = :password WHERE id = :id');
+            $this->db->bind(':id', $user_id);
+            $this->db->bind(':password', $hashed_password);
+    
+            return $this->db->execute(); 
+        }
+
 
 
         public function changePassword($data) {
@@ -244,16 +250,7 @@
 
 
 
-        public function updatePassword($id, $new_password)
-    {
-        $this->db->query('UPDATE users SET password = :password WHERE id = :id');
-        // Bind values
-        $this->db->bind(':id', $id);
-        $this->db->bind(':password', $new_password);
-
-        // Execute the query
-        return $this->db->execute();
-    }
+       
 
 
 
@@ -278,6 +275,7 @@
             $this->db->bind(':name', $data['name']);
             $this->db->bind(':email', $data['email']);
             $this->db->bind(':username', $data['username']);
+
     
             // Execute
             return $this->db->execute();
@@ -417,7 +415,6 @@ public function getCollectionCenterAddress($userId) {
 
 
 
-
 public function updateProfilePicture($userId, $fileName) {
     $this->db->query('UPDATE users SET image = :fileName WHERE id = :userId');
     $this->db->bind(':fileName', $fileName);
@@ -439,5 +436,6 @@ public function getUserImage($userId) {
 
 
 
-}
 
+
+}

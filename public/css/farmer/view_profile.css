@@ -1,43 +1,47 @@
 @import url(../main.css);
 
-.center{
-    position:fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    height: 500px;
-    width: 800px;
-    background: rgba(255, 255, 255, 0.6);
-    margin: 40px auto;
-    border-radius: 10px;
-    text-align: center;
+.profile-info {
+    margin-bottom: 20px;
 }
-.center h1{
-    text-align: center;
-    padding: 20px 0 20px 0;
-    font-size: 250%;
-    
+
+.profile-image {
+    margin-bottom: 20px;
 }
-.center form{
-    padding: 0 30px;
-    box-sizing: border-box;
-    text-align: center;
-    
+
+.profile-image img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
 }
-.form .center .menu img{
-    align-items: center;
-    height: 15rem;
-    width: 15rem;
-}
-.form .center .menu h3{
-    text-align: center;
-    padding: 10px 0 10px 0;
-    font-size: 1.3rem;
+
+.profile-heading {
+flex: 1; /* Allow the heading to grow to fill remaining space */
 }
 
 .form-button {
     color: white;
-    width: 17%;
+    width: 80%;
+    height: 45px;
+    border: 0 solid #65A534;
+    background: #65A534;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+    margin: 20px 10px;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.form-button {
+    color: white;
+    width: 45%;
     height: 45px;
     border: 0 solid #65A534;
     background:#65A534;
@@ -52,6 +56,10 @@
     color: black;
     background-color: #65A534;
     transition: 0.5s;
+}
+
+.flash-message-error {
+    color: red;
 }
 
 

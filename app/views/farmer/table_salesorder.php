@@ -10,148 +10,171 @@
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
     <style>
-        body,
-        html {
-            /* Add your background image URL and properties here */
-            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
-            background-size: cover;
-            height: 100%;
-        }
+    body,
+    html {
+        /* Add your background image URL and properties here */
+        background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+        background-size: cover;
+        height: 100%;
+    }
 
-        .table_header {
-    display: flex;
-    justify-content: space-between; /* Align items to both ends */
-    align-items: center; /* Vertically center items */
-}
+    .table_header {
+        display: flex;
+        justify-content: space-between;
+        /* Align items to both ends */
+        align-items: center;
+        /* Vertically center items */
+    }
 
-.inline-heading {
-    margin: 0; /* Remove default margin */
-}
+    .inline-heading {
+        margin: 0;
+        /* Remove default margin */
+    }
 
-#searchInput {
-    padding: 10px 20px;
-    background-color: #65A534;
-    color: white;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-    margin-right: 10px; /* Adjust margin-right as needed */
-    width:300px;
-}
+    #searchInput {
+        padding: 10px 20px;
+        background-color: #65A534;
+        color: white;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        margin-right: 10px;
+        /* Adjust margin-right as needed */
+        width: 300px;
+    }
 
-.button {
-    padding: 10px 20px;
-    background-color: #65A534;
-    color: white;
-    border: 2px solid #4CAF50;
-    border-radius: 5px;
-    text-decoration: none; /* Remove default underline */
-}
+    .button {
+        padding: 10px 20px;
+        background-color: #65A534;
+        color: white;
+        border: 2px solid #4CAF50;
+        border-radius: 5px;
+        text-decoration: none;
+        /* Remove default underline */
+    }
 
 
 
 
 
-        .disabled-link {
-            pointer-events: none;
-            opacity: 0.5;
-            filter: grayscale(100%);
-        }
-
+    .disabled-link {
+        pointer-events: none;
+        opacity: 0.5;
+        filter: grayscale(100%);
+    }
     </style>
 </head>
 
 <body>
-<div class="navbar">
-    <div class="navbar-icons">
-    <div class="navbar-icon-container" data-text="Go Back">
-        <a href="<?php echo URLROOT; ?>/farmer/dashboard" id="backButton" >
-            <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-        </a></div>
+    <div class="navbar">
+        <div class="navbar-icons">
+            <div class="navbar-icon-container" data-text="Go Back">
+                <a href="<?php echo URLROOT; ?>/farmer/dashboard" id="backButton">
+                    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+                </a>
+            </div>
 
 
-        <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a></div>
+            <div class="navbar-icon-container" data-text="Notifications">
+                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
+                    onclick="toggleNotifications()">
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
+                        class="navbar-icon">
+                </a>
+            </div>
 
 
-      
 
 
-                    <div class="navbar-icon-container" data-text="View Profile" >
-                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
-                    </a></div>
+
+            <div class="navbar-icon-container" data-text="View Profile">
+                <a href="<?php echo URLROOT; ?>/farmer/view_profile">
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
+                        class="navbar-icon">
+                </a>
+            </div>
 
 
-<div class="navbar-icon-container" data-text="Logout">
+            <div class="navbar-icon-container" data-text="Logout">
 
-<a href="<?php echo URLROOT; ?>/farmer/logout">
+                <a href="<?php echo URLROOT; ?>/farmer/logout">
 
-            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-        </a></div>
+                    <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+                </a>
+            </div>
+
+        </div>
+        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
 
     </div>
-    <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-   
-</div>
-<script>
+    <script>
     // JavaScript function to go back to the previous page
     function goBack() {
         window.history.back();
     }
-</script>
+    </script>
 
     <!-- Sidebar -->
     <div class="sidebar">
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    
-                <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+
+                    <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>"
+                        style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-1" style="background: #65A534; transform: scale(1.08);">
-                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
+                            <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Products</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"  > 
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
+                    <a href="<?php echo URLROOT; ?>/farmer/purchaseorder"
+                        style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/view_price" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4"  >
-                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt="" style="width: 50px; height: 50px;">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_price"
+                        style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash4.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Market Prices</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
-                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
+                    <a href="<?php echo URLROOT; ?>/farmer/transport"
+                        style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7">
+                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>
                     </a>
 
-                    <a href="<?php echo URLROOT; ?>/farmer/view_payment" style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-5" >
-                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt="" style="width: 50px; height: 50px;">
+                    <a href="<?php echo URLROOT; ?>/farmer/view_payment"
+                        style="width: 12.5%; height: 20%; color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-5">
+                            <img src="<?php echo URLROOT; ?>/public/images/pay.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Payment</h6>
                         </div>
                     </a>
 
-                    
-                    </a> <a href="<?php echo URLROOT; ?>/ccm/inquiry" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" >
-                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
+
+                    </a> <a href="<?php echo URLROOT; ?>/ccm/inquiry"
+                        style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-6">
+                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt=""
+                                style="width: 50px; height: 50px;">
                             <h6>Help</h6>
                         </div>
                     </a>
 
-                    
+
                 </div>
             </div>
         </section>
@@ -159,26 +182,23 @@
     <!-- Main content -->
     <div class="main-content">
 
-    <div class="main-content">
+        <div class="main-content">
 
-    <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >&nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
+            <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
+                <h5 class="inline-heading" class="tab-heading tab-selected">&nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
             </a>
 
-    <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >Your Orders Table View </h5></a>
-
-    
-           
-</br>
+            <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
+                <h5 class="inline-heading" class="tab-heading"
+                    style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">
+                    Your Orders Table View </h5>
+            </a>
 
 
+
+            </br>
       
-        
-    
-<main class="table"></br>
+      <main class="table"></br>
 <section class="table_header">
     <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
     <div>
@@ -222,11 +242,15 @@
 
    
                         <?php 
+
+
 // Check if data is not empty and is an array
 if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
     foreach ($data['salesorders'] as $row) {
 ?>
-        <tr>
+
+                              
+                              <tr>
 
             <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
             <td><?php echo $row->order_id ?></td>
@@ -254,44 +278,46 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
 }
 ?>
 
-<iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;" src=""></iframe>
-                            <script>
+                                <iframe id="confirmationDialog"
+                                    style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;"
+                                    src=""></iframe>
+                                <script>
+                                document.addEventListener('DOMContentLoaded', function() {
+                                    var confirmationDialog = document.getElementById('confirmationDialog');
+
+                                    // Function to handle click events
+                                    function handleClick(event) {
+                                        // Check if the clicked element is not inside the iframe
+                                        if (event.target !== confirmationDialog && !confirmationDialog.contains(
+                                                event.target)) {
+                                            confirmationDialog.style.display = 'none'; // Hide the iframe
+                                            window.removeEventListener('click',
+                                            handleClick); // Remove the event listener
+                                        }
+                                    }
+
+                                    // Show the iframe when the delete button is clicked
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    var confirmationDialog = document.getElementById('confirmationDialog');
+                                    // Attach event listener to the parent window
+                                    function init() {
+                                        window.addEventListener('click', handleClick);
+                                    }
 
-    // Function to handle click events
-    function handleClick(event) {
-        // Check if the clicked element is not inside the iframe
-        if (event.target !== confirmationDialog && !confirmationDialog.contains(event.target)) {
-            confirmationDialog.style.display = 'none'; // Hide the iframe
-            window.removeEventListener('click', handleClick); // Remove the event listener
-        }
-    }
-
-    // Show the iframe when the delete button is clicked
-   
-
-    // Attach event listener to the parent window
-    function init() {
-        window.addEventListener('click', handleClick);
-    }
-
-    init(); // Call the function to attach event listener
-});
+                                    init(); // Call the function to attach event listener
+                                });
 
 
 
 
 
 
-function confirmDelete(deleteUrl, orderId) {
-  var confirmationDialog = document.getElementById('confirmationDialog');
-  confirmationDialog.style.display = 'block';
+                                function confirmDelete(deleteUrl, orderId) {
+                                    var confirmationDialog = document.getElementById('confirmationDialog');
+                                    confirmationDialog.style.display = 'block';
 
-  // Write content to iframe with transparent background and adjusted font sizes
-  var iframeContent = `<style>
+                                    // Write content to iframe with transparent background and adjusted font sizes
+                                    var iframeContent = `<style>
 
   body {
       overflow: hidden; /* Hide scrollbar */
@@ -325,72 +351,75 @@ function confirmDelete(deleteUrl, orderId) {
       </form>
     </div>
   </div>`;
-  confirmationDialog.contentDocument.body.innerHTML = iframeContent;
+                                    confirmationDialog.contentDocument.body.innerHTML = iframeContent;
 
-  // Set transparent background for iframe
-  confirmationDialog.style.backgroundColor = 'white';
-}
+                                    // Set transparent background for iframe
+                                    confirmationDialog.style.backgroundColor = 'white';
+                                }
 
-function submitFormAndClose(event) {
-  event.preventDefault(); // Prevent default form submission behavior
-  document.getElementById('deleteForm').submit();
-  var confirmationDialog = document.getElementById('confirmationDialog');
-  confirmationDialog.contentWindow.document.body.innerHTML = ""; // Clear iframe content
-  confirmationDialog.style.display = 'none';
+                                function submitFormAndClose(event) {
+                                    event.preventDefault(); // Prevent default form submission behavior
+                                    document.getElementById('deleteForm').submit();
+                                    var confirmationDialog = document.getElementById('confirmationDialog');
+                                    confirmationDialog.contentWindow.document.body.innerHTML =
+                                    ""; // Clear iframe content
+                                    confirmationDialog.style.display = 'none';
 
-  // Display deletion success message in green above the table
-  var deletionSuccessMessage = document.createElement('p');
-  deletionSuccessMessage.textContent = 'Deletion successful';
-  deletionSuccessMessage.style.color = 'green';
-  deletionSuccessMessage.style.textAlign = 'center'; // Center the message
-  deletionSuccessMessage.style.backgroundColor = 'lightgreen'; // Light green background
-  deletionSuccessMessage.style.padding = '10px'; // Add padding for better visibility
-  document.querySelector('.table_header').insertAdjacentElement('afterbegin', deletionSuccessMessage);
+                                    // Display deletion success message in green above the table
+                                    var deletionSuccessMessage = document.createElement('p');
+                                    deletionSuccessMessage.textContent = 'Deletion successful';
+                                    deletionSuccessMessage.style.color = 'green';
+                                    deletionSuccessMessage.style.textAlign = 'center'; // Center the message
+                                    deletionSuccessMessage.style.backgroundColor =
+                                    'lightgreen'; // Light green background
+                                    deletionSuccessMessage.style.padding = '10px'; // Add padding for better visibility
+                                    document.querySelector('.table_header').insertAdjacentElement('afterbegin',
+                                        deletionSuccessMessage);
 
-  // Reload parent page after 3 seconds (consider using AJAX for a smoother experience)
-  setTimeout(function() {
-    window.parent.location.reload();
-  }, 3000);
-}
+                                    // Reload parent page after 3 seconds (consider using AJAX for a smoother experience)
+                                    setTimeout(function() {
+                                        window.parent.location.reload();
+                                    }, 3000);
+                                }
 
-function cancelDelete() {
-  var confirmationDialog = document.getElementById('confirmationDialog');
-  confirmationDialog.contentWindow.document.body.innerHTML = ""; // Clear iframe content
-  confirmationDialog.style.display = 'none';
-}
-
-
-function searchProducts() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
-
-    // Loop through all table rows, and hide those that don't match the search query
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[2]; // Index 2 corresponds to the product name column
-        if (td) {
-            txtValue = td.textContent || td.innerText;
-            if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                tr[i].style.display = "";
-            } else {
-                tr[i].style.display = "none";
-            }
-        }
-    }
-}
+                                function cancelDelete() {
+                                    var confirmationDialog = document.getElementById('confirmationDialog');
+                                    confirmationDialog.contentWindow.document.body.innerHTML =
+                                    ""; // Clear iframe content
+                                    confirmationDialog.style.display = 'none';
+                                }
 
 
-</script>
+                                function searchProducts() {
+                                    // Declare variables
+                                    var input, filter, table, tr, td, i, txtValue;
+                                    input = document.getElementById("searchInput");
+                                    filter = input.value.toUpperCase();
+                                    table = document.querySelector("table");
+                                    tr = table.getElementsByTagName("tr");
+
+                                    // Loop through all table rows, and hide those that don't match the search query
+                                    for (i = 0; i < tr.length; i++) {
+                                        td = tr[i].getElementsByTagName("td")[
+                                        2]; // Index 2 corresponds to the product name column
+                                        if (td) {
+                                            txtValue = td.textContent || td.innerText;
+                                            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                                                tr[i].style.display = "";
+                                            } else {
+                                                tr[i].style.display = "none";
+                                            }
+                                        }
+                                    }
+                                }
+                                </script>
 
 
-                        </tbody>
-                    </table>
-                </form>
-            </section>
-        </main>
+                            </tbody>
+                        </table>
+                    </form>
+                </section>
+            </main>
 
 </body>
 
