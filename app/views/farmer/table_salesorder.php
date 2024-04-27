@@ -74,13 +74,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -211,10 +209,24 @@
 
 
             </section>
-            <section class="table_body">
+            <section class="table_body"></br>
+            <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; All </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderpendingtable" style="text-decoration: none;">
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderapprovedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejectedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapprovedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejectedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesordercompletedtable" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+</a>  
                 <form method="post">
                     <table>
-</br>        
                         <thead>
 
                             <tr>
@@ -252,7 +264,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
                               
                               <tr>
 
-            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
+            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" ></td>
             <td><?php echo $row->order_id ?></td>
             <td><?php echo $row->name ?></td>
             <td><?php echo $row->type ?></td>
@@ -260,8 +272,38 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
             <td><?php echo $row->price ?></td>
             <td><?php echo $row->date ?></td>
             <td><?php echo $row->address ?></td>
-            <td><?php echo $row->status ?></td>
-
+            <td style="padding: 15px;white-space: nowrap; 
+"><span style="
+        <?php
+        // Set background color based on status
+        switch ($row->status) {
+            case 'Approved' :
+                echo 'background-color: #65A534;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Green
+                break;
+            case 'Quality Approved' :
+                echo 'background-color: #65A534;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Green
+                break;
+            case 'Completed' :
+                echo 'background-color: grey;           box-shadow: 0 .4rem .8rem #0005;'; // Grey
+                break;
+            case 'Rejected':
+                echo 'background-color: red;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Red
+                break;
+                case 'Quality Rejected':
+                    echo 'background-color: red;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Red
+                    break;
+            case 'Pending Approval'|| 'pending approval' :
+                echo 'background-color: white; color:black;           box-shadow: 0 .4rem .8rem #0005;'; // No color
+                break;
+            default:
+                echo ''; // No color
+                break;
+        }
+        ?>
+        border-radius: 5px; padding: 5px; font-weight: bold; font-family: 'Inter', sans-serif;">
+            <?php echo $row->status; ?>
+        </span></td>
+            
           
 
 <td>    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
@@ -413,6 +455,34 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
                                     }
                                 }
                                 </script>
+
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
 
 
                             </tbody>

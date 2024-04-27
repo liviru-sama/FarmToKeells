@@ -80,7 +80,8 @@
 <div class="navbar-icon-container" data-text="Notifications">
 
 <a href="<?php echo URLROOT; ?>/admin/notifications" id="notificationsButton" onclick="toggleNotifications()" >
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+<div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
@@ -221,40 +222,7 @@
                 </form>
             </section>
 
-            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Needlist Items</h2>
-
-                        <thead>
-                            <tr>
-                                <th>Purchase order ID</th>
-                                <th>Product</th>
-                                <th>Product image</th>
-                                <th>Product type</th>
-                                <th>Needed quantity(kgs)</th>
-                                <th>Expected supply date</th>
-                                <th>Status</th>
-                                <th>View User order</th>
-                                <th>EDIT</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($data['purchaseorders'] as $row) { ?>
-                                <?php if ($row['purchase_status'] === 'Completed') { ?>                                <tr>
-                                    <td><?php echo $row['purchase_id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                    <td><?php echo $row['quantity'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
-                                </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+            
         </main>
     </section>
 
@@ -291,6 +259,34 @@ function searchProducts() {
         }
     }
 }
+
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/admin/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
 
         </script>
 

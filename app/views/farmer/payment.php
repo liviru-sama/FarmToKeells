@@ -99,13 +99,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -212,48 +210,35 @@
         <section class="header">
             <main class="table" style="text-align:center;"></br>
 
-                <?php if (!empty($data['paymentRequests'])) : ?>
-                <h2>Your Pending Payments</h2></br>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Your Payment ID</th>
-                            <th>Your Order ID</th>
-                            <th>Product</th>
-                            <th>Total Price</th>
-                            <th>Your Bank Account Number</th>
-                            <th>Your Bank Account Name</th>
-                            <th>Bank</th>
-                            <th>Branch</th>
-                            <th>Status</th>
-
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
-                        <?php if ($paymentRequest->status === 'pending') : ?>
-                        <?php $pendingFound = true; ?>
-                        <tr>
-                            <!-- Display pending payment requests -->
-                            <td><?php echo $paymentRequest->payment_id; ?></td>
-                            <!-- Other table cells -->
-                            <td><?php echo $paymentRequest->order_id; ?></td>
-                            <td><?php echo $paymentRequest->product; ?></td>
-                            <td><?php echo $paymentRequest->totalprice; ?></td>
-                            <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                            <td><?php echo $paymentRequest->account_name; ?></td>
-                            <td><?php echo $paymentRequest->bank; ?></td>
-                            <td><?php echo $paymentRequest->branch; ?></td>
-                            <td><?php echo $paymentRequest->status; ?></td>
-
-                        </tr>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-
-                <?php if (!$pendingFound) : ?>
-                <p>No pending payment requests found.</p>
+            <?php if (!empty($data['paymentRequests'])) : ?>
+    <h2>Your Pending Payments</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Your Payment ID</th>
+                <th>Your Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+              
+                <th>Status</th>
+               
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status === 'pending') : ?>
+                    <?php $pendingFound = true; ?>
+                    <tr>
+                        <!-- Display pending payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                       
+                        <td><?php echo $paymentRequest->status; ?></td>
+                       
+                    </tr>
                 <?php endif; ?>
 
                 </br> </br>
@@ -265,42 +250,69 @@
                             <th>Your Order ID</th>
                             <th>Product</th>
                             <th>Total Price</th>
-                            <th>Your Bank Account Number</th>
-                            <th>Your Bank Account Name</th>
-                            <th>Bank</th>
-                            <th>Branch</th>
+                           
                             <th>Status</th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
-                        <?php if ($paymentRequest->status !== 'pending') : ?>
-                        <?php $completedFound = true; ?>
-                        <tr>
-                            <!-- Display completed payment requests -->
-                            <td><?php echo $paymentRequest->payment_id; ?></td>
-                            <!-- Other table cells -->
-                            <td><?php echo $paymentRequest->order_id; ?></td>
-                            <td><?php echo $paymentRequest->product; ?></td>
-                            <td><?php echo $paymentRequest->totalprice; ?></td>
-                            <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                            <td><?php echo $paymentRequest->account_name; ?></td>
-                            <td><?php echo $paymentRequest->bank; ?></td>
-                            <td><?php echo $paymentRequest->branch; ?></td>
-                            <td><?php echo $paymentRequest->status; ?></td>
-
-                        </tr>
-                        <?php endif; ?>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
-
-                <?php else : ?>
-                <p>No payment requests found.</p>
+                </br> </br> 
+    <h2>Your Completed Payments</h2></br>
+    <table>
+        <thead>
+            <tr>
+                <th>Your Payment ID</th>
+                <th>Your Order ID</th>
+                <th>Product</th>
+                <th>Total Price</th>
+                
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach($data['paymentRequests'] as $paymentRequest) : ?>
+                <?php if ($paymentRequest->status !== 'pending') : ?>
+                    <?php $completedFound = true; ?>
+                    <tr>
+                        <!-- Display completed payment requests -->
+                        <td><?php echo $paymentRequest->payment_id; ?></td>
+                        <!-- Other table cells -->
+                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->product; ?></td>
+                        <td><?php echo $paymentRequest->totalprice; ?></td>
+                       
+                        <td><?php echo $paymentRequest->status; ?></td>
+                       
+                    </tr>
                 <?php endif; ?>
 
 
+    <script>function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+</script>
 
 </body>
 

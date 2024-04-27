@@ -134,7 +134,7 @@
 
 .add-inquiry-form .send-button {
     width: 100%; /* Adjust width to accommodate padding */
-    background-color:rgba(181, 174, 174, 0.25);
+    background-color: #65A534;
     color: black;
     border-radius: 10px;
     padding: 10px;
@@ -160,7 +160,8 @@
 <div class="navbar-icon-container" data-text="Notifications">
 
 <a href="<?php echo URLROOT; ?>/admin/notifications" id="notificationsButton" onclick="toggleNotifications()" >
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+<div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
@@ -236,25 +237,27 @@
         </section>
     </div>
 
-   
-
     <div class="main-content">
         
-    <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
-            </a>
+        <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
+                </a>
+    
+        <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading">Message CCM</h5></a>
+    
+                    <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Message TM</h5>
+                </a>
+                
+                <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
 
-    <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading">Message CCM</h5></a>
-
-                <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Message TM</h5>
-            </a>
-            
-            <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
+    <div class="main-content" style="height:80%;">
+        
+  
     <?php
 // Define a custom sorting function to sort inquiries based on their creation time
 function sortByCreatedAt($a, $b) {
@@ -290,6 +293,34 @@ usort($data['inquiries'], 'sortByCreatedAt');
 </div>
 
     </div>
+
+    <script>function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/admin/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);</script>
         </body>
 
 </html>

@@ -42,7 +42,8 @@
 <div class="navbar-icon-container" data-text="Notifications">
 
 <a href="<?php echo URLROOT; ?>/ccm/notifications" id="notificationsButton" onclick="toggleNotifications()" >
-    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+<div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
 </a></div>
 
 <div class="navbar-icon-container" data-text="Logout">
@@ -196,7 +197,7 @@
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">
     <div class="select-container">
-    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' || $row['status'] == 'Quality Rejected' || $row['status'] == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
+    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status'])) ? ($row['status'] == 'Rejected' ? 'style="background-color: red; pointer-events: none; opacity: 0.5; "' : 'style="pointer-events: none; opacity: 0.5; filter: grayscale(100%);"') : ''; ?>>
 
 <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
 <option value="Approved" <?php echo (is_array($row) ? ($row['status'] == 'Approved' ? 'selected' : '') : ($row->status == 'Approved' ? 'selected' : '')); ?>>Approved</option>
@@ -286,6 +287,35 @@ function searchProducts() {
         }
     }
 }
+
+
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/ccm/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
 </script>
 
 

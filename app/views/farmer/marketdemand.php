@@ -128,7 +128,8 @@
 
         <div class="navbar-icon-container" data-text="Notifications">
         <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
         </a></div>
           
                               <div class="navbar-icon-container" data-text="View Profile" >
@@ -229,43 +230,44 @@
             <br><br>
 
             <div class="bar-container">
-                <?php
-                // New code: Accessing product data passed from the controller through $data array
-                $prices = $data['prices'];
+            <?php
+    // New code: Accessing product data passed from the controller through $data array
+    $prices = $data['prices'];
 
-                // Find the product with the maximum quantity
-                $maxQuantity = 0;
-                foreach ($prices as $price) {
-                    if ($price['price'] > $maxQuantity) {
-                        $maxQuantity = $price['price'];
-                    }
-                }
+    // Find the product with the maximum price
+    $maxPrice = 0;
+    foreach ($prices as $price) {
+        if ($price['price'] > $maxPrice) {
+            $maxPrice = $price['price'];
+        }
+    }
 
-                // Check if $maxQuantity is greater than zero
-                if ($maxQuantity > 0) {
-                    // Iterate through each product to generate bars
-                    foreach ($prices as $price) {
-                        // Calculate the height of the bar based on the percentage of (100 - quantity)
-                        $barHeight = (($price['price']) / 500) * 100; // Percentage that 100 - quantity
+    // Check if $maxPrice is greater than zero
+    if ($maxPrice > 0) {
+        // Iterate through each product to generate bars
+        foreach ($prices as $price) {
+            // Calculate the height of the bar based on the percentage of (price / maxPrice)
+            $demandPercentage = ($price['price'] / $maxPrice) * 100;
 
-                        // Check if the calculated percentage is negative and set it to 0 if true
-                        if ($barHeight < 0) {
-                            $barHeight = 0;
-                        }
-                        ?>
-                        <div class="bar" style="height: <?php echo $barHeight; ?>%;">
-                            <div class="bar-name" style="bottom: -35px;"><?php echo $price['name']; ?></div>
-                            <div class="bar-graph">
-                                <span class="bar-percentage"><?php echo round($barHeight); ?>%</span>
-                            </div>
-                        </div>
-                <?php
-                    }
-                } else {
-                    // Handle the case where $maxQuantity is zero
-                    echo "Error: Maximum quantity is zero.";
-                }
-                ?>
+            // Check if the calculated percentage is negative and set it to 0 if true
+            if ($demandPercentage < 0) {
+                $demandPercentage = 0;
+            }
+            ?>
+            <div class="bar" style="height: <?php echo $demandPercentage; ?>%;">
+                <div class="bar-name" style="bottom: -35px;"><?php echo $price['name']; ?></div>
+                <div class="bar-graph">
+                    <span class="bar-percentage" style="font-weight:bold; font-size: 25px;"><?php echo round($demandPercentage); ?>%</span>
+                </div>
+            </div>
+    <?php
+        }
+    } else {
+        // Handle the case where $maxPrice is zero
+        echo "Error: Maximum price is zero.";
+    }
+?>
+
                 <div class="axis-line x-axis-line"></div>
                 <div class="axis-line y-axis-line"></div>
                 <div class="axis-label y-axis-label">Market Demand</div>
@@ -273,6 +275,35 @@
 
         </main>
     </div>
+
+    <script>function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+</script>
 </body>
 
 </html>
