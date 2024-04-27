@@ -206,14 +206,14 @@
 
                     <div class="text-field">
                         <label for="quantity">Deliverable Quantity in kgs:</label>
-                        <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="0" step="1">
+                        <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="5" step="1">
                     </div>
                     <div class="text-field">
     <label for="price">Price per kg:</label>
     <?php if ($data['status'] === 'Pending Approval'): ?>
-        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01">
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="1" step="0.01">
     <?php else: ?>
-        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01" readonly>
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="1" step="0.01" readonly>
     <?php endif; ?>
 </div>
                     <div class="text-field">

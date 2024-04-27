@@ -33,7 +33,6 @@
             </div>
             <div class="navbar-icon-container" data-text="Notifications">
                 <a href="<?php echo URLROOT; ?>/qi/notifications" id="notificationsButton" onclick="toggleNotifications()">
-                <div class="redcircle"></div>
 <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
                 </a>
             </div>
@@ -110,7 +109,7 @@
 
             case 'order':
                 $mainTopic = "New Approved Order";
-                $notificationContent = "you hav received a new Approved Order to test quality for order ID '{$notification->order_id}' from '{$notification->user}' ";
+                $notificationContent = "you hav received a new Approved Order with order ID '{$notification->order_id}' from '{$notification->user}' to test quality ";
                 break;
 
            

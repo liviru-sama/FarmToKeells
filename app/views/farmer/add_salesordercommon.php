@@ -165,12 +165,12 @@
                         <label>Deliverable Before</label>
                     </div>
                     <div class="text-field">
-                        <input name="quantity" type="number" min="0" step="1" required>
+                        <input name="quantity" type="number" min="5" step="1" required>
                         <span></span>
                         <label>Deliverable Quantity in kgs</label>
                     </div>
                     <div class="text-field">
-                        <input name="price" type="number" min="0" step="0.01" required>
+                        <input name="price" type="number" min="1" step="0.01" required>
                         <span></span>
                         <label> Price per kg</label>
                     </div>

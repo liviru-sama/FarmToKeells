@@ -200,40 +200,7 @@
                 </form>
             </section>
 
-            <table>           </br> <h2 style="text-align:center;"> &nbsp;&nbsp;&nbsp; Completed Needlist Items</h2>
-
-                        <thead>
-                            <tr>
-                                <th>Purchase order ID</th>
-                                <th>Product</th>
-                                <th>Product image</th>
-                                <th>Product type</th>
-                                <th>Needed quantity(kgs)</th>
-                                <th>Expected supply date</th>
-                                <th>Status</th>
-                                <th>View User order</th>
-                                <th>EDIT</th>
-                                <th>Delete</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php foreach ($data['purchaseorders'] as $row) { ?>
-                                <?php if ($row['purchase_status'] === 'Completed') { ?>                                <tr>
-                                    <td><?php echo $row['purchase_id'] ?></td>
-                                    <td><?php echo $row['name'] ?></td>
-                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>" alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>" style="width: 50px;"></td>
-                                    <td><?php echo $row['type'] ?></td>
-                                    <td><?php echo $row['quantity'] ?></td>
-                                    <td><?php echo $row['date'] ?></td>
-                                    <td><?php echo $row['purchase_status'] ?></td>                                   
-                                    <td><a class="button" href="<?php echo URLROOT; ?>/admin/place_salesorder/<?php echo $row['purchase_id']; ?>">View User Orders</a></td>
-                                    <td><a href="<?php echo URLROOT; ?>/admin/edit_purchaseorder?id=<?php echo $row['purchase_id']; ?>"><img src="<?php echo URLROOT; ?>/public/images/edit.png"></a></td>
-                                    <td><a href="#" onclick="confirmDelete('<?php echo $row['purchase_id']; ?>')"><img src="<?php echo URLROOT; ?>/public/images/delete.png"></a></td>
-                                </tr>
-                                <?php } ?>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+           
                 </form>
             </section>
         </main>

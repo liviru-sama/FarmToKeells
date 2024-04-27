@@ -205,7 +205,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'] )) { ?>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>                                <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
                                 <tr>
                                     <td><?php echo $row['purchase_id'] ?></td>
                                     <td><?php echo $row['name'] ?></td>
@@ -221,7 +221,7 @@
                                     <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?<?php echo $_SESSION['user_id']; ?>"
 >
 Place Order </a></td>
-                                </tr>
+                                </tr><?php } ?>
                             <?php } ?>
                         </tbody>
                     </table>

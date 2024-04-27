@@ -216,7 +216,7 @@
                     <label>Expected supply date</label>
                 </div>
                 <div class="text-field">
-                    <input type="number" name="quantity" value="<?=$data['quantity']?>" required> <!-- Added name attribute -->
+                    <input type="number" name="quantity" value="<?=$data['quantity']?>" min="5" required> <!-- Added name attribute -->
                     <span></span>
                     <label>Needed Quantity in kgs</label>
                 </div>

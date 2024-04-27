@@ -211,7 +211,7 @@
 
 
                 <div class="text-field">
-                    <input name="quantity" type="number" required min="0" step="1">
+                    <input name="quantity" type="number" required min="5" step="1">
                     <span></span>
                     <label>Needed Quantity in kgs</label>
                 </div>
