@@ -110,6 +110,14 @@
     function goBack() {
         window.history.back();
     }
+
+    
+    function handleFormSubmission() {
+        
+        return false;
+    }
+
+
     </script>
 
     <!-- Sidebar -->
@@ -232,7 +240,7 @@
                         </table>
                     </div>
                 </div>
-                <?php echo '<p>' . flash('user_message') . '</p>';?>
+                
             </div>
 
 
@@ -240,12 +248,12 @@
             </br>
             <div class="rectangle">
                 <form action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>"
-                    method="POST" class="subgrid-1">
+                    method="POST" class="subgrid-1" >
                     </br>
                     <h2>Change Username</br></br></h2>
                     <div>
                         <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
-                        <input type="text" id="new_username" name="new_username">
+                        <input type="text" id="new_username" name="new_username" required>
                         <button class="button-main" type="submit">Change</br></button>
                     </div>
 
@@ -257,12 +265,12 @@
             </div>
             <div class="rectangle">
                 <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST"
-                    class="subgrid-1">
+                    class="subgrid-1" >
                     </br>
                     <h2>Change Name</br></br></h2>
                     <!-- <div class="error" id="new_name_err"><?php echo $data['new_name_err']; ?></div> -->
                     <label for="nnamec" class="p-regular-grey">New Name :</label>
-                    <input type="text" id="new_name" name="new_name" class="form-default">
+                    <input type="text" id="new_name" name="new_name" class="form-default" required>
                     <button class="button-main" type="submit">Change</br></button>
                     </br></br>
                 </form></br>
@@ -271,21 +279,23 @@
                 <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST"
                     class="subgrid-1">
                     </br>
-                    <h2>Change Email</br></br></h2>
+                   
+
                     <label for="nemail" class="p-regular-grey">New E-mail :</label>
-                    <input type="text" id="new_email" name="new_email" class="form-default">
+                    <input type="text" id="new_email" name="new_email" class="form-default" required>
+                    
                     <button class="button-main" type="submit">Change</br></button>
                     </br></br>
                 </form></br>
             </div>
             <div class="rectangle">
                 <form action="<?php echo URLROOT;?>/farmer/updateMobile/<?php echo $_SESSION['user_id'];?>"
-                    method="POST" class="subgrid-1">
+                    method="POST" class="subgrid-1" >
                     </br>
                     <h2>Change Mobile</br></br></h2>
                     <!-- <div class="error" id="new_mobile_err"><?php echo $data['new_mobile_err']; ?></div> -->
                     <label for="nmobile" class="p-regular-grey">New Mobile :</label>
-                    <input type="text" id="new_mobile" name="new_mobile" class="form-default">
+                    <input type="text" id="new_mobile" name="new_mobile" class="form-default" required>
                     <button class="button-main" type="submit">Change</br></button>
                     </br> </br>
                 </form></br>
@@ -296,7 +306,7 @@
 
             <div class="prectangle">
                 <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>"
-                    method="POST" class="subgrid-1">
+                    method="POST" class="subgrid-1" >
                     <h2>Change Password</h2>
                     <br>
                     <label for="current_password" class="p-regular-grey">Current Password :</label>

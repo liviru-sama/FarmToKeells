@@ -270,16 +270,16 @@ class Farmer extends Controller{
 
             if (empty($data['new_username'])) {
                 $data['new_username_err'] = 'Please enter a new username';
+                
             }
 
             if (empty($data['new_username_err'])) {
-                // Update username in the database
-                // After successful update in the database
+               
                 if ($this->userModel->updateUsername($user_id, $data['new_username'])) {
                     // Update the session variable immediately
                     $_SESSION['user_username'] = $data['new_username'];
                     $data['new_username_err'] = 'Username updated successfully';
-                    // flash('user_message', 'Username updated successfully');
+                    flash('user_message', 'Username updated successfully');
                     redirect('farmer/update_profile');
                 } else {
                     die('Something went wrong');
@@ -289,7 +289,6 @@ class Farmer extends Controller{
                 $this->view('farmer/update_profile', $data);
             }
         } else {
-            // This part is not needed, as it resets $data to empty values before rendering the form
             $data = [
                 'new_username' => '',
                 'new_username_err' => '',
@@ -356,6 +355,8 @@ class Farmer extends Controller{
                 $data['new_email_err'] = 'Please enter a new email';
             } elseif (!filter_var($data['new_email'], FILTER_VALIDATE_EMAIL)) {
                 $data['new_email_err'] = 'Invalid email format';
+                // flash('error_message', 'Invalid email format');
+                flash('user_message', 'Invalid email format');
             }
 
             if (empty($data['new_email_err'])) {
@@ -396,6 +397,7 @@ class Farmer extends Controller{
             // Validate new mobile number
             if (empty($data['new_mobile'])) {
                 $data['new_mobile_err'] = 'Please enter a new mobile number';
+                flash('user_message', 'Username updated successfully');
             } elseif (!preg_match('/^[0-9]{10}$/', $data['new_mobile'])) {
                 $data['new_mobile_err'] = 'Invalid mobile number format';
             }
