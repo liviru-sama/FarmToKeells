@@ -219,7 +219,7 @@
         </section>
     </div>
 
-    <div class="main-content">
+    <div class="main-content" style="height:70%;">
 
   
     <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">

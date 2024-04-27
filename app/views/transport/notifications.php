@@ -120,9 +120,9 @@
                 $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
                 break;
 
-            case 'request':
+            case 'new request':
                 $mainTopic = "New Transport Request";
-                $notificationContent = "you hav received a new transport request for '{$notification->order_id}' from '{$notification->user_id}' ";
+                $notificationContent = "you hav received a new transport request for '{$notification->order_id}' from '{$notification->user}' ";
                 break;
 
             case 'price_update':

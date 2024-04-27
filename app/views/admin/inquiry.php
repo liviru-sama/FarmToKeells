@@ -134,7 +134,7 @@
 
 .add-inquiry-form .send-button {
     width: 100%; /* Adjust width to accommodate padding */
-    background-color:rgba(181, 174, 174, 0.25);
+    background-color: #65A534;
     color: black;
     border-radius: 10px;
     padding: 10px;
@@ -237,25 +237,27 @@
         </section>
     </div>
 
-   
-
     <div class="main-content">
         
-    <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
-            </a>
+        <a href="<?php echo URLROOT; ?>/admin/inquiry" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; User Inquiries</h5>
+                </a>
+    
+        <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading">Message CCM</h5></a>
+    
+                    <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
+                    <h5 class="inline-heading" class
+                    = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Message TM</h5>
+                </a>
+                
+                <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
 
-    <a href="<?php echo URLROOT; ?>/admin/ccm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading">Message CCM</h5></a>
-
-                <a href="<?php echo URLROOT; ?>/admin/tm_chat" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading tab-selected"  >&nbsp;&nbsp;&nbsp;Message TM</h5>
-            </a>
-            
-            <h2 style="text-align: center;font-size:29px;">Reply to User Inquiries</h2>
+    <div class="main-content" style="height:80%;">
+        
+  
     <?php
 // Define a custom sorting function to sort inquiries based on their creation time
 function sortByCreatedAt($a, $b) {

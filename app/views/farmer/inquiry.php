@@ -89,6 +89,7 @@
             padding: 100px;
             position: relative;
             margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
+            height:90%;
         }
 
         .chat-form-container {
@@ -120,7 +121,7 @@
 
         .add-inquiry-form .send-button {
             width: 100%; /* Adjust width to accommodate padding */
-            background-color: rgba(181, 174, 174, 0.25);
+            background-color: #65A534;
             color: white;
             border-radius: 10px;
             padding: 10px;
@@ -221,7 +222,7 @@
         </section>
     </div>
     <!-- Main content -->
-    <div class="main-content">
+    <div class="main-content" style="height:70%;">
         <section class="header">
         </section>
         <section class="table_body">
