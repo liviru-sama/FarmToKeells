@@ -918,30 +918,21 @@ public function purchaseOV() {
 public function purchaseOVD() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $startDate = $_POST['start_date'];
-        $endDate = $_POST['end_date'];
+        $data['startDate'] = $_POST['start_date'];
+        $data['endDate'] = $_POST['end_date'];
         
-        // Load the InventoryHistory model
-        $productHistoryModel = $this->model('productHistory');
+        $purchase = $this->model('Purchaseorder');
         
-        // Fetch inventory history report for the given time period and product name
-        $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
-        
-        // Filter inventory history to include only records with null price_change
-        $filteredproductHistory = array_filter($productHistory, function($record) {
-            return $record->price_change === null;
-        });
-        
-        // Pass the filtered inventory history data and form inputs to the view
-        $data = [
-            'inventory_history' => $filteredproductHistory,
-            'product_name' => $productName, // Add product name to data array
-            'start_date' => $startDate, // Add start date to data array
-            'end_date' => $endDate // Add end date to data array
-        ];
+        $data['allPorders'] = $purchase->allinDate($data['startDate'], $data['endDate']);
+
+        $data['pendingPorders'] = $purchase->pendinginDate($data['startDate'], $data['endDate']);
+
+        $data['completed'] = $data['allPorders']->allCount - $data['pendingPorders']->pendingCount;
+
+        $data['perc'] = ($data['completed'] / $data['allPorders']->allCount) * 100;
 
         // Load the inventory history report view within the iframe
-        $this->view("ccm/inventory_history_report", $data);
+        $this->view("ccm/purchaseOVD", $data);
     } else {
         // If not a POST request, redirect to the report generator page or show an error message
         redirect('ccm/report_generator');
