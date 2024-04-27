@@ -271,19 +271,37 @@ public function getProductImageURL($productName) {
     // Method to get sales order data
     
     
-        // Method to get sales order data
-        public function getSalesOrderData($orderId) {
-            $this->db->query('SELECT quantity, name FROM salesorder WHERE order_id = :orderId');
-            $this->db->bind(':orderId', $orderId);
-            $row = $this->db->single();
-            return $row;
-        }
-    
-    
-
-
-        
+    // Method to get sales order data
+    public function getSalesOrderData($orderId) {
+        $this->db->query('SELECT quantity, name FROM salesorder WHERE order_id = :orderId');
+        $this->db->bind(':orderId', $orderId);
+        $row = $this->db->single();
+        return $row;
     }
+
+
+    public function getDate($id){
+        $this->db->query('SELECT date FROM salesorder WHERE order_id = :id');
+
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function getQuantity($id){
+        $this->db->query('SELECT quantity FROM salesorder WHERE order_id = :id');
+
+        $this->db->bind(':id', $id);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    
+}
     
 
 

@@ -910,14 +910,44 @@ public function ccm_chat() {
     $this->view('ccm/ccm_chat', $data);
 }
 
+public function purchaseOV() {
+
+    $this->view('ccm/purchaseOV');
+}
+
+public function purchaseOVD() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $startDate = $_POST['start_date'];
+        $endDate = $_POST['end_date'];
+        
+        // Load the InventoryHistory model
+        $productHistoryModel = $this->model('productHistory');
+        
+        // Fetch inventory history report for the given time period and product name
+        $productHistory = $productHistoryModel->getInventoryHistoryByDateRangeAndProductName($startDate, $endDate, $productName);
+        
+        // Filter inventory history to include only records with null price_change
+        $filteredproductHistory = array_filter($productHistory, function($record) {
+            return $record->price_change === null;
+        });
+        
+        // Pass the filtered inventory history data and form inputs to the view
+        $data = [
+            'inventory_history' => $filteredproductHistory,
+            'product_name' => $productName, // Add product name to data array
+            'start_date' => $startDate, // Add start date to data array
+            'end_date' => $endDate // Add end date to data array
+        ];
+
+        // Load the inventory history report view within the iframe
+        $this->view("ccm/inventory_history_report", $data);
+    } else {
+        // If not a POST request, redirect to the report generator page or show an error message
+        redirect('ccm/report_generator');
+    }
+}
 
 }
 
 ?>
-
-
-
-
-
-
-

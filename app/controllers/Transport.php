@@ -978,7 +978,7 @@ class Transport extends Controller
                     $torder->status_name = "Collected";
                     break;
                 case 4:
-                    $torder->status_name = "Delivered";
+                    $torder->status_name = "Completed";
                     break;
             }
         }

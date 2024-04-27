@@ -77,4 +77,19 @@
 
             return $results;
         }
+
+        public function getByUser($id){
+            $this->db->query("SELECT *,
+                CASE 
+                    WHEN active = 0 THEN 'Rejected'
+                    WHEN active = 1 THEN 'Pending'
+                    ELSE 'unknown'
+                END AS status FROM requests WHERE user_id = :id;");
+
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
     }

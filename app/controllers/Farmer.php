@@ -1265,12 +1265,33 @@ public function payment()
     $this->view('farmer/payment', $data);
 }
 
+public function transport() {
+    $salesOrder = $this->model('SalesOrder');
+    $request = $this->model('Request');
+    $torder = $this->model('Torders');
 
+    $user_id = $_SESSION['user_id'];
+
+    $requests = $request->getByUser($user_id);
+
+    foreach ($requests as $req) {
+        $date = $salesOrder->getDate($req->order_id);
+        $req->date = (string)$date->date;
+    }
+
+    $torders = $torder->getByUser($user_id);
+
+    foreach ($torders as $tor) {
+        $date = $salesOrder->getDate($tor->order_id);
+        $tor->date = (string)$date->date;
+        $quantity = $salesOrder->getQuantity($tor->order_id);
+        $tor->quantity = (string)$quantity->quantity;
+    }
+
+    $data['transports'] = (object) array_merge((array) $requests, (array) $torders);
+
+    $this->view('farmer/transport', $data);
 }
 
-?>
 
-
-    
-    
-
+}

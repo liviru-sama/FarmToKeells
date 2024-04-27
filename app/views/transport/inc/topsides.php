@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITENAME; ?></title>
 
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
     <link rel="stylesheet" href="<?= CSS ?>topsides.css">
     
     <style>
@@ -60,12 +61,12 @@
                             <h6>Orders</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/monitor" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                    <!-- <a href="<?php echo URLROOT; ?>/transport/monitor" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-4" <?php echo ($side==3) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/monitor.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Monitor</h6>
                         </div>
-                    </a>
+                    </a> -->
                     <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-7" <?php echo ($side==4) ? "style='background: #65A534; transform: scale(1.08);'" : ""; ?>>
                             <img src="<?php echo URLROOT; ?>/public/images/driver.png" alt="" style="width: 50px; height: 50px;">

@@ -16,7 +16,7 @@ include "inc/topsides.php";
                     <button class="tab activeTab" id="pendingTab">Pending</button>
                 </a>
                 <a href="<?php echo URLROOT; ?>/transport/cancelled_requests">
-                    <button class="tab" id="cancelledTab">Cancelled</button>
+                    <button class="tab" id="cancelledTab">Rejected</button>
                 </a>
             </div>
             <table>
