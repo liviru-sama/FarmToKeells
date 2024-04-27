@@ -97,7 +97,7 @@
     <!-- Main content -->
     
 
-    <main class="main-content" style=" height: 98%;">
+    <main class="main-content" >
     <h1>Notifications</h1>
         <section class="notifications">
 
@@ -120,8 +120,9 @@
                 $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
                 break;
 
-            case 'new purchase order':
-                // 
+            case 'request':
+                $mainTopic = "New Transport Request";
+                $notificationContent = "you hav received a new transport request for '{$notification->order_id}' from '{$notification->user_id}' ";
                 break;
 
             case 'price_update':

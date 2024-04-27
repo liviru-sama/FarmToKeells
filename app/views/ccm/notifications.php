@@ -112,7 +112,7 @@
 
     <!-- Main content -->
 
-    <main class="main-content" style=" height: 98%;position:fixed;">
+    <main class="main-content" >
     <h1>Notifications</h1>
         <section class="notifications">
     <div class="notification-container">

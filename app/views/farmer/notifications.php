@@ -122,7 +122,7 @@
     </div>
 
     <!-- Main content -->
-    <main class="main-content" style=" height: 98%;">
+    <main class="main-content" >
     <h1>Notifications</h1>
         <section class="notifications">
             
@@ -130,13 +130,7 @@
                 <?php if (empty($data['notifications'])): ?>
                     <p>You don't have any notifications yet.</p>
                 <?php else: ?>
-
-                    <?php 
-    // Sort notifications based on time, with the latest ones first
-    usort($data['notifications'], function($a, $b) {
-        return strtotime($b->time) - strtotime($a->time);
-    });
-    ?>
+                  
                     <?php foreach ($data['notifications'] as $notification): ?>
                         <?php 
                             switch ($notification->action):

@@ -110,7 +110,7 @@
 
     <!-- Main content -->
 
-    <main class="main-content" style=" height: 98%;">
+    <main class="main-content" >
     <h1>Notifications</h1>
 <section class="notifications">
 
