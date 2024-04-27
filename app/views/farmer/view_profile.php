@@ -138,14 +138,15 @@
             <div class="center">
                 <div class="profile-info">
                     <div class="profile-image">
-                        <?php if (!empty($data['profileImage'])) : ?>
+                        <?php if (!empty($_SESSION['profile_image'])) : ?>
                         <img id="profile-image"
-                            src="<?php echo URLROOT . '/images/uploads/' . $data['profileImage']; ?>"
+                            src="<?php echo URLROOT . '/images/uploads/' . $_SESSION['profile_image']; ?>"
                             alt="Profile Picture">
                         <?php else : ?>
                         <img id="profile-image" src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png"
                             alt="Default Profile Picture">
                         <?php endif; ?>
+
                         <div class="flash-message-error">
                             <?php echo flash('profile_pic_error'); ?>
                         </div>
@@ -159,7 +160,6 @@
                 </div>
 
                 <script>
-
                 function chooseProfilePicture() {
                     document.getElementById('profile-picture-input').click();
                 }
@@ -173,7 +173,7 @@
 
 
                 <div class="profile-heading">
-                <?php echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>'; ?></br>
+                    <?php echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>'; ?></br>
 
                     <div class="card-white" style="text-align: center;">
                         <div class="subgrid-4" style="display: inline-block;">
