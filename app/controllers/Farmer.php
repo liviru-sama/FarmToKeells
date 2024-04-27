@@ -1218,7 +1218,7 @@ public function place_order() {
                         if (move_uploaded_file($fileTmpName, $uploadsDirectory . $newFileName)) {
                             // Update the profile picture in the database
                             if ($this->userModel->updateProfilePicture($userId, $newFileName)) {
-                                // Profile picture updated successfully
+                                $_SESSION['profile_image'] = $newFileName;
                                 // Redirect with a success message if needed
                                 redirect('farmer/view_profile');
                             } else {
