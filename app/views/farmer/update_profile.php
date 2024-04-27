@@ -22,7 +22,7 @@
 
     form {
         background-color: rgba(148, 144, 144, 0.333);
-        backdrop-filter: blur(57px);
+        backdrop-filter: blur(20px);
         box-shadow: 0 .4rem .8rem #0005;
         border-radius: 700px;
         text-align: center;
@@ -51,7 +51,7 @@
 
     .prectangle {
         padding: 5px;
-        width: 90%;
+        width: 70%;
         /* Adjust the width as needed */
         margin: 0 auto;
         /* Center-align the rectangle */
@@ -294,23 +294,24 @@
 
 
 
-            <div class="rectangle">
-                <form action="">
-
+            <div class="prectangle">
+                <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>"
+                    method="POST" class="subgrid-1">
+                    <h2>Change Password</h2>
+                    <br>
+                    <label for="current_password" class="p-regular-grey">Current Password :</label>
+                    <input type="password" id="current_password" name="current_password" class="" required>
                     <br><br>
-                    <div class="link">
-                        <h2><a href="<?php echo URLROOT; ?>/users/forgotPassword">Change Password</a></h2>
-                    </div>
-                    <br>
-                    <br>
+                    <label for="new_password" class="p-regular-grey">New Password :</label>
+                    <input type="password" id="new_password" name="new_password" class="" required>
+                    <br><br>
+                    <label for="confirm_password" class="p-regular-grey">Confirm Password :</label>
+                    <input type="password" id="confirm_password" name="confirm_password" class="" required>
+                    <br><br>
+                    <button class="button-main" type="submit">Change</button>
                 </form>
-
-
-
-
-
-
             </div>
+
 
 
 

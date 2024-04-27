@@ -146,6 +146,9 @@
                         <img id="profile-image" src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png"
                             alt="Default Profile Picture">
                         <?php endif; ?>
+                        <div class="flash-message-error">
+                            <?php echo flash('profile_pic_error'); ?>
+                        </div>
                         <form action="<?php echo URLROOT; ?>/farmer/updateProfilePic" method="POST"
                             enctype="multipart/form-data" onchange="loadFile(event)">
                             <input type="file" name="profile_image" id="profile-picture-input" accept="image/*"
@@ -156,7 +159,7 @@
                 </div>
 
                 <script>
-                // Function to trigger file input click event
+
                 function chooseProfilePicture() {
                     document.getElementById('profile-picture-input').click();
                 }
@@ -170,9 +173,7 @@
 
 
                 <div class="profile-heading">
-                    <?php
-                echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>';
-                ?></br>
+                <?php echo '<h3>Hello, ' . $data['name'] . '&nbsp;!</h3>'; ?></br>
 
                     <div class="card-white" style="text-align: center;">
                         <div class="subgrid-4" style="display: inline-block;">

@@ -58,6 +58,10 @@ flex: 1; /* Allow the heading to grow to fill remaining space */
     transition: 0.5s;
 }
 
+.flash-message-error {
+    color: red;
+}
+
 
 
 

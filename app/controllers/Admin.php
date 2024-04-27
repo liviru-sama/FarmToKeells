@@ -1,4 +1,10 @@
 <?php
+
+require_once __DIR__ . '/../../vendor/autoload.php';
+
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Admin extends Controller
 {
 

@@ -426,12 +426,11 @@ class Farmer extends Controller
     }
 
     // Update password action
-    public function updatePassword($id)
+    public function updatePassword($user_id)
     {
-
         // Initialize $data array
         $data = [
-            'id' => $id,
+            'id' => $user_id,
             'current_password' => '',
             'new_password' => '',
             'confirm_new_password' => '',
@@ -439,25 +438,26 @@ class Farmer extends Controller
             'new_password_err' => '',
             'confirm_new_password_err' => '',
         ];
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Sanitize POST data
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
             // Initialize data array
             $data = [
-                'id' => $id,
+                'id' => $user_id,
                 'current_password' => trim($_POST['current_password']),
                 'new_password' => trim($_POST['new_password']),
-                'confirm_new_password' => '',
+                'confirm_new_password' => trim($_POST['confirm_password']), // Corrected field name
                 'current_password_err' => '',
                 'new_password_err' => '',
                 'confirm_new_password_err' => '',
             ];
 
             // Validate current password
-            $user = $this->userModel->getUserById($id);
+            $user = $this->userModel->getUserByIdPass($user_id);
             if (!$user || !password_verify($data['current_password'], $user->password)) {
-                $data['new_password_err'] = 'Current password is incorrect';
+                $data['current_password_err'] = 'Current password is incorrect'; // Corrected error key
             }
 
             // Validate new password
@@ -471,18 +471,18 @@ class Farmer extends Controller
 
             // Validate confirm new password
             if (empty($data['confirm_new_password'])) {
-                $data['new_password_err'] = 'Please confirm the new password';
+                $data['confirm_new_password_err'] = 'Please confirm the new password'; // Corrected error key
             } elseif ($data['new_password'] != $data['confirm_new_password']) {
-                $data['new_password_err'] = 'Passwords do not match';
+                $data['confirm_new_password_err'] = 'Passwords do not match'; // Corrected error key
             }
 
             // Check if all errors are empty
-            if (empty($data['new_password_err'])) {
+            if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_new_password_err'])) {
                 // Hash new password
                 $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
 
                 // Update password in the database
-                if ($this->userModel->updatePassword($id, $hashed_password)) {
+                if ($this->userModel->updatePassword($user_id, $hashed_password)) {
                     flash('user_message', 'Password updated successfully');
                     redirect('farmer/update_profile');
                 } else {
