@@ -243,7 +243,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
 ?>
         <tr>
 
-            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
+            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" ></td>
             <td><?php echo $row->order_id ?></td>
             <td><?php echo $row->name ?></td>
             <td><?php echo $row->type ?></td>
@@ -251,8 +251,38 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
             <td><?php echo $row->price ?></td>
             <td><?php echo $row->date ?></td>
             <td><?php echo $row->address ?></td>
-            <td><?php echo $row->status ?></td>
-
+            <td style="padding: 15px;white-space: nowrap; 
+"><span style="
+        <?php
+        // Set background color based on status
+        switch ($row->status) {
+            case 'Approved' :
+                echo 'background-color: #65A534;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Green
+                break;
+            case 'Quality Approved' :
+                echo 'background-color: #65A534;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Green
+                break;
+            case 'Completed' :
+                echo 'background-color: grey;           box-shadow: 0 .4rem .8rem #0005;'; // Grey
+                break;
+            case 'Rejected':
+                echo 'background-color: red;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Red
+                break;
+                case 'Quality Rejected':
+                    echo 'background-color: red;color:white;           box-shadow: 0 .4rem .8rem #0005;'; // Red
+                    break;
+            case 'Pending Approval'|| 'pending approval' :
+                echo 'background-color: white; color:black;           box-shadow: 0 .4rem .8rem #0005;'; // No color
+                break;
+            default:
+                echo ''; // No color
+                break;
+        }
+        ?>
+        border-radius: 5px; padding: 5px; font-weight: bold; font-family: 'Inter', sans-serif;">
+            <?php echo $row->status; ?>
+        </span></td>
+            
           
 
 <td>    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>

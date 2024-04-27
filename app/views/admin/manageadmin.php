@@ -180,8 +180,9 @@
             <thead>
                 <tr>
                     <th>CCM ID</th>
-                    <th>UserName</th>
+                    <th>Name</th>
                     <th>Email</th>
+                    <th>Registered Collectioncenter</th>
 
                 </tr>
             </thead>
@@ -191,6 +192,7 @@
                     <td><?= $user['admin_id']; ?></td>
                     <td><?= $user['admin_username']; ?></td>
                     <td><?= $user['email']; ?></td>
+                    <td><?= $user['collectioncenter']; ?></td>
 
                         
 
@@ -215,7 +217,7 @@
             <thead>
                 <tr>
                 <th>TM ID</th>
-                    <th>UserName</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Registered Collectioncenter</th>
 
@@ -248,7 +250,7 @@
             <thead>
                 <tr>
                 <th>QI ID</th>
-                    <th>UserName</th>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>Registered Collectioncenter</th>
 

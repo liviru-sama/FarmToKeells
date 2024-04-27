@@ -419,29 +419,13 @@
         /* Style the dropdown options */
         .statusInput option {
             padding: 10px 20px; /* Adjust padding as needed */
+            background-color: #65A534; /* Green background color */
             color: rgb(0, 0, 0); /* Text color */
             cursor: pointer; /* Change cursor to pointer */
             transition: background-color 0.3s; /* Add transition */
         }
 
-        .statusInput option[value="Approved"],
-.statusInput option[value="Quality Approved"] {
-    background-color: #65A534;
-    border-color: #061807; /* Green border */
-}
-
-/* Orange background for Completed */
-.statusInput option[value="Completed"] {
-    background-color: orange;
-    border-color: darkorange; /* Orange border */
-}
-
-/* Red background for Rejected and Quality Rejected */
-.statusInput option[value="Rejected"],
-.statusInput option[value="Quality Rejected"] {
-    background-color: red;
-    border-color: darkred; /* Red border */
-}
+        
         /* Hover effect for dropdown options */
         .statusInput option:hover {
             transform: scale(1.08);
