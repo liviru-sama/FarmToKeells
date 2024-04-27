@@ -32,12 +32,13 @@
                 </a>
             </div>
             <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/transport/notifications" id="notificationsButton" onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon" style="background: #65A534; transform: scale(1.28);">
+                <a href="<?php echo URLROOT; ?>/qi/notifications" id="notificationsButton" onclick="toggleNotifications()">
+                <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
                 </a>
             </div>
             <div class="navbar-icon-container" data-text="Logout">
-                <a href="<?php echo URLROOT; ?>/transport/logout">
+                <a href="<?php echo URLROOT; ?>/qi/logout">
                     <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
                 </a>
             </div>
@@ -54,49 +55,36 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                <a href="<?php echo URLROOT; ?>/transport/pending_requests" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2" > 
-                            <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Requests</h6>
-                        </div>
-                    </a>
-                    <a href="<?php echo URLROOT; ?>/transport/salesorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" >
+                    
+                    <a href="<?php echo URLROOT; ?>/qi/salesorderapproved" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Orders</h6>
+                            <h6>Approved</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/monitor" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4" >
-                            <img src="<?php echo URLROOT; ?>/public/images/monitor.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Monitor</h6>
+                    <a href="<?php echo URLROOT; ?>/qi/salesorderqualityapproved" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/quality.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Verified</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
-                            <img src="<?php echo URLROOT; ?>/public/images/driver.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Drivers</h6>
+                    <a href="<?php echo URLROOT; ?>/qi/salesorderqualityrejected" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-4">
+                            <img src="<?php echo URLROOT; ?>/public/images/fail.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Failed</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/vehicles" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
-                            <img src="<?php echo URLROOT; ?>/public/images/vehicle.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Vehicles</h6>
+                    <a href="<?php echo URLROOT; ?>/qi/calendar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7">
+                            <img src="<?php echo URLROOT; ?>/public/images/calendar.png" alt="" style="width: 50px; height: 50px;">
+                            <h6>Calendar</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/tm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-6" >
-                            <img src="<?php echo URLROOT; ?>/public/images/inquiry.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Inquiry</h6>
-                        </div>
-                    </a>
+                   
                 </div>
             </div>
         </section>
     </div>
-    <!-- Main content -->
-    
-
     <main class="main-content" >
     <h1>Notifications</h1>
         <section class="notifications">
@@ -120,26 +108,12 @@
                 $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
                 break;
 
-            case 'new request':
-                $mainTopic = "New Transport Request";
-                $notificationContent = "you hav received a new transport request for order ID'{$notification->order_id}' from '{$notification->user}' ";
+            case 'order':
+                $mainTopic = "New Approved Order";
+                $notificationContent = "you hav received a new Approved Order to test quality for order ID '{$notification->order_id}' from '{$notification->user}' ";
                 break;
 
-            case 'price_update':
-                // 
-                break;
-
-            case 'payment_update':
-                // 
-                break;
-
-            case 'reply':
-                // 
-                break;
-
-            case 'replyupdate':
-                // 
-                break;
+           
         endswitch; 
         ?>
         <div class="notification">
@@ -159,7 +133,7 @@
 
 <script> function markAllAsRead() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', '<?php echo URLROOT; ?>/transport/markAllAsRead', true);
+        xhr.open('GET', '<?php echo URLROOT; ?>/qi/markAllAsRead', true);
 
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
