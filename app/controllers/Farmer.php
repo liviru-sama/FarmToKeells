@@ -5,8 +5,7 @@ require_once __DIR__ . '/../../vendor/autoload.php';
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 
-class Farmer extends Controller
-{
+class Farmer extends Controller{
     public $userModel;
 
     public function __construct()
@@ -606,10 +605,9 @@ public function place_order() {
             }
         }
 
-    }
+    
 
-    public function salesorder()
-    {
+    public function salesorder(){
         if (!$this->isLoggedIn()) {
             redirect('users/user_login');
         } else {
