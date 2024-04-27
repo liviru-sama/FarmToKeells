@@ -4,16 +4,14 @@
     position: relative;
     margin: 0 auto;
     padding: 3rem 1.5rem;
-    min-width: 25rem;
-    width: 65vw;
     background: rgba(255, 255, 255, 0.6);
     border-radius: 10px;
     text-align: center;
 }
 .center h1{
     text-align: center;
-    font-size: 200%;
 }
+
 .center form{
     box-sizing: border-box;
     text-align: center;
@@ -88,8 +86,8 @@ form .text-field{
 }
 input[type="submit"]{
     color: white;
-    width: 40%;
-    height: 50px;
+    width: 100%;
+    padding: 0.5rem;
     border: 0 solid #65A534;
     background:#65A534;
     border-radius: 25px;
@@ -121,10 +119,29 @@ input[type="submit"]:hover{
 }
 
 .edit {
-    margin-left: auto;
     padding: 0.5rem 2rem;
     border-radius: 5px;
     background-color: #60ba49;
     border: 1px solid #60ba49;
     cursor: pointer;
+}
+
+.delete {
+    background-color: #cc403b;
+    border: 1px solid #cc403b;
+}
+
+.editsave {
+    display: flex;
+    justify-content: space-between;
+}
+
+p {
+    margin-bottom: 0.5rem;
+}
+
+.AR {
+    display: flex;
+    justify-content:center;
+    gap: 1rem;
 }

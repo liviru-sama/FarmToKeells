@@ -156,8 +156,21 @@
             <section class="table_header">
     <h2 >Collection Center Manager Accounts &nbsp;&nbsp;&nbsp;<a class="button" href="<?php echo URLROOT; ?>/admin/ccm_register">Register New CCM</a></h2></br>
     <?php if(isset($data['success_messageccm'])): ?>
-    <p style="font-weight: bold; color: white;font-size: 25px;"><?php echo $data['success_messageccm']; ?></p>
+    <div id="success-message" style="font-weight: bold; color: white; font-size: 25px;">
+        <?php echo $data['success_messageccm']; ?>
+    </div>
+
+    <script>
+        // Function to hide the success message after one minute
+        setTimeout(function() {
+            var successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.display = 'none';
+            }
+        }, 5000); // 60000 milliseconds = 1 minute
+    </script>
 <?php endif; ?>
+
     <?php $ccm = $data['ccm']; ?>
     <?php if (!empty($ccm)): ?>
 

@@ -197,100 +197,79 @@
 
 
             </br>
+      
+      <main class="table"></br>
+<section class="table_header">
+    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
+    <div>
+        <input type="text" id="searchInput" onkeyup="searchProducts()" placeholder="Search your products...">
+        <a class="button" href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add New</a>
+    </div>
+</section>
+
+            <section class="table_header">
 
 
+            </section>
+            <section class="table_body">
+                <form method="post">
+                    <table>
+</br>        
+                        <thead>
+
+                            <tr>
+                            <th>Product image </th>
+                            <th>Your Order ID</th>
+                        <th>Product </th>
+                        <th>product type</th>
+                        <th>needed quantity(kgs) </th>
+                        <th>price per kg</th>
+                        <th>expected supply date</th>
+                        <th>collection address</th>
+                        <th>status</th>
+
+                        <th>edit </th>
+                        <th>request transport</th>
+                        
+                        <th>delete </th>
+
+                             </tr>
+                        </thead>
+                        <tbody>
+                     
+                            
+                                
+
+   
+                        <?php 
 
 
-
-            <main class="table"></br>
-                <section class="table_header">
-                    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Your Available products</h2>
-                    <div>
-                        <input type="text" id="searchInput" onkeyup="searchProducts()"
-                            placeholder="Search your products...">
-                        <a class="button"
-                            href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add
-                            New</a>
-                    </div>
-                </section>
-
-                <section class="table_header">
-
-
-                </section>
-                <section class="table_body">
-                    <form method="post">
-                        <table>
-                            </br>
-                            <thead>
-
-                                <tr>
-                                    <th>Product image </th>
-                                    <th>Your Order ID</th>
-                                    <th>Product </th>
-                                    <th>product type</th>
-                                    <th>needed quantity(kgs) </th>
-                                    <th>price per kg</th>
-                                    <th>expected supply date</th>
-                                    <th>collection address</th>
-                                    <th>status</th>
-
-                                    <th>edit </th>
-                                    <th>request transport</th>
-
-                                    <th>request payment </th>
-                                    <th>delete </th>
-
-                                </tr>
-                            </thead>
-                            <tbody>
-
-
-
-
-
-                                <?php 
 // Check if data is not empty and is an array
 if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
     foreach ($data['salesorders'] as $row) {
 ?>
-                                <tr>
 
-                                    <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>"
-                                            style="width: 50px;"></td>
-                                    <td><?php echo $row->order_id ?></td>
-                                    <td><?php echo $row->name ?></td>
-                                    <td><?php echo $row->type ?></td>
-                                    <td><?php echo $row->quantity ?></td>
-                                    <td><?php echo $row->price ?></td>
-                                    <td><?php echo $row->date ?></td>
-                                    <td><?php echo $row->address ?></td>
-                                    <td><?php echo $row->status ?></td>
+                              
+                              <tr>
 
+            <td><img src="<?php echo $row->image; ?>" alt="<?php echo $row->name; ?>" style="width: 50px;"></td>
+            <td><?php echo $row->order_id ?></td>
+            <td><?php echo $row->name ?></td>
+            <td><?php echo $row->type ?></td>
+            <td><?php echo $row->quantity ?></td>
+            <td><?php echo $row->price ?></td>
+            <td><?php echo $row->date ?></td>
+            <td><?php echo $row->address ?></td>
+            <td><?php echo $row->status ?></td>
 
+          
 
-                                    <td> <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>"
-                                            <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img
-                                                src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action"
-                                                data-text="Edit this order"></a>
-                                    </td>
-                                    <td> <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>"
-                                            class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"><img
-                                                src="<?php echo URLROOT; ?>/public/images/transport.png"
-                                                class="card__action <?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>"></a>
-                                    </td>
-                                    <td> <a
-                                            href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>"><img
-                                                src="<?php echo URLROOT; ?>/public/images/pay.png"
-                                                class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>"></a>
-                                    </td>
-                                    <td> <a href="#"
-                                            onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img
-                                                src="<?php echo URLROOT; ?>/public/images/delete.png"
-                                                class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>"></a>
-                                    </td>
-                                </tr>
-                                <?php 
+<td>    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
+</td> 
+<td> <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>&date=<?php echo urlencode($row->date); ?>" class="<?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"></a></td> 
+<td> <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>"></a></td> 
+        </tr>
+<?php 
 
     }
 } else {

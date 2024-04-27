@@ -308,46 +308,25 @@
         }
         ?>
         border-radius: 5px; padding: 5px; font-weight: bold; font-family: 'Inter', sans-serif;">
-                                                    <?php echo $row->status; ?>
-                                                </span>
-                                            </p>
+                                                  
+                                                  <?php echo $row->status; ?>
+        </span>
+    </p>
 
-                                            <div class="card__details" style="text-align:left;">
-                                                <p class="card__text" style="color: black; font-family: 'Inter';"><span
-                                                        style="color: black;  font-weight: normal; font-family: 'Inter';"><?php echo $row->type; ?>&nbsp;
-                                                    </span></p>
-                                                <p class="card__text"
-                                                    style="color: black;  font-weight: normal; font-family: 'Inter';">
-                                                    per Kg : <span
-                                                        style="color: black; font-weight: bold; font-family: 'Inter';"><?php echo $row->price; ?>/=</span>
-                                                </p>
-                                                <p class="card__text"
-                                                    style="color: black; font-weight: normal;  font-family: 'Inter';">
-                                                    Deliverable before : <span
-                                                        style="color: black; font-weight: bold; font-family:'Inter';"><?php echo $row->date; ?></span>
-                                                </p>
-                                                <p class="card__text"
-                                                    style="color: black;  font-weight: normal; font-family:'Inter';">
-                                                    From : <span
-                                                        style="color: black;  font-weight: bold;  font-family:'Inter';"><?php echo $row->address; ?></span>
-                                                </p>
+                                        <div class="card__details" style="text-align:left;">
+                                            <p class="card__text" style="color: black; font-family: 'Inter';"><span style="color: black;  font-weight: normal; font-family: 'Inter';"><?php echo $row->type; ?>&nbsp; </span></p>
+                                            <p class="card__text" style="color: black;  font-weight: normal; font-family: 'Inter';">per Kg : <span style="color: black; font-weight: bold; font-family: 'Inter';"><?php echo $row->price; ?>/=</span></p>
+                                            <p class="card__text" style="color: black; font-weight: normal;  font-family: 'Inter';">Deliverable before : <span style="color: black; font-weight: bold; font-family:'Inter';"><?php echo $row->date; ?></span></p>
+                                            <p class="card__text" style="color: black;  font-weight: normal; font-family:'Inter';">From : <span style="color: black;  font-weight: bold;  font-family:'Inter';"><?php echo $row->address; ?></span></p>
+                                                
+                                        </div>
+                                    </div></br>
+                                    <div class="card__actions">
+                                    <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" data-text="Edit this order"></a>
+                                        <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>&date=<?php echo urlencode($row->date); ?>" class="<?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"><img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action <?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>" ></a>
+                                        <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Quality Approved' || $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Quality Approved' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" ></a>
+                                    </div></br></br>
 
-                                            </div>
-                                        </div></br>
-                                        <div class="card__actions">
-                                            <a href="<?php echo URLROOT; ?>/farmer/edit_salesordercommon?id=<?php echo $row->order_id; ?>"
-                                                <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>><img
-                                                    src="<?php echo URLROOT; ?>/public/images/edit.png"
-                                                    class="card__action" data-text="Edit this order"></a>
-                                            <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>"
-                                                class="<?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"><img
-                                                    src="<?php echo URLROOT; ?>/public/images/transport.png"
-                                                    class="card__action <?php echo $row->status !== 'Quality Approved' ? 'disabled-link' : ''; ?>"></a>
-                                            <a href="#"
-                                                onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status !== 'Quality Approved' || $row->status !== 'Pending Approval' || $row->status !== 'Approved') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>"><img
-                                                    src="<?php echo URLROOT; ?>/public/images/delete.png"
-                                                    class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval' && $row->status !== 'Quality Approved' && $row->status !== 'Approved') ? 'disabled-link' : ''; ?>"></a>
-                                        </div></br></br>
                                 </td>
                                 <?php 
                                 }
