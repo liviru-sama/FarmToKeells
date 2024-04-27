@@ -102,45 +102,55 @@
         <section class="notifications">
 
     <div class="notification-container">
-        <?php if (empty($data['notifications'])): ?>
-            <p>You don't have any notifications yet.</p>
-        <?php else: ?>
-            <?php foreach ($data['notifications'] as $notification): ?>
-                <?php switch ($notification->action):
-                    case 'reply':
-                        $mainTopic = "Reply from Keells Admin";
-                        $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
-                        break;
+    <?php if (empty($data['notifications'])): ?>
+    <p>You don't have any notifications yet.</p>
+<?php else: ?>
+    <?php 
+    // Sort notifications based on time, with the latest ones first
+    usort($data['notifications'], function($a, $b) {
+        return strtotime($b->time) - strtotime($a->time);
+    });
+    ?>
+    <?php foreach ($data['notifications'] as $notification): ?>
+        <?php 
+        // Set notification content based on action
+        switch ($notification->action):
+            case 'reply':
+                $mainTopic = "Reply from Keells Admin";
+                $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
+                break;
 
-                    case 'new purchase order':
-                        // 
-                        break;
+            case 'new purchase order':
+                // 
+                break;
 
-                    case 'price_update':
-                        // 
-                        break;
+            case 'price_update':
+                // 
+                break;
 
-                    case 'payment_update':
-                        // 
-                        break;
+            case 'payment_update':
+                // 
+                break;
 
-                    case 'reply':
-                        // 
-                        break;
+            case 'reply':
+                // 
+                break;
 
-                    case 'replyupdate':
-                        // 
-                        break;
-                endswitch; ?>
-                <div class="notification">
-                    <div class="notification-info">
-                        <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
-                        <p class="notification-message"><?php echo $notificationContent; ?></p>
-                        <p class="notification-time"><?php echo $notification->time; ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            case 'replyupdate':
+                // 
+                break;
+        endswitch; 
+        ?>
+        <div class="notification">
+            <div class="notification-info">
+                <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
+                <p class="notification-message"><?php echo $notificationContent; ?></p>
+                <p class="notification-time"><?php echo $notification->time; ?></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
     </div>
 </section>
 </main>
