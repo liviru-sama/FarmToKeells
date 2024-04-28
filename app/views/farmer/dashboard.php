@@ -84,12 +84,6 @@
     }
     </style>
 
-<script>
-    // JavaScript function to go back to the previous page
-    function goBack() {
-        window.history.back();
-    }
-    </script>
 
 
 </head>
@@ -99,11 +93,9 @@
     <section class="header">
         <!-- Navbar -->
         <div class="navbar">
-            <div class="navbar-icons">
-                
     <div class="navbar-icons">
         <div class="navbar-icon-container" data-text="Go Back">
-            <a href="<?php echo URLROOT; ?>/farmer/dashboard" id="backButton" >
+            <a href="#" id="backButton" onclick="goBack()">
                 <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
             </a>
         </div>
@@ -114,25 +106,31 @@
             </a>
         </div>
 
-        
-
-                <div class="navbar-icon-container" data-text="View Profile">
+        <div class="navbar-icon-container" data-text="View Profile">
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
                             class="navbar-icon">
                     </a>
                 </div>
-                <div class="navbar-icon-container" data-text="Logout">
-                    <a href="<?php echo URLROOT; ?>/farmer/logout">
-                        <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-                    </a>
-                </div>
-            </div>
-            <div class="navbar-logo-container">
-                <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-            </div>
+        <div class="navbar-icon-container" data-text="Logout">
+            <a href="<?php echo URLROOT; ?>/farmer/logout">
+                <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+            </a>
         </div>
+    </div>
+    <div class="navbar-logo-container">
+        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+    </div>
+</div>
 
+        <script>
+        // JavaScript function to go back to the previous page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+
+  
 
     </section>
     <?php endif; ?>

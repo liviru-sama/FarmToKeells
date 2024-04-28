@@ -191,77 +191,56 @@
     <!-- Main content -->
     <div class="main-content">
 
-        <div class="main-content">
+      
+    <div class="main-content">
 
-            <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class="tab-heading tab-selected"
-                    style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">
-                    &nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
-            </a>
-
-            <a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
-                <h5 class="inline-heading" class="tab-heading">Your Orders Table View </h5>
-            </a>
-
-
-
-            </br>
-
-
-
-             
 <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesorderpending" style="text-decoration: none;">
-    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesorderapproved" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejected" style="text-decoration: none;">
-    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Rejected</h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapproved" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejected" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
-</a><a href="<?php echo URLROOT; ?>/farmer/salesordercompleted" style="text-decoration: none;">
-    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
-</a> </br> 
-                <form method="post">
-                 
-                    <table>
-                       
-                        <tbody>
+    <h5 class="inline-heading" class="tab-heading tab-selected"
+        style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">
+        &nbsp;&nbsp;&nbsp;Your Orders Card View</h5>
+</a>
+
+<a href="<?php echo URLROOT; ?>/farmer/table_salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading" class="tab-heading">Your Orders Table View </h5>
+</a>
 
 
-            <main class="table"></br>
-                <section class="table_header">
-                    <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Any of Your Available products</h2>
-                    <div>
-                        <input type="text" id="searchInput" onkeyup="searchcardProducts()"
-                            placeholder="Search your products...">
-                        <a class="button"
-                            href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add
-                            New</a>
-                    </div>
-                </section>
-                </br>
 
+</br>
+
+
+
+
+
+<main class="table"></br>
+    <section class="table_header">
+        <h2 class="inline-heading">&nbsp;&nbsp;&nbsp;Place Order for Any of Your Available products</h2>
+        <div>
+            <input type="text" id="searchInput" onkeyup="searchcardProducts()"
+                placeholder="Search your products...">
+            <a class="button"
+                href="<?php echo URLROOT; ?>/farmer/add_salesordercommon?user_id=<?php echo $_SESSION['user_id']; ?>">+Add
+                New</a>
+        </div>
+    </section>
+    </br>
 
                 <section class="table_body">
 
 
                     <a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
                         <h5 class="inline-heading"
-                            style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">
+                           >
                             &nbsp;&nbsp;&nbsp; All </h5>
                     </a><a href="<?php echo URLROOT; ?>/farmer/salesorderpending" style="text-decoration: none;">
                         <h5 class="inline-heading">&nbsp;&nbsp;&nbsp; Pending Approval </h5>
                     </a><a href="<?php echo URLROOT; ?>/farmer/salesorderapproved" style="text-decoration: none;">
                         <h5 class="inline-heading">&nbsp;&nbsp;&nbsp; Approved</h5>
                     </a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejected" style="text-decoration: none;">
-                        <h5 class="inline-heading">&nbsp;&nbsp;&nbsp; Rejected</h5>
+                        <h5 class="inline-heading"  style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">&nbsp;&nbsp;&nbsp; Rejected</h5>
                     </a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapproved"
                         style="text-decoration: none;">
-                        <h5 class="inline-heading">&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+                        <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
                     </a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejected"
                         style="text-decoration: none;">
                         <h5 class="inline-heading">&nbsp;&nbsp;&nbsp; Quality Rejected</h5>

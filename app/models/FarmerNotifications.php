@@ -33,5 +33,19 @@ public function unreadNotifs() {
 
 
 
+public function getNotificationsByUserId($user_id) {
+    // Prepare SQL statement to select notifications for a specific user
+    $this->db->query('SELECT * FROM farmernotifications WHERE user_id = :user_id');
+    $this->db->bind(':user_id', $user_id);
+
+    // Execute the query
+    $this->db->execute();
+
+    // Fetch all notifications
+    return $this->db->resultSet();
+}
+
+
+
 }
 
