@@ -1601,4 +1601,20 @@ class Admin extends Controller
         }
     }
 
+        public function notify(){
+            $notificationModel = new AdminNotifications();
+            $unread = $notificationModel->unreadNotifs();
+        
+            // Return JSON response
+            echo json_encode(array('unread' => $unread));
+        }
+        
+        public function markAllAsRead() {
+            $notificationModel = new AdminNotifications();
+            $notificationModel->isRead();
+        
+            // You can return a response if needed
+            echo json_encode(['success' => true]);
+        }
+       
 }

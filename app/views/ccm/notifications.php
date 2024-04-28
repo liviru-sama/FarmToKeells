@@ -112,13 +112,19 @@
 
     <!-- Main content -->
 
-    <main class="main-content">
-    <h1>Collection Center Manager Notifications</h1><br>
+    <main class="main-content" >
+    <h1>Notifications</h1>
         <section class="notifications">
     <div class="notification-container">
         <?php if (empty($data['notifications'])): ?>
             <p>You don't have any notifications yet.</p>
         <?php else: ?>
+            <?php 
+    // Sort notifications based on time, with the latest ones first
+    usort($data['notifications'], function($a, $b) {
+        return strtotime($b->time) - strtotime($a->time);
+    });
+    ?>
             <?php foreach ($data['notifications'] as $notification): ?>
                 <?php switch ($notification->action):
                     case 'new_order':
@@ -155,6 +161,24 @@
 </main>
 
 
+<script> function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/ccm/markAllAsRead', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };</script>
    
    
            

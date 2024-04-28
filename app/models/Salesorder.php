@@ -38,6 +38,109 @@ class Salesorder {
         return $this->db->resultSet();
     }
     
+    public function getSalesordersByUserIdAndPurchaseIdpending($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'Pending Approval'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+
+    public function getSalesordersByUserIdAndPurchaseIdapproved($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'Approved'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+    
+    public function getSalesordersByUserIdAndPurchaseIdrejected($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'Rejected'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+
+    public function getSalesordersByUserIdAndPurchaseIdcompleted($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'Completed'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+
+
+    public function getSalesordersByUserIdAndPurchaseIdqualityapproved($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'Quality Approved'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+
+    public function getSalesordersByUserIdAndPurchaseIdqualityrejected($user_id, $purchase_id) {
+        // Prepare SQL query to fetch sales orders based on user ID and purchase ID
+        $sql = "SELECT * FROM salesorder WHERE user_id = :user_id AND purchase_id IS NULL AND status = 'quality Rejected'";
+        
+        // Prepare the statement
+        $this->db->query($sql);
+        
+        // Bind parameters
+        $this->db->bind(':user_id', $user_id);
+        
+        // Execute the query
+        $this->db->execute();
+        
+        // Return the results
+        return $this->db->resultSet();
+    }
+
 
     public function view_salesorder($id){
         $this->db->query('SELECT * from salesorder where order_id=:id');

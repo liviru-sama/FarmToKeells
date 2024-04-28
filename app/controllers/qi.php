@@ -363,6 +363,39 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     }
 
 
+    public function Notifications() {
+        if (!$this->isLoggedInadmin()) {
+            redirect('qi/qi_login');
+        } else { $notificationModel = $this->model('QiNotifications');
+    
+        $notifications = $notificationModel->getAllNotifications();
+    
+       
+        $data = [
+            'notifications' => $notifications,
+        ];
+    
+        // Load the 'farmer/inquiry' view and pass data to it
+        $this->view('qi/notifications', $data);
+    } }
 
+
+
+    public function notify(){
+        $notificationModel = new QiNotifications();
+        $unread = $notificationModel->unreadNotifs();
+    
+        // Return JSON response
+        echo json_encode(array('unread' => $unread));
+    }
+    
+    public function markAllAsRead() {
+        $notificationModel = new QiNotifications();
+        $notificationModel->isRead();
+    
+        // You can return a response if needed
+        echo json_encode(['success' => true]);
+    }
+    
 }
 ?>

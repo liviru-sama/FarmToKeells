@@ -71,13 +71,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+ <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -214,23 +212,26 @@
 
 
 
-                <section class="table_body">
-                    <form method="post">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Needlist ID</th>
-                                    <th>Product</th>
-                                    <th>Product image</th>
-                                    <th>product type</th>
-                                    <th>needed quantity(kgs)</th>
-                                    <th>expected supply date</th>
-                                    <th>Status</th>
-                                    <th>Place Order</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = mysqli_fetch_assoc($data['purchaseorders'] )) { ?>
+        
+    
+            
+            <section class="table_body">
+                <form method="post">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Needlist ID</th>
+                                <th>Product</th>
+                                <th>Product image</th>
+                                <th>product type</th>
+                                <th>needed quantity(kgs)</th>
+                                <th>expected supply date</th>
+                                <th>Status</th>
+                                <th>Place Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>                                <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
                                 <tr>
                                     <td><?php echo $row['purchase_id'] ?></td>
                                     <td><?php echo $row['name'] ?></td>
@@ -245,16 +246,16 @@
                                         <?php echo $row['purchase_status'] ?>
                                         <!-- Hidden input field to send order_id with the form -->
                                     </td>
-                                    <td><a class="button"
-                                            href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?<?php echo $_SESSION['user_id']; ?>">
-                                            Place Order </a></td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
-                    </form>
-                </section>
+                                 
             </main>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?<?php echo $_SESSION['user_id']; ?>"
+>
+Place Order </a></td>
+                                </tr><?php } ?>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </form>
             </section>
 
             <script>
@@ -279,7 +280,38 @@
                     }
                 }
             }
-            </script>
+        
+
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+
+
+</script>
 </body>
 
 

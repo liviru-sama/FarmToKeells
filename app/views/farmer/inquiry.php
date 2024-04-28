@@ -95,12 +95,12 @@
         /* Green color */
     }
 
-    .chat-container {
-        padding: 20px;
-        position: relative;
-        margin-bottom: -10px;
-        /* Negative margin equal to desired bottom padding */
-    }
+        .chat-container {
+            padding: 100px;
+            position: relative;
+            margin-bottom: -10px; /* Negative margin equal to desired bottom padding */
+            height:90%;
+        }
 
     .chat-form-container {
         width: 100%;
@@ -131,17 +131,16 @@
         z-index: 1;
     }
 
-    .add-inquiry-form .send-button {
-        width: 100%;
-        /* Adjust width to accommodate padding */
-        background-color: rgba(181, 174, 174, 0.25);
-        color: white;
-        border-radius: 10px;
-        padding: 10px;
-        cursor: pointer;
-        box-sizing: border-box;
-        font-weight: bold;
-    }
+        .add-inquiry-form .send-button {
+            width: 100%; /* Adjust width to accommodate padding */
+            background-color: #65A534;
+            color: white;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            box-sizing: border-box;
+            font-weight: bold;
+        }
     </style>
 </head>
 
@@ -155,20 +154,16 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
-
-            <div class="navbar-icon-container" data-text="View Profile">
-                <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
+          
+          <div class="navbar-icon-container" data-text="View Profile" >
+                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
+                    </a></div>
 
 
             <div class="navbar-icon-container" data-text="Logout">
@@ -252,7 +247,7 @@
         </section>
     </div>
     <!-- Main content -->
-    <div class="main-content">
+    <div class="main-content" style="height:70%;">
         <section class="header">
         </section>
         <section class="table_body">
@@ -304,10 +299,8 @@
     <script>
     document.addEventListener("DOMContentLoaded", function(event) {
         // Function to scroll the chat container to its bottom
-        function scrollChatToBottom() {
-            var chatContainer = document.getElementById('chatContainer');
-            chatContainer.scrollTop = chatContainer.scrollHeight;
-        }
+       
+        
 
         // Call the function when the DOM content is fully loaded
         scrollChatToBottom();
@@ -319,7 +312,38 @@
     }
 
     // Call the function when the page loads
-    window.onload = scrollChatToBottom;
+        // Call the function when the page loads
+        window.onload = scrollChatToBottom;
+
+
+        function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+
     </script>
 
 </body>

@@ -18,6 +18,18 @@ public function getAllNotifications() {
     return $this->db->resultSet();
 }
 
+public function isRead() {
+    $this->db->query('UPDATE adminnotifications SET is_read = 0');
+    $this->db->execute();
+}
+
+public function unreadNotifs() {
+    $this->db->query('SELECT COUNT(*) as count FROM adminnotifications WHERE is_read = 1');
+    $this->db->execute();
+    $count = $this->db->single()->count;
+    
+    return $count > 0;
+}
 
 
 }

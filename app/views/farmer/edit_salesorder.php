@@ -66,13 +66,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -250,47 +248,45 @@
                         }
                         </script>
 
-                        <div class="text-field">
-                            <label for="quantity">Deliverable Quantity in kgs:</label>
-                            <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="0"
-                                step="1">
-                        </div>
-                        <div class="text-field">
-                            <label for="price">Price per kg:</label>
-                            <?php if ($data['status'] === 'Pending Approval'): ?>
-                            <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01">
-                            <?php else: ?>
-                            <input type="number" name="price" value="<?php echo $data['price']; ?>" min="0" step="0.01"
-                                readonly>
-                            <?php endif; ?>
-                        </div>
 
-                        <div class="text-field">
-                            <label for="date">Deliverable Before:</label>
-                            <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>"
-                                min="<?php echo date('Y-m-d'); ?>">
-                        </div>
-                        <div class="text-field">
-                            <label for="address">Address:</label>
-                            <input type="text" name="address" value="<?php echo $data['address']; ?>">
-                        </div>
-                        <input type="submit" value="Save">
-                    </form>
+                <div class="text-field" >
+                    <label for="quantity">Deliverable Quantity in kgs:</label>
+                    <input type="number" name="quantity" value="<?php echo $data['quantity']; ?>" min="5" step="1">
                 </div>
-            </section>
+                <div class="text-field">
+    <label for="price">Price per kg:</label>
+    <?php if ($data['status'] === 'Pending Approval'): ?>
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="1" step="0.01">
+    <?php else: ?>
+        <input type="number" name="price" value="<?php echo $data['price']; ?>" min="1" step="0.01" readonly>
+    <?php endif; ?>
+</div>
 
-            <script>
-            // JavaScript code to restrict past dates in the date input field
-            document.addEventListener('DOMContentLoaded', function() {
-                // Get the date input field
-                var salesOrderDateInput = document.getElementById('salesOrderDate');
+                <div class="text-field">
+                    <label for="date">Deliverable Before:</label>
+                    <input type="date" name="date" id="salesOrderDate" value="<?php echo $data['date']; ?>" min="<?php echo date('Y-m-d'); ?>">
+                </div>
+                <div class="text-field">
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" value="<?php echo $data['address']; ?>">
+                </div>
+                <input type="submit" value="Save">
+            </form>
+        </div>
+    </section>
 
-                // Get the current date
-                var currentDate = new Date().toISOString().split('T')[0];
+    <script>
+        // JavaScript code to restrict past dates in the date input field
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the date input field
+            var salesOrderDateInput = document.getElementById('salesOrderDate');
 
-                // Set the min attribute to the current date
-                salesOrderDateInput.setAttribute('min', currentDate);
-            });
+            // Get the current date
+            var currentDate = new Date().toISOString().split('T')[0];
+
+            // Set the min attribute to the current date
+            salesOrderDateInput.setAttribute('min', currentDate);
+        });
 
 
             function validateQuantity() {
@@ -303,11 +299,40 @@
                     return false; // Prevent form submission
                 }
 
-                // Clear any previous error message
-                quantityError.innerText = "";
-                return true; // Allow form submission
+        // Clear any previous error message
+        quantityError.innerText = "";
+        return true; // Allow form submission
+    }
+
+    function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
             }
-            </script>
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+
+    </script>
 </body>
 
 </html>
