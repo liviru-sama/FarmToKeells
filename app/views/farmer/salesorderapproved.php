@@ -337,7 +337,7 @@
                                 }
                             } else {
                                 // Handle the case where no sales orders are found
-                                echo "<tr><td colspan='12'>You haven't placed any Orders yet</td></tr>";
+                                echo "<tr><td colspan='12'></td></tr>";
                             }
                             ?>
 

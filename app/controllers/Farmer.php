@@ -1551,19 +1551,25 @@ public function place_order() {
     }
    
 
-public function Notifications() {
-    $notificationModel = $this->model('FarmerNotifications');
-
-    $notifications = $notificationModel->getAllNotifications();
-
-   
-    $data = [
-        'notifications' => $notifications,
-    ];
-
-    // Load the 'farmer/inquiry' view and pass data to it
-    $this->view('farmer/notifications', $data);
-  }
+    public function Notifications() {
+        // Retrieve user ID from the session
+        $user_id = $_SESSION['user_id']; // Assuming the user ID is stored in the session
+    
+        // Load the FarmerNotifications model
+        $notificationModel = $this->model('FarmerNotifications');
+    
+        // Get notifications for the specific user ID
+        $notifications = $notificationModel->getNotificationsByUserId($user_id);
+    
+        // Prepare data to be passed to the view
+        $data = [
+            'notifications' => $notifications,
+        ];
+    
+        // Load the 'farmer/notifications' view and pass data to it
+        $this->view('farmer/notifications', $data);
+    }
+    
 
 
   public function salesorderpending() {
