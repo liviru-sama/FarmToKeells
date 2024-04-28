@@ -24,7 +24,7 @@
         background-color: rgba(148, 144, 144, 0.333);
         backdrop-filter: blur(20px);
         box-shadow: 0 .4rem .8rem #0005;
-        border-radius: 700px;
+        border-radius: 40px;
         text-align: center;
         padding: 10px;
     }
@@ -32,22 +32,47 @@
     input {
         color: black;
         padding: 10px;
-        border-radius: 30px;
+        border-radius: 20px;
+        border: none;
+        margin-left: 10px;
+        width: calc(50% - 30px);
+        /* Adjusted width */
+        text-align: left;
     }
 
     label {
         color: white;
         font-weight: bold;
-
+        width: 20%;
+        margin-left: 20px;
+        float: left;
+        clear: left;
+        padding-left: 10px;
+        /* Add left padding to labels */
     }
 
-    .rectangle {
-        padding: 10px;
-        width: 50%;
-        /* Adjust the width as needed */
-        margin: 0 auto;
-        /* Center-align the rectangle */
+
+
+
+
+    .button-main {
+        background-color: #65A534;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s ease;
+        /* Add transition for smooth effect */
     }
+
+    .button-main:hover {
+        background-color: #65A534;
+        /* Change background color on hover */
+    }
+
+
 
     .prectangle {
         padding: 5px;
@@ -109,13 +134,39 @@
         window.history.back();
     }
 
-    
+
     function handleFormSubmission() {
-        
+
         return false;
     }
 
+    //username error
+    document.addEventListener('DOMContentLoaded', function() {
+        var usernameInput = document.getElementById('username');
+        var usernameError = document.getElementById('new_username_error');
 
+        if (usernameInput) {
+            usernameInput.addEventListener('focus', function() {
+                if (usernameError) {
+                    usernameError.style.display = 'none';
+                }
+            });
+        }
+    });
+
+    //email error
+    document.addEventListener('DOMContentLoaded', function() {
+        var emailInput = document.getElementById('email');
+        var emailError = document.getElementById('new_email_error');
+
+        if (emailInput) {
+            emailInput.addEventListener('focus', function() {
+                if (emailError) {
+                    emailError.style.display = 'none';
+                }
+            });
+        }
+    });
     </script>
 
     <!-- Sidebar -->
@@ -198,124 +249,75 @@
         </a>
 
 
-
-
-        <section class="header">
-            <h2 class="p-regular-grey" style="text-align:center;"></br>Manage Your Account Details</h2>
-        </section></br>
         <section class="form">
-            <div class="card-white" style="text-align: center;">
-                <div class="subgrid-4" style="display: flex; flex-wrap: wrap; justify-content: center;">
 
-                    <div class="rectangle" style="margin: auto;">
-
-                        <table style="margin: auto; text-align: left;">
-                            <tr>
-                                <td class="p-regular-grey" style="padding-right: 10px;">Username</td>
-                                <td class="p-regular-grey">:</td>
-                                <td class="p-title"><?php echo $_SESSION['user_username'];?></td>
-                            </tr>
-                            <tr>
-                                <td class="p-regular-grey" style="padding-right: 10px;">Name</td>
-                                <td class="p-regular-grey">:</td>
-                                <td class="p-title"><?php echo $_SESSION['user_name'];?></td>
-                            </tr>
-                            <tr>
-                                <td class="p-regular-grey" style="padding-right: 10px;">E-mail</td>
-                                <td class="p-regular-grey">:</td>
-                                <td class="p-title"><?php echo $_SESSION['user_email'];?></td>
-                            </tr>
-                            <tr>
-                                <td class="p-regular-grey" style="padding-right: 10px;">Mobile</td>
-                                <td class="p-regular-grey">:</td>
-                                <td class="p-title"><?php echo $_SESSION['user_mobile'];?></td>
-                            </tr>
-                            <tr>
-                                <td class="p-regular-grey" style="padding-right: 10px;">NIC</td>
-                                <td class="p-regular-grey">:</td>
-                                <td class="p-title"><?php echo $_SESSION['user_nic'];?></td>
-                            </tr>
-                        </table>
-                    </div>
-                </div>
-                
-            </div>
 
 
 
             </br>
-            <div class="rectangle">
-                <form action="<?php echo URLROOT; ?>/farmer/updateUsername/<?php echo $_SESSION['user_id']; ?>"
-                    method="POST" class="subgrid-1" >
-                    </br>
-                    <h2>Change Username</br></br></h2>
-                    <div>
-                        <label for="nusername" class="p-regular-grey" style="color:white;">New Username :</label>
-                        <input type="text" id="new_username" name="new_username" required>
-                        <button class="button-main" type="submit">Change</br></button>
-                    </div>
+            <div class="prectangle">
+                <form action="<?php echo URLROOT; ?>/farmer/updateProfile/<?php echo $_SESSION['user_id']; ?>"
+                    method="POST" class="subgrid-1">
+                    <h2>Update Profile</h2>
 
-                    </br> </br>
-                </form></br>
+                    <?php flash('user_message'); ?>
+                    <br>
+
+                    <!-- Username -->
+                    <label for="new_username" class="p-regular-grey">New Username:</label>
+                    <input type="text" id="new_username" name="new_username"
+                        value="<?php echo $_SESSION['user_username']; ?>" required>
+                    <div class="error" id="new_username_error"><?php echo $data['new_username_err']; ?></div>
+                    <br>
+
+                    <!-- Name -->
+                    <label for="new_name" class="p-regular-grey">New Name:</label>
+                    <input type="text" id="new_name" name="new_name" value="<?php echo $_SESSION['user_name']; ?>"
+                        required>
+                    <div class="error" id="new_name_error"><?php echo $data['new_name_err']; ?></div>
+                    <br>
+
+                    <!-- Email -->
+                    <label for="new_email" class="p-regular-grey">New E-mail:</label>
+                    <input type="text" id="new_email" name="new_email" value="<?php echo $_SESSION['user_email']; ?>"
+                        required>
+                    <div class="error" id="new_email_error"><?php echo $data['new_email_err']; ?></div>
+                    <br>
+
+                    <!-- Mobile -->
+                    <label for="new_mobile" class="p-regular-grey">New Mobile:</label>
+                    <input type="text" id="new_mobile" name="new_mobile" value="<?php echo $_SESSION['user_mobile']; ?>"
+                        required>
+                    <div class="error" id="new_mobile_error"><?php echo $data['new_mobile_err']; ?></div>
+                    <br>
 
 
 
+                    <button class="button-main" type="submit">Update Profile</button>
+                </form>
             </div>
-            <div class="rectangle">
-                <form action="<?php echo URLROOT;?>/farmer/updateName/<?php echo $_SESSION['user_id'];?>" method="POST"
-                    class="subgrid-1" >
-                    </br>
-                    <h2>Change Name</br></br></h2>
-                    <!-- <div class="error" id="new_name_err"><?php echo $data['new_name_err']; ?></div> -->
-                    <label for="nnamec" class="p-regular-grey">New Name :</label>
-                    <input type="text" id="new_name" name="new_name" class="form-default" required>
-                    <button class="button-main" type="submit">Change</br></button>
-                    </br></br>
-                </form></br>
-            </div>
-            <div class="rectangle">
-                <form action="<?php echo URLROOT;?>/farmer/updateEmail/<?php echo $_SESSION['user_id'];?>" method="POST"
-                    class="subgrid-1">
-                    </br>
-                   
-
-                    <label for="nemail" class="p-regular-grey">New E-mail :</label>
-                    <input type="text" id="new_email" name="new_email" class="form-default" required>
-                    
-                    <button class="button-main" type="submit">Change</br></button>
-                    </br></br>
-                </form></br>
-            </div>
-            <div class="rectangle">
-                <form action="<?php echo URLROOT;?>/farmer/updateMobile/<?php echo $_SESSION['user_id'];?>"
-                    method="POST" class="subgrid-1" >
-                    </br>
-                    <h2>Change Mobile</br></br></h2>
-                    <!-- <div class="error" id="new_mobile_err"><?php echo $data['new_mobile_err']; ?></div> -->
-                    <label for="nmobile" class="p-regular-grey">New Mobile :</label>
-                    <input type="text" id="new_mobile" name="new_mobile" class="form-default" required>
-                    <button class="button-main" type="submit">Change</br></button>
-                    </br> </br>
-                </form></br>
-            </div>
-
-
-
 
             <div class="prectangle">
                 <form action="<?php echo URLROOT;?>/farmer/updatePassword/<?php echo $_SESSION['user_id'];?>"
-                    method="POST" class="subgrid-1" >
+                    method="POST" class="subgrid-1">
                     <h2>Change Password</h2>
+                    <?php flash('password'); ?>
                     <br>
                     <label for="current_password" class="p-regular-grey">Current Password :</label>
                     <input type="password" id="current_password" name="current_password" class="" required>
+                    <!-- <div class="error" id="current_password_err"><?php echo $data['current_password_err']; ?></div> -->
+
                     <br><br>
                     <label for="new_password" class="p-regular-grey">New Password :</label>
                     <input type="password" id="new_password" name="new_password" class="" required>
+                    <!-- <div class="error" id="new_password_err"><?php echo $data['new_password_err']; ?></div> -->
+
                     <br><br>
                     <label for="confirm_password" class="p-regular-grey">Confirm Password :</label>
                     <input type="password" id="confirm_password" name="confirm_password" class="" required>
-                    <br><br>
+                    <!-- <div class="error" id="confirm_new_password_err"><?php echo $data['confirm_new_password_err']; ?></div> -->
+
+                    <br>
                     <button class="button-main" type="submit">Change</button>
                 </form>
             </div>
@@ -323,8 +325,7 @@
 
 
 
-    </div>
-    </section>
+        </section>
 
     </div>
 

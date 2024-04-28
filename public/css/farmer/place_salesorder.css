@@ -450,3 +450,5 @@ h2{
 .card:last-child {
     flex: 0 0 calc(25% - 2px); /* Set the flex property of the last card to have a fixed size */
 }
+
+

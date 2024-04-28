@@ -176,75 +176,110 @@
             }
         }
 
-        public function updateUsername($user_id, $new_username) {
+        // public function updateUsername($user_id, $new_username) {
+        //     $this->db->query('UPDATE users SET username = :new_username WHERE id = :id');
+        //     // Bind values
+        //     $this->db->bind(':id', $user_id);
+        //     $this->db->bind(':new_username', $new_username);
+
+        //     // Execute
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        // public function updateName($user_id, $new_name) {
+        //     $this->db->query('UPDATE users SET name = :new_name WHERE id = :id');
+        //     // Bind values
+        //     $this->db->bind(':id', $user_id);
+        //     $this->db->bind(':new_name', $new_name);
+
+        //     // Execute
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        // public function updateEmail($user_id, $new_email) {
+        //     $this->db->query('UPDATE users SET email = :new_email WHERE id = :id');
+        //     // Bind values
+        //     $this->db->bind(':id', $user_id);
+        //     $this->db->bind(':new_email', $new_email);
+
+        //     // Execute
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        // public function updateMobile($user_id, $new_mobile) {
+        //     $this->db->query('UPDATE users SET mobile = :new_mobile WHERE id = :id');
+        //     // Bind values
+        //     $this->db->bind(':id', $user_id);
+        //     $this->db->bind(':new_mobile', $new_mobile);
+
+        //     // Execute
+        //     if ($this->db->execute()) {
+        //         return true;
+        //     } else {
+        //         return false;
+        //     }
+        // }
+
+        public function updateProfile($user_id, $new_username, $new_name, $new_email, $new_mobile, $new_nic) {
+            // Begin a transaction
+            
+        
+            // Update username
             $this->db->query('UPDATE users SET username = :new_username WHERE id = :id');
-            // Bind values
             $this->db->bind(':id', $user_id);
             $this->db->bind(':new_username', $new_username);
-
-            // Execute
-            if ($this->db->execute()) {
-                return true;
-            } else {
+            if (!$this->db->execute()) {
+                $this->db->cancelTransaction();
                 return false;
             }
-        }
-
-        public function updateName($user_id, $new_name) {
+        
+            // Update name
             $this->db->query('UPDATE users SET name = :new_name WHERE id = :id');
-            // Bind values
             $this->db->bind(':id', $user_id);
             $this->db->bind(':new_name', $new_name);
-
-            // Execute
-            if ($this->db->execute()) {
-                return true;
-            } else {
+            if (!$this->db->execute()) {
+                $this->db->cancelTransaction();
                 return false;
             }
-        }
-
-        public function updateEmail($user_id, $new_email) {
+        
+            // Update email
             $this->db->query('UPDATE users SET email = :new_email WHERE id = :id');
-            // Bind values
             $this->db->bind(':id', $user_id);
             $this->db->bind(':new_email', $new_email);
-
-            // Execute
-            if ($this->db->execute()) {
-                return true;
-            } else {
+            if (!$this->db->execute()) {
+                $this->db->cancelTransaction();
                 return false;
             }
-        }
-
-        public function updateMobile($user_id, $new_mobile) {
+        
+            // Update mobile
             $this->db->query('UPDATE users SET mobile = :new_mobile WHERE id = :id');
-            // Bind values
             $this->db->bind(':id', $user_id);
             $this->db->bind(':new_mobile', $new_mobile);
-
-            // Execute
-            if ($this->db->execute()) {
-                return true;
-            } else {
+            if (!$this->db->execute()) {
+                $this->db->cancelTransaction();
                 return false;
             }
+        
+            
+        
+            // Commit the transaction if all updates were successful
+            
+        
+            return true;
         }
-
-        public function updateNIC($user_id, $new_nic) {
-            $this->db->query('UPDATE users SET nic = :new_nic WHERE id = :id');
-            // Bind values
-            $this->db->bind(':id', $user_id);
-            $this->db->bind(':new_nic', $new_nic);
-
-            // Execute
-            if ($this->db->execute()) {
-                return true;
-            } else {
-                return false;
-            }
-        }
+        
 
         
 
@@ -254,18 +289,7 @@
 
 
 
-        public function deleteUser($id) {
-            $this->db->query('DELETE FROM users WHERE id = :id');
-            // Bind values
-            $this->db->bind(':id', $id);
         
-            // Execute
-            if($this->db->execute()){
-                return true;
-            } else {
-                return false;
-            }
-        }
         
 
         public function update_profile($data) {
@@ -279,6 +303,19 @@
     
             // Execute
             return $this->db->execute();
+        }
+
+        public function deleteUser($id) {
+            $this->db->query('DELETE FROM users WHERE id = :id');
+            // Bind values
+            $this->db->bind(':id', $id);
+        
+            // Execute
+            if($this->db->execute()){
+                return true;
+            } else {
+                return false;
+            }
         }
 
 

@@ -11,7 +11,7 @@ class Admin extends Controller
     public $adminModel;
     public $adminsModel;
     public $userModel;
-    public $ccmModel; // Fix the property name
+    public $ccmModel; 
     public $tmModel;
     public $qiModel;
 
@@ -21,8 +21,8 @@ class Admin extends Controller
         $this->adminModel = $this->model('AdminModel');
         $this->adminsModel = $this->model('Admins');
         $this->userModel = $this->model('User');
-        $this->ccmModel = $this->model('CcmModel'); // Instantiate the CcmModel
-        $this->tmModel = $this->model('TmModel'); // Instantiate the CcmModel
+        $this->ccmModel = $this->model('CcmModel'); 
+        $this->tmModel = $this->model('TmModel'); 
         $this->qiModel = $this->model('QiModel');
 
     }
@@ -96,8 +96,7 @@ class Admin extends Controller
 
     }
 
-    public function index()
-    {
+    public function index(){
         if (!$this->isLoggedInAdmin()) {
             redirect('admin/admin_login');
         } else {

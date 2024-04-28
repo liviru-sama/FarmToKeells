@@ -85,6 +85,38 @@
         margin-top: 20px;
         /* Add some margin from the top */
     }
+
+    .button-main {
+        background-color: #65A534;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s ease;
+        /* Add transition for smooth effect */
+    }
+
+    .button-main:hover {
+        background-color: #65A534;
+        /* Change background color on hover */
+    }
+
+    .prectangle {
+        padding: 20px;
+        width: 60%;
+        /* Adjust the width as needed */
+        margin: 0 auto;
+        /* Center-align the rectangle */
+        background-color: rgba(255, 255, 255, 0.4);
+        backdrop-filter: blur(20px);
+        box-shadow: 0 .4rem .8rem #0005;
+        border-radius: 40px;
+        text-align: center;
+        margin-top: 70px;
+        
+    }
     </style>
 </head>
 
@@ -206,39 +238,45 @@
         <a href="<?php echo URLROOT; ?>/farmer/payment" style="text-decoration: none;">
             <h5 class="inline-heading ">&nbsp;&nbsp;&nbsp;View Order Payments</h5>
         </a>
-        <section class="header">
-            <!-- Header content -->
-        </section>
-        <section class="table_body" style="text-align:center;">
-            </br>
-            <h1 style="text-align:center;">Your Bank Account Details for Payments</h1></br>
-            <?php if (!empty($data['paymentDetails']) && is_array($data['paymentDetails'])) : ?>
-            <ul style="font-size:20px;">
-                <?php foreach ($data['paymentDetails'] as $payment) : ?>
-                <li>
-                    </br>
-                    <p>Account Number&nbsp;:</p>
-                    &nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
-                    </br>
-                    <p>Account Name&nbsp;&nbsp;&nbsp;:</p>
-                    &nbsp;&nbsp;&nbsp;<span><?php echo $payment->account_name; ?></span><br>
-                    </br>
-                    <p>Bank&nbsp;&nbsp;&nbsp;:</p>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank; ?></span><br>
-                    </br>
-                    <p>Branch&nbsp;&nbsp;&nbsp;:</p>
-                    &nbsp;&nbsp;&nbsp;<span><?php echo $payment->branch; ?></span><br><br><br>
-                </li>
-                <?php endforeach; ?>
-                <a href="<?php echo URLROOT; ?>/farmer/edit_payment" class="button">Edit Your Payment Details</a>
 
-            </ul>
-            <?php else : ?>
-            <p style="text-align:center;">No payment details found.</p> </br></br></br>
-            <!-- Add button for adding payment details -->
-            <a href="<?php echo URLROOT; ?>/farmer/add_payment" class="button">Add Your Payment Details</a>
-            <?php endif; ?>
-        </section>
-    </div>
+
+        <div class="prectangle">
+            <section class="table_body" style="text-align:center;">
+                </br>
+                <h1 style="text-align:center;">Your Bank Account Details for Payments</h1></br>
+                <?php if (!empty($data['paymentDetails']) && is_array($data['paymentDetails'])) : ?>
+                <ul style="font-size:20px;">
+                    <?php foreach ($data['paymentDetails'] as $payment) : ?>
+                    <li>
+                        </br>
+                        <p>Account Number&nbsp;:</p>
+                        &nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
+
+                        <p>Account Name&nbsp;&nbsp;&nbsp;:</p>
+                        &nbsp;&nbsp;&nbsp;<span><?php echo $payment->account_name; ?></span><br>
+
+                        <p>Bank&nbsp;&nbsp;&nbsp;:</p>&nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank; ?></span><br>
+
+                        <p>Branch&nbsp;&nbsp;&nbsp;:</p>
+                        &nbsp;&nbsp;&nbsp;<span><?php echo $payment->branch; ?></span><br><br>
+                    </li>
+                    <?php endforeach; ?>
+                    <!-- <a href="<?php echo URLROOT; ?>/farmer/edit_payment" class="button">Edit Your Payment Details</a> -->
+                    <button class="button-main" style="margin-top: 10px;"
+                        onclick="window.location.href='<?php echo URLROOT; ?>/farmer/edit_payment'">Edit Your Payment
+                        Details</button>
+
+
+                </ul>
+                <?php else : ?>
+                <p style="text-align:center;">No payment details found.</p> </br></br>
+                <!-- Add button for adding payment details -->
+                
+                <button class="button-main" style="margin-top: 10px;"
+                        onclick="window.location.href='<?php echo URLROOT; ?>/farmer/add_payment'">Add Your Payment Details</button>
+                <?php endif; ?>
+            </section>
+        </div>
 <script>function updateNotifications() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
