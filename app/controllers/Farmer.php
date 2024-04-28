@@ -1549,7 +1549,7 @@ public function place_order() {
             $this->view('farmer/payment', $data);
         }
     }
-  
+   
 
 public function Notifications() {
     $notificationModel = $this->model('FarmerNotifications');
