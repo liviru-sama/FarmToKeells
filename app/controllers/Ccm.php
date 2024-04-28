@@ -935,10 +935,52 @@ public function purchaseOVD() {
         $this->view("ccm/purchaseOVD", $data);
     } else {
         // If not a POST request, redirect to the report generator page or show an error message
-        redirect('ccm/report_generator');
+        redirect('ccm/purchaseOV');
     }
 }
 
+public function salesOV() {
+
+    $this->view('ccm/salesOV');
+}
+
+public function salesOVD() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $data['startDate'] = $_POST['start_date'];
+        $data['endDate'] = $_POST['end_date'];
+        
+        $sales = $this->model('Salesorder');
+        
+        $data['allSorders'] = $sales->statusinDate($data['startDate'], $data['endDate']);
+
+        // echo "<pre>";
+        // print_r ($data['allSorders']);
+        // echo "</pre>";
+
+        $allCount = 0;
+
+        foreach ($data['allSorders'] as $stat) {
+            $allCount += $stat->count;
+        }
+
+        foreach ($data['allSorders'] as $stat) {
+            $stat->perc = ($stat->count / $allCount) * 100;
+        }
+
+        $data['allCount'] = $allCount;
+
+        $this->view("ccm/salesOVD", $data);
+    } else {
+        // If not a POST request, redirect to the report generator page or show an error message
+        redirect('ccm/salesOV');
+    }
+}
+
+public function unitOV() {
+
+    $this->view('ccm/unitOV');
+}
 }
 
 ?>

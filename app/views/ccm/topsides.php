@@ -7,7 +7,8 @@
     <title><?php echo SITENAME; ?></title>
     <script src="<?php echo JS;?>add_product.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
+    <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS; ?>ccm/place_salesorder.css">
 
     <style>
         body,
@@ -17,7 +18,6 @@
             background-size: cover;
             height: 100%;
         }
-
         #existingproductFrame {
             position: fixed;
            
@@ -32,10 +32,7 @@
             width: 80%; /* Adjust width as needed */
             height: 100%; /* Adjust height as needed */
         }
-      
-        /* CSS for styling the iframe */
-        
-        /* CSS for styling the form */
+
         .form-container {
             width: 50%; /* Set the width to occupy half of the page */
             margin: 0 auto; /* Center the container horizontally */
@@ -49,11 +46,31 @@
         input[type="submit"] {
             width: 100%; /* Make the submit button full width */
         }
-        
+        .iframe-container {
+            margin-top: 20px; /* Add margin to separate the iframe from the form */
+        }
         #report_frame {
             width: 100%;
             height: 400px;
             border: none; /* Remove border from iframe */
+        }
+        .reportInfo {
+            width: 25%;
+            margin: 4rem auto 1rem;
+        }
+
+        .reportInfo th {
+            background-color: #65A534;
+            padding: 0.3rem;
+        }
+
+        .reportInfo td {
+            background-color: #CCCCCC;
+            padding: 0.3rem;
+        }
+
+        .para {
+            display: flex;
         }
     
     </style>
@@ -143,120 +160,43 @@
         </section>
     </div>
 
+    <?php $select = "style='background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px'"; ?>
+
     <!-- Main content -->
     <div class="main-content">
         <section class="header">
 
         <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading" >&nbsp;&nbsp;&nbsp; GENERATE QUANTITY-TIME CHART</h5></a>
+                = "tab-heading" <?php echo $tab==1 ? $select : "";?>>&nbsp;&nbsp;&nbsp;GENERATE QUANTITY-TIME CHART</h5></a>
 
     <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
+                = "tab-heading" <?php echo $tab==2 ? $select : "";?>>GENERATE PRICE-TIME CHART</h5>
             </a>
 
-            
             <a href="<?php echo URLROOT; ?>/ccm/purchaseOV" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >PURCHASE ORDER OVERVIEW</h5>
+                = "tab-heading" <?php echo $tab==3 ? $select : "";?>>PURCHASE ORDER OVERVIEW</h5>
             </a>
 
             <a href="<?php echo URLROOT; ?>/ccm/salesOV" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >SALES ORDER OVERVIEW</h5>
+                = "tab-heading" <?php echo $tab==4 ? $select : "";?>>SALES ORDER OVERVIEW</h5>
             </a>
 
             <a href="<?php echo URLROOT; ?>/ccm/transportOV" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >TRANSPORT ORDER OVERVIEW</h5>
+                = "tab-heading" <?php echo $tab==5 ? $select : "";?>>TRANSPORT ORDER OVERVIEW</h5>
             </a>
 
             <a href="<?php echo URLROOT; ?>/ccm/unitOV" style="text-decoration: none;">
                 <h5 class="inline-heading" class
-                = "tab-heading tab-selected" >TRANSPORT UNITS</h5>
+                = "tab-heading" <?php echo $tab==6 ? $select : "";?>>TRANSPORT UNITS</h5>
             </a>
            
-
             </br>  <main class="table">
 </br>
-<a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
-                <h5 class="inline-heading" class
-                = "tab-heading" style="background: #65A534; transform: scale(1.08); padding: 2px;">&nbsp;&nbsp;&nbsp; PRICE REPORT FORM</h5></a>
-
-    
- <main class="table">
 
         
-            <section class="table_body">
-
-
             
-            <section class="form">
-        <div class="form-container"></br></br></br>
-        
-            <h1 style="font-family: 'inter';">Generate Report for a product price over time</br></br></h1>
-            <form action="<?php echo URLROOT; ?>/ccm/displayInventoryHistoryReportprice" method="post" >
-                <div class="text-field">
-                    <label for="start_date" style="font-weight: bold;">Start Date:</label> 
-                    <input type="date" id="start_date" name="start_date" required>
-                </div>
-                <div class="text-field">
-                    <label for="end_date"style="font-weight: bold;">End Date:</label> 
-                    <input type="date" id="end_date" name="end_date" required>
-                </div>
-                <div class="text-field">
-                    <label for="product_name" style="font-weight: bold;">Product Name:</label> 
-                    <input type="text" id="product_name" name="product_name">
-                </div>
-                <input type="submit" value="Generate Chart"></br></br>
-            </form>
-        </div>
-    </section></section> </main>
-    <iframe id="existingproductFrame" src="<?php echo URLROOT; ?>/ccm/existingproduct"></iframe>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get the product field
-        var productField = document.getElementById('product_name');
-        // Get the iframe
-        var iframe = document.getElementById('existingproductFrame');
-
-        // Initially hide the iframe
-        iframe.style.display = 'none';
-
-        // Show the iframe when the product field is clicked
-        productField.addEventListener('click', function() {
-            iframe.style.display = 'block';
-        });
-
-        // Center the iframe on top of the form
-        iframe.style.position = 'fixed';
-        iframe.style.top = '50%';
-        iframe.style.left = '50%';
-        iframe.style.transform = 'translate(-50%, -50%)';
-
-        // Adjust the size of the iframe to cover the whole table header
-        var tableHeaderHeight = document.querySelector('.header').offsetHeight;
-        iframe.style.height = 'calc(60vh )';
-
-        // JavaScript function to fill the input field "Product" in the parent page
-        window.fillProductField = function(productName) {
-            // Get the parent window and access the input fields
-            var productInput = document.getElementById('product_name');
-
-            // Set the value of the input field to the selected product name
-            productInput.value = productName;
-
-            // Hide the iframe
-            iframe.style.display = 'none';
-        };
-    });
-</script>
-
-
-</body>
-
-</html>
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>

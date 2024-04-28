@@ -300,7 +300,16 @@ public function getProductImageURL($productName) {
         return $results;
     }
 
-    
+    public function statusinDate($start, $end){
+        $this->db->query("SELECT status, COUNT(*) AS count FROM salesorder WHERE date >= :start AND date <= :end GROUP BY status;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->resultSet();
+
+        return $results;
+    }
 }
     
 
