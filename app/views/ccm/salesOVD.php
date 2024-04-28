@@ -31,17 +31,17 @@ include "topsides.php";
         <div style="display:flex; justify-content:center; margin: 2rem auto 3rem; gap:4rem;">
         <p>No. of Sales Orders : <?= $data['allSorders']->count; ?></p>
         </div>
-        <div style="width:84vw; margin:0 auto; font-size: 0.6rem; font-weight:lighter;">
+        <div style="width:44vw; margin:0 auto; font-size: 0.6rem;">
             <table>
                 <tr style="height: 1vw; margin:0 auto; width:min-content; padding: 0;">
                     <td style="width: 1vw; background-color:#F5C749"></td>
-                    <td style="width: 20vw; padding:0;">Pending Orders</td>
+                    <td style="font-weight:normal; width: 10vw; padding:0;">Pending Orders</td>
                     <td style="width: 1vw; background-color:#4AB0F5"></td>
-                    <td style="width: 20vw; padding:0;">Approved Orders</td>.
+                    <td style="font-weight:normal; width: 10vw; padding:0;">Approved Orders</td>.
                     <td style="width: 1vw; background-color:#F54949"></td>
-                    <td style="width: 20vw; padding:0;">Rejected Orders</td>
+                    <td style="font-weight:normal; width: 10vw; padding:0;">Rejected Orders</td>
                     <td style="width: 1vw; background-color:#65A534"></td>
-                    <td style="width: 20vw; padding:0;">Completed Orders</td>
+                    <td style="font-weight:normal; width: 10vw; padding:0;">Completed Orders</td>
                 </tr>
             </table>
         </div>
