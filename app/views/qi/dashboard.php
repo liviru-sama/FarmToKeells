@@ -152,13 +152,7 @@
                     <h3>View Quality Rejected Orders</h3>
                 </a>
             </div>
-            <div class="menu" data-name="p-2">
-                <a href="<?php echo URLROOT; ?>/qi/dashbaord">
-                    <img src="<?php echo URLROOT; ?>/public/images/calendar.png">
-                    <h3>View Schedule</h3>
-                </a>
-            </div>
-
+          
             
            
             
