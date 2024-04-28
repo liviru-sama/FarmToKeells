@@ -1422,23 +1422,7 @@ public function place_order() {
             $this->view('farmer/payment', $data);
         }
     }
-    public function Notifications()
-    {
-        if (!$this->isLoggedIn()) {
-            redirect('users/user_login');
-        } else {
-            $notificationModel = $this->model('FarmerNotifications');
-
-            $notifications = $notificationModel->getAllNotifications();
-
-            $data = [
-                'notifications' => $notifications,
-            ];
-
-            // Load the 'farmer/inquiry' view and pass data to it
-            $this->view('farmer/notifications', $data);
-        }
-    }
+   
 
 public function Notifications() {
     $notificationModel = $this->model('FarmerNotifications');
