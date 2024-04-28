@@ -825,8 +825,59 @@ class Admin extends Controller
         $this->view('admin/manageUsers', $data);
     }}
 
+    // public function acceptUser()
+    // {if (!$this->isLoggedInAdmin()) {
+    //     redirect('admin/admin_login');
+    // } else {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $userId = $_POST['userId'];
+
+    //         // Perform acceptance logic using User model
+    //         $userModel = $this->model('User');
+
+    //         if ($userModel->acceptRegistrationRequest($userId)) {
+    //             // Notify the user or perform any necessary action
+    //             flash('admin_message', 'User registration request accepted.');
+    //         } else {
+    //             die('Something went wrong');
+    //         }
+
+    //         // Redirect back to the admin interface for managing requests
+    //         redirect('admin/manageUsers');
+    //     } else {
+    //         // Handle cases where the request method is not POST
+    //         redirect('admin/manageUsers');
+    //     }
+    // }}
+
+    // public function rejectUser()
+    // {if (!$this->isLoggedInAdmin()) {
+    //     redirect('admin/admin_login');
+    // } else {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $userId = $_POST['userId'];
+
+    //         // Perform rejection logic using User model
+    //         $userModel = $this->model('User');
+
+    //         if ($userModel->rejectRegistrationRequest($userId)) {
+    //             // Notify the user or perform any necessary action
+    //             flash('admin_message', 'User registration request rejected.');
+    //         } else {
+    //             die('Something went wrong');
+    //         }
+
+    //         // Redirect back to the admin interface for managing requests
+    //         redirect('admin/manageUsers');
+    //     } else {
+    //         // Handle cases where the request method is not POST
+    //         redirect('admin/manageUsers');
+    //     }
+    // }}
+
     public function acceptUser()
-    {if (!$this->isLoggedInAdmin()) {
+{
+    if (!$this->isLoggedInAdmin()) {
         redirect('admin/admin_login');
     } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -838,6 +889,18 @@ class Admin extends Controller
             if ($userModel->acceptRegistrationRequest($userId)) {
                 // Notify the user or perform any necessary action
                 flash('admin_message', 'User registration request accepted.');
+
+                // Fetch user's email
+                $user = $userModel->getUserById($userId);
+                $name= $user->name;
+                $email = $user->email;
+
+                // Send acceptance email
+                $subject = 'Your registration request has been accepted';
+                $body = 'Dear ' . $name . ', your registration request has been accepted. You can now <a href="http://localhost/Farmtokeells/users/user_login">login to your account</a>.';
+                
+                // Send email
+                $this->sendEmail($email, $subject, $body);
             } else {
                 die('Something went wrong');
             }
@@ -848,57 +911,94 @@ class Admin extends Controller
             // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
-    }}
+    }
+}
 
-    public function rejectUser()
-    {if (!$this->isLoggedInAdmin()) {
-        redirect('admin/admin_login');
-    } else {
+// Function to send email
+private function sendEmail($email, $subject, $body)
+{
+    // Create a PHPMailer instance
+    $mail = new PHPMailer(true);
+
+    try {
+        // Server settings
+        $mail->isSMTP();
+        $mail->Host = 'smtp.mailgun.org'; // SMTP server
+        $mail->SMTPAuth = true;
+        $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
+        $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4'; // SMTP password
+        $mail->SMTPSecure = 'tls';
+        $mail->Port = 587;
+
+        // Recipients
+        $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
+        $mail->addAddress($email); // Add a recipient
+
+        // Content
+        $mail->isHTML(true);
+        $mail->Subject = $subject;
+        $mail->Body = $body;
+
+        $mail->send();
+    } catch (Exception $e) {
+        // Handle exception
+        echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+    }
+}
+
+    
+    public function rejectUser() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
-
+    
             // Perform rejection logic using User model
             $userModel = $this->model('User');
-
+    
             if ($userModel->rejectRegistrationRequest($userId)) {
-                // Notify the user or perform any necessary action
-                flash('admin_message', 'User registration request rejected.');
+                // Notify the user
+                $user = $this->userModel->getUserInfo($userId);
+                $emailSent = sendEmail($user->email, 'Registration Rejected', 'Your registration request has been rejected.');
+                if ($emailSent) {
+                    flash('admin_message', 'User registration request rejected and email sent.');
+                } else {
+                    flash('admin_message', 'User registration request rejected, but email could not be sent.');
+                }
             } else {
                 die('Something went wrong');
             }
-
+    
             // Redirect back to the admin interface for managing requests
             redirect('admin/manageUsers');
         } else {
             // Handle cases where the request method is not POST
             redirect('admin/manageUsers');
         }
-    }}
+    }
 
-    public function deleteUser()
-    {if (!$this->isLoggedInAdmin()) {
-        redirect('admin/admin_login');
-    } else {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $userId = $_POST['userId'];
+    // public function deleteUser()
+    // {if (!$this->isLoggedInAdmin()) {
+    //     redirect('admin/admin_login');
+    // } else {
+    //     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    //         $userId = $_POST['userId'];
 
-            // Perform deletion logic using User model
-            $userModel = $this->model('User');
+    //         // Perform deletion logic using User model
+    //         $userModel = $this->model('User');
 
-            if ($userModel->deleteUser($userId)) {
-                // Notify the admin or perform any necessary action
-                flash('admin_message', 'User account deleted successfully.');
-            } else {
-                die('Something went wrong');
-            }
+    //         if ($userModel->deleteUser($userId)) {
+    //             // Notify the admin or perform any necessary action
+    //             flash('admin_message', 'User account deleted successfully.');
+    //         } else {
+    //             die('Something went wrong');
+    //         }
 
-            // Redirect back to the admin interface for managing users
-            redirect('admin/manageUsers');
-        } else {
-            // Handle cases where the request method is not POST
-            redirect('admin/manageUsers');
-        }
-    }}
+    //         // Redirect back to the admin interface for managing users
+    //         redirect('admin/manageUsers');
+    //     } else {
+    //         // Handle cases where the request method is not POST
+    //         redirect('admin/manageUsers');
+    //     }
+    // }}
 
     public function inquiry()
     {
