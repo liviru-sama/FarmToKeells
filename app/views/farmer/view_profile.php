@@ -19,6 +19,23 @@
         background-size: cover;
         height: 100%;
     }
+
+    .button-main {
+        background-color: #65A534;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 30px;
+        border: none;
+        cursor: pointer;
+        margin: 10px;
+        transition: background-color 0.3s ease;
+        /* Add transition for smooth effect */
+    }
+
+    .button-main:hover {
+        background-color: #65A534;
+        /* Change background color on hover */
+    }
     </style>
 </head>
 
@@ -154,7 +171,7 @@
                             enctype="multipart/form-data" onchange="loadFile(event)">
                             <input type="file" name="profile_image" id="profile-picture-input" accept="image/*"
                                 style="display: none;" onchange="this.form.submit()">
-                            <button type="button" onclick="chooseProfilePicture()">Upload Profile Picture</button>
+                            <button class="button-main" type="button" onclick="chooseProfilePicture()">Upload Profile Picture</button>
                         </form>
                     </div>
                 </div>
@@ -211,9 +228,8 @@
                         </div>
                     </div>
 
-
-                    <a href="<?php echo URLROOT; ?>/farmer/update_profile"><input type="button"
-                            value="Edit Your Profile" class="form-button"></a>
+                    <button class="button-main" style="margin-top: 20px;" onclick="window.location.href='<?php echo URLROOT; ?>/farmer/update_profile'">Update your Profile</button>
+                    
 
                 </div>
             </div>

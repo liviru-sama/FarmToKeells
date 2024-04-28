@@ -1,127 +1,159 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
-        <script src="<?php echo JS;?>register.js"></script>
-        <title><?php echo SITENAME;?></title>
-        <style>
-        body,
-        html {
-            /* Add your background image URL and properties here */
-            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
-            background-size: cover;
-            height: 100%;
-        }
-        .error-message {
-            color: red;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
 
-        .navbar {
-                position: fixed; /* Fixed position */
-                left: 0%; /* Adjust as needed */
-                right: 0%; /* Adjust as needed */
-                width: 100%; /* Take up the remaining width */
-                display: flex;
-                justify-content: space-between; /* Distribute items along the main axis */
-                align-items: center;
-                padding: 20px;
-                top: 0px; /* Stick to the top of the viewport */
-                z-index: 1;
-                height: 60px; /* Fixed height for navbar */
-                /* Example background color */
-                box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Example box shadow */
-            }
-        
-            .navbar-logo {
-    width: auto; /* Allow the logo to adjust its width based on its content */
-    height: 40px; /* Set a fixed height for consistency */
-    margin-right: 30px; /* Adjust as needed */
-}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?php echo CSS;?>ccm/place_salesorder.css">
+    <script src="<?php echo JS;?>register.js"></script>
+    <title><?php echo SITENAME;?></title>
+    <style>
+    body,
+    html {
+        /* Add your background image URL and properties here */
+        background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+        background-size: cover;
+        height: 100%;
+    }
 
-            .navbar-icons {
-                display: flex;
-                align-items: center;
-            }
-            
-            .navbar-icon {
-                width: 50px; /* Increased width for icons */
-                height: auto; /* Maintain aspect ratio */
-                margin-left: 35px; /* Adjust spacing between icons */
-                box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1); /* Box shadow */
-                border-radius: 50px; /* Border radius */
-                padding: 5px; /* Increase the padding to create gap */
-            }
-        
-            .navbar-icon:hover {
-                background: #65A534;
-                transform: scale(1.08);
-            }
-            
-            .navbar-icon-container {
-    position: relative;
-}
+    .error-message {
+        color: red;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 
-.navbar-icon-container:hover::after {
-            content: attr(data-text); /* Display the value of the data-text attribute */
-            position: absolute;
-            top: 100%; /* Position the text below the icon */
-            left: 50%; /* Center the text horizontally */
-            transform: translateX(-50%); /* Center the text horizontally */
-            background-color: #65A534; /* Background color for the text */
-            color: white; /* Text color */
-            padding: 5px; /* Padding around the text */
-            border-radius: 5px; /* Border radius for the text */
-            z-index: 2; /* Ensure the text appears above other elements */
-            white-space: nowrap; /* Prevent text from wrapping */
-        }
+    .navbar {
+        position: fixed;
+        /* Fixed position */
+        left: 0%;
+        /* Adjust as needed */
+        right: 0%;
+        /* Adjust as needed */
+        width: 100%;
+        /* Take up the remaining width */
+        display: flex;
+        justify-content: space-between;
+        /* Distribute items along the main axis */
+        align-items: center;
+        padding: 20px;
+        top: 0px;
+        /* Stick to the top of the viewport */
+        z-index: 1;
+        height: 60px;
+        /* Fixed height for navbar */
+        /* Example background color */
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        /* Example box shadow */
+    }
 
-        .center{
-        top:62%;}
+    .navbar-logo {
+        width: auto;
+        /* Allow the logo to adjust its width based on its content */
+        height: 40px;
+        /* Set a fixed height for consistency */
+        margin-right: 30px;
+        /* Adjust as needed */
+    }
+
+    .navbar-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-icon {
+        width: 50px;
+        /* Increased width for icons */
+        height: auto;
+        /* Maintain aspect ratio */
+        margin-left: 35px;
+        /* Adjust spacing between icons */
+        box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1);
+        /* Box shadow */
+        border-radius: 50px;
+        /* Border radius */
+        padding: 5px;
+        /* Increase the padding to create gap */
+    }
+
+    .navbar-icon:hover {
+        background: #65A534;
+        transform: scale(1.08);
+    }
+
+    .navbar-icon-container {
+        position: relative;
+    }
+
+    .navbar-icon-container:hover::after {
+        content: attr(data-text);
+        /* Display the value of the data-text attribute */
+        position: absolute;
+        top: 100%;
+        /* Position the text below the icon */
+        left: 50%;
+        /* Center the text horizontally */
+        transform: translateX(-50%);
+        /* Center the text horizontally */
+        background-color: #65A534;
+        /* Background color for the text */
+        color: white;
+        /* Text color */
+        padding: 5px;
+        /* Padding around the text */
+        border-radius: 5px;
+        /* Border radius for the text */
+        z-index: 2;
+        /* Ensure the text appears above other elements */
+        white-space: nowrap;
+        /* Prevent text from wrapping */
+    }
+
+    .center {
+        top: 62%;
+    }
     </style>
-    </head>
-    <body>
+</head>
+
+<body>
 
     <div class="navbar">
-    <div class="navbar-icons">
-        <div class="navbar-icon-container" data-text="Go Back">
-            <a href="<?php echo URLROOT; ?>/pages/index.php" id="backButton" >
-                <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-            </a>
+        <div class="navbar-icons">
+            <div class="navbar-icon-container" data-text="Go Back">
+                <a href="<?php echo URLROOT; ?>/pages/index.php" id="backButton">
+                    <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+                </a>
+            </div>
+            <div class="navbar-icon-container" data-text="Go To Home Page ">
+                <a href="<?php echo URLROOT; ?>/pages/index">
+                    <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
+                </a>
+            </div>
+
         </div>
-        <div class="navbar-icon-container" data-text="Go To Home Page ">
-            <a href="<?php echo URLROOT; ?>/pages/index"  >
-            <img src="<?php echo URLROOT; ?>/public/images/home.png" alt="back" class="navbar-icon">
-       </a>
+        <div class="navbar-logo-container">
+            <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
         </div>
-        
     </div>
-    <div class="navbar-logo-container">
-        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-    </div>
-</div>
-      
-      <script>
-        // JavaScript function to go back to the previous page
-        function goBack() {
-            window.history.back();
-        }
+
+    <script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
     </script>
-    <section class="form" >
-    <div class="center" style="top:85%;">
-   </br> <h1>Farmer Registration</h1></br>
-            <form action="<?php echo URLROOT; ?>/users/register" method="post" >
+    <section class="form">
+        <div class="center" style="top:85%;">
+            </br>
+            <h1>Farmer Registration</h1></br>
+            <form action="<?php echo URLROOT; ?>/users/register" method="post">
                 <div class="text-field">
                     <input type="text" name="name" id="name" value="<?php echo $data['name']; ?>" required>
                     <span></span>
                     <label>Name</label>
                 </div>
                 <div class="error" id="name-error"><?php echo $data['name_err']; ?></div>
-                    
+
                 <div class="text-field">
                     <input type="text" name="username" id="username" value="<?php echo $data['username']; ?>" required>
                     <span></span>
@@ -151,52 +183,60 @@
                 <div class="error" id="mobile-error"><?php echo $data['mobile_err']; ?></div>
 
                 <div class="text-field">
-                        <div class="typeselect-container">
-                            <select class="productstatusInput" name="province"  onchange="updateInput(this)">
+                    <div class="typeselect-container">
+                        <select class="productstatusInput" name="province" onchange="updateInput(this)">
                             <option value="" selected disabled></option>
 
                             <option style="color:white;" value="Kadawatha">Kadawatha Keells collection center</option>
 
-                                <option style="color:white;" value="Thambuththegama">Thambuththegama Keells collection center</option>
-                                <option style="color:white;" value="Sooriyawewa">Sooriyawewa Keells collection center</option>
-                                <option style="color:white;" value="Nuwara-eliya">Nuwara-eliya Keells collection center</option>
-                                <option style="color:white;" value="Jaffna">Jaffna Keells collection center</option>
-                                <option style="color:white;" value=" Sigiriya "> Sigiriya Keells collection center</option>
-                                <option style="color:white;" value="Bandarawela">Bandarawela Keells collection center</option>
-                                <option style="color:white;" value="Puttlam ">Puttlam  Keells collection center</option>
+                            <option style="color:white;" value="Thambuththegama">Thambuththegama Keells collection
+                                center</option>
+                            <option style="color:white;" value="Sooriyawewa">Sooriyawewa Keells collection center
+                            </option>
+                            <option style="color:white;" value="Nuwara-eliya">Nuwara-eliya Keells collection center
+                            </option>
+                            <option style="color:white;" value="Jaffna">Jaffna Keells collection center</option>
+                            <option style="color:white;" value=" Sigiriya "> Sigiriya Keells collection center</option>
+                            <option style="color:white;" value="Bandarawela">Bandarawela Keells collection center
+                            </option>
+                            <option style="color:white;" value="Puttlam ">Puttlam  Keells collection center</option>
 
 
-                            </select>
-                            <input name="province" id="province" type="text" required>
-                            <span></span>
-                            <label>Select Your Nearest Collection Center</label>
-                        </div>
+                        </select>
+                        <input name="province" id="province" type="text" required>
+                        <span></span>
+                        <label>Select Your Nearest Collection Center</label>
                     </div>
+                </div>
 
                 <div class="text-field">
-                    <input type="text" name="collectioncenter" id="collectioncenter" value="<?php echo $data['collectioncenter']; ?>" required>
+                    <input type="text" name="collectioncenter" id="collectioncenter"
+                        value="<?php echo $data['collectioncenter']; ?>" required>
                     <span></span>
                     <label>Your Collection Address</label>
                 </div>
 
                 <div class="text-field">
-    <input type="number" name="distance" id="distance" value="<?php echo $data['distance']; ?>" min="0" step="0.01" required>
-    <span></span>
-    <label>Your Distance to The Nearest Collection Center (in km)</label>
-</div>
+                    <input type="number" name="distance" id="distance" value="<?php echo $data['distance']; ?>" min="0"
+                        step="0.01" required>
+                    <span></span>
+                    <label>Your Distance to The Nearest Collection Center (in km)</label>
+                </div>
 
 
-                
+
 
                 <div class="text-field">
-                    <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>" required>
+                    <input type="password" name="password" id="password" value="<?php echo $data['password']; ?>"
+                        required>
                     <span></span>
-                    <label>Password</label> 
+                    <label>Password</label>
                 </div>
                 <div class="error" id="password-error"><?php echo $data['password_err']; ?></div>
-    
+
                 <div class="text-field">
-                    <input type="password" name="cpassword" id="cpassword" value="<?php echo $data['cpassword']; ?>" required>
+                    <input type="password" name="cpassword" id="cpassword" value="<?php echo $data['cpassword']; ?>"
+                        required>
                     <span></span>
                     <label>Confirm Password</label>
                 </div>
@@ -210,15 +250,17 @@
         </div>
     </section>
 
-        <script> function updateInput(select) {
-    var selectedOption = select.options[select.selectedIndex].text;
-    // Set the value of the province input field directly
-    document.getElementById("province").value = selectedOption;
-    // Reset the dropdown to show the placeholder option
-    select.value = ''; // Reset to blank option
-}
-</script>
-    </body>
+    <script>
+    function updateInput(select) {
+        var selectedOption = select.options[select.selectedIndex].text;
+        // Set the value of the province input field directly
+        document.getElementById("province").value = selectedOption;
+        // Reset the dropdown to show the placeholder option
+        select.value = ''; // Reset to blank option
+    }
+    </script>
+</body>
+
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php';?>

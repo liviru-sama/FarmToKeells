@@ -16,7 +16,7 @@
                 $_SESSION[$name . '_class'] = $class;
             } elseif (empty($message) && !empty($_SESSION[$name])) {
                 $class = !empty($_SESSION[$name . '_class']) ? $_SESSION[$name . '_class'] : '';
-                $color = $class == 'error' ? 'red' : '#65A534';
+                $color = $class == 'error' ? 'red' : '#008000';
                 echo '<div class="' . $class . '" id="msg-flash" style="color: ' . $color . ';">' . $_SESSION[$name] . '</div>';
                 unset($_SESSION[$name]);
                 unset($_SESSION[$name . '_class']);
