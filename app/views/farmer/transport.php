@@ -118,7 +118,7 @@
                 <div class="dashboard-container">
                     
                 <a href="<?php echo URLROOT; ?>/farmer/salesorder?user_id=<?php echo $_SESSION['user_id']; ?>" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-1" style="background: #65A534; transform: scale(1.08);">
+                        <div class="menu" data-name="p-1" >
                             <img src="<?php echo URLROOT; ?>/public/images/veg.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Products</h6>
                         </div>
@@ -139,7 +139,7 @@
                     </a>
 
                     <a href="<?php echo URLROOT; ?>/farmer/transport" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7" >
+                        <div class="menu" data-name="p-7" style="background: #65A534; transform: scale(1.08);">
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Transport</h6>
                         </div>

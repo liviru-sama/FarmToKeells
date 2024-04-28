@@ -144,7 +144,7 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <section class="header">
+        <section class="header" class="inline-heading">
 
         <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
