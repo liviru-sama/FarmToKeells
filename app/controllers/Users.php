@@ -167,61 +167,72 @@ class Users extends Controller {
             redirect('farmer/dashboard');
         } else {
             // Check for POST
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Process form
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Process form
 
-            // Sanitize POST data
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            // Init data
-            $data = [
-                'username' => trim($_POST['username']),
-                'password' => trim($_POST['password']),
-                'username_err' => '',
-                'password_err' => '',
-            ];
+                // Init data
+                $data = [
+                    'username' => trim($_POST['username']),
+                    'password' => trim($_POST['password']),
+                    'username_err' => '',
+                    'password_err' => '',
+                ];
 
-            // Validate Username
-            if (empty($data['username'])) {
-                $data['username_err'] = 'Please enter username';
-            }
-            // Validate Password
-            if (empty($data['password'])) {
-                $data['password_err'] = 'Please enter password';
-            }
+                // Validate Username
+                if (empty($data['username'])) {
+                    $data['username_err'] = 'Please enter username';
+                }
 
-            //CHECK FOR USER/EMAIL
-            $user = $this->userModel->login($data['username'], $data['password']);
-            if ($user) {
-                if ($user->status === 'accept') {
-                    // Validated
-                    // Create Session
-                    $this->createUserSession($user);
+                // If username is provided, proceed to check login credentials
+                if (empty($data['username_err'])) {
+                    //CHECK FOR USER/EMAIL
+                    $user = $this->userModel->findUserByUsername($data['username']);
+                    if ($user) {
+                        if ($user->status === 'accept') {
+                            // Validated username
+                            // Check password
+                            if (password_verify($data['password'], $user->password)) {
+                                // Password is correct
+                                // Create Session
+                                $this->createUserSession($user);
+                            } else {
+                                // Password is incorrect
+                                $data['password_err'] = 'Invalid password';
+                                $this->view('users/user_login', $data);
+                            }
+                        } else {
+                            // User exists but status is not 'accept'
+                            $data['username_err'] = 'Your account has not been approved yet.';
+                            $this->view('users/user_login', $data);
+                        }
+                    } else {
+                        // User not found in the database
+                        $data['username_err'] = 'Invalid username';
+                        $this->view('users/user_login', $data);
+                    }
                 } else {
-                    // User exists but status is not 'accept'
-                    $data['username_err'] = 'Your account has not been approved yet.';
+                    // Username is empty
                     $this->view('users/user_login', $data);
                 }
             } else {
-                // User not found
-                $data['username_err'] = 'No user found';
+                // Init data
+                $data = [
+                    'username' => '',
+                    'password' => '',
+                    'username_err' => '',
+                    'password_err' => '',
+                ];
+
+                // Load view
                 $this->view('users/user_login', $data);
             }
-        } else {
-            // Init data
-            $data = [
-                'username' => '',
-                'password' => '',
-                'username_err' => '',
-                'password_err' => '',
-            ];
-
-            // Load view
-            $this->view('users/user_login', $data);
         }
-        }
-        
     }
+    
+    
 
     public function createUserSession($user) {
         $_SESSION['user_id'] = $user->id;
