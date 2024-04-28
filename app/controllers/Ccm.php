@@ -420,13 +420,6 @@ public function edit_price() {
             }
         }
     }
-        
-
-       
-        
-        
-        
-
 
     public function displayProducts() {
         if (!$this->isLoggedInccm()) {

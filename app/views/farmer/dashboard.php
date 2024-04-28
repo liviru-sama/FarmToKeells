@@ -1,93 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo CSS;?>ccm/dashboard.css">
     <title><?php echo SITENAME;?></title>
-    <style> 
-        body,
-        html {
-            background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
-            background-size: cover;
-            height: 100%;
-        }
-        
-        .navbar {
-            position: fixed;
-            left: 0%;
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            top: 0px;
-            z-index: 1;
-            height: 60px;
-            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        
-        .navbar-logo {
-            width: 160px;
-            height: auto;
-            margin-right: auto;
-        }
-        
-        .navbar-icons {
-            display: flex;
-            align-items: center;
-        }
-        
-        .navbar-icon {
-            width: 50px;
-            height: auto;
-            margin-left: 35px;
-            box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1);
-            border-radius: 50px;
-            padding: 5px;
-        }
-        
-        .navbar-icon:hover {
-            background: #65A534;
-            transform: scale(1.08);
-        }
+    <style>
+    body,
+    html {
+        background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
+        background-size: cover;
+        height: 100%;
+    }
+
+    .navbar {
+        position: fixed;
+        left: 0%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        top: 0px;
+        z-index: 1;
+        height: 60px;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-logo {
+        width: 160px;
+        height: auto;
+        margin-right: auto;
+    }
+
+    .navbar-icons {
+        display: flex;
+        align-items: center;
+    }
+
+    .navbar-icon {
+        width: 50px;
+        height: auto;
+        margin-left: 35px;
+        box-shadow: 0 0.9rem 0.8rem rgba(0, 0, 0, 0.1);
+        border-radius: 50px;
+        padding: 5px;
+    }
+
+    .navbar-icon:hover {
+        background: #65A534;
+        transform: scale(1.08);
+    }
 
 
-        .navbar-icon-container {
-    position: relative;
-}
-        .navbar-icon-container[data-text]:hover::after {
-    content: attr(data-text);
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #65A534;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
-    z-index: 2;
-    white-space: nowrap;
-}
+    .navbar-icon-container {
+        position: relative;
+    }
+
+    .navbar-icon-container[data-text]:hover::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #65A534;
+        color: white;
+        padding: 5px;
+        border-radius: 5px;
+        z-index: 2;
+        white-space: nowrap;
+    }
 
 
 
-        .dashboard-container {
-    top: 60px; /* Height of the navbar */
-   
-    padding-top: 80px; /* Additional padding to compensate for navbar height */
-    /* Additional styles for the dashboard container */
-}
+    .dashboard-container {
+        top: 60px;
+        /* Height of the navbar */
 
-        </style>
-   
+        padding-top: 80px;
+        /* Additional padding to compensate for navbar height */
+        /* Additional styles for the dashboard container */
+    }
+    </style>
 
-</head> 
+<script>
+    // JavaScript function to go back to the previous page
+    function goBack() {
+        window.history.back();
+    }
+    </script>
+
+
+</head>
+
 <body>
     <?php if(isset($_SESSION['user_id'])): ?>
     <section class="header">
         <!-- Navbar -->
         <div class="navbar">
+            <div class="navbar-icons">
+                
     <div class="navbar-icons">
         <div class="navbar-icon-container" data-text="Go Back">
             <a href="<?php echo URLROOT; ?>/farmer/dashboard" id="backButton" >
@@ -101,23 +114,26 @@
             </a>
         </div>
 
-        <div class="navbar-icon-container" data-text="View Profile">
+        
+
+                <div class="navbar-icon-container" data-text="View Profile">
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
+                            class="navbar-icon">
                     </a>
                 </div>
-        <div class="navbar-icon-container" data-text="Logout">
-        <a href="<?php echo URLROOT; ?>/farmer/logout">
-                <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-            </a>
+                <div class="navbar-icon-container" data-text="Logout">
+                    <a href="<?php echo URLROOT; ?>/farmer/logout">
+                        <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-logo-container">
+                <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+            </div>
         </div>
-    </div>
-    <div class="navbar-logo-container">
-        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-    </div>
-</div>
 
-        
+
     </section>
     <?php endif; ?>
 
@@ -131,7 +147,7 @@
             </a>
             <a href="<?php echo URLROOT; ?>/farmer/purchaseorder">
                 <div class="menu" data-name="p-2">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" >
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png">
                     <h3>Place Order For Their demand</h3>
                 </div>
             </a>
@@ -190,6 +206,7 @@
     setInterval(updateNotifications, 5000);
 </script>
 </body>
+
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -2,13 +2,15 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Selection</title>
-   
+
     <link rel="stylesheet" type="text/css" href="<?php echo CSS;?>ccm/product_selection.css">
 </head>
+
 <body>
     <h1> Select Product</h1>
     <!-- Provide manual options for product selection -->
@@ -64,32 +66,32 @@
         <img src="<?php echo URLROOT; ?>/public/images/broccoli.png" alt="Broccoli">
         <p>Broccoli</p>
     </div>
-    
+
     <div class="product" onclick="fillProductField('Potato')">
         <img src="<?php echo URLROOT; ?>/public/images/potato.png" alt="Leeks">
         <p>Potato</p>
     </div>
 
-    
+
 
 
     <script>
-        // JavaScript function to fill the input field "Product" in the parent page
-        // JavaScript function to fill the input field "Product" in the parent page
-function fillProductField(productName, imageURL) {
-    // Get the parent window and access the input fields
-    var parentWindow = window.parent;
-    var productInput = parentWindow.document.querySelector('input[name="name"]');
-    var imageInput = parentWindow.document.querySelector('input[name="image"]');
+    // JavaScript function to fill the input field "Product" in the parent page
+    // JavaScript function to fill the input field "Product" in the parent page
+    function fillProductField(productName, imageURL) {
+        // Get the parent window and access the input fields
+        var parentWindow = window.parent;
+        var productInput = parentWindow.document.querySelector('input[name="name"]');
+        var imageInput = parentWindow.document.querySelector('input[name="image"]');
 
-    // Set the value of the input fields to the selected product name and image URL
-    productInput.value = productName;
-    imageInput.value = imageURL;
+        // Set the value of the input fields to the selected product name and image URL
+        productInput.value = productName;
+        imageInput.value = imageURL;
 
-    // Hide the iframe
-    parentWindow.document.getElementById('productSelectionFrame').style.display = 'none';
-}
-
+        // Hide the iframe
+        parentWindow.document.getElementById('productSelectionFrame').style.display = 'none';
+    }
     </script>
 </body>
+
 </html>

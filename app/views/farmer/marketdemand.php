@@ -135,7 +135,7 @@
                               <div class="navbar-icon-container" data-text="View Profile" >
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" >
-                    </a></div>\
+                    </a></div>
           
           
             <div class="navbar-icon-container" data-text="Logout">
