@@ -163,7 +163,7 @@
                                     if ($notification->status === 'Rejected') {
                                         $notificationContent = "We're sorry, but your order (ID: {$notification->order_id}) has been rejected because Keells couldn't approve of the quantity and price.";
                                     } elseif ($notification->status === 'Quality Rejected') {
-                                        $notificationContent = "We're sorry, but your order (ID: {$notification->order_id}) has been rejected due to poor quality.";
+                                        $notificationContent = "We're sorry, but your order (ID: {$notification->order_id}) has been rejected due to quality reasons.";
                                     } else {
                                         $notificationContent = "Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}'";
                                     }

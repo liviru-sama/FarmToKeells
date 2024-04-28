@@ -319,7 +319,11 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
     echo "<tr><td colspan='8'>You havent posted your products yet</td></tr>";
 }
 ?>
-
+ </tbody>
+                        </table>
+                    </form>
+                </section>
+            </main>
                                 <iframe id="confirmationDialog"
                                     style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; padding: 20px; border: 1px solid #ccc;"
                                     src=""></iframe>
@@ -454,7 +458,7 @@ if (!empty($data['salesorders']) && is_array($data['salesorders'])) {
                                         }
                                     }
                                 }
-                                </script>
+                                
 
 function updateNotifications() {
         var xhr = new XMLHttpRequest();
@@ -485,12 +489,8 @@ function updateNotifications() {
     setInterval(updateNotifications, 5000);
 
 
-                            </tbody>
-                        </table>
-                    </form>
-                </section>
-            </main>
-
+                           
+</script>
 </body>
 
 </html>

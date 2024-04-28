@@ -1549,23 +1549,7 @@ public function place_order() {
             $this->view('farmer/payment', $data);
         }
     }
-    public function Notifications()
-    {
-        if (!$this->isLoggedIn()) {
-            redirect('users/user_login');
-        } else {
-            $notificationModel = $this->model('FarmerNotifications');
-
-            $notifications = $notificationModel->getAllNotifications();
-
-            $data = [
-                'notifications' => $notifications,
-            ];
-
-            // Load the 'farmer/inquiry' view and pass data to it
-            $this->view('farmer/notifications', $data);
-        }
-    }
+  
 
 public function Notifications() {
     $notificationModel = $this->model('FarmerNotifications');
@@ -1824,12 +1808,33 @@ public function markAllAsRead() {
     echo json_encode(['success' => true]);
 }
 
+public function transport() {
+    $salesOrder = $this->model('SalesOrder');
+    $request = $this->model('Request');
+    $torder = $this->model('Torders');
 
+    $user_id = $_SESSION['user_id'];
+
+    $requests = $request->getByUser($user_id);
+
+    foreach ($requests as $req) {
+        $date = $salesOrder->getDate($req->order_id);
+        $req->date = (string)$date->date;
+    }
+
+    $torders = $torder->getByUser($user_id);
+
+    foreach ($torders as $tor) {
+        $date = $salesOrder->getDate($tor->order_id);
+        $tor->date = (string)$date->date;
+        $quantity = $salesOrder->getQuantity($tor->order_id);
+        $tor->quantity = (string)$quantity->quantity;
+    }
+
+    $data['transports'] = (object) array_merge((array) $requests, (array) $torders);
+
+    $this->view('farmer/transport', $data);
 }
 
-?>
 
-
-    
-    
-
+}

@@ -54,4 +54,18 @@
             }
         }
 
+        public function getByUser($id){
+            $this->db->query("SELECT *,
+                CASE 
+                    WHEN status = 4 THEN 'Completed'
+                    ELSE 'Accepted'
+                END AS status FROM torders WHERE user_id = :id;");
+
+            $this->db->bind(':id', $id);
+
+            $results = $this->db->resultSet();
+
+            return $results;
+        }
+
     }

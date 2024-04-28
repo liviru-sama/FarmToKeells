@@ -398,6 +398,7 @@
             transition: background-color 0.3s; /* Add transition */
             box-shadow: 0 .4rem .8rem #0005;
            font-weight:bold;
+
         }
 
         /* Hover effect for dropdown */
@@ -420,15 +421,22 @@
         .statusInput option {
             padding: 10px 20px; /* Adjust padding as needed */
             background-color: #65A534; /* Green background color */
-            color: rgb(0, 0, 0); /* Text color */
+            color: rgb(253, 252, 252); /* Text color */
             cursor: pointer; /* Change cursor to pointer */
             transition: background-color 0.3s; /* Add transition */
+            opacity: 0.5;
+            border-radius: 5px; /* Rounded corners */
+            cursor: pointer; /* Change cursor to pointer */
+            transition: background-color 0.3s; /* Add transition */
+            box-shadow: 0 .4rem .8rem #0005;
+           font-weight:bold;
         }
 
         
         /* Hover effect for dropdown options */
         .statusInput option:hover {
             transform: scale(1.08);
+            opacity: 0.5;
             /* Darker green background color on hover */
         }
 

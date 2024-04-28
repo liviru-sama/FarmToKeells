@@ -153,7 +153,29 @@ class Purchaseorder {
             // If no image is found for the product name, you can return a default image URL or handle it accordingly
             return URLROOT . '/public/images/default.png';
         }
-    }   
+    }  
+
+    public function allinDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS allCount FROM purchaseorder WHERE date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function pendinginDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS pendingCount FROM purchaseorder WHERE purchase_status = 'Pending' AND date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
 }
 
 ?>

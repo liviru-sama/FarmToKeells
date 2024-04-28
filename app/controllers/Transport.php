@@ -1289,7 +1289,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     $torder->status_name = "Collected";
                     break;
                 case 4:
-                    $torder->status_name = "Delivered";
+                    $torder->status_name = "Completed";
                     break;
             }
         }

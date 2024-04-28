@@ -144,7 +144,7 @@
 
     <!-- Main content -->
     <div class="main-content">
-        <section class="header">
+        <section class="header" class="inline-heading">
 
         <a href="<?php echo URLROOT; ?>/ccm/displayReportGenerator" style="text-decoration: none;">
                 <h5 class="inline-heading" class
@@ -153,6 +153,26 @@
     <a href="<?php echo URLROOT; ?>/ccm/displayReportGeneratorprice" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" >GENERATE PRICE-TIME CHART</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/purchaseOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >PURCHASE ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/salesOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >SALES ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/transportOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >TRANSPORT ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/unitOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >TRANSPORT UNIT OVERVIEW</h5>
             </a>
            
             </br>  <main class="table">

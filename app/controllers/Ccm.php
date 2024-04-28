@@ -1194,14 +1194,35 @@ public function markAllAsRead() {
 }
 
 
+public function purchaseOV() {
+
+    $this->view('ccm/purchaseOV');
+}
+
+public function purchaseOVD() {
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $data['startDate'] = $_POST['start_date'];
+        $data['endDate'] = $_POST['end_date'];
+        
+        $purchase = $this->model('Purchaseorder');
+        
+        $data['allPorders'] = $purchase->allinDate($data['startDate'], $data['endDate']);
+
+        $data['pendingPorders'] = $purchase->pendinginDate($data['startDate'], $data['endDate']);
+
+        $data['completed'] = $data['allPorders']->allCount - $data['pendingPorders']->pendingCount;
+
+        $data['perc'] = ($data['completed'] / $data['allPorders']->allCount) * 100;
+
+        // Load the inventory history report view within the iframe
+        $this->view("ccm/purchaseOVD", $data);
+    } else {
+        // If not a POST request, redirect to the report generator page or show an error message
+        redirect('ccm/report_generator');
+    }
+}
 
 }
 
 ?>
-
-
-
-
-
-
-
