@@ -1440,4 +1440,269 @@ public function place_order() {
         }
     }
 
+public function Notifications() {
+    $notificationModel = $this->model('FarmerNotifications');
+
+    $notifications = $notificationModel->getAllNotifications();
+
+   
+    $data = [
+        'notifications' => $notifications,
+    ];
+
+    // Load the 'farmer/inquiry' view and pass data to it
+    $this->view('farmer/notifications', $data);
+  }
+
+
+  public function salesorderpending() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdpending($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderpending', $data);
+    }
+    
 }
+
+public function salesorderapproved() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdapproved($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderapproved', $data);
+    }
+    
+}
+public function salesorderrejected() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdrejected($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderrejected', $data);
+    }
+    
+}
+
+public function salesordercompleted() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdcompleted($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesordercompleted', $data);
+    }
+    
+}
+
+public function salesorderqualityapproved() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdqualityapproved($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderqualityapproved', $data);
+    }
+    
+}
+
+public function salesorderqualityrejected() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdqualityrejected($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderqualityrejected', $data);
+    }
+    
+}
+
+public function salesorderpendingtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdpending($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderpendingtable', $data);
+    }
+    
+}
+
+public function salesorderapprovedtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdapproved($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderapprovedtable', $data);
+    }
+    
+}
+public function salesorderrejectedtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdrejected($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderrejectedtable', $data);
+    }
+    
+}
+
+public function salesordercompletedtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdcompleted($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesordercompletedtable', $data);
+    }
+    
+}
+
+public function salesorderqualityapprovedtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdqualityapproved($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderqualityapprovedtable', $data);
+    }
+    
+}
+
+public function salesorderqualityrejectedtable() {
+    if (!$this->isLoggedIn()) {
+        redirect('users/user_login');
+    } else {
+        // Retrieve the user ID from the session
+    $user_id = $_SESSION['user_id']; // Adjust this according to your session implementation
+    
+    // Instantiate Salesorder Model
+    $salesorderModel = new Salesorder();
+    
+    // Get sales orders for the current user with purchase_id as null
+    $data['salesorders'] = $salesorderModel->getSalesordersByUserIdAndPurchaseIdqualityrejected($user_id, null);
+    
+    // Load the view with sales orders data
+    $this->view('farmer/salesorderqualityrejectedtable', $data);
+    }
+    
+}
+
+public function notify(){
+    $notificationModel = new FarmerNotifications();
+    $unread = $notificationModel->unreadNotifs();
+
+    // Return JSON response
+    echo json_encode(array('unread' => $unread));
+}
+
+public function markAllAsRead() {
+    $notificationModel = new FarmerNotifications();
+    $notificationModel->isRead();
+
+    // You can return a response if needed
+    echo json_encode(['success' => true]);
+}
+
+
+}
+
+?>
+
+
+    
+    
+

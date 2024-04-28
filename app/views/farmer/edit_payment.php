@@ -48,13 +48,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -227,12 +225,42 @@
                 select.value = ''; // Reset to blank option
             }
 
-            // JavaScript function to show the dropdown menu when the bank input field is clicked
-            function showDropdown() {
-                var select = document.getElementById("bankDropdown");
-                select.style.display = 'block';
+    // JavaScript function to show the dropdown menu when the bank input field is clicked
+    function showDropdown() {
+        var select = document.getElementById("bankDropdown");
+        select.style.display = 'block';
+    }
+
+
+    function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
             }
-            </script>
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+
+</script>
 
 </body>
 

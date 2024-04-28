@@ -31,20 +31,29 @@
                 </a>
             </div>
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+            
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+ <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
-            <div class="navbar-icon-container" data-text="View Profile">
-                <a href="<?php echo URLROOT; ?>/farmer/view_profile">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
-                        class="navbar-icon" style="background: #65A534; transform: scale(1.08);">
-                </a>
-            </div>
+
+      
+
+
+                    <div class="navbar-icon-container" data-text="View Profile" >
+                    <a href="<?php echo URLROOT; ?>/farmer/view_profile">
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout" class="navbar-icon" style="background: #65A534; transform: scale(1.08);">
+                    </a></div>
+
+
+<div class="navbar-icon-container" data-text="Logout">
+
+<a href="<?php echo URLROOT; ?>/farmer/logout">
+
+            <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+        </a></div>
 
             <div class="navbar-icon-container" data-text="Logout">
                 <a href="<?php echo URLROOT; ?>/farmer/logout">
@@ -217,7 +226,36 @@
 
                 </div>
             </div>
+           
+<script>function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
 
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+</script>
+        <!-- Update profile button -->
     </div>
 
     </div>

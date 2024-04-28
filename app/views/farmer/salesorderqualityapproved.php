@@ -91,13 +91,11 @@
             </div>
 
 
-            <div class="navbar-icon-container" data-text="Notifications">
-                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
-                    onclick="toggleNotifications()">
-                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
-                        class="navbar-icon">
-                </a>
-            </div>
+        <div class="navbar-icon-container" data-text="Notifications">
+        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
+        <div class="redcircle"></div>
+<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
+        </a></div>
 
 
 
@@ -211,6 +209,27 @@
 
 
 
+             
+<a href="<?php echo URLROOT; ?>/farmer/salesorder" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; All </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderpending" style="text-decoration: none;">
+    <h5 class="inline-heading" >&nbsp;&nbsp;&nbsp; Pending Approval </h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderapproved" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityapproved" style="text-decoration: none;">
+    <h5 class="inline-heading" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;" >&nbsp;&nbsp;&nbsp; Quality Approved</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesorderqualityrejected" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Quality Rejected</h5>
+</a><a href="<?php echo URLROOT; ?>/farmer/salesordercompleted" style="text-decoration: none;">
+    <h5 class="inline-heading"  >&nbsp;&nbsp;&nbsp; Completed</h5>
+</a> </br> 
+                <form method="post">
+                 
+                    <table>
+                       
+                        <tbody>
 
 
             <main class="table"></br>
@@ -353,7 +372,7 @@
                                 }
                             } else {
                                 // Handle the case where no sales orders are found
-                                echo "<tr><td colspan='12'>You haven't placed any Orders yet</td></tr>";
+                                echo "<tr><td colspan='12'></td></tr>";
                             }
                             ?>
 
@@ -441,6 +460,35 @@
                 // Set transparent background for iframe
                 confirmationDialog.style.backgroundColor = 'white';
             }
+     
+function updateNotifications() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Parse response as JSON
+                var response = JSON.parse(xhr.responseText);
+
+                // Get the red circle element
+                var redCircle = document.querySelector('.redcircle');
+
+                // Update red circle based on unread notifications
+                if (response.unread) {
+                    redCircle.style.display = 'block'; // Show red circle
+                } else {
+                    redCircle.style.display = 'none'; // Hide red circle
+                }
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Call the function initially
+    updateNotifications();
+    setInterval(updateNotifications, 5000);
+
 
             function submitFormAndClose(event) {
                 event.preventDefault(); // Prevent default form submission behavior

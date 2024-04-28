@@ -140,21 +140,35 @@
     </div>
 
     <!-- Main content -->
-    <main class="main-content">
-        <h1>Farmer Notifications</h1><br>
+    <main class="main-content" >
+    <h1>Notifications</h1>
         <section class="notifications">
-
-            <div class="notification-container">
+            
+        <div class="notification-container">
                 <?php if (empty($data['notifications'])): ?>
                 <p>You don't have any notifications yet.</p>
                 <?php else: ?>
+
+                    <?php 
+    // Sort notifications based on time, with the latest ones first
+    usort($data['notifications'], function($a, $b) {
+        return strtotime($b->time) - strtotime($a->time);
+    });
+    ?>
                 <?php foreach ($data['notifications'] as $notification): ?>
                 <?php 
                             switch ($notification->action):
                                 case 'status_update':
                                     $mainTopic = "Order Status Update";
-                                    $notificationContent = "Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}'";
+                                    if ($notification->status === 'Rejected') {
+                                        $notificationContent = "We're sorry, but your order (ID: {$notification->order_id}) has been rejected because Keells couldn't approve of the quantity and price.";
+                                    } elseif ($notification->status === 'Quality Rejected') {
+                                        $notificationContent = "We're sorry, but your order (ID: {$notification->order_id}) has been rejected due to poor quality.";
+                                    } else {
+                                        $notificationContent = "Keells has updated your Order ID {$notification->order_id}'s status to '{$notification->status}'";
+                                    }
                                     break;
+                                
                                 case 'new purchase order':
                                     $mainTopic = "New Purchase Order";
                                     $notificationContent = "Keells has added a new purchase order for '{$notification->product_name}'";
@@ -175,6 +189,21 @@
                                     $mainTopic = "Inquiry Response Update";
                                     $notificationContent = "Keells has updated their reply to your inquiry '{$notification->inquiry}' with '{$notification->admin_reply}'";
                                     break;
+
+                                    case 'request':
+                                        $mainTopic = "Transport Request Update";
+                                        $notificationContent = "Keells has accepted your Transport Request for Your order with ID '{$notification->order_id}' for product '{$notification->product_name}'";
+                                        break;
+
+                                        case 'outforpickup':
+                                            $mainTopic = "Transport  Update";
+                                            $notificationContent = "Keells is on the way to collect your product '{$notification->product_name}' with ID '{$notification->order_id}' ";
+                                            break;   
+
+                                            case 'collected':
+                                                $mainTopic = "Transporting Update";
+                                                $notificationContent = "Keells has successfully collected your product '{$notification->product_name}' with ID '{$notification->order_id}' and delivered to the Collection Center ";
+                                                break;    
                             endswitch;
                         ?>
                 <div class="notification" data-id="<?php echo $notification->id; ?>">
@@ -192,6 +221,27 @@
     </main>
 
 
+    <script>
+    // Function to mark all notifications as read using AJAX
+    function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/markAllAsRead', true);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };
+</script>
 
 </body>
 

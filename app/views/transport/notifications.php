@@ -54,34 +54,34 @@
         <section class="dashboard">
             <div class="container">
                 <div class="dashboard-container">
-                    <a href="<?php echo URLROOT; ?>/tranport/requests" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-2"> 
+                <a href="<?php echo URLROOT; ?>/transport/pending_requests" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-2" > 
                             <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Requests</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/salesorderapproved" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
+                    <a href="<?php echo URLROOT; ?>/transport/salesorder" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash1.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Orders</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/monitor" style="width: 12.5%; height: (20%);color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-4">
+                        <div class="menu" data-name="p-4" >
                             <img src="<?php echo URLROOT; ?>/public/images/monitor.png" alt="" style="width: 50px; height: 50px;">
                             <h6>Monitor</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
+                        <div class="menu" data-name="p-7" >
                             <img src="<?php echo URLROOT; ?>/public/images/driver.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>drivers</h6>
+                            <h6>Drivers</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/transport/drivers" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
+                    <a href="<?php echo URLROOT; ?>/transport/vehicles" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
+                        <div class="menu" data-name="p-7" >
                             <img src="<?php echo URLROOT; ?>/public/images/vehicle.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>vehicles</h6>
+                            <h6>Vehicles</h6>
                         </div>
                     </a>
                     <a href="<?php echo URLROOT; ?>/transport/tm_chat" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
@@ -97,56 +97,84 @@
     <!-- Main content -->
     
 
-    <main class="main-content">
-    <h1>Transportation Manager Notifications</h1><br>
+    <main class="main-content" >
+    <h1>Notifications</h1>
         <section class="notifications">
 
     <div class="notification-container">
-        <?php if (empty($data['notifications'])): ?>
-            <p>You don't have any notifications yet.</p>
-        <?php else: ?>
-            <?php foreach ($data['notifications'] as $notification): ?>
-                <?php switch ($notification->action):
-                    case 'reply':
-                        $mainTopic = "Reply from Keells Admin";
-                        $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
-                        break;
+    <?php if (empty($data['notifications'])): ?>
+    <p>You don't have any notifications yet.</p>
+<?php else: ?>
+    <?php 
+    // Sort notifications based on time, with the latest ones first
+    usort($data['notifications'], function($a, $b) {
+        return strtotime($b->time) - strtotime($a->time);
+    });
+    ?>
+    <?php foreach ($data['notifications'] as $notification): ?>
+        <?php 
+        // Set notification content based on action
+        switch ($notification->action):
+            case 'reply':
+                $mainTopic = "Reply from Keells Admin";
+                $notificationContent = "Keells Admin has replied '{$notification->admin_reply}' for your Message";
+                break;
 
-                    case 'new purchase order':
-                        // 
-                        break;
+            case 'new request':
+                $mainTopic = "New Transport Request";
+                $notificationContent = "you hav received a new transport request for order ID'{$notification->order_id}' from '{$notification->user}' ";
+                break;
 
-                    case 'price_update':
-                        // 
-                        break;
+            case 'price_update':
+                // 
+                break;
 
-                    case 'payment_update':
-                        // 
-                        break;
+            case 'payment_update':
+                // 
+                break;
 
-                    case 'reply':
-                        // 
-                        break;
+            case 'reply':
+                // 
+                break;
 
-                    case 'replyupdate':
-                        // 
-                        break;
-                endswitch; ?>
-                <div class="notification">
-                    <div class="notification-info">
-                        <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
-                        <p class="notification-message"><?php echo $notificationContent; ?></p>
-                        <p class="notification-time"><?php echo $notification->time; ?></p>
-                    </div>
-                </div>
-            <?php endforeach; ?>
-        <?php endif; ?>
+            case 'replyupdate':
+                // 
+                break;
+        endswitch; 
+        ?>
+        <div class="notification">
+            <div class="notification-info">
+                <h3 class="notification-topic"><?php echo $mainTopic; ?></h3>
+                <p class="notification-message"><?php echo $notificationContent; ?></p>
+                <p class="notification-time"><?php echo $notification->time; ?></p>
+            </div>
+        </div>
+    <?php endforeach; ?>
+<?php endif; ?>
+
     </div>
 </section>
 </main>
 
 
+<script> function markAllAsRead() {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '<?php echo URLROOT; ?>/transport/markAllAsRead', true);
 
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // Refresh notifications
+                updateNotifications();
+            }
+        };
+
+        xhr.send();
+    }
+
+    // Automatically mark all notifications as read when the page loads
+    window.onload = function() {
+        markAllAsRead();
+    };</script>
 
 </body>
 
