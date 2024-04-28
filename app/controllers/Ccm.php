@@ -952,23 +952,16 @@ public function salesOVD() {
         
         $sales = $this->model('Salesorder');
         
-        $data['allSorders'] = $sales->statusinDate($data['startDate'], $data['endDate']);
+        $data['allSorders'] = $sales->allinDate($data['startDate'], $data['endDate']);
+        $data['pendingSorders'] = $sales->pendinginDate($data['startDate'], $data['endDate']);
+        $data['rejectedSorders'] = $sales->rejectedinDate($data['startDate'], $data['endDate']);
+        $data['approvedSorders'] = $sales->approvedinDate($data['startDate'], $data['endDate']);
+        $data['completedSorders'] = $sales->completedinDate($data['startDate'], $data['endDate']);
 
-        // echo "<pre>";
-        // print_r ($data['allSorders']);
-        // echo "</pre>";
-
-        $allCount = 0;
-
-        foreach ($data['allSorders'] as $stat) {
-            $allCount += $stat->count;
-        }
-
-        foreach ($data['allSorders'] as $stat) {
-            $stat->perc = ($stat->count / $allCount) * 100;
-        }
-
-        $data['allCount'] = $allCount;
+        $data['pendingSorders']->perc = ($data['pendingSorders']->count/$data['allSorders']->count) * 100;
+        $data['rejectedSorders']->perc = ($data['rejectedSorders']->count/$data['allSorders']->count) * 100;
+        $data['approvedSorders']->perc = ($data['approvedSorders']->count/$data['allSorders']->count) * 100;
+        $data['completedSorders']->perc = ($data['completedSorders']->count/$data['allSorders']->count) * 100;
 
         $this->view("ccm/salesOVD", $data);
     } else {
