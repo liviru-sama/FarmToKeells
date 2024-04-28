@@ -897,7 +897,7 @@ class Admin extends Controller
 
                 // Send acceptance email
                 $subject = 'Your registration request has been accepted';
-                $body = 'Dear ' . $name . ', your registration request has been accepted. You can now <a href="http://localhost/Farmtokeells/users/user_login">login to your account</a>.';
+                $body = 'Dear ' . $name . ', your registration request to to FarmToKeells has been accepted. You can now <a href="http://localhost/Farmtokeells/users/user_login">login to your account</a>.';
                 
                 // Send email
                 $this->sendEmail($email, $subject, $body);
@@ -948,6 +948,9 @@ private function sendEmail($email, $subject, $body)
 
     
     public function rejectUser() {
+        if (!$this->isLoggedInAdmin()) {
+            redirect('admin/admin_login');
+        } else {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $userId = $_POST['userId'];
     
@@ -956,13 +959,18 @@ private function sendEmail($email, $subject, $body)
     
             if ($userModel->rejectRegistrationRequest($userId)) {
                 // Notify the user
-                $user = $this->userModel->getUserInfo($userId);
-                $emailSent = sendEmail($user->email, 'Registration Rejected', 'Your registration request has been rejected.');
-                if ($emailSent) {
-                    flash('admin_message', 'User registration request rejected and email sent.');
-                } else {
-                    flash('admin_message', 'User registration request rejected, but email could not be sent.');
-                }
+                $user = $userModel->getUserById($userId);
+                $name= $user->name;
+                $email = $user->email;
+
+                // Send rejection email
+                $subject = 'Your registration request has been rejected';
+                $body = 'Dear ' . $name . ', We are sorry to inform that your registration request to FarmToKeells has been rejected.';
+
+
+                // Send email
+                $this->sendEmail($email, $subject, $body);
+                
             } else {
                 die('Something went wrong');
             }
@@ -974,6 +982,7 @@ private function sendEmail($email, $subject, $body)
             redirect('admin/manageUsers');
         }
     }
+}
 
     // public function deleteUser()
     // {if (!$this->isLoggedInAdmin()) {
