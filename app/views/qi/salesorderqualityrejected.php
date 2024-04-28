@@ -81,12 +81,7 @@
                             <h6>Failed</h6>
                         </div>
                     </a>
-                    <a href="<?php echo URLROOT; ?>/qi/calendar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
-                        <div class="menu" data-name="p-7">
-                            <img src="<?php echo URLROOT; ?>/public/images/calendar.png" alt="" style="width: 50px; height: 50px;">
-                            <h6>Calendar</h6>
-                        </div>
-                    </a>
+                   
                    
                 </div>
             </div>
@@ -151,12 +146,12 @@
         <td><?php echo isset($row->address) ? $row->address : $row['address']; ?></td>
         <td class="statusColumn">
     <div class="select-container">
-    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status']) && ($row['status'] == 'Completed' )) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ''; ?>>
+    <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_array($row) && isset($row['status'])) ? ($row['status'] == 'Quality Rejected' ? 'style="background-color: red; opacity: 0.5; "' : 'style="opacity: 0.5; filter: grayscale(100%);"') : ''; ?>>
 
             <option value="Pending Approval" <?php echo (empty($row['status']) || (is_array($row) && $row['status'] == 'Pending Approval')) ? 'selected' : ''; ?> hidden>Pending Approval</option>
             <option value="Quality Rejected" <?php echo (is_array($row) ? ($row['status'] == 'Quality Rejected' ? 'selected' : '') : ($row->status == 'Quality Rejected' ? 'selected' : '')); ?>>Quality Rejected</option>
             <option value="Completed" <?php echo (is_array($row) ? ($row['status'] == 'Completed' ? 'selected' : '') : ($row->status == 'Completed' ? 'selected' : '')); ?> hidden>Completed</option>
-            <option value="Quality Approved" <?php echo (is_array($row) ? ($row['status'] == 'Quality Approved' ? 'selected' : '') : ($row->status == 'Quality Approved' ? 'selected' : '')); ?> hidden>Quality Approved</option>
+            <option value="Quality Approved" <?php echo (is_array($row) ? ($row['status'] == 'Quality Approved' ? 'selected' : '') : ($row->status == 'Quality Approved' ? 'selected' : '')); ?>>Quality Approved</option>
 </select>
         <span class="select-arrow">&#9662;</span>
     </div>
