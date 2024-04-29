@@ -176,7 +176,7 @@
             <h1>Edit Needlist Item</h1>
             <form method="post" action=""> <!-- Added action attribute -->
                 <div class="text-field">
-                    <input type="text" name="name" value="<?=$data['name']?>" required> <!-- Added name attribute -->
+                    <input type="text" name="name" value="<?=$data['name']?>" readonly> <!-- Added name attribute -->
                     <span></span>
                     <label> Product</label>
                 </div>
