@@ -1479,6 +1479,7 @@ private function sendEmail($email, $subject, $body)
                 $adminPassword = filter_input(INPUT_POST, 'admin_password', FILTER_SANITIZE_STRING);
                 $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
                 $admincPassword = filter_input(INPUT_POST, 'admin_cpassword', FILTER_SANITIZE_STRING);
+                $collectioncenter = filter_input(INPUT_POST, 'collectioncenter', FILTER_SANITIZE_STRING);
 
                 // Initialize error array
                 $errors = [];
@@ -1497,7 +1498,7 @@ private function sendEmail($email, $subject, $body)
                     $errors['password_length_err'] = "Password should be at least 8 characters long.";
                 }
                 // Validate all fields are filled
-                if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($admincPassword)) {
+                if (empty($adminUsername) || empty($adminPassword) || empty($email) || empty($collectioncenter) || empty($admincPassword)) {
                     $errors['fields_err'] = "All fields are required.";
                 }
 
@@ -1515,7 +1516,7 @@ private function sendEmail($email, $subject, $body)
                     $hashedPassword = password_hash($adminPassword, PASSWORD_DEFAULT);
 
                     // Call the model method to insert admin credentials
-                    if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email)) {
+                    if ($this->ccmModel->insertAdminCredentials($adminUsername, $hashedPassword, $email, $collectioncenter)) {
                         // Admin credentials inserted successfully
                         // You can redirect to a success page or perform other actions
                         $success_messageccm = "CCM credentials inserted successfully.</br>";

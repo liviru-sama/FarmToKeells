@@ -123,6 +123,31 @@
     </div>
     <div class="error-message" id="username_exists_err"><?php echo isset($data['errors']['username_exists_err']) ? $data['errors']['username_exists_err'] : ''; ?></div>
 
+
+    <div class="text-field">
+                        <div class="typeselect-container">
+                            <select class="productstatusInput" name="collectioncenter"  onchange="updateInput(this)">
+                            <option value="" selected disabled></option>
+
+                            <option style="color:white;" value="Kadawatha">Kadawatha Keells collection center</option>
+
+                                <option style="color:white;" value="Thambuththegama">Thambuththegama Keells collection center</option>
+                                <option style="color:white;" value="Sooriyawewa">Sooriyawewa Keells collection center</option>
+                                <option style="color:white;" value="Nuwara-eliya">Nuwara-eliya Keells collection center</option>
+                                <option style="color:white;" value="Jaffna">Jaffna Keells collection center</option>
+                                <option style="color:white;" value=" Sigiriya "> Sigiriya Keells collection center</option>
+                                <option style="color:white;" value="Bandarawela">Bandarawela Keells collection center</option>
+                                <option style="color:white;" value="Puttlam ">Puttlam  Keells collection center</option>
+
+
+                            </select>
+                            <input name="collectioncenter" id="collectioncenter" type="text" required>
+                            <span></span>
+                            <label>Select Your Collection Center</label>
+                        </div>
+                    </div>
+
+                    
     <div class="text-field">
     <label for="email">Email:</label>
     <input type="email" id="email" name="email" required>
