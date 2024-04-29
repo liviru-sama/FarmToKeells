@@ -121,7 +121,7 @@
             $row = $this->db->single();
         
             if ($row) {
-                if ($row->status === 'accept') { // Check if the user status is 'accept'
+                if ($row->status === 'accept') { 
                     $hashed_password = $row->password;
                     if (password_verify($password, $hashed_password)) {
                         return $row;
@@ -272,24 +272,8 @@
                 return false;
             }
         
-            
-        
-            // Commit the transaction if all updates were successful
-            
-        
             return true;
         }
-        
-
-        
-
-
-
-       
-
-
-
-        
         
 
         public function update_profile($data) {
@@ -322,12 +306,12 @@
 
        
 
-    // Get name and phone number of a user by ID
-    public function getUserInfoById($user_id) {
-        $this->db->query('SELECT name, mobile FROM users WHERE id = :user_id');
-        $this->db->bind(':user_id', $user_id);
-        return $this->db->single();
-    }
+        // Get name and phone number of a user by ID
+        public function getUserInfoById($user_id) {
+            $this->db->query('SELECT name, mobile FROM users WHERE id = :user_id');
+            $this->db->bind(':user_id', $user_id);
+            return $this->db->single();
+        }
 
 
     
@@ -436,38 +420,38 @@
 
 
        // Get the collection center address for a user
-public function getCollectionCenterAddress($userId) {
-    $this->db->query('SELECT collectioncenter FROM users WHERE id = :id');
-    $this->db->bind(':id', $userId);
-    $row = $this->db->single();
+        public function getCollectionCenterAddress($userId) {
+            $this->db->query('SELECT collectioncenter FROM users WHERE id = :id');
+            $this->db->bind(':id', $userId);
+            $row = $this->db->single();
 
-    // Debug output
-    if ($row) {
-        return $row->collectioncenter;
-    } else {
-        echo "No address found for user ID: $userId";
-        return null;
-    }
-}
+            // Debug output
+            if ($row) {
+                return $row->collectioncenter;
+            } else {
+                echo "No address found for user ID: $userId";
+                return null;
+            }
+        }
 
 
 
-public function updateProfilePicture($userId, $fileName) {
-    $this->db->query('UPDATE users SET image = :fileName WHERE id = :userId');
-    $this->db->bind(':fileName', $fileName);
-    $this->db->bind(':userId', $userId);
+        public function updateProfilePicture($userId, $fileName) {
+            $this->db->query('UPDATE users SET image = :fileName WHERE id = :userId');
+            $this->db->bind(':fileName', $fileName);
+            $this->db->bind(':userId', $userId);
 
-    return $this->db->execute();
-}
+            return $this->db->execute();
+        }
 
-public function getUserImage($userId) {
-    // Query to retrieve the image column for the specified user ID
-    $this->db->query('SELECT image FROM users WHERE id = :userId');
-    $this->db->bind(':userId', $userId);
+        public function getUserImage($userId) {
+            // Query to retrieve the image column for the specified user ID
+            $this->db->query('SELECT image FROM users WHERE id = :userId');
+            $this->db->bind(':userId', $userId);
 
-    // Execute the query and fetch a single row
-    return $this->db->single();
-}
+            // Execute the query and fetch a single row
+            return $this->db->single();
+        }
 
 
 
