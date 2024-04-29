@@ -420,7 +420,60 @@ public function getProductImageURL($productName) {
         return $results;
     }
 
-    
+    public function allinDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS count FROM salesorder WHERE date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function pendinginDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS count FROM salesorder WHERE status = 'Pending Approval' AND date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function approvedinDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS count FROM salesorder WHERE status = 'Approved' AND date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function rejectedinDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS count FROM salesorder WHERE status = 'Rejected' AND date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
+
+    public function completedinDate($start, $end){
+        $this->db->query("SELECT COUNT(*) AS count FROM salesorder WHERE status = 'Completed' AND date >= :start AND date <= :end;");
+
+        $this->db->bind(':start', $start);
+        $this->db->bind(':end', $end);
+
+        $results = $this->db->single();
+
+        return $results;
+    }
 }
     
 
