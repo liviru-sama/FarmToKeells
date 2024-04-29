@@ -925,14 +925,14 @@ private function sendEmail($email, $subject, $body)
         $mail->isSMTP();
         $mail->Host = 'smtp.mailgun.org'; // SMTP server
         $mail->SMTPAuth = true;
-        $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
-        $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4'; // SMTP password
+        $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; 
+        $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4'; 
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
         // Recipients
         $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
-        $mail->addAddress($email); // Add a recipient
+        $mail->addAddress($email); 
 
         // Content
         $mail->isHTML(true);
