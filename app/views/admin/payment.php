@@ -177,7 +177,7 @@
                         <!-- Display pending payment requests -->
                         <td><?php echo $paymentRequest->payment_id; ?></td>
                         <!-- Other table cells -->
-                        <td><?php echo $paymentRequest->order_id; ?></td>
+                        <td><?php echo $paymentRequest->order_id; ?></td> 
                         <td><?php echo $paymentRequest->product; ?></td>
                         <td><?php echo $paymentRequest->totalprice; ?></td>
                         <td><?php echo $paymentRequest->user_id; ?></td>
@@ -188,15 +188,17 @@
                         <td><?php echo $paymentRequest->status; ?></td>
                         <td>
                             <form action="<?php echo URLROOT; ?>/payment/process_payment" method="post">
-                                <!-- Hidden fields for payment processing -->
+                                <!-- Hidden fields for payment processing --> 
                                 <input type="hidden" name="bank_account_number" value="<?php echo $paymentRequest->bank_account_number; ?>">
-                                <input type="hidden" name="account_name" value="<?php echo $paymentRequest->account_name; ?>">
+                                <input type="hidden" name="account_name" value="<?php echo $paymentRequest->account_name; ?>"> 
                                 <input type="hidden" name="bank" value="<?php echo $paymentRequest->bank; ?>">
-                                <input type="hidden" name="branch" value="<?php echo $paymentRequest->branch; ?>">
-                                <input type="hidden" name="totalprice" value="<?php echo $paymentRequest->totalprice; ?>">
-                                <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>">
+                                <input type="hidden" name="branch" value="<?php echo $paymentRequest->branch; ?>"> 
+                                <input type="hidden" name="totalprice" value="<?php echo $paymentRequest->totalprice; ?>"> 
+                                <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>"> 
                                 <!-- Submit button for payment -->
-                                <button type="submit">Pay</button>
+                                <!-- <button type="submit">pay</button> -->
+                                <a href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button">Pay </a>
+
                             </form>
                         </td>
                     </tr>
