@@ -17,6 +17,22 @@
 </body>
 </html>
 
+<td class="statusColumn">
+    <div class="radio-container">
+        <input type="radio" class="statusInput" name="status[]" value="Pending Approval" id="pending" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'checked' : ''; ?> <?php echo ($row->status == 'Completed') ? 'disabled' : ''; ?>>
+        <label for="pending">Pending Approval</label><br>
+        
+        <input type="radio" class="statusInput" name="status[]" value="Approved" id="approved" <?php echo ($row->status == 'Approved') ? 'checked' : ''; ?> <?php echo ($row->status == 'Completed') ? 'disabled' : ''; ?>>
+        <label for="approved">Approved</label><br>
+        
+        <input type="radio" class="statusInput" name="status[]" value="Rejected" id="rejected" <?php echo ($row->status == 'Rejected') ? 'checked' : ''; ?> <?php echo ($row->status == 'Completed') ? 'disabled' : ''; ?>>
+        <label for="rejected">Rejected</label><br>
+        
+        <input type="radio" class="statusInput" name="status[]" value="Completed" id="completed" <?php echo ($row->status == 'Completed') ? 'checked' : ''; ?> <?php echo ($row->status == 'Completed') ? 'disabled' : ''; ?>>
+        <label for="completed">Completed</label><br>
+    </div>
+</td>
+
 
 <!DOCTYPE html>
 <html lang="en">

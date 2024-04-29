@@ -18,7 +18,7 @@ class Tm_Chat {
 
     // CCM Chat model method to add a new chat message to the database
 public function addChat($inquiry) {
-    date_default_timezone_set('Asia/Kolkata'); // Replace 'Asia/Kolkata' with your timezone
+    date_default_timezone_set('Asia/Kolkata'); 
     $this->db->query('INSERT INTO tm_chat (tm_reply, created_at) VALUES (:inquiry, NOW())');
     // Bind values
     $this->db->bind(':inquiry', $inquiry);
