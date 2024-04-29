@@ -216,6 +216,8 @@
     
             
             <section class="table_body">
+            <h2> &nbsp;&nbsp;&nbsp; Pending Needlist Items </h2>
+
                 <form method="post">
                     <table>
                         <thead>
@@ -231,7 +233,55 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <?php foreach ($data['purchaseorders'] as $row) { ?>                                <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>                               
+                             <?php if ($row['purchase_status'] === 'Pending') { ?>                                <tr>
+                                <tr>
+                                    <td><?php echo $row['purchase_id'] ?></td>
+                                    <td><?php echo $row['name'] ?></td>
+                                    <td><img src="<?php echo is_object($row) ? $row->image : $row['image']; ?>"
+                                            alt="<?php echo is_object($row) ? $row->name : $row['name']; ?>"
+                                            style="width: 50px;"></td>
+                                    <td><?php echo $row['type'] ?></td>
+                                    <td><?php echo $row['quantity'] ?></td>
+                                    <td><?php echo $row['date'] ?></td>
+                                    <td>
+                                        <!-- Display the status from the database -->
+                                        <?php echo $row['purchase_status'] ?>
+                                        <!-- Hidden input field to send order_id with the form -->
+                                    </td>
+                                 
+            </main>
+                                    <td><a class="button" href="<?php echo URLROOT; ?>/farmer/place_salesorder/<?php echo $row['purchase_id']; ?>?<?php echo $_SESSION['user_id']; ?>"
+>
+Place Order </a></td>
+                                </tr><?php } ?>
+                            <?php } ?>
+                        </tbody>
+                    </table>
+                </form>
+            </section>
+                             </br>                             </br>
+
+            <section class="table_body">
+            <h2> &nbsp;&nbsp;&nbsp; Completed Needlist Items </h2>
+
+                <form method="post">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Needlist ID</th>
+                                <th>Product</th>
+                                <th>Product image</th>
+                                <th>product type</th>
+                                <th>needed quantity(kgs)</th>
+                                <th>expected supply date</th>
+                                <th>Status</th>
+                                <th>Place Order</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <?php foreach ($data['purchaseorders'] as $row) { ?>                               
+                             <?php if ($row['purchase_status'] === 'Completed') { ?>                                <tr>
                                 <tr>
                                     <td><?php echo $row['purchase_id'] ?></td>
                                     <td><?php echo $row['name'] ?></td>

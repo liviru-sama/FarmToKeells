@@ -146,7 +146,7 @@
             
         <div class="notification-container">
                 <?php if (empty($data['notifications'])): ?>
-                <p>You don't have any notifications yet.</p>
+                <p> Welcome to our platform! We're excited to have you join us. As you start exploring, feel free to reach out if you have any questions or need assistance. </p>
                 <?php else: ?>
 
                     <?php 
