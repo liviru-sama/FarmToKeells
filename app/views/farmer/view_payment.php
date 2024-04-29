@@ -250,7 +250,7 @@
                     <li>
                         </br>
                         <p>Account Number&nbsp;:</p>
-                        &nbsp;&nbsp;&nbsp;<span><?php echo $payment->bank_account_number; ?></span><br>
+                        &nbsp;&nbsp;&nbsp;<span><?php echo str_repeat("x", strlen($payment->bank_account_number) - 3) . substr($payment->bank_account_number, -3); ?></span><br>
 
                         <p>Account Name&nbsp;&nbsp;&nbsp;:</p>
                         &nbsp;&nbsp;&nbsp;<span><?php echo $payment->account_name; ?></span><br>
