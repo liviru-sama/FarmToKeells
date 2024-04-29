@@ -161,10 +161,7 @@
                 <th>Product</th>
                 <th>Total Price</th>
                 <th>User ID</th>
-                <th>Bank Account Number</th>
-                <th>Account Name</th>
-                <th>Bank</th>
-                <th>Branch</th>
+             
                 <th>Status</th>
                 <th>Action</th>
             </tr>
@@ -181,10 +178,7 @@
                         <td><?php echo $paymentRequest->product; ?></td>
                         <td><?php echo $paymentRequest->totalprice; ?></td>
                         <td><?php echo $paymentRequest->user_id; ?></td>
-                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                        <td><?php echo $paymentRequest->account_name; ?></td>
-                        <td><?php echo $paymentRequest->bank; ?></td>
-                        <td><?php echo $paymentRequest->branch; ?></td>
+                      
                         <td><?php echo $paymentRequest->status; ?></td>
                         <td>
                             <form action="<?php echo URLROOT; ?>/payment/process_payment" method="post">
@@ -197,7 +191,7 @@
                                 <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>"> 
                                 <!-- Submit button for payment -->
                                 <!-- <button type="submit">pay</button> -->
-                                <a href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button">Pay </a>
+                                <a  class="button" href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button">Pay </a>
 
                             </form>
                         </td>
@@ -221,10 +215,7 @@
                 <th>Product</th>
                 <th>Total Price</th>
                 <th>User ID</th>
-                <th>Bank Account Number</th>
-                <th>Account Name</th>
-                <th>Bank</th>
-                <th>Branch</th>
+                
                 <th>Status</th>
                 
             </tr>
@@ -241,10 +232,7 @@
                         <td><?php echo $paymentRequest->product; ?></td>
                         <td><?php echo $paymentRequest->totalprice; ?></td>
                         <td><?php echo $paymentRequest->user_id; ?></td>
-                        <td><?php echo $paymentRequest->bank_account_number; ?></td>
-                        <td><?php echo $paymentRequest->account_name; ?></td>
-                        <td><?php echo $paymentRequest->bank; ?></td>
-                        <td><?php echo $paymentRequest->branch; ?></td>
+                        
                         <td><?php echo $paymentRequest->status; ?></td>
                        
                     </tr>
