@@ -260,9 +260,10 @@
                                         <td><?php echo $row->address; ?></td>
                                         <td class="statusColumn">
                                         <div class="select-container">
-                                        <select class="statusInput" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" onchange="submitForm(this)" <?php echo (is_object($row) && property_exists($row, 'status') && ($row->status == 'Completed' || $row->status == 'Quality Rejected' || $row->status == 'Quality Approved')) ? 'style="pointer-events: none; pointer-events: none; opacity: 0.5; filter: grayscale(100%);"' : ($row->status == 'Pending Approval' ? 'style="background-color: rgba(255, 255, 255, 0.5); color: black;"' :($row->status == 'Approved' ? 'style="background-color: #65A534; color:white;"' : 'style="background-color: red;opacity: 0.5;"')) ?>>
-
-            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?>hidden >Pending Approval&nbsp;</option>
+        <select class="statusInput" name="status[]" onchange="submitForm(this)" <?php echo ($row->status == 'Completed') ? 'style="pointer-events: none;pointer-events: none; pointer-events: none; 
+  opacity: 0.5;
+  filter: grayscale(100%);"' : ''; ?>>
+            <option value="Pending Approval" <?php echo (empty($row->status) || $row->status == 'Pending Approval') ? 'selected' : ''; ?>hidden >Pending Approval</option>
             <option value="Approved" <?php echo ($row->status == 'Approved') ? 'selected' : ''; ?>>Approved</option>
             <option value="Rejected" <?php echo ($row->status == 'Rejected') ? 'selected' : ''; ?>>Rejected</option>
             <option value="Completed" <?php echo ($row->status == 'Completed') ? 'selected' : ''; ?> hidden>Completed</option>
@@ -274,7 +275,6 @@
     </div>
 </td>
    
-
                                         <input type="hidden" name="order_id[]" value="<?php echo $row->order_id; ?>">
                                     </tr>
                                 <?php endforeach; ?>
