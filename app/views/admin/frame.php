@@ -194,6 +194,9 @@
         </main>
     </section>
 
+
+
+
     <iframe id="confirmationDialog" style="display:none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: rgba(10, 8, 8, 0.333); padding: 20px; border: 1px solid #ccc;" src=""></iframe>
 
     <script>
@@ -227,6 +230,9 @@ function searchProducts() {
 }
 
         </script>
+
+
+
 
 </body>
 
