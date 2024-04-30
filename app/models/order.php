@@ -116,3 +116,19 @@ CREATE TABLE orders (
     order_amount DECIMAL,
     FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
 );
+
+<td class="statusColumn">
+    <div class="checkbox-container">
+        <input type="checkbox" class="statusCheckbox" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" value="Pending Approval" onchange="submitForm(this)" <?php echo ($row['status'] == 'Pending Approval' ? 'checked' : ''); ?>>
+        <label for="status_pending_approval">Pending Approval</label>
+    </div>
+    <div class="checkbox-container">
+        <input type="checkbox" class="statusCheckbox" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" value="Approved" onchange="submitForm(this)" <?php echo ($row['status'] == 'Approved' ? 'checked' : ''); ?>>
+        <label for="status_approved">Approved</label>
+    </div>
+    <div class="checkbox-container">
+        <input type="checkbox" class="statusCheckbox" name="<?php echo is_array($row) ? 'status[]' : $row->status; ?>" value="Rejected" onchange="submitForm(this)" <?php echo ($row['status'] == 'Rejected' ? 'checked' : ''); ?>>
+        <label for="status_rejected">Rejected</label>
+    </div>
+    <!-- Add similar code for other options -->
+</td>

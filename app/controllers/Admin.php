@@ -1060,9 +1060,7 @@ class Admin extends Controller
         }
     }
 
-// Farmer controller method to retrieve inquiries
-// Farmer controller method to retrieve inquiries of the current user
-// Farmer controller method to retrieve inquiries
+
     public function ccm_chat()
     {
         if (!$this->isLoggedInAdmin()) {
