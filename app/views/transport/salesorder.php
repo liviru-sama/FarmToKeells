@@ -13,8 +13,8 @@ include "inc/topsides.php";
         <h2>Transport Orders</h2>
         <table>
             <tr>
-                <th>#</th>
-                <!-- <th>Date</th> -->
+            <th>Order Id</th>
+
                 <th>User</th>
                 <th>Product</th>
                 <th>Vehicle</th>
