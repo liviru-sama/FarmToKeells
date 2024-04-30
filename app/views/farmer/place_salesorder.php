@@ -349,11 +349,8 @@
             <a href="<?php echo URLROOT; ?>/farmer/edit_salesorder?id=<?php echo $row->order_id; ?>" <?php echo $row->status === 'Completed' ? 'class="disabled-link"' : ''; ?>>
                 <img src="<?php echo URLROOT; ?>/public/images/edit.png" class="card__action" alt="Edit">
             </a>
-            <a href="<?php echo URLROOT; ?>/farmer/place_order?order_id=<?php echo $row->order_id; ?>&user_id=<?php echo $_SESSION['user_id']; ?>&product_name=<?php echo urlencode($row->name); ?>&quantity=<?php echo $row->quantity; ?>&address=<?php echo urlencode($row->address); ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>">
+            <a href="<?php echo URLROOT; ?>/farmer/place_order/<?php echo $row->order_id; ?>" class="<?php echo $row->status !== 'Approved' ? 'disabled-link' : ''; ?>">
                 <img src="<?php echo URLROOT; ?>/public/images/transport.png" class="card__action" alt="Request for payment">
-            </a>
-            <a href="<?php echo $row->status === 'Completed' ? URLROOT . '/farmer/place_order?order_id=' . $row->order_id . '&user_id=' . $_SESSION['user_id'] . '&product_name=' . urlencode($row->name) . '&quantity=' . $row->quantity . '&price=' . $row->quantity : '#'; ?>">
-                <img src="<?php echo URLROOT; ?>/public/images/pay.png" class="card__action <?php echo $row->status !== 'Completed' ? 'disabled-link' : ''; ?>" alt="Pay">
             </a>
             <a href="#" onclick="<?php echo ($row->status === 'Rejected' || $row->status === 'Completed'|| $row->status === 'Approved'|| $row->status === 'Pending Approval') ? "confirmDelete('" . URLROOT . "/farmer/delete_salesorder?id=" . $row->order_id . "', '" . $row->order_id . "')" : "return false;"; ?>">
                 <img src="<?php echo URLROOT; ?>/public/images/delete.png" class="card__action <?php echo ($row->status !== 'Rejected' && $row->status !== 'Completed'&& $row->status !== 'Pending Approval'&& $row->status !== 'Approved') ? 'disabled-link' : ''; ?>" alt="Delete">

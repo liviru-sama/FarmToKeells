@@ -162,7 +162,6 @@ $next2Day = date('Y-m-d', strtotime('+3 day'));
         <form action="<?= URLROOT ?>/farmer/place_order/<?= $data['order_id'] ?>" method="post">
             <!-- Hidden input fields to store order ID and user ID -->
             <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
-            <input type="hidden" name="order_id" value="<?= isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : ''; ?>">
 
             <!-- Non-editable but visible fields -->
             <div class="text-field">
@@ -174,7 +173,7 @@ $next2Day = date('Y-m-d', strtotime('+3 day'));
         <div class="error" id="product-error"><?= $data['errors']['product_err']; ?></div>
 
         <div class="text-field">
-            <input type="text" name="quantity" id="quantity" value="<?= isset($_GET['quantity']) ? htmlspecialchars($_GET['quantity']) : ''; ?>" readonly>
+            <input type="text" name="quantity" id="quantity" value="<?= $data['quantity'] ?>" readonly>
             <span></span>
             <label>Quantity( in kg)</label>
         </div>
