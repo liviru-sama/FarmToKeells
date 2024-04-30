@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITENAME; ?></title>
+    <title>Inquiry - <?php echo SITENAME; ?></title>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -29,11 +29,8 @@
         border-radius: .8rem;
         z-index: 9999;
         display: none;
-        /* Initially hide the iframe */
         width: 80%;
-        /* Adjust width as needed */
         height: 80%;
-        /* Adjust height as needed */
     }
 
     #productSelectionFrame {

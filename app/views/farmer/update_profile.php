@@ -14,7 +14,6 @@
     <style>
     body,
     html {
-        /* Add your background image URL and properties here */
         background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
         background-size: cover;
         height: 100%;
@@ -36,7 +35,6 @@
         border: none;
         margin-left: 10px;
         width: calc(50% - 30px);
-        /* Adjusted width */
         text-align: left;
     }
 
@@ -48,7 +46,6 @@
         float: left;
         clear: left;
         padding-left: 10px;
-        /* Add left padding to labels */
     }
 
 
@@ -64,12 +61,10 @@
         cursor: pointer;
         margin: 10px;
         transition: background-color 0.3s ease;
-        /* Add transition for smooth effect */
     }
 
     .button-main:hover {
         background-color: #65A534;
-        /* Change background color on hover */
     }
 
 
@@ -77,9 +72,7 @@
     .prectangle {
         padding: 5px;
         width: 70%;
-        /* Adjust the width as needed */
         margin: 0 auto;
-        /* Center-align the rectangle */
     }
 
     .link {
@@ -98,11 +91,14 @@
             </div>
 
 
-        <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-        <div class="redcircle"></div>
-<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a></div>
+            <div class="navbar-icon-container" data-text="Notifications">
+                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
+                    onclick="toggleNotifications()">
+                    <div class="redcircle"></div>
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
+                        class="navbar-icon">
+                </a>
+            </div>
 
 
 
@@ -129,7 +125,6 @@
 
     </div>
     <script>
-    // JavaScript function to go back to the previous page
     function goBack() {
         window.history.back();
     }
@@ -332,8 +327,9 @@
 
 
     </section>
-</section>
-<script>function updateNotifications() {
+    </section>
+    <script>
+    function updateNotifications() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
 
@@ -360,7 +356,7 @@
     // Call the function initially
     updateNotifications();
     setInterval(updateNotifications, 5000);
-</script>
+    </script>
 </body>
 
 </html>

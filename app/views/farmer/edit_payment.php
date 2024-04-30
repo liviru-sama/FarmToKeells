@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo SITENAME; ?></title>
+    <title>Edit payment details - <?php echo SITENAME; ?></title>
 
     <link rel="stylesheet" type="text/css" href="<?php echo URLROOT; ?>/css/ccm/place_salesorder.css">
 
@@ -29,11 +29,8 @@
         border-radius: .8rem;
         z-index: 9999;
         display: none;
-        /* Initially hide the iframe */
         width: 80%;
-        /* Adjust width as needed */
         height: 80%;
-        /* Adjust height as needed */
     }
     </style>
 </head>
@@ -48,11 +45,14 @@
             </div>
 
 
-        <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-        <div class="redcircle"></div>
-<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a></div>
+            <div class="navbar-icon-container" data-text="Notifications">
+                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
+                    onclick="toggleNotifications()">
+                    <div class="redcircle"></div>
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
+                        class="navbar-icon">
+                </a>
+            </div>
 
 
 
@@ -225,42 +225,41 @@
                 select.value = ''; // Reset to blank option
             }
 
-    // JavaScript function to show the dropdown menu when the bank input field is clicked
-    function showDropdown() {
-        var select = document.getElementById("bankDropdown");
-        select.style.display = 'block';
-    }
-
-
-    function updateNotifications() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
-
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                // Parse response as JSON
-                var response = JSON.parse(xhr.responseText);
-
-                // Get the red circle element
-                var redCircle = document.querySelector('.redcircle');
-
-                // Update red circle based on unread notifications
-                if (response.unread) {
-                    redCircle.style.display = 'block'; // Show red circle
-                } else {
-                    redCircle.style.display = 'none'; // Hide red circle
-                }
+            // JavaScript function to show the dropdown menu when the bank input field is clicked
+            function showDropdown() {
+                var select = document.getElementById("bankDropdown");
+                select.style.display = 'block';
             }
-        };
 
-        xhr.send();
-    }
 
-    // Call the function initially
-    updateNotifications();
-    setInterval(updateNotifications, 5000);
+            function updateNotifications() {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
 
-</script>
+                xhr.onload = function() {
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        // Parse response as JSON
+                        var response = JSON.parse(xhr.responseText);
+
+                        // Get the red circle element
+                        var redCircle = document.querySelector('.redcircle');
+
+                        // Update red circle based on unread notifications
+                        if (response.unread) {
+                            redCircle.style.display = 'block'; // Show red circle
+                        } else {
+                            redCircle.style.display = 'none'; // Hide red circle
+                        }
+                    }
+                };
+
+                xhr.send();
+            }
+
+            // Call the function initially
+            updateNotifications();
+            setInterval(updateNotifications, 5000);
+            </script>
 
 </body>
 

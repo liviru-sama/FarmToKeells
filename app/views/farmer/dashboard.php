@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo CSS;?>ccm/dashboard.css">
-    <title><?php echo SITENAME;?></title>
+    <title>Dashboard - <?php echo SITENAME;?></title>
     <style>
     body,
     html {
@@ -76,11 +76,8 @@
 
     .dashboard-container {
         top: 60px;
-        /* Height of the navbar */
 
         padding-top: 80px;
-        /* Additional padding to compensate for navbar height */
-        /* Additional styles for the dashboard container */
     }
     </style>
 
@@ -93,44 +90,45 @@
     <section class="header">
         <!-- Navbar -->
         <div class="navbar">
-    <div class="navbar-icons">
-        <div class="navbar-icon-container" data-text="Go Back">
-            <a href="#" id="backButton" onclick="goBack()">
-                <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
-            </a>
-        </div>
-        <div class="navbar-icon-container" data-text="Notifications">
-            <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-            <div class="redcircle"></div>
-<img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-            </a>
-        </div>
+            <div class="navbar-icons">
+                <div class="navbar-icon-container" data-text="Go Back">
+                    <a href="#" id="backButton" onclick="goBack()">
+                        <img src="<?php echo URLROOT; ?>/public/images/back.png" alt="back" class="navbar-icon">
+                    </a>
+                </div>
+                <div class="navbar-icon-container" data-text="Notifications">
+                    <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
+                        onclick="toggleNotifications()">
+                        <div class="redcircle"></div>
+                        <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
+                            class="navbar-icon">
+                    </a>
+                </div>
 
-        <div class="navbar-icon-container" data-text="View Profile">
+                <div class="navbar-icon-container" data-text="View Profile">
                     <a href="<?php echo URLROOT; ?>/farmer/view_profile">
                         <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash6.png" alt="logout"
                             class="navbar-icon">
                     </a>
                 </div>
-        <div class="navbar-icon-container" data-text="Logout">
-            <a href="<?php echo URLROOT; ?>/farmer/logout">
-                <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
-            </a>
+                <div class="navbar-icon-container" data-text="Logout">
+                    <a href="<?php echo URLROOT; ?>/farmer/logout">
+                        <img src="<?php echo URLROOT; ?>/public/images/logout.png" alt="logout" class="navbar-icon">
+                    </a>
+                </div>
+            </div>
+            <div class="navbar-logo-container">
+                <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
+            </div>
         </div>
-    </div>
-    <div class="navbar-logo-container">
-        <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
-    </div>
-</div>
 
         <script>
-        // JavaScript function to go back to the previous page
         function goBack() {
             window.history.back();
         }
-    </script>
+        </script>
 
-  
+
 
     </section>
     <?php endif; ?>
@@ -175,7 +173,8 @@
             </a>
         </div>
     </div>
-<script>function updateNotifications() {
+    <script>
+    function updateNotifications() {
         var xhr = new XMLHttpRequest();
         xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
 
@@ -202,7 +201,7 @@
     // Call the function initially
     updateNotifications();
     setInterval(updateNotifications, 5000);
-</script>
+    </script>
 </body>
 
 </html>

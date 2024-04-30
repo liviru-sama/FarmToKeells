@@ -92,16 +92,16 @@ class Farmer extends Controller{
                         try {
                             // Server settings
                             $mail->isSMTP();
-                            $mail->Host = 'smtp.mailgun.org'; // SMTP server
+                            $mail->Host = 'smtp.mailgun.org'; 
                             $mail->SMTPAuth = true;
-                            $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
-                            $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4'; // SMTP password
+                            $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; 
+                            $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4';
                             $mail->SMTPSecure = 'tls';
                             $mail->Port = 587;
 
                             // Recipients
                             $mail->setFrom('FarmToKeells@gmail.com', 'FarmToKeells');
-                            $mail->addAddress($email); // Add a recipient
+                            $mail->addAddress($email); 
 
                             // Content
                             $mail->isHTML(true);
@@ -174,7 +174,6 @@ class Farmer extends Controller{
 
                     // Update password in database
                     if ($this->userModel->updatePasswordByResetToken($data['token'], $data['password'])) {
-                        // Password updated successfully, redirect to login page or any other page
                         flash('reset_password_success', 'Password has been reset successfully.');
                         redirect('farmer/user_login');
                     } else {
@@ -426,203 +425,201 @@ class Farmer extends Controller{
     //     }
     // }
 
-    public function updateProfile($user_id)
-    {
+            public function updateProfile($user_id)
+            {
 
-        $data = [
-            'new_username' => '',
-            'new_name' => '',
-            'new_email' => '',
-            'new_mobile' => '',
-            'new_username_err' => '',
-            'new_name_err' => '',
-            'new_email_err' => '',
-            'new_mobile_err' => '',
-            'current_password_err' => '', // Added current_password_err
-            'new_password_err' => '',
-            'confirm_new_password_err' => '' // Added confirm_new_password_err
-        ];
+                $data = [
+                    'new_username' => '',
+                    'new_name' => '',
+                    'new_email' => '',
+                    'new_mobile' => '',
+                    'new_username_err' => '',
+                    'new_name_err' => '',
+                    'new_email_err' => '',
+                    'new_mobile_err' => '',
+                    'current_password_err' => '', 
+                    'new_password_err' => '',
+                    'confirm_new_password_err' => '' 
+                ];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Sanitize POST array
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                    // Sanitize POST array
+                    $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-            // Initialize data array
-            $data = [
-            'new_username' => isset($_POST['new_username']) ? trim($_POST['new_username']) : '',
-            'new_name' => isset($_POST['new_name']) ? trim($_POST['new_name']) : '',
-            'new_email' => isset($_POST['new_email']) ? trim($_POST['new_email']) : '',
-            'new_mobile' => isset($_POST['new_mobile']) ? trim($_POST['new_mobile']) : '',
-            'new_username_err' => '',
-            'new_name_err' => '',
-            'new_email_err' => '',
-            'new_mobile_err' => '',
-            'current_password_err' => '', // Added current_password_err
-            'new_password_err' => '',
-            'confirm_new_password_err' => '' // Added confirm_new_password_err
-        ];
+                    // Initialize data array
+                    $data = [
+                    'new_username' => isset($_POST['new_username']) ? trim($_POST['new_username']) : '',
+                    'new_name' => isset($_POST['new_name']) ? trim($_POST['new_name']) : '',
+                    'new_email' => isset($_POST['new_email']) ? trim($_POST['new_email']) : '',
+                    'new_mobile' => isset($_POST['new_mobile']) ? trim($_POST['new_mobile']) : '',
+                    'new_username_err' => '',
+                    'new_name_err' => '',
+                    'new_email_err' => '',
+                    'new_mobile_err' => '',
+                    'current_password_err' => '', 
+                    'new_password_err' => '',
+                    'confirm_new_password_err' => '' 
+                ];
 
-            // Validate each field
-            if (empty($data['new_username'])) {
-                $data['new_username_err'] = 'Please enter a new username';
-            }
+                    // Validate each field
+                    if (empty($data['new_username'])) {
+                        $data['new_username_err'] = 'Please enter a new username';
+                    }
 
-            if (empty($data['new_name'])) {
-                $data['new_name_err'] = 'Please enter a new name';
-            }
+                    if (empty($data['new_name'])) {
+                        $data['new_name_err'] = 'Please enter a new name';
+                    }
 
-            if (empty($data['new_email'])) {
-                $data['new_email_err'] = 'Please enter a new email';
-            } elseif (!filter_var($data['new_email'], FILTER_VALIDATE_EMAIL)) {
-                $data['new_email_err'] = 'Invalid email format';
-            }
+                    if (empty($data['new_email'])) {
+                        $data['new_email_err'] = 'Please enter a new email';
+                    } elseif (!filter_var($data['new_email'], FILTER_VALIDATE_EMAIL)) {
+                        $data['new_email_err'] = 'Invalid email format';
+                    }
 
-            if (empty($data['new_mobile'])) {
-                $data['new_mobile_err'] = 'Please enter a new mobile number';
-            } elseif (!preg_match('/^[0-9]{10}$/', $data['new_mobile'])) {
-                $data['new_mobile_err'] = 'Invalid mobile number format';
-            }
+                    if (empty($data['new_mobile'])) {
+                        $data['new_mobile_err'] = 'Please enter a new mobile number';
+                    } elseif (!preg_match('/^[0-9]{9,10}$/', $data['new_mobile'])) {
+                        $data['new_mobile_err'] = 'Invalid mobile number format';
+                    }
 
-            // Check if any errors occurred
-            if (empty($data['new_username_err']) && empty($data['new_name_err']) && empty($data['new_email_err']) && empty($data['new_mobile_err'])) {
-                // Update profile in the database
-                // After successful update in the database
-                // Update profile in the database
-                if ($this->userModel->updateProfile($user_id, $data['new_username'], $data['new_name'], $data['new_email'], $data['new_mobile'], $data['new_nic'])) {
-                    // Update the session variables
-                    $_SESSION['user_username'] = $data['new_username'];
-                    $_SESSION['user_name'] = $data['new_name'];
-                    $_SESSION['user_email'] = $data['new_email'];
-                    $_SESSION['user_mobile'] = $data['new_mobile'];
+                    // Check if any errors occurred
+                    if (empty($data['new_username_err']) && empty($data['new_name_err']) && empty($data['new_email_err']) && empty($data['new_mobile_err'])) {
+                        
+                        // Update profile in the database
+                        if ($this->userModel->updateProfile($user_id, $data['new_username'], $data['new_name'], $data['new_email'], $data['new_mobile'], $data['new_nic'])) {
+                            // Update the session variables
+                            $_SESSION['user_username'] = $data['new_username'];
+                            $_SESSION['user_name'] = $data['new_name'];
+                            $_SESSION['user_email'] = $data['new_email'];
+                            $_SESSION['user_mobile'] = $data['new_mobile'];
 
-                    flash('user_message', 'Profile updated successfully');
-                    redirect('farmer/update_profile');
+                            flash('user_message', 'Profile updated successfully');
+                            redirect('farmer/update_profile');
+                        } else {
+                            die('Something went wrong');
+                        }
+
+                    } else {
+                        // Load view with errors
+                        $this->view('farmer/update_profile', $data);
+                    }
                 } else {
-                    die('Something went wrong');
+                    // Load view with empty data
+                    $data = [
+                        'new_username' => '',
+                        'new_name' => '',
+                        'new_email' => '',
+                        'new_mobile' => '',
+                        'new_username_err' => '',
+                        'new_name_err' => '',
+                        'new_email_err' => '',
+                        'new_mobile_err' => '',
+                        'current_password_err' => '', 
+                        'new_password_err' => '',
+                        'confirm_new_password_err' => ''
+                    ];
+                    $this->view('farmer/update_profile', $data);
                 }
-
-            } else {
-                // Load view with errors
-                $this->view('farmer/update_profile', $data);
             }
-        } else {
-            // Load view with empty data
+
+
+
+
+        // Update password action
+        public function updatePassword($user_id)
+        {
+            // Initialize $data array
             $data = [
-                'new_username' => '',
-                'new_name' => '',
-                'new_email' => '',
-                'new_mobile' => '',
+                'id' => $user_id,
+                'current_password' => '',
+                'new_password' => '',
+                'confirm_new_password' => '',
+                'current_password_err' => '', 
+                'new_password_err' => '',
+                'confirm_new_password_err' => '', 
                 'new_username_err' => '',
                 'new_name_err' => '',
                 'new_email_err' => '',
-                'new_mobile_err' => '',
-                'current_password_err' => '', // Added current_password_err
-                'new_password_err' => '',
-                'confirm_new_password_err' => ''
+                'new_mobile_err' => ''
             ];
-            $this->view('farmer/update_profile', $data);
-        }
-    }
 
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                // Sanitize POST data
+                $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+                // Initialize data array
+                $data = [
+                    'id' => $user_id,
+                    'current_password' => trim($_POST['current_password']),
+                    'new_password' => trim($_POST['new_password']),
+                    'confirm_new_password' => trim($_POST['confirm_password']), 
+                    'current_password_err' => '', 
+                    'new_password_err' => '',
+                    'confirm_new_password_err' => '', 
+                    'new_username_err' => '',
+                    'new_name_err' => '',
+                    'new_email_err' => '',
+                    'new_mobile_err' => ''
+                ];
 
-    // Update password action
-    // Update password action
-// Update password action
-public function updatePassword($user_id)
-{
-    // Initialize $data array
-    $data = [
-        'id' => $user_id,
-        'current_password' => '',
-        'new_password' => '',
-        'confirm_new_password' => '',
-        'current_password_err' => '', // Added current_password_err
-        'new_password_err' => '',
-        'confirm_new_password_err' => '', // Added confirm_new_password_err
-        'new_username_err' => '',
-        'new_name_err' => '',
-        'new_email_err' => '',
-        'new_mobile_err' => ''
-    ];
+                // Validate current password
+                $user = $this->userModel->getUserByIdPass($user_id);
+                if (!$user || !password_verify($data['current_password'], $user->password)) {
+                    $data['current_password_err'] = 'Current password is incorrect'; 
+                }
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        // Sanitize POST data
-        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+                // Validate new password
+                if (empty($data['new_password'])) {
+                    $data['new_password_err'] = 'Please enter a new password';
+                } elseif (strlen($data['new_password']) < 6) {
+                    $data['new_password_err'] = 'Password must be at least 6 characters';
+                } elseif (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d).+$/', $data['new_password'])) {
+                    $data['new_password_err'] = 'Password must contain at least one letter and one number';
+                }
 
-        // Initialize data array
-        $data = [
-            'id' => $user_id,
-            'current_password' => trim($_POST['current_password']),
-            'new_password' => trim($_POST['new_password']),
-            'confirm_new_password' => trim($_POST['confirm_password']), // Corrected field name
-            'current_password_err' => '', // Added current_password_err
-            'new_password_err' => '',
-            'confirm_new_password_err' => '', // Added confirm_new_password_err
-            'new_username_err' => '',
-            'new_name_err' => '',
-            'new_email_err' => '',
-            'new_mobile_err' => ''
-        ];
+                // Validate confirm new password
+                if (empty($data['confirm_new_password'])) {
+                    $data['confirm_new_password_err'] = 'Please confirm the new password'; 
+                } elseif ($data['new_password'] != $data['confirm_new_password']) {
+                    $data['confirm_new_password_err'] = 'Passwords do not match'; 
+                }
 
-        // Validate current password
-        $user = $this->userModel->getUserByIdPass($user_id);
-        if (!$user || !password_verify($data['current_password'], $user->password)) {
-            $data['current_password_err'] = 'Current password is incorrect'; // Corrected error key
-        }
+                // Check if all errors are empty
+                if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_new_password_err'])) {
+                    // Hash new password
+                    $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
 
-        // Validate new password
-        if (empty($data['new_password'])) {
-            $data['new_password_err'] = 'Please enter a new password';
-        } elseif (strlen($data['new_password']) < 6) {
-            $data['new_password_err'] = 'Password must be at least 6 characters';
-        } elseif (!preg_match('/^(?=.*[a-zA-Z])(?=.*\d).+$/', $data['new_password'])) {
-            $data['new_password_err'] = 'Password must contain at least one letter and one number';
-        }
-
-        // Validate confirm new password
-        if (empty($data['confirm_new_password'])) {
-            $data['confirm_new_password_err'] = 'Please confirm the new password'; // Corrected error key
-        } elseif ($data['new_password'] != $data['confirm_new_password']) {
-            $data['confirm_new_password_err'] = 'Passwords do not match'; // Corrected error key
-        }
-
-        // Check if all errors are empty
-        if (empty($data['current_password_err']) && empty($data['new_password_err']) && empty($data['confirm_new_password_err'])) {
-            // Hash new password
-            $hashed_password = password_hash($data['new_password'], PASSWORD_DEFAULT);
-
-            // Update password in the database
-            if ($this->userModel->updatePassword($user_id, $hashed_password)) {
-                flash('password', 'Password updated successfully');
-                redirect('farmer/update_profile');
+                    // Update password in the database
+                    if ($this->userModel->updatePassword($user_id, $hashed_password)) {
+                        flash('password', 'Password updated successfully');
+                        redirect('farmer/update_profile');
+                    } else {
+                        die('Something went wrong');
+                    }
+                } else {
+                    
+                    // Load view with errors
+                    $this->view('farmer/update_profile', $data);
+                }
             } else {
-                die('Something went wrong');
+                // Load view with empty data
+                $data = [
+                    'new_username' => '',
+                    'new_name' => '',
+                    'new_email' => '',
+                    'new_mobile' => '',
+                    'new_username_err' => '',
+                    'new_name_err' => '',
+                    'new_email_err' => '',
+                    'new_mobile_err' => '',
+                    'current_password_err' => '', 
+                    'new_password_err' => '',
+                    'confirm_new_password_err' => ''
+                ];
+                // Redirect to the update profile page
+                redirect('farmer/update_profile');
             }
-        } else {
-            
-            // Load view with errors
-            $this->view('farmer/update_profile', $data);
         }
-    } else {
-        // Load view with empty data
-        $data = [
-            'new_username' => '',
-            'new_name' => '',
-            'new_email' => '',
-            'new_mobile' => '',
-            'new_username_err' => '',
-            'new_name_err' => '',
-            'new_email_err' => '',
-            'new_mobile_err' => '',
-            'current_password_err' => '', // Added current_password_err
-            'new_password_err' => '',
-            'confirm_new_password_err' => ''
-        ];
-        // Redirect to the update profile page
-        redirect('farmer/update_profile');
-    }
-}
 
 
 
@@ -635,7 +632,7 @@ public function updatePassword($user_id)
         session_destroy();
       
       // Set a short session expiration time (e.g., 5 minutes) for future sessions
-        ini_set('session.cookie_lifetime', 5); // Adjust as needed
+        ini_set('session.cookie_lifetime', 5); 
 
         // Redirect to the index page
         redirect('users/user_login');
@@ -1389,7 +1386,7 @@ public function place_order() {
                 $profileImage = $userImage->image;
             } else {
                 // If no user image exists, set a default value or handle it as needed
-                $profileImage = null; // default image
+                $profileImage = null; 
             }
 
             // Pass the image value to the view

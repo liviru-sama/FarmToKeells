@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="<?php echo CSS;?>login.css">
         <script src="<?php echo JS;?>login.js"></script>
-        <title><?php echo SITENAME;?></title>
+        <title>Login - <?php echo SITENAME;?></title>
         <style>
         body,
         html {
