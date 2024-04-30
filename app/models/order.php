@@ -72,3 +72,47 @@ SELECT * FROM purchaseorder ORDER BY price DESC;
 
 INSERT INTO purchaseorder (purchase_id, name, type, quantity, date, purchase_status, image, price)
 VALUES (1, 'Product A', 'Electronics', 5, '2024-04-29', 'Complete', 'image_url', 100);
+
+DELETE FROM your_table WHERE condition;
+
+TRUNCATE TABLE your_table;
+
+DROP TABLE your_table;
+
+SELECT t1.column1, t2.column2 FROM table1 t1 JOIN table2 t2 ON t1.common_column = t2.common_column;
+
+SELECT c.customer_name, o.order_amount
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id;
+
+SELECT c.customer_name, o.order_amount, p.product_name
+FROM customers c
+JOIN orders o ON c.customer_id = o.customer_id
+JOIN products p ON o.product_id = p.product_id;
+
+
+SELECT customer_id, COUNT(*), SUM(order_amount)
+FROM orders
+GROUP BY customer_id;
+
+
+
+CREATE TABLE customers (
+    customer_id INT PRIMARY KEY,
+    customer_name VARCHAR(100),
+    ...
+);
+
+CREATE TABLE table_name (
+    column1 datatype,
+    column2 datatype,
+    ...
+    FOREIGN KEY (column1) REFERENCES other_table(primary_key_column)
+);
+
+CREATE TABLE orders (
+    order_id INT PRIMARY KEY,
+    customer_id INT,
+    order_amount DECIMAL,
+    FOREIGN KEY (customer_id) REFERENCES customers(customer_id)
+);

@@ -300,7 +300,6 @@
         });
     }
 
-    // Set default value to "Pending Approval" for newly created purchase orders
    // Set default value to "Pending Approval" for newly created orders if status is empty
 document.addEventListener('DOMContentLoaded', function() {
     const statusInputs = document.querySelectorAll('.statusInput');
