@@ -21,7 +21,7 @@ include "inc/topsides.php";
                 <div class="error" id="D_name-error"><?php echo $data['errors']['D_name_err']; ?></div>
 
                 <div class="text-field">
-                    <input type="text" name="D_email" id="D_email" required>
+                    <input type="email" name="D_email" id="D_email" required>
                     <span></span>
                     <label>Email</label>
                 </div>

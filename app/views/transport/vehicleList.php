@@ -24,6 +24,7 @@ include "inc/topsides.php";
                     <th>Type</th>
                     <th>Model</th>
                     <th>Capacity</th>
+                    <th>Active</th>
                     <th>Driver</th>
                 </tr>
                 <?php foreach($data['vehicles'] as $vehicle) {
@@ -34,6 +35,7 @@ include "inc/topsides.php";
                         <td>".$vehicle->vtype."</td>
                         <td>".$vehicle->model."</td>
                         <td>".$vehicle->capacity."</td>
+                        <td>".$vehicle->activeState."</td>
                         <td>".$vehicle->driver."</td>
                     </tr>";
                 } ?>

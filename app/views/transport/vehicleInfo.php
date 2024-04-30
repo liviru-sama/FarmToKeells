@@ -14,6 +14,9 @@ include "inc/topsides.php";
                 <h1>Vehicle Information - <?= $data['vehicle']->V_id ?></h1>
                 <div class="editdelete">
                     <button class="edit" id="edit">Edit</button>
+                    <a href="<?php echo URLROOT; ?>/Transport/setactive/<?= $data['vehicle']->V_id ?>/<?= $data['vehicle']->active ?>">
+                        <button class="edit delete" id="delete" value="<?= ($data['vehicle']->active==0) ? "1" : "0" ?>">Set as <?= ($data['vehicle']->active==0) ? "Active" : "Inactive" ?></button>
+                    </a>
                     <a href="<?php echo URLROOT; ?>/Transport/deleteVehicle/<?= $data['vehicle']->V_id ?>">
                         <button class="edit delete" id="delete">Delete</button>
                     </a>

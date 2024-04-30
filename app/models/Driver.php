@@ -80,4 +80,14 @@
             return $results;
         }
 
+        public function checkEmail($email){
+            $this->db->query('SELECT COUNT(*) AS count FROM driverinfo WHERE D_email = :email');
+
+            $this->db->bind(':email', $email);
+
+            $result = $this->db->single();
+
+            return $result;
+        }
+
     }
