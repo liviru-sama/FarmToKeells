@@ -912,67 +912,242 @@ public function ccm_chat() {
 
 public function purchaseOV() {
 
-    $this->view('ccm/purchaseOV');
-}
+    $data['errors'] = [
+        'startdate_err' => '',
+        'enddate_err' => ''
+    ];
 
-public function purchaseOVD() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         $data['startDate'] = $_POST['start_date'];
         $data['endDate'] = $_POST['end_date'];
-        
-        $purchase = $this->model('Purchaseorder');
-        
-        $data['allPorders'] = $purchase->allinDate($data['startDate'], $data['endDate']);
 
-        $data['pendingPorders'] = $purchase->pendinginDate($data['startDate'], $data['endDate']);
 
-        $data['completed'] = $data['allPorders']->allCount - $data['pendingPorders']->pendingCount;
+        if (empty($data['startDate'])){
+            $data['errors']['startdate_err'] = 'Please provide a Date';
+        }
 
-        $data['perc'] = ($data['completed'] / $data['allPorders']->allCount) * 100;
+        if (empty($data['endDate'])){
+            $data['errors']['enddate_err'] = 'Please provide a Date';
+        }
 
-        // Load the inventory history report view within the iframe
-        $this->view("ccm/purchaseOVD", $data);
+        if ($data['startDate'] > $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be after the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be before the Start Date';
+        }
+
+        if ($data['startDate'] == $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be same as the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be same as the Start Date';
+        }
+
+        $errorCount = count(array_filter($data['errors']));
+        if ($errorCount > 0){
+            $this->view('ccm/purchaseOV', $data);
+        } else {
+            
+            $purchase = $this->model('Purchaseorder');
+            
+            $data['allPorders'] = $purchase->allinDate($data['startDate'], $data['endDate']);
+    
+            $data['pendingPorders'] = $purchase->pendinginDate($data['startDate'], $data['endDate']);
+    
+            $data['completed'] = $data['allPorders']->allCount - $data['pendingPorders']->pendingCount;
+    
+            $data['perc'] = ($data['completed'] / $data['allPorders']->allCount) * 100;
+    
+            $this->view("ccm/purchaseOVD", $data);
+        }
     } else {
-        // If not a POST request, redirect to the report generator page or show an error message
-        redirect('ccm/purchaseOV');
+        $this->view('ccm/purchaseOV', $data);
     }
 }
 
 public function salesOV() {
 
-    $this->view('ccm/salesOV');
-}
+    $data['errors'] = [
+        'startdate_err' => '',
+        'enddate_err' => ''
+    ];
 
-public function salesOVD() {
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
         $data['startDate'] = $_POST['start_date'];
         $data['endDate'] = $_POST['end_date'];
-        
-        $sales = $this->model('Salesorder');
-        
-        $data['allSorders'] = $sales->allinDate($data['startDate'], $data['endDate']);
-        $data['pendingSorders'] = $sales->pendinginDate($data['startDate'], $data['endDate']);
-        $data['rejectedSorders'] = $sales->rejectedinDate($data['startDate'], $data['endDate']);
-        $data['approvedSorders'] = $sales->approvedinDate($data['startDate'], $data['endDate']);
-        $data['completedSorders'] = $sales->completedinDate($data['startDate'], $data['endDate']);
 
-        $data['pendingSorders']->perc = ($data['pendingSorders']->count/$data['allSorders']->count) * 100;
-        $data['rejectedSorders']->perc = ($data['rejectedSorders']->count/$data['allSorders']->count) * 100;
-        $data['approvedSorders']->perc = ($data['approvedSorders']->count/$data['allSorders']->count) * 100;
-        $data['completedSorders']->perc = ($data['completedSorders']->count/$data['allSorders']->count) * 100;
 
-        $this->view("ccm/salesOVD", $data);
+        if (empty($data['startDate'])){
+            $data['errors']['startdate_err'] = 'Please provide a Date';
+        }
+
+        if (empty($data['endDate'])){
+            $data['errors']['enddate_err'] = 'Please provide a Date';
+        }
+
+        if ($data['startDate'] > $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be after the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be before the Start Date';
+        }
+
+        if ($data['startDate'] == $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be same as the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be same as the Start Date';
+        }
+
+        $errorCount = count(array_filter($data['errors']));
+        if ($errorCount > 0){
+            $this->view('ccm/salesOV', $data);
+        } else {
+            
+            $sales = $this->model('Salesorder');
+        
+            $data['allSorders'] = $sales->allinDate($data['startDate'], $data['endDate']);
+            $data['pendingSorders'] = $sales->pendinginDate($data['startDate'], $data['endDate']);
+            $data['rejectedSorders'] = $sales->rejectedinDate($data['startDate'], $data['endDate']);
+            $data['approvedSorders'] = $sales->approvedinDate($data['startDate'], $data['endDate']);
+            $data['completedSorders'] = $sales->completedinDate($data['startDate'], $data['endDate']);
+    
+            $data['pendingSorders']->perc = ($data['pendingSorders']->count/$data['allSorders']->count) * 100;
+            $data['rejectedSorders']->perc = ($data['rejectedSorders']->count/$data['allSorders']->count) * 100;
+            $data['approvedSorders']->perc = ($data['approvedSorders']->count/$data['allSorders']->count) * 100;
+            $data['completedSorders']->perc = ($data['completedSorders']->count/$data['allSorders']->count) * 100;
+    
+            $this->view("ccm/salesOVD", $data);
+        }
     } else {
-        // If not a POST request, redirect to the report generator page or show an error message
-        redirect('ccm/salesOV');
+        $this->view('ccm/salesOV', $data);
+    }
+}
+
+public function transportOV() {
+
+    $data['errors'] = [
+        'startdate_err' => '',
+        'enddate_err' => ''
+    ];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data['startDate'] = $_POST['start_date'];
+        $data['endDate'] = $_POST['end_date'];
+
+
+        if (empty($data['startDate'])){
+            $data['errors']['startdate_err'] = 'Please provide a Date';
+        }
+
+        if (empty($data['endDate'])){
+            $data['errors']['enddate_err'] = 'Please provide a Date';
+        }
+
+        if ($data['startDate'] > $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be after the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be before the Start Date';
+        }
+
+        if ($data['startDate'] == $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be same as the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be same as the Start Date';
+        }
+
+        $errorCount = count(array_filter($data['errors']));
+        if ($errorCount > 0){
+            $this->view('ccm/transportOV', $data);
+        } else {
+            
+            $torders = $this->model('Torders');
+        
+            $data['allTorders'] = $torders->allinDate($data['startDate'], $data['endDate']);
+            $data['pendingTorders'] = $torders->pendinginDate($data['startDate'], $data['endDate']);
+            $data['pickupTorders'] = $torders->pickupinDate($data['startDate'], $data['endDate']);
+            $data['collectedTorders'] = $torders->collectedinDate($data['startDate'], $data['endDate']);
+            $data['completedTorders'] = $torders->completedinDate($data['startDate'], $data['endDate']);
+    
+            $data['pendingTorders']->perc = ($data['pendingTorders']->count/$data['allTorders']->count) * 100;
+            $data['pickupTorders']->perc = ($data['pickupTorders']->count/$data['allTorders']->count) * 100;
+            $data['collectedTorders']->perc = ($data['collectedTorders']->count/$data['allTorders']->count) * 100;
+            $data['completedTorders']->perc = ($data['completedTorders']->count/$data['allTorders']->count) * 100;
+    
+            $this->view("ccm/transportOVD", $data);
+        }
+    } else {
+        $this->view('ccm/transportOV', $data);
     }
 }
 
 public function unitOV() {
 
-    $this->view('ccm/unitOV');
+    $data['errors'] = [
+        'startdate_err' => '',
+        'enddate_err' => ''
+    ];
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+        $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+        $data['startDate'] = $_POST['start_date'];
+        $data['endDate'] = $_POST['end_date'];
+
+
+        if (empty($data['startDate'])){
+            $data['errors']['startdate_err'] = 'Please provide a Date';
+        }
+
+        if (empty($data['endDate'])){
+            $data['errors']['enddate_err'] = 'Please provide a Date';
+        }
+
+        if ($data['startDate'] > $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be after the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be before the Start Date';
+        }
+
+        if ($data['startDate'] == $data['endDate']){
+            $data['errors']['startdate_err'] = 'Start Date cannot be same as the End Date';
+            $data['errors']['enddate_err'] = 'End Date cannot be same as the Start Date';
+        }
+
+        $errorCount = count(array_filter($data['errors']));
+        if ($errorCount > 0){
+            $this->view('ccm/unitOV', $data);
+        } else {
+            
+            $vehicles = $this->model('Vehicle');
+
+            $data['allVehicles'] = $vehicles->getAllVehicles();
+
+            $torders = $this->model('Torders');
+            $schedule = $this->model('Schedule');
+
+            foreach ($data['allVehicles'] as $veh) {
+                $jobsDone = $torders->jobsDone($data['startDate'],$data['endDate'],$veh->V_id);
+                $veh->jobsDone = $jobsDone->count;
+                $slots = $schedule->slotsByVeh($data['startDate'],$data['endDate'],$veh->V_id);
+                $activeSlots = 0;
+                if ($slots !== []) {
+                    foreach ($slots as $slot) {
+                        $driving = $slot->slots - 6;
+                        $activeSlots += $driving;
+                    }
+                }
+                $veh->slots = $activeSlots;
+
+                $time = $activeSlots * 10;
+                $veh->time = $time;
+            }
+    
+            $this->view("ccm/unitOVD", $data);
+        }
+    } else {
+        $this->view('ccm/unitOV', $data);
+    }
 }
 }
 

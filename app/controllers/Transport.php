@@ -223,6 +223,7 @@ class Transport extends Controller
         foreach ($data['vehicles'] as $vehicle) {
             $driver = $drivers->getDriverByID($vehicle->D_id);
             $vehicle->driver = $driver->D_name;
+            ($vehicle->active == 0) ? $vehicle->activeState = "Inactive" : $vehicle->activeState = "Active";
         }
 
         $this->view('transport/vehicleList', $data);
@@ -234,6 +235,7 @@ class Transport extends Controller
         ];
 
         $Drivers = $this->model('Driver');
+        $vehicles = $this->model('Vehicle');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
@@ -264,9 +266,23 @@ class Transport extends Controller
                 $data['errors']['License_no_err'] = 'Please provide a License Number';
             }
 
+            $checkLicense = $vehicles->checkLicense($data['License_no']);
+
+            if ($checkLicense->count != 0) {
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['License_no_err'] = 'License Number already exists';
+            }
+
             if (empty($data['chassis'])){
                 $data['errors']['errnum'] =+ 1;
                 $data['errors']['chassis_err'] = 'Please provide a Chassis Number';
+            }
+
+            $checkChassis = $vehicles->checkChassis($data['chassis']);
+
+            if ($checkChassis->count != 0) {
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['chassis_err'] = 'Chassis Number already exists';
             }
 
             if (empty($data['vtype'])){
@@ -298,10 +314,9 @@ class Transport extends Controller
                 
                 $this->view('transport/addVehicle', $data);
             } else {
-                $vehicles = $this->model('Vehicle');
 
                 if ($vehicles->insert($data)) {
-                    redirect('transport/addVehicle');
+                    redirect('transport/vehicles');
                 } else {
                     die('Something went wrong');
                 }
@@ -334,6 +349,8 @@ class Transport extends Controller
             'title' => 'Add Driver'
         ];
 
+        $drivers = $this->model('Driver');
+
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
@@ -361,15 +378,28 @@ class Transport extends Controller
                 $data['errors']['D_name_err'] = 'Please provide a Name';
             }
 
-            if (empty($data['D_email'])){
+            if (empty($data['D_email'])) {
                 $data['errors']['errnum'] =+ 1;
                 $data['errors']['D_email_err'] = 'Please provide an Email';
+            } elseif (!filter_var($data['D_email'], FILTER_VALIDATE_EMAIL)) {
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['D_email_err'] = 'Invalid email format';
             }
 
-            if (empty($data['D_contact'])){
+            $checkEmail = $drivers->checkEmail($data['D_email']);
+
+            if ($checkEmail->count != 0) {
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['D_email_err'] = 'Email Address already exists';
+            }
+
+            if (empty($data['D_contact'])) {
                 $data['errors']['errnum'] =+ 1;
                 $data['errors']['D_contact_err'] = 'Please provide a Contact Number';
-            }
+            } elseif (!preg_match('/^\d{10}$/', $data['D_contact'])) {
+                $data['errors']['errnum'] =+ 1;
+                $data['errors']['D_contact_err'] = 'Invalid contact number format';
+            }            
 
             if (empty($data['D_address'])){
                 $data['errors']['errnum'] =+ 1;
@@ -385,10 +415,9 @@ class Transport extends Controller
 
                 $this->view('transport/addDriver', $data);
             } else {
-                $drivers = $this->model('Driver');
 
                 if ($drivers->insert($data)) {
-                    redirect('transport/addDriver');
+                    redirect('transport/drivers');
                 } else {
                     die('Something went wrong');
                 }
@@ -618,6 +647,26 @@ class Transport extends Controller
             
             $this->view('transport/vehicleInfo', $data);
         }
+    }
+
+    public function setactive($id,$state){
+
+        $vehicles = $this->model('Vehicle');
+
+        $drivers = $this->model('Driver');
+
+        if ($state == 0) {
+            $vehicles->setactive($id, 1);
+        } else {
+            $vehicles->setactive($id, 0);
+        }
+        
+        $data['vehicle'] = $vehicles->getVehicleByID($id);
+
+        $driver = $drivers->getDriverByID($data['vehicle']->D_id);
+        $data['vehicle']->driver = $driver->D_name;
+
+        redirect('transport/vehicleInfo/'.$id);
     }
 
     public function deleteVehicle($id){
@@ -900,6 +949,7 @@ class Transport extends Controller
         $salesOrder = $this->model('SalesOrder');
         $schedule = $this->model('Schedule');
         $Torder = $this->model('Torders');
+        $vehicles = $this->model('Vehicle');
 
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
  
@@ -913,6 +963,8 @@ class Transport extends Controller
             $data['date'] = $_POST['date'];
             $data['V_id'] = $_POST['V_id'];
             $data['req_id'] = $_POST['req_id'];
+
+            $data['D_id'] = ($vehicles->getDriver($data['V_id']))->D_id;
 
             if ($Torder->create($data)) {
                 if ($schedule->create($data)) {
@@ -950,11 +1002,9 @@ class Transport extends Controller
 
     public function salesorder(){
         $Torder = $this->model('Torders');
-        $salesOrder = $this->model('SalesOrder');
         $users = $this->model('User');
         $vehicles = $this->model('Vehicle');
         $drivers = $this->model('Driver');
-        $schedule = $this->model('Schedule');
 
         $data['torders'] = $Torder->getTorders();
 
@@ -965,7 +1015,7 @@ class Transport extends Controller
             $torder->user = $user->name;
             $veh = $vehicles->getVehicleByID($torder->V_id);
             $torder->license = $veh->License_no;
-            $driver = $drivers->getDriverByID($veh->D_id);
+            $driver = $drivers->getDriverByID($torder->D_id);
             $torder->D_name = $driver->D_name;
             switch ($torder->status) {
                 case 1:
@@ -984,6 +1034,40 @@ class Transport extends Controller
         }
 
         $this->view('transport/salesorder', $data);
+    }
+
+    public function torderInfo($id){
+
+        $Torder = $this->model('Torders');
+        $drivers = $this->model('Driver');
+        $schedule = $this->model('Schedule');
+
+        $data['torder'] = $Torder->getTorderByID($id);
+
+        $UnassignedDrivers = $drivers->getUnassignedDrivers();
+
+        $data['Drivers'] = $UnassignedDrivers;
+
+        $driver = $drivers->getDriverByID($data['torder']->D_id);
+        $data['torder']->D_name = $driver->D_name;
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+            $data['D_id'] = $_POST['D_id'];
+
+            if ($Torder->reDriver($id,$data['D_id'])) {
+                if ($schedule->reDriver($id,$data['D_id'])) {
+                    redirect('Transport/salesorder');
+                } else {
+                    die('Something went wrong');
+                }
+            } else {
+                die('Something went wrong');
+            }
+
+        }
+
+        $this->view('transport/torderInfo', $data);
     }
 
     public function statusminus($id){

@@ -457,9 +457,17 @@ use PHPMailer\PHPMailer\Exception;
           }
 
 
-        public function place_order() {
+        public function place_order($orderId) {
             $request = $this->model('Request');
             $salesOrder = $this->model('SalesOrder'); // Initialize SalesOrder model
+            $users = $this->model('user');
+
+            $salesData = $salesOrder->getSalesOrderData($orderId);
+            $product_name = $salesData->name;
+            $data['order_id'] = $orderId;
+            $data['product_name'] = $product_name;
+            $data['quantity'] = $salesData->quantity;
+            $data['address'] = $users->getCollectionCenterAddress($salesData->user_id);
                     
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 // Sanitize input data
@@ -467,13 +475,7 @@ use PHPMailer\PHPMailer\Exception;
         
                 // Fetch order ID and user ID from POST data
                 $orderId = $_POST['order_id']; // Assuming order_id is passed as a hidden input in the form
-                $userId = $_POST['user_id']; // Assuming user_id is passed as a hidden input in the form
-        
-                // Fetch product data from SalesOrder model
-                $salesData = $salesOrder->getSalesOrderData($orderId);
-                $product_name = $salesData->name; // Access the property 'name' of the $salesData object
-        
-                // Load other necessary data
+                $userId = $salesData->user_id;
         
                 // Initialize data array
                 $data = [
@@ -492,13 +494,32 @@ use PHPMailer\PHPMailer\Exception;
                         'enddate_err' => ''
                     ]
                 ];
-        
-                // Validate input data
+
+                if (empty($data['product_name'])){
+                    $data['errors']['product_err'] = 'Please select a product';
+                }
+
                 if (empty($data['quantity'])){
                     $data['errors']['quantity_err'] = 'Please provide a quantity';
                 }
-        
-                // Other validation checks...
+
+                if (empty($data['startdate'])){
+                    $data['errors']['startdate_err'] = 'Please provide a Date';
+                }
+
+                if (empty($data['enddate'])){
+                    $data['errors']['enddate_err'] = 'Please provide a Date';
+                }
+
+                if ($data['startdate'] > $data['enddate']){
+                    $data['errors']['startdate_err'] = 'Earliest Pickup cannot be after the Latest Pickup';
+                    $data['errors']['enddate_err'] = 'Latest Pickup cannot be before the Earliest Pickup';
+                }
+
+                if ($data['startdate'] == $data['enddate']){
+                    $data['errors']['startdate_err'] = 'Earliest Pickup cannot be same as the Latest Pickup';
+                    $data['errors']['enddate_err'] = 'Latest Pickup cannot be same as the Earliest Pickup';
+                }
         
                 // Check for validation errors
                 $errorCount = count(array_filter($data['errors']));
@@ -513,26 +534,23 @@ use PHPMailer\PHPMailer\Exception;
                 } else {
                     // Insert data into database
                     if ($request->insert($data)) {
-                        redirect('farmer/place_order');
+                        redirect('farmer/transport');
                     } else {
                         die('Something went wrong');
                     }
                 }
             } else {
                 // Load initial data for the view
-                $data = [
-                    'title' => 'Place Order',
-                    'errors' => [
+                $data['errors'] = [
                         'product_err' => '',
                         'quantity_err' => '',
                         'startdate_err' => '',
                         'enddate_err' => ''
-                    ]
                 ];
         
-                $product = $this->model('Product');
-                $products = $product->getAllProducts();
-                $data['products'] = $products;
+                // $product = $this->model('Product');
+                // $products = $product->getAllProducts();
+                // $data['products'] = $products;
         
                 // Load the view
                 $this->view('farmer/place_order', $data);

@@ -273,7 +273,7 @@ public function getProductImageURL($productName) {
     
     // Method to get sales order data
     public function getSalesOrderData($orderId) {
-        $this->db->query('SELECT quantity, name FROM salesorder WHERE order_id = :orderId');
+        $this->db->query('SELECT quantity, name, user_id FROM salesorder WHERE order_id = :orderId');
         $this->db->bind(':orderId', $orderId);
         $row = $this->db->single();
         return $row;
