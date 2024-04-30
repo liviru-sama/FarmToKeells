@@ -176,7 +176,7 @@
                         <td><?php echo $paymentRequest->user_id; ?></td>
                         
                         <td><?php echo $paymentRequest->status; ?></td>   
-                        <td><?php echo $paymentRequest->receipt; ?></td>
+                      
                         
                        
                        
@@ -191,15 +191,14 @@
                                 <input type="hidden" name="branch" value="<?php echo $paymentRequest->branch; ?>"> 
                                 <input type="hidden" name="totalprice" value="<?php echo $paymentRequest->totalprice; ?>"> 
                                 <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>">
-                                
+                                <a class="button" href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button" class="button-main">Pay </a> 
+
                                 <!-- Submit button for payment -->
                                 <!-- <button type="submit">pay</button> -->
                             </form>
                             
                         </td>
-                        <td>
-                            <a class="button" href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button" class="button-main">Pay </a> 
-                            </td>
+                       
                         <td>  <button class="button" type="button" onclick="chooseProfilePicture()">Upload Receipt
                                </button></td>
                                <input type="file" id="profile-picture-input" style="display: none;" onchange="loadFile(event)">
