@@ -99,7 +99,7 @@
                     
                     <a href="<?php echo URLROOT; ?>/admin/stock_overviewbar" style="width: 12.5%; height: (20%); color: black;text-decoration: none; font-family: 'inter';">
                         <div class="menu" data-name="p-6">
-                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width: 50px; height: 50px;">
+                            <img src="<?php echo URLROOT; ?>/public/images/bar.png" alt="" style="width:50px; height: 50px;">
                             <h6>Stock levels</h6>
                         </div></a>
 
@@ -167,6 +167,7 @@
                 <th>Branch</th>
                 <th>Status</th>
                 <th>Action</th>
+                <th>Reciept</th>
             </tr>
         </thead>
         <tbody>
@@ -185,22 +186,34 @@
                         <td><?php echo $paymentRequest->account_name; ?></td>
                         <td><?php echo $paymentRequest->bank; ?></td>
                         <td><?php echo $paymentRequest->branch; ?></td>
-                        <td><?php echo $paymentRequest->status; ?></td>
+                        <td><?php echo $paymentRequest->status; ?></td>   
+                        <td><?php echo $paymentRequest->receipt; ?></td>
+                        
+                       
+                       
+                        
+
                         <td>
                             <form action="<?php echo URLROOT; ?>/payment/process_payment" method="post">
-                                <!-- Hidden fields for payment processing --> 
+                                <!-- Hidden fields for payment processing -->
                                 <input type="hidden" name="bank_account_number" value="<?php echo $paymentRequest->bank_account_number; ?>">
                                 <input type="hidden" name="account_name" value="<?php echo $paymentRequest->account_name; ?>"> 
                                 <input type="hidden" name="bank" value="<?php echo $paymentRequest->bank; ?>">
                                 <input type="hidden" name="branch" value="<?php echo $paymentRequest->branch; ?>"> 
                                 <input type="hidden" name="totalprice" value="<?php echo $paymentRequest->totalprice; ?>"> 
-                                <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>"> 
+                                <input type="hidden" name="order_id" value="<?php echo $paymentRequest->order_id; ?>">
+                                
                                 <!-- Submit button for payment -->
                                 <!-- <button type="submit">pay</button> -->
-                                <a href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button">Pay </a>
-
                             </form>
+                            
                         </td>
+                        <td>
+                            <a href="https://buy.stripe.com/test_cN2bJ385Q9DX83S28a" type="button" class="button-main">Pay </a> 
+                            </td>
+                        <td>  <button class="button-main" type="button" onclick="chooseProfilePicture()">Upload Receipt
+                               </button></td>
+                               <input type="file" id="profile-picture-input" style="display: none;" onchange="loadFile(event)">
                     </tr>
                 <?php endif; ?>
             <?php endforeach; ?>
@@ -226,7 +239,7 @@
                 <th>Bank</th>
                 <th>Branch</th>
                 <th>Status</th>
-                
+                <th>Receipt</th>
             </tr>
         </thead>
         <tbody>
@@ -285,7 +298,19 @@
     updateNotifications();
     setInterval(updateNotifications, 5000);</script>
 
+
+<script>
+                function chooseProfilePicture() {
+                    document.getElementById('profile-picture-input').click();
+                }
+
+                var loadFile = function(event) {
+                    var image = document.getElementById("image-Reciept");
+                    image.src = URL.createObjectURL(event.target.files[0]);
+                };
+                </script>
 </body>
+
 </html>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>
