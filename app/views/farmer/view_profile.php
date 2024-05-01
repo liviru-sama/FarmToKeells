@@ -232,6 +232,11 @@
                                         <td class="p-regular-grey">:</td>
                                         <td class="p-title"><?php echo $_SESSION['user_nic'];?></td>
                                     </tr>
+                                    <tr>
+                                        <td class="p-regular-grey" style="padding-right: 10px;">Home</td>
+                                        <td class="p-regular-grey">:</td>
+                                        <td class="p-title"><?php echo $_SESSION['user_home'];?></td>
+                                    </tr>
                                 </table>
                             </div>
                         </div>

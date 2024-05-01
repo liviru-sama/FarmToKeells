@@ -38,16 +38,19 @@ class Users extends Controller {
                 'mobile' => trim($_POST['mobile']),
                 'province' => trim($_POST['province']),
                 'distance' => trim($_POST['distance']),
-                'collectioncenter' => trim($_POST['collectioncenter']),
                 'password' => trim($_POST['password']),
                 'cpassword' => trim($_POST['cpassword']),
+                'collectioncenter' => trim($_POST['collectioncenter']),
+                'home' => trim($_POST['home']),
                 'name_err' => '',
                 'username_err' => '',
                 'email_err' => '',
                 'nic_err' => '',
                 'mobile_err' => '',
                 'password_err' => '',
-                'cpassword_err' => ''
+                'cpassword_err' => '',
+                
+                
             ];
 
             // Validate Email
@@ -88,6 +91,8 @@ class Users extends Controller {
                     $data['nic_err'] = 'NIC already exists';
                 }
             }
+
+            
 
             // Validate Mobile
             if (empty($data['mobile'])) {
@@ -140,6 +145,7 @@ class Users extends Controller {
                 'mobile' => '',
                 'province' => '',
                 'distance' => '',
+                'home' => '',
                 'collectioncenter' => '',
                 'password' => '',
                 'cpassword' => '',
@@ -149,7 +155,8 @@ class Users extends Controller {
                 'nic_err' => '',
                 'mobile_err' => '',
                 'password_err' => '',
-                'cpassword_err' => ''
+                'cpassword_err' => '',
+                'home_err' => ''
             ];
 
             // Load view
@@ -241,7 +248,9 @@ class Users extends Controller {
         $_SESSION['user_nic'] = $user->nic;
         $_SESSION['user_mobile'] = $user->mobile;
         $_SESSION['user_province'] = $user->province;
+        $_SESSION['user_home'] = $user->home;
         $_SESSION['user_collectioncenter'] = $user->collectioncenter;
+        
 
         redirect('farmer/dashboard');
     }
@@ -249,6 +258,7 @@ class Users extends Controller {
     public function logout() {
         unset($_SESSION['user_id']);
         unset($_SESSION['user_name']);
+        unset($_SESSION['user_home']);
         unset($_SESSION['user_username']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_nic']);

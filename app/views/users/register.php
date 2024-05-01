@@ -118,6 +118,10 @@
             </br>
             <h1>Farmer Registration</h1></br>
             <form action="<?php echo URLROOT; ?>/users/register" method="post">
+
+                
+
+
                 <div class="text-field">
                     <input type="text" name="name" id="name" value="<?php echo $data['name']; ?>" required>
                     <span></span>
@@ -184,8 +188,18 @@
                     <input type="text" name="collectioncenter" id="collectioncenter"
                         value="<?php echo $data['collectioncenter']; ?>" required>
                     <span></span>
-                    <label>Your Collection Address</label>
+                    <label>Enter Your Farm Address</label>
                 </div>
+
+                <div class="text-field">
+                    <input type="text" name="home" id="home" value="<?php echo $data['home']; ?>" >
+                    <span></span>
+                    <label>Enter Your Home Address</label>
+                </div>
+
+
+
+
 
                 <div class="text-field">
                     <input type="number" name="distance" id="distance" value="<?php echo $data['distance']; ?>" min="0"
@@ -212,6 +226,8 @@
                     <label>Confirm Password</label>
                 </div>
                 <div class="error" id="cpassword-error"><?php echo $data['cpassword_err']; ?></div>
+
+
 
                 <input type="submit" value="Register">
                 <div class="login-link">
