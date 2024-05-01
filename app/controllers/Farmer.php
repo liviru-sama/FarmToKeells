@@ -94,8 +94,8 @@ class Farmer extends Controller{
                             $mail->isSMTP();
                             $mail->Host = 'smtp.mailgun.org'; // SMTP server
                             $mail->SMTPAuth = true;
-                            $mail->Username = 'postmaster@sandbox7c468670b48147fba44d2f3b0a32b045.mailgun.org'; // SMTP username
-                            $mail->Password = '672c996787ba83eadd396afa108b1340-2175ccc2-41886cd4'; // SMTP password
+                            $mail->Username = ''; // SMTP username
+                            $mail->Password = ''; // SMTP password
                             $mail->SMTPSecure = 'tls';
                             $mail->Port = 587;
 
