@@ -14,7 +14,6 @@
     <style>
     body,
     html {
-        /* Add your background image URL and properties here */
         background: url('<?php echo URLROOT; ?>/public/images/bg7.jpg') center center fixed;
         background-size: cover;
         height: 100%;
@@ -29,12 +28,10 @@
         cursor: pointer;
         margin: 10px;
         transition: background-color 0.3s ease;
-        /* Add transition for smooth effect */
     }
 
     .button-main:hover {
         background-color: #65A534;
-        /* Change background color on hover */
     }
     </style>
 </head>
@@ -78,7 +75,7 @@
                 </a>
             </div>
 
-            
+
         </div>
         <img src="<?php echo URLROOT; ?>/public/images/logoblack.png" alt="Logo" class="navbar-logo">
     </div>
@@ -234,6 +231,11 @@
                                         <td class="p-regular-grey" style="padding-right: 10px;">NIC</td>
                                         <td class="p-regular-grey">:</td>
                                         <td class="p-title"><?php echo $_SESSION['user_nic'];?></td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-regular-grey" style="padding-right: 10px;">Home</td>
+                                        <td class="p-regular-grey">:</td>
+                                        <td class="p-title"><?php echo $_SESSION['user_home'];?></td>
                                     </tr>
                                 </table>
                             </div>

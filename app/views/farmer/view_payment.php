@@ -115,7 +115,7 @@
         border-radius: 40px;
         text-align: center;
         margin-top: 70px;
-        
+
     }
     </style>
 </head>
@@ -130,11 +130,14 @@
             </div>
 
 
-        <div class="navbar-icon-container" data-text="Notifications">
-        <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton" onclick="toggleNotifications()">
-        <div class="redcircle"></div>
- <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications" class="navbar-icon">
-        </a></div>
+            <div class="navbar-icon-container" data-text="Notifications">
+                <a href="<?php echo URLROOT; ?>/farmer/notifications" id="notificationsButton"
+                    onclick="toggleNotifications()">
+                    <div class="redcircle"></div>
+                    <img src="<?php echo URLROOT; ?>/public/images/farmer_dashboard/dash3.png" alt="Notifications"
+                        class="navbar-icon">
+                </a>
+            </div>
 
 
 
@@ -271,40 +274,42 @@
                 <?php else : ?>
                 <p style="text-align:center;">No payment details found.</p> </br></br>
                 <!-- Add button for adding payment details -->
-                
+
                 <button class="button-main" style="margin-top: 10px;"
-                        onclick="window.location.href='<?php echo URLROOT; ?>/farmer/add_payment'">Add Your Payment Details</button>
+                    onclick="window.location.href='<?php echo URLROOT; ?>/farmer/add_payment'">Add Your Payment
+                    Details</button>
                 <?php endif; ?>
             </section>
         </div>
-<script>function updateNotifications() {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
+        <script>
+        function updateNotifications() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '<?php echo URLROOT; ?>/farmer/notify', true);
 
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                // Parse response as JSON
-                var response = JSON.parse(xhr.responseText);
+            xhr.onload = function() {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    // Parse response as JSON
+                    var response = JSON.parse(xhr.responseText);
 
-                // Get the red circle element
-                var redCircle = document.querySelector('.redcircle');
+                    // Get the red circle element
+                    var redCircle = document.querySelector('.redcircle');
 
-                // Update red circle based on unread notifications
-                if (response.unread) {
-                    redCircle.style.display = 'block'; // Show red circle
-                } else {
-                    redCircle.style.display = 'none'; // Hide red circle
+                    // Update red circle based on unread notifications
+                    if (response.unread) {
+                        redCircle.style.display = 'block'; // Show red circle
+                    } else {
+                        redCircle.style.display = 'none'; // Hide red circle
+                    }
                 }
-            }
-        };
+            };
 
-        xhr.send();
-    }
+            xhr.send();
+        }
 
-    // Call the function initially
-    updateNotifications();
-    setInterval(updateNotifications, 5000);
-</script>
+        // Call the function initially
+        updateNotifications();
+        setInterval(updateNotifications, 5000);
+        </script>
 </body>
 
 </html>
