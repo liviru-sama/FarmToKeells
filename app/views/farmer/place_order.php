@@ -1,3 +1,8 @@
+<?php
+$nextDay = date('Y-m-d', strtotime('+2 day'));
+$next2Day = date('Y-m-d', strtotime('+3 day'));
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -149,59 +154,60 @@
 
         <section class="header"></section>
         <section class="form">
-          
-          <div class="center">
-    <h1>Request Transport</h1>
-    <?php if (!empty($data['errors']['request_exist_err'])) : ?>
+            <div class="center">
+            <h1>Request Transport</h1>
+            <?php if (!empty($data['errors']['request_exist_err'])) : ?>
         <div style="color: red; font-weight: bold;"><?= $data['errors']['request_exist_err']; ?></div>
     <?php endif; ?>
-    <form action="<?= URLROOT ?>/farmer/place_order" method="post">
-        <!-- Hidden input fields to store order ID and user ID -->
-        <input type="hidden" name="order_id" value="<?= isset($_GET['order_id']) ? htmlspecialchars($_GET['order_id']) : ''; ?>">
-        <input type="hidden" name="user_id" value="<?= isset($_GET['user_id']) ? htmlspecialchars($_GET['user_id']) : ''; ?>">
+        <form action="<?= URLROOT ?>/farmer/place_order/<?= $data['order_id'] ?>" method="post">
+            <!-- Hidden input fields to store order ID and user ID -->
+            <input type="hidden" name="order_id" value="<?= $data['order_id'] ?>">
 
-        <!-- Non-editable but visible fields -->
-        <div class="text-field">
-            <input type="text" name="product_name" id="product_name" value="<?= isset($_GET['product_name']) ? htmlspecialchars($_GET['product_name']) : ''; ?>" readonly>
-            <span></span>
-            <label>Product</label>
-        </div>
+            <!-- Non-editable but visible fields -->
+            <div class="text-field">
+                <input type="text" name="product_name" id="product_name" value="<?= $data['product_name'] ?>" readonly>
+                <span></span>
+                <label>Product</label>
+            </div>
 
         <div class="error" id="product-error"><?= $data['errors']['product_err']; ?></div>
 
         <div class="text-field">
-            <input type="text" name="quantity" id="quantity" value="<?= isset($_GET['quantity']) ? htmlspecialchars($_GET['quantity']) : ''; ?>" readonly>
+            <input type="text" name="quantity" id="quantity" value="<?= $data['quantity'] ?>" readonly>
             <span></span>
             <label>Quantity( in kg)</label>
         </div>
         <div class="error" id="quantity-error"><?= $data['errors']['quantity_err']; ?></div>
 
-        <div class="text-field">
-            <input type="text" name="address" id="address" value="<?= isset($_GET['address']) ? htmlspecialchars($_GET['address']) : ''; ?>" readonly>
-            <span></span>
-            <label>Collection Address</label>
-        </div>
+           
 
-        <!-- Other form fields -->
-        <div class="text-field">
-    <input type="date" name="startdate" id="startdate" required min="<?php echo date('Y-m-d'); ?>">
-    <span></span>
-    <label>Earliest Pick-Up Date</label>
-</div>
-<div class="error" id="startdate-error"><?= $data['errors']['startdate_err']; ?></div>
+            <div class="text-field">
+                <input type="text" name="address" id="address" value="<?= $data['address'] ?>" readonly>
+                <span></span>
+                <label>Collection Address</label>
+            </div>
 
-<div class="text-field">
-    <input type="date" name="enddate" id="enddate" required min="<?php echo date('Y-m-d'); ?>" value="<?= isset($_GET['date']) ? htmlspecialchars($_GET['date']) : ''; ?>"readonly>
-    <span></span>
-    <label>Latest Pick-Up Date</label>
-</div>
-<div class="error" id="enddate-error"><?= $data['errors']['enddate_err']; ?></div>
+            <!-- Other form fields -->
+            <div class="text-field">
+                <input type="date" name="startdate" id="startdate" required min="<?php echo $nextDay; ?>">
+                <span></span>
+                <label>Earliest Pick-Up Date</label>
+            </div>
+            <div class="error" id="startdate-error"><?php echo $data['errors']['startdate_err']; ?></div>
 
-        <div class="text-field unrequired">
+            <div class="text-field">
+                <input type="date" name="enddate" id="enddate" required min="<?php echo $next2Day; ?>">
+                <span></span>
+                <label>Latest Pick-Up Date</label>
+            </div>
+            <div class="error" id="enddate-error"><?php echo $data['errors']['enddate_err']; ?></div>
+
+            <div class="text-field unrequired">
             <input type="text" name="notes" id="notes" placeholder="Special instructions or requirements">
             <span></span>
             <label>Additional Notes</label>
         </div>
+
 
         <input type="submit" value="Place Request">
     </form>

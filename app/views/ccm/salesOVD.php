@@ -7,7 +7,7 @@ include "topsides.php";
                 <h5 class="inline-heading" class
                 = "tab-heading" >&nbsp;&nbsp;&nbsp;SALES ORDER OVERVIEW</h5></a>
 
-    <a href="<?= URLROOT; ?>/ccm/salesOVD" style="text-decoration: none;">
+    <a href="<?= URLROOT; ?>/ccm/salesOV" style="text-decoration: none;">
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); padding: 2px;">SALES ORDER OVERVIEW REPORT</h5>
             </a>

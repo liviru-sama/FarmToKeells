@@ -181,6 +181,26 @@
                 <h5 class="inline-heading" class
                 = "tab-heading tab-selected" style="background: #65A534; transform: scale(1.08); border-radius: 10px 10px 10px 10px; padding: 10px;">GENERATE PRICE-TIME CHART</h5>
             </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/purchaseOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >PURCHASE ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/salesOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >SALES ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/transportOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >TRANSPORT ORDER OVERVIEW</h5>
+            </a>
+
+            <a href="<?php echo URLROOT; ?>/ccm/unitOV" style="text-decoration: none;">
+                <h5 class="inline-heading" class
+                = "tab-heading tab-selected" >TRANSPORT UNITS</h5>
+            </a>
            
 </br>  <main class="table">
 </br>

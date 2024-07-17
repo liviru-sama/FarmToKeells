@@ -13,8 +13,8 @@ include "inc/topsides.php";
         <h2>Transport Orders</h2>
         <table>
             <tr>
-                <th>#</th>
-                <!-- <th>Date</th> -->
+            <th>Order Id</th>
+
                 <th>User</th>
                 <th>Product</th>
                 <th>Vehicle</th>
@@ -22,7 +22,7 @@ include "inc/topsides.php";
                 <th style="width: 25%;">Status</th>
             </tr>
             <?php foreach($data['torders'] as $torder) {
-                echo "<tr>
+                echo "<tr class = 'clinck' onclick= \"window.location.href = '".URLROOT."/Transport/torderInfo/".$torder->order_id."'\";>
                     <td>".$torder->order_id."</td>
                     <td>".$torder->user."</td>
                     <td>".$torder->product_name."</td>

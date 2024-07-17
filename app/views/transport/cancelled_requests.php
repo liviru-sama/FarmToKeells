@@ -21,7 +21,7 @@ include "inc/topsides.php";
             </div>
             <table>
                 <tr>
-                    <th>#</th>
+                    <th>Order Id</th>
                     <th>User</th>
                     <th>Product</th>
                     <th>Quantity</th>

@@ -151,12 +151,7 @@ body,
                         <h3>Manage users</h3>
                     </div></a>
         
-                    <a href="admin/transport">
-                    <div class="menu" data-name="p-4">
-
-                         <img src="<?php echo URLROOT; ?>/public/images/transport.png" alt="">
-                        <h3>Monitor Transport </h3>
-                    </div></a>
+                  
         
                        
                         

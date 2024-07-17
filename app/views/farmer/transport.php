@@ -175,7 +175,7 @@
             <h2>Transport Orders</h2>
             <table>
                 <tr>
-                    <th>#</th>
+                <th>Order Id</th>
                     <th>Product</th>
                     <th>Quantity</th>
                     <th>Date</th>
